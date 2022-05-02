@@ -1,0 +1,115 @@
+
+
+@import url('https://fonts.googleapis.com/css?family=Muli:400,400i,700,700i|Prata|Source+Code+Pro&display=swap');
+
+
+p.caption {
+  color: #777;
+  margin-top: 10px;
+}
+p code {
+  white-space: inherit;
+}
+pre {
+  word-break: normal;
+  word-wrap: normal;
+}
+pre code {
+  white-space: inherit;
+
+
+/*------------- Chapter border bottoms---------------- */
+
+/* line goes all the way across full chapter title */
+.level1 h1 {
+  border-bottom: 3px solid #bed3ec;
+}
+
+
+.book.font-family-1 {
+  font-family: 'Muli', sans-serif;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Prata', serif;
+  color: #2f5275;
+}
+
+.title {
+  font-family: 'Prata', serif;
+  font-size: 3em !important;
+  color: #5699cc;
+}
+
+.subtitle {
+  font-family: 'Prata', serif;
+  color: #2c6793 !important;
+}
+
+.subtitle em {
+  font-style: normal !important;
+}
+
+.author {
+  color: #2c6793 !important;
+}
+
+p.author em {
+  font-style: normal !important;
+}
+
+
+/* A little softer not as harsh*/
+
+body {
+    color: #5c5962;
+    background-color:#fff;
+}
+
+
+/* Make the blue a little less intense. */
+.alert-info {
+  opacity:0.6 ;
+}
+
+/*Change from green to blue*/
+a  {
+ color: #3f88ca;;
+}
+
+a:hover {
+ color: #1f5386; /* darker color when hovering */
+ text-decoration: none;
+}
+
+
+
+p.caption {
+  color: #777;
+  margin-top: 10px;
+}
+
+p code {
+  white-space: inherit;
+}
+
+pre {
+  word-break: normal;
+  word-wrap: normal;
+}
+
+pre code {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 1em;
+  white-space: inherit;
+}
+
+/*------------- BLOCK QUOTES --------------*/
+
+blockquote > p:last-child {
+  text-align: right;
+}
+
+blockquote > p:first-child {
+  text-align: inherit;
+}
