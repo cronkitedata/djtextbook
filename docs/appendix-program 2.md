@@ -1,0 +1,194 @@
+# A gentle intro to programming   {#appendix-program }
+
+
+:::{.alert .alert-secondary}
+
+<p class="alert-heading font-weight-bolder fs-3"> In this chapter</p>
+
+
+* No one is born knowing how to code. It takes practice 
+* All programming languages have certain things in common: *variables*, *operators*, *functions* and *loops*
+* They also have ways to read data, or import, from files or the internet.
+* An *algorithm* is just a set of instructions carried out in order.
+:::
+
+
+::: { .alert .alert-info}
+The examples here are shown mainly using R syntax. Another language might look a little different. 
+:::
+
+## Building blocks
+
+Once you learn to program in one language, learning others is much simpler. That's because you have the basic concepts down: How to assign values to variables, how to loop through lists, or how to import data. This chapter walks through some of the more universal concepts in programming. 
+
+
+### Variables  {-}
+
+Variables are just containers with names. Variables an be simple, such as a variable that holds the value, "Sarah". Or they can be quite complex, such as a multi-level data frame containing details from a Spotify playlist. Some people call them objects.^[Technically, these are different things to the innards of the computer, but that difference isn't important to us right now.]
+
+#. **Literals**
+
+   The most basic kind of object is a single variable that contains a single value of a specific type:
+
+        "Sarah"
+        1.0
+        TRUE
+        2017-01-24
+
+   These are called "literals", which usually include text, numeric, logical (usually true/false but sometimes yes/no or 1/0) and date or date/time. When you want to use the actual letters of some text, enclose them in quotes. When you want to use the named variable, don't enclose it in quotes.  ^[ There are two special types that we'll deal with later, but can cause a lot of headaches: `NA` values and factors. You don't have to deal with them yet.]
+
+
+#. **Lists / arrays / vectors**
+
+   Most languages have some concept of a list of items called an array, vector or dictionary. In R, you create a vector using the "c" operator, short for "combine". Once you have your items in a list or a vector, you can apply the same function across all of them or work on them in order.
+
+      
+       c(1, 2, 3, 4, 5) 
+         creates a vector of the values 1 through 5 in R
+                
+    
+#. **Data frames or tables**
+
+   A data frame is a special version of a list, and is equivalent to a spreadsheet: tabular, rectangular data with columns and rows. You don't need to know much about this yet, but just understand that it will become an important part of your vocabulary.
+
+### Operators & assignment {-}
+
+   Operators are simple arithmetic or similar operations, like adding, subtracting, dividing and multiplying. Some common operators are:
+
+       Arithmethic: add (+), subtract (-), multiply (*), or divide (/).
+
+       Comparison: Greater than (>) , less than (<), 
+                    equal to (often == ),
+                    not equal to (often !=).
+
+
+   "Assignment" means pushing a value into a variable name using  "<-".  It's amazing how many different ways there are to think of this. Some might call "naming a value", others might consider it "setting a variable".  
+     
+      my_name <- "Sarah"
+      my_value <- 1.0
+
+
+### Functions {-}
+
+A function is a set of instructions. To use a function, you use its name, followed by some parentheses. If it requires information from you, those *arguments* go inside the parentheses. 
+   
+If you think of it as a sentence, the function is the verb, and the arguments are the nouns. You used a function in Excel:
+
+    =SUM(A1:A15)
+    
+Functions are usually categorized by the type of data element that they act upon. An example in R is the function *tolower()*, which converts a text or character variable inside the parentheses to lower case. 
+
+Many of the functions we use are already built into R, or are in *libraries* that we borrow -- someone else has already written, tested and packaged them up for you. 
+
+Examples include:
+
+* importing text or Excel data
+* calculating the average or sum
+* counting
+* finding phrases within text
+
+
+### Loops {-}
+
+
+   A loop is a way to repeat your instructions over and over without having to re-write them every time. They usually work by stepping through some kind of a list, like a directory of files, or by using a counter, such as every year between 2005 and 2018.
+
+Excel and Google Sheets don't really have loops, unless you learn the more complicated programming language behind them. This is why many people move to a programming langugate -- to get the power of loops.
+
+One type of loop commonly used in programs is a "for loop", which says, "for every one of something, follow these instructions": 
+
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">For loops aren&#39;t always scary monsters. <br><br>Conceptual intro (no, this code won&#39;t run...) to for loops. Thanks <a href="https://twitter.com/ChelseaParlett?ref_src=twsrc%5Etfw">@ChelseaParlett</a> for brainstorming w/ me on this one!  <a href="https://t.co/TySFHogG2d">pic.twitter.com/TySFHogG2d</a></p>&mdash; Allison Horst (@allison_horst) <a href="https://twitter.com/allison_horst/status/1290774616038809600?ref_src=twsrc%5Etfw">August 4, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+Common tasks that reporters do with loops include combining annual spreadsheets from a government website or downloading and importing many files at once; and scraping web pages that require clicking into each link one by one. We'll get to this at the end of the semester. 
+
+<figure class="figure float-right col-6">
+<img src="assets/images/appendix-program-katie-smith-unsplash.jpg" width="100%">
+<figcaption class="text-secondary small"> Ingredients by Katie Smith via Unsplash</figcaption>
+</figure>
+
+## An algorithm to make an omelet
+
+
+Algorithms are just instructions that get followed in order. If you brush your teeth the same way every morning, you can probably write out the steps as an algorithm. 
+
+Suppose you want to make an omelet. Before you even start, you need to know at least two things: which ingredients you have on hand, and what kind of omelet you want to make.
+
+A function or algorithm that creates an omelet might look something like this. The first row creates a function called `make_omelet()`, which requires the two pieces of information as *arguments*. Once you've made the function, you can refer to that set of instruction by its name by giving it the arguments it needs.
+
+(All of these examples are called "pseudo-code". They won't actually work in any program, but they lay out the logic that has to be translated into the specific computer language you're using.)
+
+    function make_omelet (ingredients_on_hand, what_kind) {
+
+         check for necessary ingredients (are all elements of what_kind in ingredients_on_hand?)
+             quit now if you don't have them all.
+             return the error message
+
+         prepare the ingredients for (what_kind)
+
+         whisk the eggs
+
+         melt some butter in a pan
+
+         pour in the eggs
+
+         add ingredients for what_kind
+
+         flip the omelet
+
+         remove from pan
+
+         give me the omelet 
+
+    }
+
+
+Now, when you want to make an omelet, you can just make your list of ingredients and the kind of omelet you want, and execute the function:
+
+Here are the ingredients I already have:
+
+    ingredients <-
+            c("butter", "eggs", "cheese", "spinach", "tomatoes")
+
+
+I want a spinach and cheese omelet: 
+
+    kind <-
+            c("spinach", "cheese")
+
+
+Now, use the function we created to make it using those two lists as the required arguments:
+
+    make_omelet (ingredients, kind)
+    
+When you use a built-in function in R, it will show you the arguments that are both required and optional as you type.
+
+
+### Open a restaurant with loops {-}
+
+Now, you'd have to repeat this over and over if you had a restaurant. It might look like this:
+
+      make_omelet (ingredients,kind)
+      ** make a new list of ingredients left and the kind**
+      make_omelet (ingredients2, kind2)
+      ** make a new list...**
+      make_omelet (ingredients3, kind3)
+      ... and so on.
+
+ You'd have a program hundreds of lines long -- one for each customer. Instead, you could *loop* through the customers and do the same thing:
+
+    customers <- c("Bob", "Jamal", "Christine", "Lauren")
+
+    for each customer in the list of customers {
+      request what kind they want
+      make_omelet (ingredients_on_hand, kind_this_customer_wants)
+      give omelet to customer
+      update your ingredients list if you ran out of something or went shopping
+    }
+
+
+## More resources
+
+* "[Beyond Binary](https://youtu.be/7MUErafri48), Lesson 1 from a Google engineer's drag queen persona named Anna Lytical. This video gives you a good handle on what a computer program does.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/7MUErafri48" style="align:center;" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

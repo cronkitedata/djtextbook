@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title> 18 Verbs in depth: New from old data with Mutate | Data Reporting, Spring 2022</title>
+<meta name="author" content="Sarah Cohen">
+<meta name="description" content="In this chapter Creating new columns with mutate() Combine summary and detail into one data frame Replacing NA values Using conditional commands if_else() and case_when() to create categories This...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content=" 18 Verbs in depth: New from old data with Mutate | Data Reporting, Spring 2022">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://github.com/cronkitedata/djtextbook/r-verb-mutate.html">
+<meta property="og:description" content="In this chapter Creating new columns with mutate() Combine summary and detail into one data frame Replacing NA values Using conditional commands if_else() and case_when() to create categories This...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content=" 18 Verbs in depth: New from old data with Mutate | Data Reporting, Spring 2022">
+<meta name="twitter:site" content="@sarahcnyt">
+<meta name="twitter:description" content="In this chapter Creating new columns with mutate() Combine summary and detail into one data frame Replacing NA values Using conditional commands if_else() and case_when() to create categories This...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Muli-0.4.0/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/core-js-2.5.3/shim.min.js"></script><script src="libs/react-17.0.0/react.min.js"></script><script src="libs/react-17.0.0/react-dom.min.js"></script><script src="libs/reactwidget-1.0.0/react-tools.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="libs/reactable-binding-0.2.3/reactable.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link rel="shortcut icon" href="assets/images/favicon.ico">
+<!--
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        --><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Data Reporting, Spring 2022</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li class="book-part">Reporting with data</li>
+<li><a class="" href="starter-intro.html">In this section</a></li>
+<li><a class="" href="start-story.html"><span class="header-section-number">1</span> Learn a new way to read</a></li>
+<li><a class="" href="start-math.html"><span class="header-section-number">2</span> Newsroom math</a></li>
+<li><a class="" href="start-data-def.html"><span class="header-section-number">3</span> Defining “Data”</a></li>
+<li><a class="" href="start-data-diary.html"><span class="header-section-number">4</span> Replication and the data diary</a></li>
+<li><a class="" href="start-hunt.html"><span class="header-section-number">5</span> Finding the right data for your story</a></li>
+<li><a class="" href="start-build-own.html"><span class="header-section-number">6</span> Build your own database</a></li>
+<li class="book-part">Spreadsheets</li>
+<li><a class="" href="xl-intro.html">Introduction</a></li>
+<li><a class="" href="xl-refresher.html"><span class="header-section-number">7</span> An Excel Refresher</a></li>
+<li><a class="" href="xl-filter-sort.html"><span class="header-section-number">8</span> Sorting and filtering to find stories</a></li>
+<li><a class="" href="xl-pivot.html"><span class="header-section-number">9</span> Grouping with pivot tables</a></li>
+<li><a class="" href="xl-formulas.html"><span class="header-section-number">10</span> Formulas in Excel</a></li>
+<li><a class="" href="xl-practice-noc.html"><span class="header-section-number">11</span> Practice exercise</a></li>
+<li class="book-part">R Study Guide</li>
+<li><a class="" href="r-intro.html">Introduction</a></li>
+<li><a class="" href="r-start.html"><span class="header-section-number">12</span> Getting started with R and RStudio</a></li>
+<li><a class="" href="r-markdown.html"><span class="header-section-number">13</span> R Markdown</a></li>
+<li><a class="" href="r-data-import.html"><span class="header-section-number">14</span> Getting and saving data</a></li>
+<li><a class="" href="r-verbs.html"><span class="header-section-number">15</span> A quick tour of verbs</a></li>
+<li><a class="" href="r-verb-filter.html"><span class="header-section-number">16</span> Verbs in depth: Select, filter, arrange</a></li>
+<li><a class="" href="r-verb-groupby.html"><span class="header-section-number">17</span> Verbs in depth: Aggregating with groups</a></li>
+<li><a class="active" href="r-verb-mutate.html"><span class="header-section-number">18</span> Verbs in depth: New from old data with Mutate</a></li>
+<li><a class="" href="r-verb-join.html"><span class="header-section-number">19</span> Verbs in depth: Matchmaking with joins</a></li>
+<li><a class="" href="r-recipes.html"><span class="header-section-number">20</span> Recipes</a></li>
+<li class="book-part">Visualization as a reporting tool</li>
+<li><a class="" href="viz-intro.html">Introduction</a></li>
+<li><a class="" href="viz-reporting.html"><span class="header-section-number">21</span> Visualization as a reporting tool</a></li>
+<li><a class="" href="viz-demo.html"><span class="header-section-number">22</span> Visualization demo</a></li>
+<li class="book-part">Special skills</li>
+<li><a class="" href="advanced-intro.html">Introduction</a></li>
+<li><a class="" href="advanced-regex.html"><span class="header-section-number">23</span> Regular Expressions for pattern matching</a></li>
+<li><a class="" href="advanced-openrefine.html"><span class="header-section-number">24</span> Open refine walkthrough</a></li>
+<li><a class="" href="advanced-scrape1.html"><span class="header-section-number">25</span> Scraping without programming</a></li>
+<li><a class="" href="advanced-scrape2.html"><span class="header-section-number">26</span> Introduction to scraping in R</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="" href="appendix-math.html"><span class="header-section-number">A</span> Newsroom numbers cheat sheet</a></li>
+<li><a class="" href="appendix-program.html"><span class="header-section-number">B</span> A gentle intro to programming</a></li>
+<li><a class="" href="appendix-glossary.html"><span class="header-section-number">C</span> Glossary</a></li>
+<li><a class="" href="appendix-resources.html"><span class="header-section-number">D</span> Great R Resources</a></li>
+<li><a class="" href="appendix-ppp.html"><span class="header-section-number">E</span> Documentation for PPP data chapters</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="r-verb-mutate" class="section level1" number="18">
+<h1>
+<span class="header-section-number"> 18</span> Verbs in depth: New from old data with Mutate<a class="anchor" aria-label="anchor" href="#r-verb-mutate"><i class="fas fa-link"></i></a>
+</h1>
+<div class="alert alert-secondary">
+<p class="alert-heading font-weight-bolder fs-3">
+In this chapter
+</p>
+<ul>
+<li>Creating new columns with <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>
+</li>
+<li>Combine summary and detail into one data frame</li>
+<li>Replacing <code>NA</code> values</li>
+<li>Using conditional commands <code><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when()</a></code> to create categories</li>
+</ul>
+</div>
+<p>This continues the work using Arizona Paycheck Protection Program loans. Full documentation of the dataset is in the <a href="appendix-ppp.html">Appendix</a>.</p>
+<p>To follow along, open your PPP project and create a new markdown the usual way, including the usual setup chunk. This will let us make numbers more readable. Read the data into your environment using this code chunk:</p>
+<p>:::</p>
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ppp_orig</span> <span class="op">&lt;-</span> 
+  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span> 
+   <span class="fu"><a href="https://rdrr.io/r/base/connections.html">url</a></span> <span class="op">(</span> 
+     <span class="st">"https://cronkitedata.s3.amazonaws.com/rdata/ppp_az_loans.RDS"</span>
+       <span class="op">)</span>
+   <span class="op">)</span></code></pre></div>
+<div id="mutate-to-create-new-columns" class="section level2" number="18.1">
+<h2>
+<span class="header-section-number">18.1</span> <code>mutate</code> to create new columns<a class="anchor" aria-label="anchor" href="#mutate-to-create-new-columns"><i class="fas fa-link"></i></a>
+</h2>
+<p>Use the verb <code>mutate</code> whenever you want to create or change existing columns in your data.</p>
+<p>Examples of this include:</p>
+<ul>
+<li>Computing difference or percent difference</li>
+<li>Collapsing or creating categories for more meaningful analysis</li>
+<li>Replacing <code>NA</code> values with “Unknown” or zero.</li>
+</ul>
+<p>You will often use a combination of filtering and mutating to create a new data frame using the <code>&lt;-</code> assignment to use in future code chunks. That’s because they can get complex, and you don’t want to repeat code that you might have to change over and over.</p>
+<div id="math-on-columns-compute-difference-and-percent-difference" class="section level3" number="18.1.1">
+<h3>
+<span class="header-section-number">18.1.1</span> Math on columns: compute difference and percent difference<a class="anchor" aria-label="anchor" href="#math-on-columns-compute-difference-and-percent-difference"><i class="fas fa-link"></i></a>
+</h3>
+<p>Here’s an example of computing the difference and percent difference between the amount received and the amount forgiven. Before you run this, try to think of why a reporter might be interested in this list, especially in the order that it’s being listed.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;There is something called “date math”, which lets you compute intervals between dates, ages, and the like. We’re skipping this, but get some help if you want to use it. It’s a little tricky.&lt;/p&gt;"><sup>21</sup></a></p>
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ppp_orig</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span> <span class="op">(</span> <span class="va">borrower_name</span>, <span class="va">borrower_city</span>, <span class="va">amount</span>, <span class="va">forgiveness_amount</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span> <span class="op">(</span> <span class="va">forgiveness_amount</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span> <span class="op">(</span> amt_diff <span class="op">=</span> <span class="va">amount</span> <span class="op">-</span> <span class="va">forgiveness_amount</span>, 
+           amt_pct_diff <span class="op">=</span> <span class="va">amt_diff</span> <span class="op">/</span> <span class="va">amount</span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>  <span class="op">(</span> <span class="va">amt_pct_diff</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="detail-and-total-with-summary-statistics" class="section level3" number="18.1.2">
+<h3>
+<span class="header-section-number">18.1.2</span> Detail and total with summary statistics<a class="anchor" aria-label="anchor" href="#detail-and-total-with-summary-statistics"><i class="fas fa-link"></i></a>
+</h3>
+<p>In the last chapter, you saw how to use <code>mutate</code> to compute the total and sub-total of the number of rows in a summary. You can use any of the summary statistics to get totals for your entire data frame in a mutate statement.</p>
+<p>Use the single “=” sign to provide a name for the new column and create more than one new column using a comma between them:</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb70-1"><a href="r-verb-mutate.html#cb70-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-2"><a href="r-verb-mutate.html#cb70-2" aria-hidden="true" tabindex="-1"></a>mutate ( avg_loan_size = mean( amount ), </span>
+<span id="cb70-3"><a href="r-verb-mutate.html#cb70-3" aria-hidden="true" tabindex="-1"></a>         median_loan_size = median ( amount ))</span></code></pre></div>
+</div>
+<div id="converting-na-to-0" class="section level3" number="18.1.3">
+<h3>
+<span class="header-section-number">18.1.3</span> Converting NA to 0<a class="anchor" aria-label="anchor" href="#converting-na-to-0"><i class="fas fa-link"></i></a>
+</h3>
+<p>NOTE: Beginning with this code chunk, the tutorial begins saving interim data frames every time you make a change.</p>
+<p>We would like to convert the forgiven amount from a missing value to zero, under the idea that if they have not filled it out, nothing has (yet) been forgiven. Of course, we’d have to check that with the SBA before publication.</p>
+<p>There is a specific function used for that: <code><a href="https://tidyr.tidyverse.org/reference/replace_na.html">replace_na()</a></code>:</p>
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ppp_forgiven_fixed</span> <span class="op">&lt;-</span> 
+  <span class="va">ppp_orig</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span> <span class="op">(</span>amount_forgiven <span class="op">=</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/replace_na.html">replace_na</a></span><span class="op">(</span><span class="va">forgiveness_amount</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>(Note that nothing came out in this code chunk because the result was saved into a new data frame variable.)</p>
+</div>
+</div>
+<div id="working-with-text-using-conditional-statements" class="section level2" number="18.2">
+<h2>
+<span class="header-section-number">18.2</span> Working with text using conditional statements<a class="anchor" aria-label="anchor" href="#working-with-text-using-conditional-statements"><i class="fas fa-link"></i></a>
+</h2>
+<p>Very often, you’ll want to categorize entries in a database in order to make it simpler to count and sum the values in a meaningful way. For example, the <code>business_type</code> column has 23 different values, and isn’t always filled in. Some are variants of others:</p>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">business_type</th>
+<th align="right"># of rows</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Limited Liability Company(LLC)</td>
+<td align="right">57744</td>
+</tr>
+<tr class="even">
+<td align="left">Sole Proprietorship</td>
+<td align="right">38587</td>
+</tr>
+<tr class="odd">
+<td align="left">Corporation</td>
+<td align="right">27723</td>
+</tr>
+<tr class="even">
+<td align="left">Subchapter S Corporation</td>
+<td align="right">13895</td>
+</tr>
+<tr class="odd">
+<td align="left">Independent Contractors</td>
+<td align="right">13604</td>
+</tr>
+<tr class="even">
+<td align="left">Self-Employed Individuals</td>
+<td align="right">10452</td>
+</tr>
+<tr class="odd">
+<td align="left">Non-Profit Organization</td>
+<td align="right">2606</td>
+</tr>
+<tr class="even">
+<td align="left">Single Member LLC</td>
+<td align="right">1314</td>
+</tr>
+<tr class="odd">
+<td align="left">Partnership</td>
+<td align="right">1198</td>
+</tr>
+<tr class="even">
+<td align="left">Limited Liability Partnership</td>
+<td align="right">1074</td>
+</tr>
+<tr class="odd">
+<td align="left">Professional Association</td>
+<td align="right">606</td>
+</tr>
+<tr class="even">
+<td align="left">501(c)3 – Non Profit</td>
+<td align="right">157</td>
+</tr>
+<tr class="odd">
+<td align="left">501(c)6 – Non Profit Membership</td>
+<td align="right">62</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="right">42</td>
+</tr>
+<tr class="odd">
+<td align="left">Cooperative</td>
+<td align="right">35</td>
+</tr>
+<tr class="even">
+<td align="left">Qualified Joint-Venture (spouses)</td>
+<td align="right">32</td>
+</tr>
+<tr class="odd">
+<td align="left">Tenant in Common</td>
+<td align="right">32</td>
+</tr>
+<tr class="even">
+<td align="left">Trust</td>
+<td align="right">32</td>
+</tr>
+<tr class="odd">
+<td align="left">Non-Profit Childcare Center</td>
+<td align="right">29</td>
+</tr>
+<tr class="even">
+<td align="left">Joint Venture</td>
+<td align="right">21</td>
+</tr>
+<tr class="odd">
+<td align="left">Tribal Concerns</td>
+<td align="right">15</td>
+</tr>
+<tr class="even">
+<td align="left">Employee Stock Ownership Plan(ESOP)</td>
+<td align="right">6</td>
+</tr>
+<tr class="odd">
+<td align="left">501(c)19 – Non Profit Veterans</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Rollover as Business Start-Ups (ROB</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>One way to work with these is to create new columns with yes-no indicators for certain types of businesses like non-profits or individuals vs. companies.</p>
+<div id="categories-using-if_else" class="section level3" number="18.2.1">
+<h3>
+<span class="header-section-number">18.2.1</span> Categories using <code>if_else</code><a class="anchor" aria-label="anchor" href="#categories-using-if_else"><i class="fas fa-link"></i></a>
+</h3>
+<p>The function to do this is <code><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else()</a></code> , which tests a condition exactly the same way <code>filter</code> did, but then assigns a value based on whether it’s met or not. Here’s the general form of what it looks like:</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb72-1"><a href="r-verb-mutate.html#cb72-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-2"><a href="r-verb-mutate.html#cb72-2" aria-hidden="true" tabindex="-1"></a>new_column_name = if_else ( test the old column for something as in a a filter,</span>
+<span id="cb72-3"><a href="r-verb-mutate.html#cb72-3" aria-hidden="true" tabindex="-1"></a>                         give it a value if it's true,</span>
+<span id="cb72-4"><a href="r-verb-mutate.html#cb72-4" aria-hidden="true" tabindex="-1"></a>                         give it another value if it's not true)</span></code></pre></div>
+<p>So here is a way to do this with the business_type using the same %in% operator you used in the <code>filter</code> lesson, saving it to new data frame in your Environment, then displaying the resulting data frame:</p>
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ppp_category_indiv</span> <span class="op">&lt;-</span> 
+  <span class="va">ppp_forgiven_fixed</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span> <span class="op">(</span> is_individual <span class="op">=</span> 
+              <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span> <span class="op">(</span> <span class="va">business_type</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> 
+                          <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Independent Contractors"</span>, 
+                            <span class="st">"Sole Proprietorship"</span>, 
+                            <span class="st">"Self-Employed Individuals"</span>, 
+                            <span class="st">"Single Member LLC"</span><span class="op">)</span>, 
+                        <span class="st">"Individual"</span>, 
+                        <span class="st">"Organization"</span><span class="op">)</span>
+  <span class="op">)</span>  
+
+
+<span class="co"># now you can print out the ones that were changed to check them:</span>
+
+<span class="va">ppp_category_indiv</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span> <span class="op">(</span> <span class="va">business_type</span>, <span class="va">is_individual</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span> <span class="op">(</span> n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, .groups<span class="op">=</span><span class="st">"drop"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span> <span class="op">(</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">business_type</th>
+<th align="left">is_individual</th>
+<th align="right">n</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Limited Liability Company(LLC)</td>
+<td align="left">Organization</td>
+<td align="right">57744</td>
+</tr>
+<tr class="even">
+<td align="left">Sole Proprietorship</td>
+<td align="left">Individual</td>
+<td align="right">38587</td>
+</tr>
+<tr class="odd">
+<td align="left">Corporation</td>
+<td align="left">Organization</td>
+<td align="right">27723</td>
+</tr>
+<tr class="even">
+<td align="left">Subchapter S Corporation</td>
+<td align="left">Organization</td>
+<td align="right">13895</td>
+</tr>
+<tr class="odd">
+<td align="left">Independent Contractors</td>
+<td align="left">Individual</td>
+<td align="right">13604</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div id="categories-using-pattern-matching" class="section level3" number="18.2.2">
+<h3>
+<span class="header-section-number">18.2.2</span> Categories using pattern matching<a class="anchor" aria-label="anchor" href="#categories-using-pattern-matching"><i class="fas fa-link"></i></a>
+</h3>
+<p>You can also use the same <code><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect()</a></code> function you used in filtering. Here, it sets whether or not the borrower was a non-profit. The period means “nothing or any 1 character” because sometimes it’s listed with a dash and sometimes it’s not.</p>
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ppp_category_nonprofit</span> <span class="op">&lt;-</span>
+  <span class="va">ppp_category_indiv</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span> <span class="op">(</span> is_nonprofit <span class="op">=</span> 
+             <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span> <span class="op">(</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">business_type</span>, <span class="st">"Non.Profit"</span><span class="op">)</span> , 
+                       <span class="st">"Is nonprofit"</span>, 
+                       <span class="st">"Not nonprofit"</span><span class="op">)</span><span class="op">)</span>  
+
+
+
+<span class="va">ppp_category_nonprofit</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span> <span class="op">(</span> <span class="va">business_type</span>, <span class="va">is_nonprofit</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span> <span class="op">(</span> <span class="va">is_nonprofit</span> <span class="op">==</span> <span class="st">"Is nonprofit"</span><span class="op">)</span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">business_type</th>
+<th align="left">is_nonprofit</th>
+<th align="right">n</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">501(c)19 – Non Profit Veterans</td>
+<td align="left">Is nonprofit</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">501(c)3 – Non Profit</td>
+<td align="left">Is nonprofit</td>
+<td align="right">157</td>
+</tr>
+<tr class="odd">
+<td align="left">501(c)6 – Non Profit Membership</td>
+<td align="left">Is nonprofit</td>
+<td align="right">62</td>
+</tr>
+<tr class="even">
+<td align="left">Non-Profit Childcare Center</td>
+<td align="left">Is nonprofit</td>
+<td align="right">29</td>
+</tr>
+<tr class="odd">
+<td align="left">Non-Profit Organization</td>
+<td align="left">Is nonprofit</td>
+<td align="right">2606</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>(The profit categorization is unclear for some of these types, such as professional associations , tribal concerns and cooperatives.)</p>
+</div>
+<div id="more-than-one-outcome" class="section level3" number="18.2.3">
+<h3>
+<span class="header-section-number">18.2.3</span> More than one outcome<a class="anchor" aria-label="anchor" href="#more-than-one-outcome"><i class="fas fa-link"></i></a>
+</h3>
+<p>Sometimes you will want more than one outcome, such as setting a value for “High”, “Medium” and “Low”. Instead of <code>if_then</code>, use the function <code>case_when</code>, which looks like this:</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb75-1"><a href="r-verb-mutate.html#cb75-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-2"><a href="r-verb-mutate.html#cb75-2" aria-hidden="true" tabindex="-1"></a>case_when ( first condition ~ what if it's true,</span>
+<span id="cb75-3"><a href="r-verb-mutate.html#cb75-3" aria-hidden="true" tabindex="-1"></a>            second condition ~ what if  it's true, </span>
+<span id="cb75-4"><a href="r-verb-mutate.html#cb75-4" aria-hidden="true" tabindex="-1"></a>            third condition  ~ what if it's true, </span>
+<span id="cb75-5"><a href="r-verb-mutate.html#cb75-5" aria-hidden="true" tabindex="-1"></a>            TRUE ~ what to do with everything that's left</span>
+<span id="cb75-6"><a href="r-verb-mutate.html#cb75-6" aria-hidden="true" tabindex="-1"></a>            )</span></code></pre></div>
+</div>
+</div>
+<div id="putting-it-all-together" class="section level2" number="18.3">
+<h2>
+<span class="header-section-number">18.3</span> Putting it all together<a class="anchor" aria-label="anchor" href="#putting-it-all-together"><i class="fas fa-link"></i></a>
+</h2>
+<p>Here is how you could set a column to with five types of borrowers instead of three. It’s a little complicated, but see if you can follow along, using your knowledge of pattern matching:</p>
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ppp_business_categories</span> <span class="op">&lt;-</span> 
+  <span class="va">ppp_category_nonprofit</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span> <span class="op">(</span>  new_business_type <span class="op">=</span> 
+                <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span> <span class="op">(</span>  <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">business_type</span>, <span class="st">"Non.Profit"</span><span class="op">)</span> <span class="op">~</span> <span class="st">"Non-profit"</span>, 
+
+                             <span class="va">business_type</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> 
+                               <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Independent Contractors"</span>, 
+                                <span class="st">"Sole Proprietorship"</span>, 
+                                <span class="st">"Self-Employed Individuals"</span>, 
+                                  <span class="st">"Single Member LLC"</span><span class="op">)</span>              <span class="op">~</span> <span class="st">"Individual"</span>, 
+                             
+                             <span class="va">business_type</span> <span class="op">==</span> <span class="st">"Tribal Concerns"</span>     <span class="op">~</span> <span class="st">"Tribal concerns"</span>, 
+                             
+                             <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span> <span class="op">(</span><span class="va">business_type</span>, <span class="st">"LLC|Company|Corporation|Partnership"</span><span class="op">)</span> <span class="op">~</span> <span class="st">"Companies"</span>, 
+                             
+                             <span class="cn">TRUE</span> <span class="op">~</span> <span class="st">"Other"</span><span class="op">)</span> 
+            <span class="op">)</span>
+
+
+<span class="co"># Now compare what they were to what they are:</span>
+
+<span class="va">ppp_business_categories</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span> <span class="op">(</span> <span class="va">new_business_type</span>, <span class="va">business_type</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span> <span class="op">(</span> <span class="st">"# of loans"</span> <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, .groups<span class="op">=</span><span class="st">"drop"</span><span class="op">)</span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">new_business_type</th>
+<th align="left">business_type</th>
+<th align="right"># of loans</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Companies</td>
+<td align="left">Corporation</td>
+<td align="right">27723</td>
+</tr>
+<tr class="even">
+<td align="left">Companies</td>
+<td align="left">Limited Liability Company(LLC)</td>
+<td align="right">57744</td>
+</tr>
+<tr class="odd">
+<td align="left">Companies</td>
+<td align="left">Limited Liability Partnership</td>
+<td align="right">1074</td>
+</tr>
+<tr class="even">
+<td align="left">Companies</td>
+<td align="left">Partnership</td>
+<td align="right">1198</td>
+</tr>
+<tr class="odd">
+<td align="left">Companies</td>
+<td align="left">Subchapter S Corporation</td>
+<td align="right">13895</td>
+</tr>
+<tr class="even">
+<td align="left">Individual</td>
+<td align="left">Independent Contractors</td>
+<td align="right">13604</td>
+</tr>
+<tr class="odd">
+<td align="left">Individual</td>
+<td align="left">Self-Employed Individuals</td>
+<td align="right">10452</td>
+</tr>
+<tr class="even">
+<td align="left">Individual</td>
+<td align="left">Single Member LLC</td>
+<td align="right">1314</td>
+</tr>
+<tr class="odd">
+<td align="left">Individual</td>
+<td align="left">Sole Proprietorship</td>
+<td align="right">38587</td>
+</tr>
+<tr class="even">
+<td align="left">Non-profit</td>
+<td align="left">501(c)19 – Non Profit Veterans</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Non-profit</td>
+<td align="left">501(c)3 – Non Profit</td>
+<td align="right">157</td>
+</tr>
+<tr class="even">
+<td align="left">Non-profit</td>
+<td align="left">501(c)6 – Non Profit Membership</td>
+<td align="right">62</td>
+</tr>
+<tr class="odd">
+<td align="left">Non-profit</td>
+<td align="left">Non-Profit Childcare Center</td>
+<td align="right">29</td>
+</tr>
+<tr class="even">
+<td align="left">Non-profit</td>
+<td align="left">Non-Profit Organization</td>
+<td align="right">2606</td>
+</tr>
+<tr class="odd">
+<td align="left">Other</td>
+<td align="left">Cooperative</td>
+<td align="right">35</td>
+</tr>
+<tr class="even">
+<td align="left">Other</td>
+<td align="left">Employee Stock Ownership Plan(ESOP)</td>
+<td align="right">6</td>
+</tr>
+<tr class="odd">
+<td align="left">Other</td>
+<td align="left">Joint Venture</td>
+<td align="right">21</td>
+</tr>
+<tr class="even">
+<td align="left">Other</td>
+<td align="left">Professional Association</td>
+<td align="right">606</td>
+</tr>
+<tr class="odd">
+<td align="left">Other</td>
+<td align="left">Qualified Joint-Venture (spouses)</td>
+<td align="right">32</td>
+</tr>
+<tr class="even">
+<td align="left">Other</td>
+<td align="left">Rollover as Business Start-Ups (ROB</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Other</td>
+<td align="left">Tenant in Common</td>
+<td align="right">32</td>
+</tr>
+<tr class="even">
+<td align="left">Other</td>
+<td align="left">Trust</td>
+<td align="right">32</td>
+</tr>
+<tr class="odd">
+<td align="left">Other</td>
+<td align="left">NA</td>
+<td align="right">42</td>
+</tr>
+<tr class="even">
+<td align="left">Tribal concerns</td>
+<td align="left">Tribal Concerns</td>
+<td align="right">15</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>(You might notice the indentation and the spacing in this code chunk, making it easier to identify exactly what’s happening in each sub-phrase.)</p>
+<p>Now, when you want to look at the types of companies, you can do it with fewer groups. Note that it uses the fixed amount for “forgiven”, not the original with the <code>NA</code>. You could have skipped that, and used <code>forgiven = sum(forgiveness_amount, na.rm=T)</code>:</p>
+<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ppp_business_categories</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span> <span class="op">(</span> <span class="va">new_business_type</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span> <span class="op">(</span> <span class="st">"# of loans"</span> <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, 
+              total_amount  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">amount</span><span class="op">)</span>, 
+              forgiven <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">amount_forgiven</span><span class="op">)</span> , 
+              forgiveness_pct <span class="op">=</span> <span class="va">forgiven</span> <span class="op">/</span> <span class="va">total_amount</span> <span class="op">*</span> <span class="fl">100</span>, 
+              .groups<span class="op">=</span><span class="st">"drop"</span><span class="op">)</span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">new_business_type</th>
+<th align="right"># of loans</th>
+<th align="right">total_amount</th>
+<th align="right">forgiven</th>
+<th align="right">forgiveness_pct</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Companies</td>
+<td align="right">101634</td>
+<td align="right">10553908671</td>
+<td align="right">9002387186</td>
+<td align="right">85.29908</td>
+</tr>
+<tr class="even">
+<td align="left">Individual</td>
+<td align="right">63957</td>
+<td align="right">1071395478</td>
+<td align="right">744840040</td>
+<td align="right">69.52055</td>
+</tr>
+<tr class="odd">
+<td align="left">Non-profit</td>
+<td align="right">2855</td>
+<td align="right">657187325</td>
+<td align="right">530224118</td>
+<td align="right">80.68082</td>
+</tr>
+<tr class="even">
+<td align="left">Other</td>
+<td align="right">807</td>
+<td align="right">98775038</td>
+<td align="right">89605080</td>
+<td align="right">90.71632</td>
+</tr>
+<tr class="odd">
+<td align="left">Tribal concerns</td>
+<td align="right">15</td>
+<td align="right">11533963</td>
+<td align="right">8920104</td>
+<td align="right">77.33771</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Explore some of these data frames by clicking on them in the Environment tab and see if you can tell whether the formulas worked.</p>
+<div id="save-it-for-use-in-another-program" class="section level3 unnumbered">
+<h3>Save it for use in another program<a class="anchor" aria-label="anchor" href="#save-it-for-use-in-another-program"><i class="fas fa-link"></i></a>
+</h3>
+<p>Saving this for future use means you don’t have to worry anymore about some of the missing values, and you can filter and group by the simpler new business type instead of the original.</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb78-1"><a href="r-verb-mutate.html#cb78-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-2"><a href="r-verb-mutate.html#cb78-2" aria-hidden="true" tabindex="-1"></a>saveRDS(ppp_business_categories, file="ppp_edited.RDS")</span>
+<span id="cb78-3"><a href="r-verb-mutate.html#cb78-3" aria-hidden="true" tabindex="-1"></a></span></code></pre></div>
+
+</div>
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="r-verb-groupby.html"><span class="header-section-number">17</span> Verbs in depth: Aggregating with groups</a></div>
+<div class="next"><a href="r-verb-join.html"><span class="header-section-number">19</span> Verbs in depth: Matchmaking with joins</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#r-verb-mutate"><span class="header-section-number">18</span> Verbs in depth: New from old data with Mutate</a></li>
+<li>
+<a class="nav-link" href="#mutate-to-create-new-columns"><span class="header-section-number">18.1</span> mutate to create new columns</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#math-on-columns-compute-difference-and-percent-difference"><span class="header-section-number">18.1.1</span> Math on columns: compute difference and percent difference</a></li>
+<li><a class="nav-link" href="#detail-and-total-with-summary-statistics"><span class="header-section-number">18.1.2</span> Detail and total with summary statistics</a></li>
+<li><a class="nav-link" href="#converting-na-to-0"><span class="header-section-number">18.1.3</span> Converting NA to 0</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#working-with-text-using-conditional-statements"><span class="header-section-number">18.2</span> Working with text using conditional statements</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#categories-using-if_else"><span class="header-section-number">18.2.1</span> Categories using if_else</a></li>
+<li><a class="nav-link" href="#categories-using-pattern-matching"><span class="header-section-number">18.2.2</span> Categories using pattern matching</a></li>
+<li><a class="nav-link" href="#more-than-one-outcome"><span class="header-section-number">18.2.3</span> More than one outcome</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#putting-it-all-together"><span class="header-section-number">18.3</span> Putting it all together</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#save-it-for-use-in-another-program">Save it for use in another program</a></li></ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Data Reporting, Spring 2022</strong>" was written by Sarah Cohen. It was last built on 2022-03-31.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title> 14 Getting and saving data | Data Reporting, Spring 2022</title>
+<meta name="author" content="Sarah Cohen">
+<meta name="description" content="In this chapter Invoking standard packages Reading data from from Excel or from a text file. Looking at your data Introducing the “pipe” (%&gt;%) A postscript on different types of data files But...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content=" 14 Getting and saving data | Data Reporting, Spring 2022">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://github.com/cronkitedata/djtextbook/r-data-import.html">
+<meta property="og:description" content="In this chapter Invoking standard packages Reading data from from Excel or from a text file. Looking at your data Introducing the “pipe” (%&gt;%) A postscript on different types of data files But...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content=" 14 Getting and saving data | Data Reporting, Spring 2022">
+<meta name="twitter:site" content="@sarahcnyt">
+<meta name="twitter:description" content="In this chapter Invoking standard packages Reading data from from Excel or from a text file. Looking at your data Introducing the “pipe” (%&gt;%) A postscript on different types of data files But...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Muli-0.4.0/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/core-js-2.5.3/shim.min.js"></script><script src="libs/react-17.0.0/react.min.js"></script><script src="libs/react-17.0.0/react-dom.min.js"></script><script src="libs/reactwidget-1.0.0/react-tools.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="libs/reactable-binding-0.2.3/reactable.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link rel="shortcut icon" href="assets/images/favicon.ico">
+<!--
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        --><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Data Reporting, Spring 2022</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li class="book-part">Reporting with data</li>
+<li><a class="" href="starter-intro.html">In this section</a></li>
+<li><a class="" href="start-story.html"><span class="header-section-number">1</span> Learn a new way to read</a></li>
+<li><a class="" href="start-math.html"><span class="header-section-number">2</span> Newsroom math</a></li>
+<li><a class="" href="start-data-def.html"><span class="header-section-number">3</span> Defining “Data”</a></li>
+<li><a class="" href="start-data-diary.html"><span class="header-section-number">4</span> Replication and the data diary</a></li>
+<li><a class="" href="start-hunt.html"><span class="header-section-number">5</span> Finding the right data for your story</a></li>
+<li><a class="" href="start-build-own.html"><span class="header-section-number">6</span> Build your own database</a></li>
+<li class="book-part">Spreadsheets</li>
+<li><a class="" href="xl-intro.html">Introduction</a></li>
+<li><a class="" href="xl-refresher.html"><span class="header-section-number">7</span> An Excel Refresher</a></li>
+<li><a class="" href="xl-filter-sort.html"><span class="header-section-number">8</span> Sorting and filtering to find stories</a></li>
+<li><a class="" href="xl-pivot.html"><span class="header-section-number">9</span> Grouping with pivot tables</a></li>
+<li><a class="" href="xl-formulas.html"><span class="header-section-number">10</span> Formulas in Excel</a></li>
+<li><a class="" href="xl-practice-noc.html"><span class="header-section-number">11</span> Practice exercise</a></li>
+<li class="book-part">R Study Guide</li>
+<li><a class="" href="r-intro.html">Introduction</a></li>
+<li><a class="" href="r-start.html"><span class="header-section-number">12</span> Getting started with R and RStudio</a></li>
+<li><a class="" href="r-markdown.html"><span class="header-section-number">13</span> R Markdown</a></li>
+<li><a class="active" href="r-data-import.html"><span class="header-section-number">14</span> Getting and saving data</a></li>
+<li><a class="" href="r-verbs.html"><span class="header-section-number">15</span> A quick tour of verbs</a></li>
+<li><a class="" href="r-verb-filter.html"><span class="header-section-number">16</span> Verbs in depth: Select, filter, arrange</a></li>
+<li><a class="" href="r-verb-groupby.html"><span class="header-section-number">17</span> Verbs in depth: Aggregating with groups</a></li>
+<li><a class="" href="r-verb-mutate.html"><span class="header-section-number">18</span> Verbs in depth: New from old data with Mutate</a></li>
+<li><a class="" href="r-verb-join.html"><span class="header-section-number">19</span> Verbs in depth: Matchmaking with joins</a></li>
+<li><a class="" href="r-recipes.html"><span class="header-section-number">20</span> Recipes</a></li>
+<li class="book-part">Visualization as a reporting tool</li>
+<li><a class="" href="viz-intro.html">Introduction</a></li>
+<li><a class="" href="viz-reporting.html"><span class="header-section-number">21</span> Visualization as a reporting tool</a></li>
+<li><a class="" href="viz-demo.html"><span class="header-section-number">22</span> Visualization demo</a></li>
+<li class="book-part">Special skills</li>
+<li><a class="" href="advanced-intro.html">Introduction</a></li>
+<li><a class="" href="advanced-regex.html"><span class="header-section-number">23</span> Regular Expressions for pattern matching</a></li>
+<li><a class="" href="advanced-openrefine.html"><span class="header-section-number">24</span> Open refine walkthrough</a></li>
+<li><a class="" href="advanced-scrape1.html"><span class="header-section-number">25</span> Scraping without programming</a></li>
+<li><a class="" href="advanced-scrape2.html"><span class="header-section-number">26</span> Introduction to scraping in R</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="" href="appendix-math.html"><span class="header-section-number">A</span> Newsroom numbers cheat sheet</a></li>
+<li><a class="" href="appendix-program.html"><span class="header-section-number">B</span> A gentle intro to programming</a></li>
+<li><a class="" href="appendix-glossary.html"><span class="header-section-number">C</span> Glossary</a></li>
+<li><a class="" href="appendix-resources.html"><span class="header-section-number">D</span> Great R Resources</a></li>
+<li><a class="" href="appendix-ppp.html"><span class="header-section-number">E</span> Documentation for PPP data chapters</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="r-data-import" class="section level1" number="14">
+<h1>
+<span class="header-section-number"> 14</span> Getting and saving data<a class="anchor" aria-label="anchor" href="#r-data-import"><i class="fas fa-link"></i></a>
+</h1>
+<div class="alert alert-secondary">
+<p class="alert-heading font-weight-bolder fs-3">
+In this chapter
+</p>
+<ul>
+<li>Invoking standard packages</li>
+<li>Reading data from from Excel or from a text file.</li>
+<li>Looking at your data</li>
+<li>Introducing the “pipe” (%&gt;%)</li>
+<li>A postscript on different types of data files</li>
+</ul>
+</div>
+<p>But before we start:</p>
+<div class="inline-figure"><img src="assets/images/r-dataframe-take-a-break.jpg" style="width:100.0%"></div>
+<div id="the-data-frame" class="section level2" number="14.1">
+<h2>
+<span class="header-section-number">14.1</span> The data frame<a class="anchor" aria-label="anchor" href="#the-data-frame"><i class="fas fa-link"></i></a>
+</h2>
+<p>A data frame is an R variable<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;A variable in R is just a name of something. We’ll sometimes also use the word to refer to a column in a dataset, which is a statistician’s definition of a variable.&lt;/p&gt;"><sup>9</sup></a> and can be used and re-used like any other. The difference is that it contains columns and rows, just like a spreadsheet. These follow the rules we’ve seen about good, tidy Excel files:</p>
+<ul>
+<li>Each column contains one kind of information – race, sex, address, etc.</li>
+<li>Each row contains one example of each of those columns, all at the same unit of analysis. In other words, they each refer to the same noun.</li>
+</ul>
+<p>Before you can use a data frame, you will have to <code>import</code> some data from a file on your hard drive or the web, or <code>load</code> some data that is saved in one of several R-specific formats. Most of the time, your data will originally come in a comma-separated text file (.csv), or in an Excel format (.xlsx). As you work on it, you’ll save it as an R data file that you’ve checked for mistakes and proper treatment of columns.</p>
+<div id="example-data-1" class="section level3" number="14.1.1">
+<h3>
+<span class="header-section-number">14.1.1</span> Example data<a class="anchor" aria-label="anchor" href="#example-data-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Christian McDonald, a data journalism professor at the University of Texas, has compiled a list of Billboard’s Hot 100 hits back to the 1950s, and made it available in his Github account. It’s a great example dataset because it has a lot of rows, a few columns, and few different data types. It’s also easy to understand. He has also made some tutorials using this data, and has generously offered it up for our use.</p>
+<p>We’ll be using the data on McDonald’s Github repository at <a href="https://github.com/utdata/rwd-billboard-data/blob/main/data-out/hot100_archive.csv?raw=true" class="uri">https://github.com/utdata/rwd-billboard-data/blob/main/data-out/hot100_archive.csv?raw=true</a></p>
+<p>Here is how he describes it:</p>
+<blockquote>
+<p>The Billboard <a href="https://www.billboard.com/charts/hot-100/">Hot 100</a> singles charts has been the music industry’s standard record chart since its inception on 8/2/1958. The rankings, published by Billboard Media, are currently based on sales (physical and digital), radio play, and online streaming. The methods and policies of the chart have changed over time.</p>
+</blockquote>
+<blockquote>
+<p>The data we will use here is a combination of data collected by Kaggle user <a href="https://www.kaggle.com/dhruvildave/billboard-the-hot-100-songs">Dhruvil Dave</a>, along with some scraping and merging by Prof. McDonald. It is stored on the code sharing website Github for safe keeping.</p>
+</blockquote>
+<p>Here is a <em>data dictionary</em> , sometimes called a <em>record layout</em> to go along with the data. You should look for, or create, something like this for every data source you use.</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="25%">
+<col width="8%">
+<col width="66%">
+</colgroup>
+<thead><tr class="header">
+<th>variable name</th>
+<th>type</th>
+<th>description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>CHART WEEK</td>
+<td>date</td>
+<td>The release date of the chart</td>
+</tr>
+<tr class="even">
+<td>THIS WEEK</td>
+<td>number</td>
+<td>The rank (1 through 100) of the song that week</td>
+</tr>
+<tr class="odd">
+<td>SONG</td>
+<td>character</td>
+<td>Song title</td>
+</tr>
+<tr class="even">
+<td>PERFORMER</td>
+<td>character</td>
+<td>Performer, as published in the chart. There could be different spellings over time.</td>
+</tr>
+<tr class="odd">
+<td>LAST WEEK</td>
+<td>number</td>
+<td>Last week’s ranking</td>
+</tr>
+<tr class="even">
+<td>PEAK POS.</td>
+<td>number</td>
+<td>Highest ranking ever on the Top 100 chart</td>
+</tr>
+<tr class="odd">
+<td>WKS ON CHART</td>
+<td>number</td>
+<td>Number of weeks it has appeared on the chart, not necessarily consecutive.</td>
+</tr>
+</tbody>
+</table></div>
+<p>It’s a good example for us, since there are no nuances to the data, and it contains a mix of words, numbers and dates. You won’t have to spend a lot of time studying it to understand what it is.</p>
+<div class="alert alert-warning">
+<p>Notice the upper-casing, the spaces and the period in the column names. This will be important later on.</p>
+</div>
+</div>
+</div>
+<div id="starting-a-new-r-program" class="section level2" number="14.2">
+<h2>
+<span class="header-section-number">14.2</span> Starting a new R program<a class="anchor" aria-label="anchor" href="#starting-a-new-r-program"><i class="fas fa-link"></i></a>
+</h2>
+<p>Every time you start a new R markdown document, you will need to load any packages you intend to use by editing the first code chunk in the default document, called the “setup chunk”.</p>
+<p>Then you will delete all of the boilerplate below the first code chunk.</p>
+<div class="alert alert-info">
+<p>If you are following along, it is assumed that you have created or opened a project to hold your new programs and data. Do that now if you haven’t. Mine is in my project called cohen-rlessons, inside my class folder.)</p>
+</div>
+<div class="alert alert-primary">
+<p>Create a new markdown document (the green plus sign at the upper left of your screen, or in the File menu) , and edit the setup chunk as shown below. If you want, copy and paste the YAML from the last lesson and replace the default options with that.</p>
+<p>Save your document as <code>01-top100.Rmd</code> . I’m using the “01” prefix so that when I come back to this six months down the road, I know that this program has to be run first!</p>
+</div>
+<div class="figure">
+<img src="assets/images/r-firstprog-setupchunk.png" style="width:80.0%" alt=""><p class="caption">setup chunk</p>
+</div>
+<div class="alert alert-info">
+<p>I’ve created <a href="https://cronkitedata.s3.amazonaws.com/markdown_templates/01-top100.Rmd">a template you can save in your project for this exercise</a> , but I encourage you to use it as a guide rather than to copy-paste or just edit it. You should get in the habit of creating readable markdowns that document the how, what, why and where of your work.</p>
+</div>
+<div id="importing-the-hot-100-data-file" class="section level3" number="14.2.1">
+<h3>
+<span class="header-section-number">14.2.1</span> Importing the Hot 100 data file<a class="anchor" aria-label="anchor" href="#importing-the-hot-100-data-file"><i class="fas fa-link"></i></a>
+</h3>
+<p>When you read in a CSV<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;comma-separated text values. &lt;a href="r-data-import.html#postscript-understanding-file-types"&gt;See below&lt;/a&gt; for a brief description of file types.&lt;/p&gt;'><sup>10</sup></a> file, R will guess what each column is – text (words, called “character” or “chr” in R), numbers (“dbl” or “int” for “double-precision” or “integer”), and date/time (which have a couple of different possibilities that we’ll get into later on). <a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;You might see them called “Date” (without a time) or &lt;a href="https://en.wikipedia.org/wiki/POSIX"&gt;POSIX&lt;/a&gt; (with time). Most POSIX date-time variables store the number of seconds since Jan. 1, 1970, with negative numbers prior to that. You’ll never work with them directly.&lt;/p&gt;'><sup>11</sup></a></p>
+<p>Data frames are most easily managed by keeping a few style rules in mind:</p>
+<ul>
+<li>Column names should be all lower-case, and have no special characters. Separate words in a column name with an underscore.</li>
+<li>Any column containing numerals that you don’t plan to use in a math computation should be stored as a character type, not a number.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;More advanced users create a special type of variable called a &lt;code&gt;factor&lt;/code&gt; to work with categories - we’re skipping that for now.&lt;/p&gt;"><sup>12</sup></a>
+</li>
+</ul>
+<p>We often have to tweak the data import to make sure of these things, or have to convert data types once they ’ve been imported. If you then save your data as an R data frame, you never have to do that again.</p>
+<div class="alert alert-primary">
+<p>Create a new code chunk to read the top 100 dataset into a variable like this:</p>
+</div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">top100</span> <span class="op">&lt;-</span> 
+  <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://github.com/utdata/rwd-billboard-data/blob/main/data-out/hot100_archive.csv?raw=true"</span><span class="op">)</span></code></pre></div>
+<p>Here’s what that code does:</p>
+<ol style="list-style-type: decimal">
+<li>Creates a new variable name, called top100, to pour the data into.</li>
+<li>Uses a function of the tidyverse<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Actually, a package within the tidyverse called &lt;code&gt;readr&lt;/code&gt;&lt;/p&gt;"><sup>13</sup></a> called <code>read_csv</code>, to</li>
+<li>Access comma-separated text data held in McDonald’s github repository.</li>
+</ol>
+<p>When you run the chunk by pressing the green arrow within the code chunk, or press Shift-CMD-Enter , the output should look like this:</p>
+<pre><code>## Rows: 330787 Columns: 7
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: ","
+## chr (3): CHART WEEK, SONG, PERFORMER
+## dbl (4): THIS WEEK, LAST WEEK, PEAK POS., WKS ON CHART
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<p>So R found:</p>
+<ul>
+<li>330,787 rows (or records, or observations).</li>
+<li>Seven columns ,</li>
+<li>Three of which it thinks are character types, and four that it thinks should be numbers.</li>
+<li>It named the variables using the first row of the file.</li>
+</ul>
+<div class="alert alert-info">
+<p>Pro tip: if you’re not sure about the data types of each column, use an option to import them all as text, or <code>character</code>, columns. Then you can fix them one by one. Text will (almost) never be a problem. The option looks like this:</p>
+<p><code>read_csv( name_of_file, col_types=c(.default="c") )</code></p>
+</div>
+<p>It’s also telling you how to get more information. Sometimes, this will say “Use <code><a href="https://readr.tidyverse.org/reference/problems.html">problems()</a></code> …”, meaning that something could have gone wrong and you should check it. We’ll see how to fix the column types at the same time as your import later on in the course.</p>
+<div class="alert alert-info">
+<p>If you want to import an Excel file, you have to use a slightly different library. You will have to load the <code>readxl</code> library in the setup chunk, then use the <code>read_excel()</code> function to access the data. It works similarly, but it’s a slightly different method.</p>
+</div>
+<p>There are a few ways to look at the data. First, you can look at the top and bottom of it using the <code><a href="https://rdrr.io/r/utils/head.html">head()</a></code> and <code><a href="https://rdrr.io/r/utils/head.html">tail()</a></code> commands:</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">top100</span><span class="op">)</span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">CHART WEEK</th>
+<th align="right">THIS WEEK</th>
+<th align="left">SONG</th>
+<th align="left">PERFORMER</th>
+<th align="right">LAST WEEK</th>
+<th align="right">PEAK POS.</th>
+<th align="right">WKS ON CHART</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">11-6-2021</td>
+<td align="right">1</td>
+<td align="left">Easy On Me</td>
+<td align="left">Adele</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left">11-6-2021</td>
+<td align="right">2</td>
+<td align="left">Stay</td>
+<td align="left">The Kid LAROI &amp; Justin Bieber</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">16</td>
+</tr>
+<tr class="odd">
+<td align="left">11-6-2021</td>
+<td align="right">3</td>
+<td align="left">Industry Baby</td>
+<td align="left">Lil Nas X &amp; Jack Harlow</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">14</td>
+</tr>
+<tr class="even">
+<td align="left">11-6-2021</td>
+<td align="right">4</td>
+<td align="left">Fancy Like</td>
+<td align="left">Walker Hayes</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">19</td>
+</tr>
+<tr class="odd">
+<td align="left">11-6-2021</td>
+<td align="right">5</td>
+<td align="left">Bad Habits</td>
+<td align="left">Ed Sheeran</td>
+<td align="right">5</td>
+<td align="right">2</td>
+<td align="right">18</td>
+</tr>
+<tr class="even">
+<td align="left">11-6-2021</td>
+<td align="right">6</td>
+<td align="left">Way 2 Sexy</td>
+<td align="left">Drake Featuring Future &amp; Young Thug</td>
+<td align="right">6</td>
+<td align="right">1</td>
+<td align="right">8</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Or, you can look at a list of columns along with their types and a few examples from the top of the file using the <code><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse()</a></code> function, in this case listing the name of the data frame you want it to look at within the parentheses.^ [You may have noticed a pattern already: Function names are followed by parentheses, which leave room specifications, called arguments. Sometimes you don’t need any, so they’re blank]</p>
+<pre><code>## Rows: 330,787
+## Columns: 7
+## $ `CHART WEEK`   &lt;chr&gt; "11-6-2021", "11-6-2021", "11-6-2021", "11-6-2021", "11…
+## $ `THIS WEEK`    &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, …
+## $ SONG           &lt;chr&gt; "Easy On Me", "Stay", "Industry Baby", "Fancy Like", "B…
+## $ PERFORMER      &lt;chr&gt; "Adele", "The Kid LAROI &amp; Justin Bieber", "Lil Nas X &amp; …
+## $ `LAST WEEK`    &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 9, 7, 11, 8, 12, 10, 14, 15, 21, 16, …
+## $ `PEAK POS.`    &lt;dbl&gt; 1, 1, 1, 3, 2, 1, 7, 1, 9, 2, 9, 3, 12, 14, 15, 11, 1, …
+## $ `WKS ON CHART` &lt;dbl&gt; 3, 16, 14, 19, 18, 8, 7, 24, 20, 56, 17, 29, 41, 18, 8,…</code></pre>
+<p>Here, you might notice that the names of some of the columns have back-ticks around them. That’s because they don’t follow our rules for column names – they should be lower case, with no spaces or special characters.</p>
+<p>You can also explore a dataset by clicking on its name in the Environment tab. This is a good idea for exploring, but it can’t be replicated by your audience. It suffers from the same point-and-click problems that you ran into using spreadsheets. If you plan to use any of the results of that exploration, you’ll have to explicitly program them in the markdown.</p>
+</div>
+</div>
+<div id="introducing-the-pipe" class="section level2" number="14.3">
+<h2>
+<span class="header-section-number">14.3</span> Introducing the pipe<a class="anchor" aria-label="anchor" href="#introducing-the-pipe"><i class="fas fa-link"></i></a>
+</h2>
+<p>You’ll be seeing a lot of R code that has this format:</p>
+<pre><code>  data_set_name %&gt;%
+     verb ( nouns ) %&gt;%
+     verb ( nouns ) %&gt;%
+     etc...</code></pre>
+<p>That little symbol, <code>%&gt;%</code> is called the “pipe”. It means “and then keep going to the next command”. It matches the way you think about algorithms from <a href="appendix-program.html">the programming appendix</a> in this book.</p>
+<p><img src="assets/images/r-firstprog-pipenewbies.png" style="width:100.0%" alt="pipenewbies"><img src="assets/images/r-firstprog-rladies.png" style="width:100.0%" alt="rladies"></p>
+<p>We’re going to use two of the other libraries that we loaded at the top – <code>lubridate</code> and <code>janitor</code> to
+fix the two problems with this data, while showing you what the pipe does.</p>
+<div class="alert alert-primary">
+<p>Add a code chunk that you’ll edit to clean the column names and types now.</p>
+</div>
+<p>I try to build my code chunks one step at a time. These will show up as separate ones, but in practice I keep editing one that works until I get what I want.</p>
+<p>Using a pipe can help make your code easier to read and write by separating each step into its own command. For example,
+<code>glimpse(top100)</code> does the same thing as <code>top100 %&gt;% glimpse()</code>. The second version tells R, “Start with the top100 data frame <strong>and then</strong> glimpse it. Using small-ish datasets like this, I try to separate as much as is reasonable into separate steps because I can then troubleshoot problems one line at a time.</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">top100</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu">clean_names</span><span class="op">(</span><span class="op">)</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>## Rows: 330,787
+## Columns: 7
+## $ chart_week   &lt;chr&gt; "11-6-2021", "11-6-2021", "11-6-2021", "11-6-2021", "11-6…
+## $ this_week    &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17…
+## $ song         &lt;chr&gt; "Easy On Me", "Stay", "Industry Baby", "Fancy Like", "Bad…
+## $ performer    &lt;chr&gt; "Adele", "The Kid LAROI &amp; Justin Bieber", "Lil Nas X &amp; Ja…
+## $ last_week    &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 9, 7, 11, 8, 12, 10, 14, 15, 21, 16, 17…
+## $ peak_pos     &lt;dbl&gt; 1, 1, 1, 3, 2, 1, 7, 1, 9, 2, 9, 3, 12, 14, 15, 11, 1, 15…
+## $ wks_on_chart &lt;dbl&gt; 3, 16, 14, 19, 18, 8, 7, 24, 20, 56, 17, 29, 41, 18, 8, 1…</code></pre>
+<p>This shows us that the function <code>clean_names()</code> converts the column names into our preferred style. Notice that we didn’t pour that answer into a new variable name, so it just prints the answer to the screen.</p>
+<p>Once this works as expected, we can finish cleaning up the data.</p>
+<p>This process uses the pipe to tack on new statements after each one is complete, and introduces <strong>the verbs of the tidyverse</strong>, which you’ll see in action in the next chapter.</p>
+<p>These are two of the most important verbs you’ll use:</p>
+<ul>
+<li>
+<code>select</code>, which picks and rearranges columns (kind of like filtering vertically)</li>
+<li>
+<code>mutate</code>, which lets you create new columns out of old ones. (like inserting a column in Excel and entering a formula)</li>
+</ul>
+<p>The code chunk also uses <em>function</em> called <code>mdy()</code>, which stands for “month-day-year”, which in turn tells R that the character <code>chart_week</code> column starts out in that format, as opposed to year-month-day or something else.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;This function is part of the library called &lt;code&gt;lubridate&lt;/code&gt; that we also loaded in the setup chunk.&lt;/p&gt;"><sup>14</sup></a></p>
+<div class="alert alert-primary">
+<p>Your final code chunk should look like this. Try to avoid copying and pasting, and instead build it one step at a time, running the chunk each time you add a phrase.</p>
+</div>
+<p>(I usually add the variable name at the top last to save the data result for later use, after I’m sure everything has worked by printing it to the screen.)</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">top100_clean</span> <span class="op">&lt;-</span> 
+  <span class="va">top100</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu">clean_names</span> <span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span> <span class="op">(</span> chart_date <span class="op">=</span> <span class="fu">mdy</span><span class="op">(</span><span class="va">chart_week</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span> <span class="op">(</span> <span class="va">chart_date</span>, <span class="va">song</span>, <span class="va">performer</span>, <span class="va">this_week</span>, <span class="va">last_week</span>,
+           <span class="va">wks_on_chart</span>, <span class="va">peak_pos</span><span class="op">)</span></code></pre></div>
+<div class="alert alert-primary">
+<p>Save your cleaned data in the tidyverse’s <code>rds</code> format in a code chunk like this:</p>
+</div>
+<pre><code>
+saveRDS(top100_clean, file="hit100.RDS")
+</code></pre>
+</div>
+<div id="what-we-did" class="section level2" number="14.4">
+<h2>
+<span class="header-section-number">14.4</span> What we did<a class="anchor" aria-label="anchor" href="#what-we-did"><i class="fas fa-link"></i></a>
+</h2>
+<ol style="list-style-type: decimal">
+<li>Created a new R Markdown document and added the packages (libraries) we plan to use.</li>
+<li>Imported a comma-separated text file from the web into a data frame called it <code>top100</code>.</li>
+<li>Took a look at it in several different ways.</li>
+<li>Created a second data frame from the first, with names and dates fixed, with only some columns picked out and displayed in a new order.</li>
+<li>Saved it into the project for use in another program.</li>
+</ol>
+<div id="what-you-should-do-next" class="section level3 unnumbered">
+<h3>What you should do next<a class="anchor" aria-label="anchor" href="#what-you-should-do-next"><i class="fas fa-link"></i></a>
+</h3>
+<p>If you’ve followed along, you should create text surrounding your code chunks that result in a clean, readable Markdown document that readers can follow from start to finish. Include:</p>
+<ul>
+<li>Documentation of the source of your file.</li>
+<li>Sub-headings for each of the steps</li>
+<li>Introductory text describing what you are about to do</li>
+<li>Maybe: Some text after the chunks that describe meaningful output.</li>
+</ul>
+<p>If you’re stuck, you can <a href="https://cronkitedata.s3.amazonaws.com/markdown_templates/01-top100.Rmd">use the template I created</a> as a starting point.</p>
+<p>Knit it early and often to make sure your program isn’t broken and that the output looks the way you expect.</p>
+</div>
+<div id="and-breathe" class="section level3 unnumbered">
+<h3>And breathe<a class="anchor" aria-label="anchor" href="#and-breathe"><i class="fas fa-link"></i></a>
+</h3>
+<p>You’ve now created a full, working R program in Markdown format that can serve as a model for everything you do in the future. Congratulate yourself and take a break!</p>
+<div class="figure">
+<img src="assets/images/r-firstprog-breathe.jpg" style="width:100.0%" alt=""><p class="caption">Max van den Oetelaar via Unsplash</p>
+</div>
+</div>
+</div>
+<div id="postscript-understanding-file-types" class="section level2" number="14.5">
+<h2>
+<span class="header-section-number">14.5</span> Postscript: Understanding file types<a class="anchor" aria-label="anchor" href="#postscript-understanding-file-types"><i class="fas fa-link"></i></a>
+</h2>
+<p>So far in this book, you’ve been saved from having to understand the format of data as it is traded among people and computers. Now you’ll have to start understanding that there are different forms of data files, one of which is the simple Excel file that we’ve dealt with so far.</p>
+<p>But Excel is a propriety format – it’s made by Microsoft and isn’t very easy to use without a program that can import it. As we’ve seen, it can also corrupt data by misunderstanding data types like dates and numbers, and there isn’t much control over its assumptions.</p>
+<p>This section will go over the common data formats you’re likey to run across in your work with R. However, R is not limited to these. You’ll often find arcane and specialized data file formats if you work with statisticians or experts in geographic analysis that can also be read in R. There is almost always a package available that will import it.</p>
+<div id="tabular-text-data" class="section level3 unnumbered">
+<h3>Tabular text data<a class="anchor" aria-label="anchor" href="#tabular-text-data"><i class="fas fa-link"></i></a>
+</h3>
+<p>In Excel and Google Sheets, each page of a workbook is <em>tabular</em>, meaning it is approximately a rectangle. It might be a narrow and tall rectangle, or a short and wide rectangle, but it’s still a rectangle. Each column is an <em>attribute</em> or a <em>variable</em>, and each row is an <em>observation</em> or a <em>record</em> .</p>
+<p>Every computer can read and write plain text. Those are the characters you can type on a typewriter, with no fancy formatting or other features that require special software to ingest it. We’ll normally be dealing with these. They usually come in two flavors:</p>
+<ul>
+<li><p><strong>CSV</strong> data is “comma-separated values” data, which means that a new column will be created whenver a comma is encountered. If there is a chance that there might be a comma inside a column, it will be enclosed by quote marks. This usually works OK, but there are some times when you have to be careful because there could be commas AND quotes inside a column. (A good example is a column of peoples’ names – they may be something like <code>Smith, Johnny "The Rat"</code>) To overcome this, some people use:</p></li>
+<li><p><strong>TSV</strong> , or tab-separated data. In this case, the tab key determines the distinction between columns, which is much rarer to find in plain text files.</p></li>
+</ul>
+<p>Here’s what a CSV might look like listing the last few presidents:</p>
+<pre><code>  name, position, start_date, age_at_start_date
+  "Biden, Joe", President, 2021-01-20, 78
+  "Trump, Donald", President, 2017-01-20, 70
+  "Obama, Barack", President, 2009-01-20, 47</code></pre>
+<p>It looks like a mess to you, but it’s a thing of beauty to a computer.</p>
+<p>Some government agencies just make up a delimiter instead of a comma or tab - I’ve seen them with vertical bars (<code>|</code>) and tildes <code>~</code>. You would use the function <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_delim()</a></code> to import a text file delimited by something other than a comma.</p>
+</div>
+<div id="non-tabular-text-data" class="section level3 unnumbered">
+<h3>Non-tabular text data<a class="anchor" aria-label="anchor" href="#non-tabular-text-data"><i class="fas fa-link"></i></a>
+</h3>
+<p>Another common format you’ll see passed around from computer to computer is called JSON. This stands for Javascript Object Notation, and is commonly used to pass data over the web , often to your phone or your browser.</p>
+<p>It looks even worse, but it’s also a thing of beauty to a computer. The same data would look like this in JSON:</p>
+<pre><code> {"presidents": [
+    {"name": "Biden, Joe", "position": "President", "start_date": "2021-01-20", 
+       "age_at start_date": "78"},
+    {"name": "Trump, Donald", "position": "President", "start_date": "2017-01-20", 
+       "age_at start_date": "70"},
+    {"name": "Obama, Barack", "position": "President", "start_date": "2009-01-20", 
+       "age_at start_date": "47"}
+   ]
+  } 
+    </code></pre>
+</div>
+<div id="data-formats-created-for-specific-software" class="section level3 unnumbered">
+<h3>Data formats created for specific software<a class="anchor" aria-label="anchor" href="#data-formats-created-for-specific-software"><i class="fas fa-link"></i></a>
+</h3>
+<p>R has its own data files, sort of like Excel files, which require no special handling when used within R, but can’t really be used in any other program.</p>
+<p>Almost every programming language has a way to read Excel (.xlsx) files, but they sometimes don’t handle intricacies very well.</p>
+<p>For now, we’ll just work with these kinds of files, but just remember that you’re likely to run into all different kinds. Get some help before just Googling when you find a new type – you’ll often get bad advice from the internet on this topic.</p>
+
+</div>
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="r-markdown.html"><span class="header-section-number">13</span> R Markdown</a></div>
+<div class="next"><a href="r-verbs.html"><span class="header-section-number">15</span> A quick tour of verbs</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#r-data-import"><span class="header-section-number">14</span> Getting and saving data</a></li>
+<li>
+<a class="nav-link" href="#the-data-frame"><span class="header-section-number">14.1</span> The data frame</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#example-data-1"><span class="header-section-number">14.1.1</span> Example data</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#starting-a-new-r-program"><span class="header-section-number">14.2</span> Starting a new R program</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#importing-the-hot-100-data-file"><span class="header-section-number">14.2.1</span> Importing the Hot 100 data file</a></li></ul>
+</li>
+<li><a class="nav-link" href="#introducing-the-pipe"><span class="header-section-number">14.3</span> Introducing the pipe</a></li>
+<li>
+<a class="nav-link" href="#what-we-did"><span class="header-section-number">14.4</span> What we did</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#what-you-should-do-next">What you should do next</a></li>
+<li><a class="nav-link" href="#and-breathe">And breathe</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#postscript-understanding-file-types"><span class="header-section-number">14.5</span> Postscript: Understanding file types</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#tabular-text-data">Tabular text data</a></li>
+<li><a class="nav-link" href="#non-tabular-text-data">Non-tabular text data</a></li>
+<li><a class="nav-link" href="#data-formats-created-for-specific-software">Data formats created for specific software</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Data Reporting, Spring 2022</strong>" was written by Sarah Cohen. It was last built on 2022-03-31.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>
