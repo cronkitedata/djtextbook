@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title> 21 Visualization as a reporting tool | Data Reporting, Spring 2022</title>
+<meta name="author" content="Sarah Cohen">
+<meta name="description" content="NOTE: This chapter is adapted from a handout created for IRE around 2012, and used in the original data journalism handbook. It has not been updated.  21.1 Why to use visualization Before you...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content=" 21 Visualization as a reporting tool | Data Reporting, Spring 2022">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://github.com/cronkitedata/djtextbook/viz-reporting.html">
+<meta property="og:description" content="NOTE: This chapter is adapted from a handout created for IRE around 2012, and used in the original data journalism handbook. It has not been updated.  21.1 Why to use visualization Before you...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content=" 21 Visualization as a reporting tool | Data Reporting, Spring 2022">
+<meta name="twitter:site" content="@sarahcnyt">
+<meta name="twitter:description" content="NOTE: This chapter is adapted from a handout created for IRE around 2012, and used in the original data journalism handbook. It has not been updated.  21.1 Why to use visualization Before you...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Muli-0.4.0/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/core-js-2.5.3/shim.min.js"></script><script src="libs/react-17.0.0/react.min.js"></script><script src="libs/react-17.0.0/react-dom.min.js"></script><script src="libs/reactwidget-1.0.0/react-tools.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="libs/reactable-binding-0.2.3/reactable.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link rel="shortcut icon" href="assets/images/favicon.ico">
+<!--
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        --><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Data Reporting, Spring 2022</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li class="book-part">Reporting with data</li>
+<li><a class="" href="starter-intro.html">In this section</a></li>
+<li><a class="" href="start-story.html"><span class="header-section-number">1</span> Learn a new way to read</a></li>
+<li><a class="" href="start-math.html"><span class="header-section-number">2</span> Newsroom math</a></li>
+<li><a class="" href="start-data-def.html"><span class="header-section-number">3</span> Defining “Data”</a></li>
+<li><a class="" href="start-data-diary.html"><span class="header-section-number">4</span> Replication and the data diary</a></li>
+<li><a class="" href="start-hunt.html"><span class="header-section-number">5</span> Finding the right data for your story</a></li>
+<li><a class="" href="start-build-own.html"><span class="header-section-number">6</span> Build your own database</a></li>
+<li class="book-part">Spreadsheets</li>
+<li><a class="" href="xl-intro.html">Introduction</a></li>
+<li><a class="" href="xl-refresher.html"><span class="header-section-number">7</span> An Excel Refresher</a></li>
+<li><a class="" href="xl-filter-sort.html"><span class="header-section-number">8</span> Sorting and filtering to find stories</a></li>
+<li><a class="" href="xl-pivot.html"><span class="header-section-number">9</span> Grouping with pivot tables</a></li>
+<li><a class="" href="xl-formulas.html"><span class="header-section-number">10</span> Formulas in Excel</a></li>
+<li><a class="" href="xl-practice-noc.html"><span class="header-section-number">11</span> Practice exercise</a></li>
+<li class="book-part">R Study Guide</li>
+<li><a class="" href="r-intro.html">Introduction</a></li>
+<li><a class="" href="r-start.html"><span class="header-section-number">12</span> Getting started with R and RStudio</a></li>
+<li><a class="" href="r-markdown.html"><span class="header-section-number">13</span> R Markdown</a></li>
+<li><a class="" href="r-data-import.html"><span class="header-section-number">14</span> Getting and saving data</a></li>
+<li><a class="" href="r-verbs.html"><span class="header-section-number">15</span> A quick tour of verbs</a></li>
+<li><a class="" href="r-verb-filter.html"><span class="header-section-number">16</span> Verbs in depth: Select, filter, arrange</a></li>
+<li><a class="" href="r-verb-groupby.html"><span class="header-section-number">17</span> Verbs in depth: Aggregating with groups</a></li>
+<li><a class="" href="r-verb-mutate.html"><span class="header-section-number">18</span> Verbs in depth: New from old data with Mutate</a></li>
+<li><a class="" href="r-verb-join.html"><span class="header-section-number">19</span> Verbs in depth: Matchmaking with joins</a></li>
+<li><a class="" href="r-recipes.html"><span class="header-section-number">20</span> Recipes</a></li>
+<li class="book-part">Visualization as a reporting tool</li>
+<li><a class="" href="viz-intro.html">Introduction</a></li>
+<li><a class="active" href="viz-reporting.html"><span class="header-section-number">21</span> Visualization as a reporting tool</a></li>
+<li><a class="" href="viz-demo.html"><span class="header-section-number">22</span> Visualization demo</a></li>
+<li class="book-part">Special skills</li>
+<li><a class="" href="advanced-intro.html">Introduction</a></li>
+<li><a class="" href="advanced-regex.html"><span class="header-section-number">23</span> Regular Expressions for pattern matching</a></li>
+<li><a class="" href="advanced-openrefine.html"><span class="header-section-number">24</span> Open refine walkthrough</a></li>
+<li><a class="" href="advanced-scrape1.html"><span class="header-section-number">25</span> Scraping without programming</a></li>
+<li><a class="" href="advanced-scrape2.html"><span class="header-section-number">26</span> Introduction to scraping in R</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="" href="appendix-math.html"><span class="header-section-number">A</span> Newsroom numbers cheat sheet</a></li>
+<li><a class="" href="appendix-program.html"><span class="header-section-number">B</span> A gentle intro to programming</a></li>
+<li><a class="" href="appendix-glossary.html"><span class="header-section-number">C</span> Glossary</a></li>
+<li><a class="" href="appendix-resources.html"><span class="header-section-number">D</span> Great R Resources</a></li>
+<li><a class="" href="appendix-ppp.html"><span class="header-section-number">E</span> Documentation for PPP data chapters</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="viz-reporting" class="section level1" number="21">
+<h1>
+<span class="header-section-number"> 21</span> Visualization as a reporting tool<a class="anchor" aria-label="anchor" href="#viz-reporting"><i class="fas fa-link"></i></a>
+</h1>
+<p>NOTE: This chapter is adapted from a handout created for IRE around 2012, and used in the original data journalism handbook. It has not been updated.</p>
+<div id="why-to-use-visualization" class="section level2" number="21.1">
+<h2>
+<span class="header-section-number">21.1</span> Why to use visualization<a class="anchor" aria-label="anchor" href="#why-to-use-visualization"><i class="fas fa-link"></i></a>
+</h2>
+<p>Before you launch into trying to chart or map your data, take a minute to think about the many roles that static and interactive graphic elements play in your journalism.</p>
+<p>In the reporting phase, visualizations can:</p>
+<ul>
+<li>Help you identify themes and questions for the rest of your reporting</li>
+<li>Identify outliers – good stories, or perhaps errors, in your data</li>
+<li>Help you find typical examples</li>
+<li>Show you holes in your reporting</li>
+</ul>
+<p>Visualizations also play multiple roles in publishing:</p>
+<ul>
+<li>Illustrate a point made in a story in a more compelling way</li>
+<li>Remove unnecessarily technical information from prose</li>
+<li>Particularly when they are interactive and allow exploration, provide transparency about your reporting process to your readers</li>
+</ul>
+<p>These roles suggest you should start early and often with visualizations in your reporting, whether or not you start with electronic data or paper records. Don’t consider it a separate step – something to be considered after the story is largely written. Let this work help guide your reporting.</p>
+<p>Getting started sometimes means just putting in a visual form the notes you’ve already taken. Consider this graphic, which ran in the Washington Post in 2006:</p>
+<div class="figure">
+<img src="assets/images/vis-reporting-farm-timeline.png" style="width:100.0%" alt=""><p class="caption">farm timeline</p>
+</div>
+<p>It shows the portion of farm income associated with subsidies and key events over the past 45 years, and was built over a series of months. Finding data that could be used over time with similar definitions and similar meanings was a challenge. Investigating all of the peaks and troughs helped us keep context in mind as we did the rest of our reporting. It also meant that one chore was pretty much finished before the stories were written.</p>
+</div>
+<div id="tips-for-exploration" class="section level2" number="21.2">
+<h2>
+<span class="header-section-number">21.2</span> Tips for exploration<a class="anchor" aria-label="anchor" href="#tips-for-exploration"><i class="fas fa-link"></i></a>
+</h2>
+<div id="use-small-multiples-to-quickly-orient-yourself-in-a-large-dataset" class="section level3 unnumbered">
+<h3>Use small multiples to quickly orient yourself in a large dataset<a class="anchor" aria-label="anchor" href="#use-small-multiples-to-quickly-orient-yourself-in-a-large-dataset"><i class="fas fa-link"></i></a>
+</h3>
+<p>I used this technique at the Washington Post when we were looking into a tip that the George W. Bush administration was awarding grants on political, not substantive, grounds. Most of these aid programs are done by formula, and others have been funded for years, so we were curious whether we might see the pattern by looking at nearly 1,500 different discretionary streams.</p>
+<div class="image-wrapper float-right col-md-8 mr-3">
+<div class="figure">
+<img src="assets/images/vis-reporting-hhsgrants.png" style="width:90.0%" alt=""><p class="caption">grant list</p>
+</div>
+</div>
+<p>I created a graph for each program, with the red dots indicating a presidential election year and the green dots indicating a congressional year. The problem: Yes, there was a spike in the six months before the presidential election in several of these programs – the red dots with the peak numbers next to them – but it’s the wrong election year. Instead of George W. Bush’s re-election bid, the peak as consistently for the 2000 presidential election, when Bill Clinton was in the White House and his vice president, Al Gore, was running for the office.</p>
+<p>This was really easy to see in a series of graphs rather than a table of numbers, and an interactive form let us check various types of grants, regions and agencies. Maps in small multiples can be a way to show time and place on a static image that’s easy to compare – sometimes even easier than an interactive.</p>
+<p>This example was created with a short program written in PHP, but it’s now much easier to do with Excel 2007 and 2010’s sparklines. Edward Tufte, the visualization expert, invented these “intense, simple, word-like graphics” to convey information in a glance across a large dataset. You now see them everywhere, from the little graphs under stock market quotations to win-loss records in sports.</p>
+</div>
+<div id="look-at-your-data-from-all-directions" class="section level3 unnumbered">
+<h3>Look at your data from all directions<a class="anchor" aria-label="anchor" href="#look-at-your-data-from-all-directions"><i class="fas fa-link"></i></a>
+</h3>
+<p>When you’re trying to understand a story or a dataset, there’s no wrong way to look at it; try it every way you can think of, and you’ll get a different perspective. If you’re reporting on crime, you might look at one set of charts with change in violent crimes in a year; another might be the percent change; the other might be a comparison to other cities; and another might be a change over time. Use raw numbers, percentages and indexes.</p>
+<p>Look at them on different scales. Try following the rule that the x-axis must be zero. Then break that rule and see if you learn more. Try out logarithms and square roots for data with odd distributions.</p>
+<p>Keep in mind the research done on visual perception. William Cleveland’s experiments showed that the eye sees change in an image when the average slope is about 45 degrees. This suggests you ignore the admonitions to always start at zero and instead work toward the most insightful graphic. Other research in epidemiology has suggested you find a target level as a boundary for your chart. Each of these ways helps you see the data in different ways. When they’ve stopped telling you anything new, you know you’re done.</p>
+</div>
+<div id="dont-assume" class="section level3 unnumbered">
+<h3>Don’t assume<a class="anchor" aria-label="anchor" href="#dont-assume"><i class="fas fa-link"></i></a>
+</h3>
+<p>Now that you’ve looked at your data a variety of ways, you’ve probably found records that don’t seem right – you may not understand what they meant in the first place, or there are some outliers that seem like they are typos, or there are trends that seem backwards.</p>
+<p>If you want to publish anything based on your early exploration or in a published visualization, you have to resolve these questions and you can’t make assumptions. They’re either interesting stories or mistakes; interesting challenges to common wisdom or misunderstanding.</p>
+<p>It’s not unusual for local governments to provide spreadsheets filled with errors, and it’s also easy to misunderstand government jargon in a dataset.</p>
+<p>First, walk back your own work. Have you read the documentation, its caveats and does the problem exist in the original version of the data? If everything on your end seems right, then it’s time to pick up the phone. You’re going to have to get it resolved if you plan to use it, so you might as well get started now.</p>
+<p>That said, not every mistake is important. In campaign finance records, it’s common to have several hundred postal codes that don’t exist in a database of 100,000 records. As long as they’re not all in the same city or within a candidate, the occasional bad data record just doesn’t matter.</p>
+<p>The question to ask yourself is: if I were to use this, would readers have a fundamentally accurate view of what the data says?</p>
+</div>
+<div id="avoid-obsessiong-over-precision-and-presentation-details" class="section level3 unnumbered">
+<h3>Avoid obsessiong over precision and presentation details<a class="anchor" aria-label="anchor" href="#avoid-obsessiong-over-precision-and-presentation-details"><i class="fas fa-link"></i></a>
+</h3>
+<p>The flip side of not asking enough questions is obsessing over precision before it matters. Your exploratory graphics should be generally correct, but don’t worry if you have various levels of rounding, if they don’t add up to exactly 100 percent or if you are missing one or two years’ data out of 20. This is part of the exploration process. You’ll still see the big trends and know what you have to collect before it’s time for publication.</p>
+<p>In fact, you might consider taking away labeling and scale markers, much like the charts above, to even better get an overall sense of the data.</p>
+</div>
+<div id="create-chronologies-of-cases-and-events" class="section level3 unnumbered">
+<h3>Create chronologies of cases and events<a class="anchor" aria-label="anchor" href="#create-chronologies-of-cases-and-events"><i class="fas fa-link"></i></a>
+</h3>
+<p>At the start of any complex story, begin building chronologies of key events and cases. You can use Excel, a Word document or a special tool like TimeFlow for the task, but at some point you will find a dataset you can layer behind it. Reading through it periodically will show you what holes are in your reporting that have to be filled out.</p>
+</div>
+<div id="meet-with-designers-and-graphics-editors-early-and-often" class="section level3 unnumbered">
+<h3>Meet with designers and graphics editors early and often<a class="anchor" aria-label="anchor" href="#meet-with-designers-and-graphics-editors-early-and-often"><i class="fas fa-link"></i></a>
+</h3>
+<p>Brainstorm about possible graphics with the artists and designers in your newsroom. They will have good ways to look at your data, suggestions of how it might work interactively, and know how to connect data and stories. It will make your reporting much easier if you know what you have to collect early on, or if you can alert your team that a graphic isn’t possible when you can’t collect it.</p>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="viz-intro.html">Introduction</a></div>
+<div class="next"><a href="viz-demo.html"><span class="header-section-number">22</span> Visualization demo</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#viz-reporting"><span class="header-section-number">21</span> Visualization as a reporting tool</a></li>
+<li><a class="nav-link" href="#why-to-use-visualization"><span class="header-section-number">21.1</span> Why to use visualization</a></li>
+<li>
+<a class="nav-link" href="#tips-for-exploration"><span class="header-section-number">21.2</span> Tips for exploration</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#use-small-multiples-to-quickly-orient-yourself-in-a-large-dataset">Use small multiples to quickly orient yourself in a large dataset</a></li>
+<li><a class="nav-link" href="#look-at-your-data-from-all-directions">Look at your data from all directions</a></li>
+<li><a class="nav-link" href="#dont-assume">Don’t assume</a></li>
+<li><a class="nav-link" href="#avoid-obsessiong-over-precision-and-presentation-details">Avoid obsessiong over precision and presentation details</a></li>
+<li><a class="nav-link" href="#create-chronologies-of-cases-and-events">Create chronologies of cases and events</a></li>
+<li><a class="nav-link" href="#meet-with-designers-and-graphics-editors-early-and-often">Meet with designers and graphics editors early and often</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Data Reporting, Spring 2022</strong>" was written by Sarah Cohen. It was last built on 2022-03-31.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

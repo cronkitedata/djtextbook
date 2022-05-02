@@ -1,0 +1,340 @@
+# A quick tour of verbs { #r-verbs}
+
+
+:::{.alert .alert-secondary}
+
+<p class="alert-heading font-weight-bolder fs-3">
+In this chapter
+</p>
+
+You only need a handful of key verbs of the tidyverse to get a lot done:
+
+* `filter`: Pick out rows based on a condition
+* `group_by` : Collapse your data into categories based on a column, as in pivot tables
+* `summarise` : Compute summary statistics such as sum, count or median
+* `mutate` : Create new columns using functions and formulas 
+* `arrange` : Display rows in a certain order
+* `select`: Pick out and arrange columns
+
+You have done all of these in Excel already.
+
+::: 
+
+
+We saw in the first R chapter that the tidyverse is a whole set of packages linked together using common syntax and grammar. One of the key concepts of the tidyverse is its **verbs** . Mastering  just a handful of them will equip you to do most of what a data journalist does, and will prepare you for more complicated endeavors.  
+
+This walkthrough gives you a little taste of what most of the verbs do. More details are coming in subsequent chapters. 
+
+It depends on you continuing from the previous chapter. [You can download a copy](https://cronkitedata.s3.amazonaws.com/rdata/hit100.RDS) of the data that was saved into your project if you need it. 
+## A new markdown program
+
+:::{.alert .alert-primary}
+
+Open or re-open the project you created in previous chapters. This starts you with a clean slate in the correct location.
+
+Create a new R Markdown document. Using the program you wrote in the last chapter, copy everything in through the setup chunk and delete anything else. Edit the YAML section to create a new title , and save it as `02-top100-analysis.Rmd`.
+
+::: 
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = FALSE,
+                      eval= TRUE,
+                      error=TRUE, 
+                      message=TRUE,
+                      warning=TRUE)
+
+
+library(tidyverse)
+library(janitor)
+library(lubridate)
+library(readxl)
+
+options(dplyr.summarise.inform = FALSE)
+
+```
+
+
+```{r load_rds_remote , include=FALSE}
+
+top100 <- readRDS(url ( "https://cronkitedata.s3.amazonaws.com/rdata/hit100.RDS"))
+
+
+```
+
+This code chunk loads the data you saved in the last chapter:
+
+```{r exampleread, eval=FALSE, echo=TRUE}
+
+top100 <- readRDS("hit100.RDS")
+
+```
+
+
+## Filter and arrange 
+
+`filter` is the same idea as filtering in Excel, but it's much more picky. In R, you have to match words exactly, including the upper- or lower-case.  (Everything in R is case-sensitive, including the names of columns. That's why we made them all lower-case last lesson.) 
+
+`arrange` is R's version of Excel's `sort`. 
+
+Here's how you would pick out all of Taylor Swift's appearances on the Billboard top 100 list, in chronological order. 
+
+
+:::{.alert .alert-info}
+In R, a condition is tested in a filter by using **two** equal signs, not one.
+:::
+
+
+```{r exampleswift, eval=FALSE, echo=TRUE}
+
+top100 %>%
+  filter ( performer == "Taylor Swift") %>%
+  arrange (  chart_date )   
+
+```
+
+
+```{r reactable_taylor_swift, echo=FALSE, message=FALSE, warning=FALSE}
+
+top100 %>%
+  filter (performer=="Taylor Swift") %>%
+  arrange ( chart_date) %>%
+  reactable::reactable(., style=list(fontSize="smaller"))
+
+
+```
+
+
+So Taylor Swift has songs on the Billboard Hot 100 list more than 1,000 times since 2008.
+
+Here's how you'd list only her appearances at the top of the list -- No. 1 is the lowest possible value for `this_week`, indicating the rank , then pick out just a few columns to list in order:
+
+
+```{r swift_no1, eval=knitr::is_html_output(), echo=TRUE}
+
+top100 %>%
+  filter (performer=="Taylor Swift" & this_week == 1) %>%
+  arrange ( chart_date)  %>%
+  select ( this_week, song, chart_date, last_week)
+
+```
+
+
+
+Her first No. 1 hit was in 2012, and her most recent was in November 2021.
+
+## Summary statistics in R 
+
+Summary statistics are similar to those you saw in pivot tables. They include 
+
+
+* `n()`  -- instead of "count"
+* `sum()`
+* `mean()`  -- instead of "average"
+* `median()`
+* `min()` and `max()`
+ 
+To count the total number of songs in this database, you would use the summary function `n()`, which is how statisticians think of the concept of "how many?"  
+
+In this case, because we've done nothing else, it will match the number of rows in the data frame. This code also creates two other summary statistics: The first (earliest) entry in the entire list, and the last one. 
+
+:::{.alert .alert-info}
+In R, use a **single** equals sign when you are naming a new column
+::: 
+
+
+```{r top100-sums, echo=TRUE, eval=knitr::is_html_output()}
+
+top100 %>%
+  summarise ( number_of_entries = n() , 
+              first_entry = min(chart_date), 
+              last_entry= max(chart_date)
+              )
+
+
+```
+
+## Grouping with summary statistics (aggregating)
+
+Your questions will often be around the idea of "the most" or "the biggest" something. Like in Excel, you could do this by guessing and filtering one thing after another. Or you could make a list of the items, then count them up all at once. 
+
+To get the performer with the most appearances on the list, you combine `group_by` with `summarise` to count within each group.  We'll go into this in a lot more detail in future chapters.
+
+
+```{r top100-performer, echo=TRUE, eval=knitr::is_html_output()}
+
+top100 %>%
+  group_by ( performer) %>%
+  summarise ( times_on_list = n() ) %>%
+  arrange (desc ( times_on_list ))  %>%
+  head (10)
+
+
+
+```
+
+
+(You may notice that the number next to Taylor Swift's name on this list is the same number of rows that were found during the filter.)
+
+That code chunk: 
+
+* Began with the `top100` data frame that was loaded earlier from the saved version, and then
+* Made one row for each  performer using `group_by`, and then 
+* Counted the number of times each one appeared using `summarise` and `n()` and named the new column `times_on_list`, and then
+* Sorted, or `arrange` the list in descending order by that new column created during the summarise step, and then 
+* Printed off the first 10 rows. 
+
+In Excel, we had trouble sorting a pivot table with city and state as rows. Here, that's not a problem:
+
+```{r top100-sortmore, warning=FALSE, message=FALSE, results="hide", echo=TRUE, eval=knitr::is_html_output()}
+
+top100 %>%
+  group_by ( song, performer)  %>%
+  summarise ( times_on_list = n() , 
+              last_time_on_list = max(chart_date),
+              highest_position = min(this_week)
+            ) %>%
+  arrange ( desc ( times_on_list) ) %>%
+  head(25) 
+
+
+```
+
+So some of the songs that were on the list the longest never made it to #1. 
+
+
+```{r top100-print25, echo=FALSE, eval=knitr::is_html_output()}
+
+top100 %>%
+  group_by ( song, performer)  %>%
+  summarise ( times_on_list = n() , 
+              last_time_on_list = max(chart_date),
+              highest_position = min(this_week)
+            ) %>%
+  arrange ( desc ( times_on_list) ) %>%
+  head(25)  %>%
+  reactable::reactable (., style=list(fontSize="smaller"))
+
+
+
+
+```
+
+
+
+## Thoughts on the verbs
+
+
+You've now seen most of the key verbs of the tidyverse, and how they can be put together. They are: 
+
+* `mutate` , which you saw in the last chapter, to calculate new variables.
+* `select`,  which lets you pick out columns in the order you want to see them
+* `filter`, to pick out rows based on a condition
+* `summarise` to compute summary statistics like "how many?" and "how much? or "smallest" and "largest"
+* `group_by` to create a single row for each unique item in a list. 
+
+
+Don't worry if you don't understand how this works or how to do it yourself. This walkthrough is just intended to show you how much you can do with just a few lines of code.  
+
+## Exercise
+
+If you feel comfortable, consider trying to create a markdown program that accomplishes the same thing that was done with the Washington Post shooting database that you did in Excel lessons. 
+
+Skip the pivot table exercise with ethnicities in rows and years in columns - we'll get back to that later. 
+
+There are three changes you'll have to make because the data begins as an Excel file rather than a comma-separated text file (csv): 
+
+
+1. Add a library to your setup chunk : `library(readxl)` and **be sure to run that chunk again** (or you'll get an error).
+2. [Download the file]("https://cronkitedata.s3.amazonaws.com/xlfiles/wapo-shootings-pivot.xlsx") and save it into your project. (The readxl package doesn't let you read data from a web address.)
+2. Use the `read_excel()` function to import it instead of read_csv():  
+
+
+```{r readxl_to-copy, eval=FALSE, error=TRUE}
+
+wapo_data <- read_excel("wapo-shootings-pivot.xlsx")
+
+```
+
+
+```{r readwapo, include=FALSE, message=FALSE, warning=FALSE}
+
+download.file("https://cronkitedata.s3.amazonaws.com/xlfiles/wapo-shootings-pivot.xlsx", "wapo-shootings-pivot.xlsx")
+wapo_data <- read_excel ("wapo-shootings-pivot.xlsx")
+file.remove("wapo-shootings-pivot.xlsx")
+              
+
+```
+
+
+
+### Answers {-}
+
+
+1. Sort by state, then date, this time only picking a few columns:
+
+```{r wapo-select, eval=FALSE, results="hide", echo=TRUE}
+
+wapo_data %>%
+  arrange ( state, date) %>%
+  select (name, date, armed, ethnicity, city, state)
+
+
+
+```
+
+2. Find fatalities from a Taser: 
+
+```{r wapo-taser, eval=FALSE, results="hide", echo=TRUE}
+
+
+wapo_data %>%
+  filter ( manner_of_death == "shot and Tasered")
+
+```
+
+3. Unarmed suspects in cars
+
+
+```{r wapo-unarmed, eval=FALSE, results="hide", echo=TRUE}
+
+wapo_data %>%
+  filter (armed == "unarmed" & flee=="Car")
+  
+
+
+```
+
+4. Fatalities by ethnicity
+
+```{r wapo-ethnicity, results="hide", eval=FALSE, echo=TRUE}
+
+wapo_data %>%
+  group_by ( ethnicity ) %>%
+  summarise ( count = n() ) %>%
+  arrange ( desc ( count ) )
+
+
+```
+
+5. Fatalities by ethnicity and year
+
+You should skip this one for now -- we'll learn later about how to flip the answer on its head to get something that looks like the pivot table. 
+
+
+6. Fatalities by city
+
+```{r wapo-cities, results="asis", echo=TRUE}
+
+wapo_data %>%
+  group_by ( city, state) %>%
+  summarise ( fatalities = n() ) %>%
+  arrange (desc (fatalities)) %>%
+  head (10)
+
+
+
+```
+
+It's worth noting that most of the top 10 cities are west of the Mississippi.
+

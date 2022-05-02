@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title> 11 Practice exercise | Data Reporting, Spring 2022</title>
+<meta name="author" content="Sarah Cohen">
+<meta name="description" content="This exercise helps you understand the difference between filtering and grouping, or, in Excel terms, filtering and pivot tables. In general, you’ll use filtering to look up the details of cases...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content=" 11 Practice exercise | Data Reporting, Spring 2022">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://github.com/cronkitedata/djtextbook/xl-practice-noc.html">
+<meta property="og:description" content="This exercise helps you understand the difference between filtering and grouping, or, in Excel terms, filtering and pivot tables. In general, you’ll use filtering to look up the details of cases...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content=" 11 Practice exercise | Data Reporting, Spring 2022">
+<meta name="twitter:site" content="@sarahcnyt">
+<meta name="twitter:description" content="This exercise helps you understand the difference between filtering and grouping, or, in Excel terms, filtering and pivot tables. In general, you’ll use filtering to look up the details of cases...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Muli-0.4.0/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/core-js-2.5.3/shim.min.js"></script><script src="libs/react-17.0.0/react.min.js"></script><script src="libs/react-17.0.0/react-dom.min.js"></script><script src="libs/reactwidget-1.0.0/react-tools.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="libs/reactable-binding-0.2.3/reactable.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link rel="shortcut icon" href="assets/images/favicon.ico">
+<!--
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        --><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Data Reporting, Spring 2022</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li class="book-part">Reporting with data</li>
+<li><a class="" href="starter-intro.html">In this section</a></li>
+<li><a class="" href="start-story.html"><span class="header-section-number">1</span> Learn a new way to read</a></li>
+<li><a class="" href="start-math.html"><span class="header-section-number">2</span> Newsroom math</a></li>
+<li><a class="" href="start-data-def.html"><span class="header-section-number">3</span> Defining “Data”</a></li>
+<li><a class="" href="start-data-diary.html"><span class="header-section-number">4</span> Replication and the data diary</a></li>
+<li><a class="" href="start-hunt.html"><span class="header-section-number">5</span> Finding the right data for your story</a></li>
+<li><a class="" href="start-build-own.html"><span class="header-section-number">6</span> Build your own database</a></li>
+<li class="book-part">Spreadsheets</li>
+<li><a class="" href="xl-intro.html">Introduction</a></li>
+<li><a class="" href="xl-refresher.html"><span class="header-section-number">7</span> An Excel Refresher</a></li>
+<li><a class="" href="xl-filter-sort.html"><span class="header-section-number">8</span> Sorting and filtering to find stories</a></li>
+<li><a class="" href="xl-pivot.html"><span class="header-section-number">9</span> Grouping with pivot tables</a></li>
+<li><a class="" href="xl-formulas.html"><span class="header-section-number">10</span> Formulas in Excel</a></li>
+<li><a class="active" href="xl-practice-noc.html"><span class="header-section-number">11</span> Practice exercise</a></li>
+<li class="book-part">R Study Guide</li>
+<li><a class="" href="r-intro.html">Introduction</a></li>
+<li><a class="" href="r-start.html"><span class="header-section-number">12</span> Getting started with R and RStudio</a></li>
+<li><a class="" href="r-markdown.html"><span class="header-section-number">13</span> R Markdown</a></li>
+<li><a class="" href="r-data-import.html"><span class="header-section-number">14</span> Getting and saving data</a></li>
+<li><a class="" href="r-verbs.html"><span class="header-section-number">15</span> A quick tour of verbs</a></li>
+<li><a class="" href="r-verb-filter.html"><span class="header-section-number">16</span> Verbs in depth: Select, filter, arrange</a></li>
+<li><a class="" href="r-verb-groupby.html"><span class="header-section-number">17</span> Verbs in depth: Aggregating with groups</a></li>
+<li><a class="" href="r-verb-mutate.html"><span class="header-section-number">18</span> Verbs in depth: New from old data with Mutate</a></li>
+<li><a class="" href="r-verb-join.html"><span class="header-section-number">19</span> Verbs in depth: Matchmaking with joins</a></li>
+<li><a class="" href="r-recipes.html"><span class="header-section-number">20</span> Recipes</a></li>
+<li class="book-part">Visualization as a reporting tool</li>
+<li><a class="" href="viz-intro.html">Introduction</a></li>
+<li><a class="" href="viz-reporting.html"><span class="header-section-number">21</span> Visualization as a reporting tool</a></li>
+<li><a class="" href="viz-demo.html"><span class="header-section-number">22</span> Visualization demo</a></li>
+<li class="book-part">Special skills</li>
+<li><a class="" href="advanced-intro.html">Introduction</a></li>
+<li><a class="" href="advanced-regex.html"><span class="header-section-number">23</span> Regular Expressions for pattern matching</a></li>
+<li><a class="" href="advanced-openrefine.html"><span class="header-section-number">24</span> Open refine walkthrough</a></li>
+<li><a class="" href="advanced-scrape1.html"><span class="header-section-number">25</span> Scraping without programming</a></li>
+<li><a class="" href="advanced-scrape2.html"><span class="header-section-number">26</span> Introduction to scraping in R</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="" href="appendix-math.html"><span class="header-section-number">A</span> Newsroom numbers cheat sheet</a></li>
+<li><a class="" href="appendix-program.html"><span class="header-section-number">B</span> A gentle intro to programming</a></li>
+<li><a class="" href="appendix-glossary.html"><span class="header-section-number">C</span> Glossary</a></li>
+<li><a class="" href="appendix-resources.html"><span class="header-section-number">D</span> Great R Resources</a></li>
+<li><a class="" href="appendix-ppp.html"><span class="header-section-number">E</span> Documentation for PPP data chapters</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="xl-practice-noc" class="section level1" number="11">
+<h1>
+<span class="header-section-number"> 11</span> Practice exercise<a class="anchor" aria-label="anchor" href="#xl-practice-noc"><i class="fas fa-link"></i></a>
+</h1>
+<p>This exercise helps you understand the difference between filtering and grouping, or, in Excel terms, filtering and pivot tables. In general, you’ll use filtering to look up the details of cases based on a criteria. These are the stories. You’ll use pivot tables to create aggregated data – count, sum, average, and the like.</p>
+<p>In the real world, reporters move back and forth between these two techniques. They’ll go back and filter for cases once they find something interesting in the aggregation, and will create sums and counts if they think they see a pattern in the cases.</p>
+<p>That’s pretty abstract concept – it will become more concrete as you go through the motions of this exercise.</p>
+<div id="data-source" class="section level2" number="11.1">
+<h2>
+<span class="header-section-number">11.1</span> Data source<a class="anchor" aria-label="anchor" href="#data-source"><i class="fas fa-link"></i></a>
+</h2>
+<p><a href="https://cronkitedata.s3.us-west-1.amazonaws.com/xlfiles/phx_claims_flagged.xlsx">Data download</a></p>
+<p><a href="https://www.phoenix.gov/financesite/Documents/City%20of%20Phoenix%20Claim%20Form%20%28REVISED%206-7-21%29.pdf">City link to Notice of claims form and instructions to claimants</a></p>
+<p><a href="https://docs.google.com/document/d/1j-vIiuysefqOrDAN-pIR5NqCq8mKqTBmQKcuhRLXy0o/edit?usp=sharing">Backgrounder on the data from Helen Wieffering</a></p>
+<p>This dataset includes all “Notice of Claims” against the city of Phoenix between 2010 and 2020. These claims refer to damages that people say they suffered because of a problem in the government ranging from slip-and-fall in a city building to use of force by police. It was obtained by Helen Wieffering just after the end of the 2020 fiscal year, so many of the claims from that year will be unresolved. Although the names of the claimants are public record, they were not included in the data compiled here. Also missing is the court case number of any cases that went to court.</p>
+<p>Make sure to look at the “data_dictionary” sheet for the definitions of each column before you start.</p>
+<p>In this tutorial, I’m providing the equivalent of a data diary for you – if you follow these instructions, you should come up with the same answers I did. You should keep your own diary alongside your work.</p>
+</div>
+<div id="sort-filter" class="section level2" number="11.2">
+<h2>
+<span class="header-section-number">11.2</span> Sort / filter<a class="anchor" aria-label="anchor" href="#sort-filter"><i class="fas fa-link"></i></a>
+</h2>
+<p>I almost always go into the Excel preferences, and under “Tables &amp; Filters” turn off the check that says “Use table names in formulas”. Sometimes it sticks, sometimes it doesn’t. Have no idea why.</p>
+<p>Arrange (sort) the claims using the ID column which is called “orig_order”.</p>
+<ol style="list-style-type: decimal">
+<li><p>What is the orig_order (id) value of the largest PAID claim in the database (combined personal injury and property) ?</p></li>
+<li><p>What department and cause were associated with that payment?</p></li>
+<li><p>How long did it take to resolve it?</p></li>
+<li><p>Describe the most recent claim made against the police related to law enforcement activities, regardless of whether it’s been resolved.</p></li>
+<li><p>Filter for pd_total of greater than zero, and the type called “Shootings”. Look at the lower left corner and record how many claims against the city for shootings were paid any money?</p></li>
+<li><p>Find one other thing that you might want to research further that could make an interesting one-off story. These are distinct events that you’d like to know more about, not trends or patterns. This requires no calculation, just your news judgment.</p></li>
+</ol>
+</div>
+<div id="pivot-table-motivation" class="section level2" number="11.3">
+<h2>
+<span class="header-section-number">11.3</span> Pivot table motivation<a class="anchor" aria-label="anchor" href="#pivot-table-motivation"><i class="fas fa-link"></i></a>
+</h2>
+<p>Here are some questions you have about each department in the city:</p>
+<ul>
+<li>What was the highest and lowest payout they made?</li>
+<li>How many claims were made, and how many were paid out?</li>
+<li>What was the total amount paid and the average per claim?</li>
+</ul>
+<div id="using-filters-to-answer-big-questions" class="section level3" number="11.3.1">
+<h3>
+<span class="header-section-number">11.3.1</span> Using filters to answer big questions<a class="anchor" aria-label="anchor" href="#using-filters-to-answer-big-questions"><i class="fas fa-link"></i></a>
+</h3>
+<p>Here’s one way to do it, using the filters:</p>
+<ol style="list-style-type: decimal">
+<li>Remove all of your filter.</li>
+<li>Filter by department. We’ll start with Aviation, the first one on the list.</li>
+<li>Select the entire table, including the headings. Copy it to a new sheet. Don’t be surprised if you miss the headings or some of the columns the first couple of times through and have to do it again.<br>
+</li>
+<li>Rename the new sheet “Aviation” by double-clicking on its tab.</li>
+<li>Make sure you’re in the top left corner of the screen (use CTL-HOME key if you’re on a real keyboard, CTL-UP and CTL-Left if you’re not.) Freeze the column headings so you can scroll to the bottom and still see what you’re looking at (under View, Freeze top Row)</li>
+<li>Note the number of rows that were copied and subtract one. Record that as the number of claims made.</li>
+<li>Make sure you start from the top of the sheet, and filter out “Unresolved” claims by un-selecting it. Don’t touch anything before you note the number of records found at the bottom left (it should be 11852 in this case). That’s the number of resolved claims. Now filter on the same column, and uncheck “No payment” and note the number of claims. It should be 5718.</li>
+<li>Go to the bottom of the worksheet. Skip a row, and sum the column. Repeat that, replacing =sum() with =max(), =min() , =average().</li>
+<li>Write down all of your answers on a piece of paper.</li>
+</ol>
+<p>Don’t be surprised if you do this wrong a few times, and you have to do it over. But now you have the answer for the Aviation department.</p>
+<p>Try to imagine what you’d do if you wanted to know the average and minimum payout of just those that were settled .</p>
+</div>
+</div>
+<div id="rinse-repeat" class="section level2" number="11.4">
+<h2>
+<span class="header-section-number">11.4</span> Rinse, repeat<a class="anchor" aria-label="anchor" href="#rinse-repeat"><i class="fas fa-link"></i></a>
+</h2>
+<p>Now repeat that entire process with at least two other departments that interest you.</p>
+</div>
+<div id="pivot-table" class="section level2" number="11.5">
+<h2>
+<span class="header-section-number">11.5</span> Pivot table<a class="anchor" aria-label="anchor" href="#pivot-table"><i class="fas fa-link"></i></a>
+</h2>
+<p>At this point, you should be thoroughly sick of having to do things over and over. The purpose of the pivot table is to let you compute these aggregate, or summary, statistics all at once for each category or set of categories. It can compute average, minimum , maximum and sum of values, and it can count the number of rows for any column. (In Excel they’re always the same. That’s not always true of all programs depending on how they handle missing information.)</p>
+<div id="create-the-pivot-table" class="section level3" number="11.5.1">
+<h3>
+<span class="header-section-number">11.5.1</span> Create the pivot table<a class="anchor" aria-label="anchor" href="#create-the-pivot-table"><i class="fas fa-link"></i></a>
+</h3>
+<p>1, Create an empty pivot table from the data table.</p>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Look for the “Options” tab toward the top left, and turn off “Generate GetPivotData”. In the same tab, under “Options”, set error values to “N/A”, and set Empty cells to zero (meaning there was nothing in that category.)</p></li>
+<li><p>Drag “Department” to the row area</p></li>
+<li><p>Drag the type_case to the filter area</p></li>
+<li><p>Drag the “department” to the Values area and make sure it says “Count of Department”.</p></li>
+<li><p>Drag the pd_total to the Values area, and make sure it says “Sum of pd_total”. If it doesn’t, change the pivot table calculation to “Sum”. Repeat that three times, with “average”, “min” and “max”.</p></li>
+</ol>
+<p>Try playing with the placement of items in the pivot table to get an intuition for what they do. You can drag a column into the “Filter” area so that you can pick out just some of the cases for analysis. It works the same way as the filter in the original sheet.</p>
+</div>
+<div id="practice-questions" class="section level3" number="11.5.2">
+<h3>
+<span class="header-section-number">11.5.2</span> Practice questions<a class="anchor" aria-label="anchor" href="#practice-questions"><i class="fas fa-link"></i></a>
+</h3>
+<p>Now answer the following questions:</p>
+<ol style="list-style-type: decimal">
+<li><p>What department had the most claims made against them from FY 2015-16 to through 2019-20?</p></li>
+<li><p>How much did the city pay in that time because of complaints against Streets. Did any department pay more?</p></li>
+<li><p>On average, how much did the city pay vs. the amount that was requested? Include only those complaints that have been resolved – not those that are still underway or have been reopened.</p></li>
+</ol>
+</div>
+</div>
+</div>
+
+
+
+  <div class="chapter-nav">
+<div class="prev"><a href="xl-formulas.html"><span class="header-section-number">10</span> Formulas in Excel</a></div>
+<div class="next"><a href="r-intro.html">Introduction</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#xl-practice-noc"><span class="header-section-number">11</span> Practice exercise</a></li>
+<li><a class="nav-link" href="#data-source"><span class="header-section-number">11.1</span> Data source</a></li>
+<li><a class="nav-link" href="#sort-filter"><span class="header-section-number">11.2</span> Sort / filter</a></li>
+<li>
+<a class="nav-link" href="#pivot-table-motivation"><span class="header-section-number">11.3</span> Pivot table motivation</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#using-filters-to-answer-big-questions"><span class="header-section-number">11.3.1</span> Using filters to answer big questions</a></li></ul>
+</li>
+<li><a class="nav-link" href="#rinse-repeat"><span class="header-section-number">11.4</span> Rinse, repeat</a></li>
+<li>
+<a class="nav-link" href="#pivot-table"><span class="header-section-number">11.5</span> Pivot table</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#create-the-pivot-table"><span class="header-section-number">11.5.1</span> Create the pivot table</a></li>
+<li><a class="nav-link" href="#practice-questions"><span class="header-section-number">11.5.2</span> Practice questions</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Data Reporting, Spring 2022</strong>" was written by Sarah Cohen. It was last built on 2022-03-31.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

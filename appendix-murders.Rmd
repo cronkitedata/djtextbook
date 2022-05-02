@@ -1,0 +1,352 @@
+# Murder Accountability Project exercises
+
+
+<style>
+   table {
+      font-size:.8em;
+   }
+</style>
+
+
+The Murder Accountability Project was profiled in the [New Yorker in November, 2017](https://www.newyorker.com/magazine/2017/11/27/the-serial-killer-detector). Andrew B Tran brilliantly decided to use its data as a vehicle for learning R in his [R for Journalists' online class](https://learn.r-journalism.com/en/).  This set of tutorials adapts his exercises for people using this textbook. You should consider taking his entire free full course if you want to get more detail. 
+
+
+[Download the data](https://github.com/cronkitedata/rstudyguide/blob/master/data/murder_data.Rda) into a new or existing R project, then load it using the `load(file="murder_data.Rda")` command in a code chunk. 
+
+
+```{r include=FALSE}
+
+library(tidyverse)
+#optional, for fancy tables
+library (DT)
+# optional, for crosstabs
+library (janitor)
+# more fancy tables
+library (knitr)
+load("data/murder_data.Rda")
+
+
+```
+
+
+## The data
+
+This R dataset was created by subsetting only mountain states and Oregon and Washington from the national dataset, and converting the codes used in the original SPSS data into codes and their labels in separate variables. The data runs from 1976 through 2018. Here are the fields included: 
+
+
+```{r echo=FALSE}
+glimpse(murder_data)
+
+```
+
+Any variable that begins with `off` refers to the offender; any variable that begins with `vic` refers to the victim. Most variables are pretty self-explanatory, but here are a few details: 
+
+* `fip` and `state_fip` are standard codes used across many databases to identify geographic areas -- in this case, counties and states.
+* `msa_code` and `msa_name` refer to Metropolitan Statistical Areas, which combine nearby counties regardless of state into areas that are often considered on large metropolitan area, such as Washington DC and the Virginia and Maryland suburbs.
+* `ori`, `agency` and `agency_type` refer to the law enforcement agency -- police or sheriff's office -- that investigated the murder. An ORI is a standard code for each agency from the FBI. 
+* `relationship_code` and `relationship` can be confusing. They refer to the relationship of the victim to the offender, not the other way around. For example, "Wife" means that the victim was the killer's wife, not that the killer was the victim's wife. This is unclear in the FBI documentation. 
+
+More details are available in [this detailed record layout and data dictionary](https://www.dropbox.com/s/lo6tgo8nnbpqeru/MAPdefinitionsSHR.pdf?dl=1). 
+
+
+
+## Exercises by chapter
+
+### Select and filter exercises
+
+Here are some suggested exercises to practice what you learned in Chapter 5, Select and Filter: 
+
+
+#### Older wives as victims in Arizona {-}
+
+1. Create a new data frame called `arizona_murders` based on just the murders that were reported in that state.  
+
+Try doing these one step at a time by adding to a query : 
+
+2. Pick out just following variables to work with:  
+    * year
+    * name of the county and the police department, 
+    * whether it was solved, 
+    * demographics (eg, age, race, sex, ethnicity) of the victim and the offender, 
+    * information on the weapon and the relationship
+    
+3. List all of the murders in which the killer was the husband of the victim. This can be done using either the relationship or the relationship_code.
+
+4. Add a condition that the wives were at least 60 years old. 
+
+5. Sort the answer by oldest to youngest
+
+
+#### Gun-related killings {-}
+
+Finding out what codes are in the data could be done with a `group_by`/`summarise` query, but there is another verb that can show you every **unique** value in a dataset. Use this code to show you every type of weapon used in the dataset: 
+
+        murder_data %>%
+           distinct (weapon_code, weapon) %>%
+           arrange (weapon_code)
+
+
+The verb `distinct` is used instead of `select` to just show a list of values that are never repeated. When you run that code, you can see why it's sometimes useful to keep codes as well as words in a dataset -- codes "11" through "15" refer to some kind of gun. 
+
+**Question**: Find all gun-related murders of young black or Hispanic men since 2015.
+You can define "young" however you want, but in my example I'll use victims between 15 and 29. 
+
+In this example, you'll have to combine OR conditions, with others. Remember you can use BETWEEN for ranges of values or %in% for a list of values. 
+
+
+#### Advanced exercises using other conditions {-}
+
+If you're feeling adventurous, try figuring out how you might find: 
+
+* Any domestic-violence related incidents. Hint: This would be an `%in%` condition once you look at your options using either "distinct" or a group-by query. 
+
+* Try using `str_detect` when you want to use wild cards instead of exact matches. These take regular expressions as arguments. So to find any gun in this dataset, you'd use 
+
+      str_detect(weapon_code, "^1")
+
+(For more details on regular expressions, try the [Regex101 tutorial](https://cronkitedata.github.io/cronkite-docs/special/regex-beginning.html) on our class website. Using regular expressions is often a way to make queries shorter and less fussy, but they are not as clear to a reader -- they often take some puzzling through.)
+
+
+### Group by and summarise
+
+The group by exercises are just like a pivot table. In fact, to turn it on its head, you use the command "pivot_wider"
+
+
+#### "The most" {-}
+
+* Which county in this small dataset has the most murders? Which one has the most police killings? (Look in the circumstance column for this.)
+
+* Create a table showing the number of murders by year and state (with states across the top, and years down the side). This is a group_by / summarise / arrange / pivot_wider exercise
+
+* Try calculating the percent of murders by relationship. For this to work, you can only keep one group_by column (relationship)
+
+#### Putting it all together {-}
+
+What percent of each state's domestic violence victims are of Hispanic origin? 
+
+
+### Mutate
+
+In this case, there aren't very many numbers for us to work with, but there are still things to be done to make more meaningful groupings. These are usually done using an `if_else` statement or something like it.
+
+1. Create a table that compares the number of gun murders with other weapons for each year.
+2. Try to compute the percent of murders by weapon annually.
+3. Are gun murders more likely to be solved than others? 
+
+
+### Join 
+
+This gives you an opportunity to see how to add data to a table from the Web. This [Excel file](https://github.com/cronkitedata/cronkite-docs/blob/master/docs/assets/data/xlexamples/countypops_withinfo.xlsx?raw=true)  includes lots of information from the Census as of 2017, which you can link to summary data from the murder data using the county fips codes. 
+
+
+## Wrap-up exercise
+
+Try getting as far as you can to answer this question: Characterize the county with the highest murder rate, using the Census data linked above. This will require doing everything in steps: 
+
+1. Grouping to the county level, keeping the county FIPS code
+2. Importing the Excel file, making sure you keep the FIP code as the same type of data as the one in the murder dataset.
+3. Joining the grouped file to the Census data.
+4. Computing the murder rate
+5. Deciding which variables in the Census data to use or manipulate to find a characterization that you're interested in. 
+
+
+
+## Answers to exercises
+
+### Select and filter
+
+#### Arizona wives {-}
+
+1. Create a new dataset with just arizona: 
+
+```{r  results="hide"}
+arizona_murders <- 
+  murder_data %>%
+  filter ( state_abbr == "AZ")
+```
+
+
+You should have 15,443 rows in this dataset.
+
+2. The final set of queries might look like this. (You might have noticed you that you had one victim age 999 when you sorted. That means "unknown" in this dataset, so you'll want to filter that out as well.)
+
+```{r results="hide"}
+
+arizona_murders  %>%
+  select ( year, cnty_name, agency, solved, 
+           starts_with("vic"), starts_with("off"), 
+           contains ("relationship")) %>%
+  filter (relationship == "Wife"  & 
+          vic_age >= 60 & 
+          vic_age < 999 )  %>%
+  arrange ( desc(vic_age)) 
+
+  
+
+```
+
+You could also use 
+      
+      relationship == "Wife"  & 
+          between (vic_age, 60, 998)  
+          
+
+You might also notice that there is a Male "wife" as a victim, reflecting how poorly many police agencies fill out these forms. 
+
+
+#### Gun-related killings {-}
+
+This is actually much more difficult than it sounds. Try to build it one piece at a time.  Here is how I might build the conditions: 
+Guns:
+
+        ... weapon_code %in% c("11", "12", "13", "14", "15")
+
+(This is a text variable even though it looks like numbers - that means you need the quotes. Don't forget to use the "c" for "combine into a list" before the list of values)^[ If you wanted to go further with filtering, you might look at the `regular expressions` available for more sophisticated filtering using the `str_detect` function. In this case,  `str_detect (weapon_code, "^1")` searches for anything in the field that begins with a "1".]
+
+Since 2015:
+
+        weapon_code %in% c("11", "12", "13", "14", "15") &
+        year >= 2015
+
+
+Young men: 
+
+        weapon_code %in% c("11", "12", "13", "14", "15") &
+        year >= 2015 & 
+        between (vic_age, 15, 29)
+
+Black and Hispanic victims:
+
+        weapon_code %in% c("11", "12", "13", "14", "15") &
+        year >= 2015 & 
+        between (vic_age, 15, 29)  &
+        (vic_race_code  == "B" | vic_ethnic_code = "H")
+        
+
+That last one is the trickiest -- If you want to find both African-American AND Hispanic victims, you need to look for a race code of "B" OR an ethnicity code of "H". Those have to be in a parenthese in order not to be confused with the other conditions. (I'm going to select just some of the columns and order it by the year and month of the murder, showing only the most recent). (NOTE: Eliminate the last line of this code if you haven't installed and activated the "DT" package, which makes searchable, sortable tables.)  
+
+If this complex filter seems too complex, you can always chain one filter after another to check your data as you go. For example, you could do this: 
+
+         murder_data %>%
+            filter ( weapon_code %in% c("11", "12", "13", "14", "15") ) %>%
+            filter ( vic_race_code == "B" | vic_ethnic_code == "H") ....
+            
+            
+            
+### Group by 
+
+#### "The most" {-}
+
+1. County with the most killings
+
+
+```{r results="hide"}
+
+murder_data %>%
+  group_by (state_abbr, cnty_name) %>%
+  summarise ( cases = n() ) %>%
+  arrange (desc (cases))
+
+```
+
+Why is this answer not surprising? (Hint: Clark County, Nevada, has about half the population of Maricopa.) We'll get to ways to normalize this in later chapters.
+
+To just get the police shootings, filter the above query for `circumstance_code == "81"` before the `group_by`
+
+2. Murders by state and year
+
+"Mutate" here takes the result of the summary, then creates a new category with the annual totals. It's a little confusing how it works, but don't worry about it too much. Just know it's possible.
+
+```{r results="hide"}
+
+murder_data %>% 
+  group_by (year, state_abbr) %>%
+  summarise (cases = n() ) %>%
+  #bonus: Calculate the total number of cases by year:
+  mutate ( total_cases = sum(cases) )  %>%
+  pivot_wider (names_from = state_abbr, values_from = cases) %>%
+  arrange ( desc (year)) 
+
+```
+
+Does this mean that these states have suddenly become more dangerous? What about population growth? 
+
+**Alternative method**
+
+The `janitor` package (which you may need to install) has a way to create cross-tabulations like this more simply. The function is `tabyl` (to distinguish from other table operations in R, which you probably want to avoid).  Here's an example: 
+
+```{r}
+
+murder_data %>%
+  tabyl ( year , state_abbr) %>%
+  arrange ( desc (year) ) %>%
+  head () 
+
+```
+
+3. Percent of murders by relationship:
+
+Once those totals are calculated, you can use them to compute a new variable, such as percent.
+
+```{r results="hide"}
+
+murder_data %>%
+  group_by (relationship) %>%
+  summarise (num_of_cases = n() ) %>%
+  mutate (total_cases = sum(num_of_cases) ,
+          # This rounds to 1 digit.
+          pct_cases = round (num_of_cases / total_cases * 100 , 1)
+          ) %>%
+  # you could un-select the total cases since they'll always be the same , but for illustratio purposes I'm keeping it.
+  arrange ( desc (num_of_cases)) 
+```
+
+**Alternative method with `janitor::tabyl`**
+
+```{r results="hide"}
+
+murder_data %>%
+  tabyl (relationship) %>%
+  adorn_pct_formatting (digits=1)   %>%
+  #this last part turns it into a normal data frame
+  arrange ( desc(n)) %>%
+  as_tibble()
+
+```
+
+#### Putting it all together {-}
+  
+  First, isolate the domestic violence cases. Let's see what our choices are: 
+  
+```{r}
+
+murder_data %>%
+  group_by (relationship_code, relationship) %>%
+  summarise (n())
+
+```
+
+Here's one way to get the answer (eliminating cases in which we don't know the victim's ethnicity)
+
+```{r results="hide"}
+
+murder_data %>%
+  filter ( relationship_code %in% c("BF", "BR", "CH", "CW", "DA", "FA", 
+                                    "GF", "HO", "HU", "IL", "MO", "OF", "SD", "SF", 
+                                    "SI", "SM", "SO", "WI", "XH", "XW")   & 
+          vic_ethnic_code %in% c("H", "N")
+        ) %>%
+   group_by ( state_abbr, vic_ethnic ) %>%
+   summarise (cases = n() ) %>%
+   #calculate total by state and percent
+   mutate ( total_cases = sum(cases), 
+            pct_cases = cases / total_cases * 100 ) %>%
+   #get rid of case counts
+   select ( -cases ) %>%
+   #sort by state
+   arrange ( state_abbr ) %>%
+   # put ethnicity in columns
+   pivot_wider ( values_from = pct_cases, names_from = vic_ethnic)  
+  
+```
+  

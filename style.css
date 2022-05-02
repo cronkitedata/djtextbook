@@ -1,0 +1,160 @@
+/* Google fonts*/
+
+@import url('https://fonts.googleapis.com/css?family=Muli:400,400i,700,700i|Prata|Source+Code+Pro&display=swap');
+
+/* Site-wide changes */
+
+
+
+body {
+  color: #5c5962;
+}
+
+/* Not sure what this will do. I want serif for headings.*/
+
+.book.font-family-1 {
+  font-family: 'Muli', sans-serif;
+ }
+
+h1, h2, h3, h4 {
+  font-family: 'Prata', serif;
+  color: #2f5275;
+}
+
+.title {
+  font-family: 'Prata', serif;
+  font-size: 2.5rem !important;
+  color: #5699cc;
+}
+
+.subtitle {
+  font-family: 'Prata', serif;
+  color: #2c6793 !important;
+}
+
+
+
+/*Change from green to blue*/
+a  {
+ color: #3f88ca;;
+}
+
+a:hover {
+ color: #1f5386; /* darker color when hovering */
+ text-decoration: none;
+}
+
+
+p.caption {
+  color: #777;
+  margin-top: 10px;
+}
+
+p code {
+  white-space: inherit;
+}
+
+pre {
+  word-break: normal;
+  word-wrap: normal;
+}
+
+pre code {
+  white-space: inherit;
+}
+
+
+/* Bootstrap changes */
+
+/* Make the alerts a little less intense*/
+
+.alert-info, .alert-warning {
+  opacity:0.6 ;
+}
+
+
+/* Aligning the toolbar */
+
+.summary > li:first-child {
+    height: 50px;
+    padding-top: 10px;
+    border-bottom: 1px solid rgba(0,0,0,.07);
+}
+
+.book .book-summary ul.summary li.divider {
+    height: 0px;
+}
+
+
+/* -- LOGO --- */
+
+.toc-logo {
+  width: 200px !important;
+  object-fit: contain;
+  margin: 0 auto;
+  display: block;
+}
+
+.toc-logo img {
+  max-width: 100%;
+  margin-bottom: 10px;
+}
+
+.summary > li:first-child {
+  height: auto !important;
+}
+
+/* Changes for very wide screens
+   I'd like to find a way to make it use more of the screen but I don't know how.*/
+
+@media (min-width: 1200px) {
+  .container-fluid {
+    max-width: 95rem;
+  }
+  .container-fluid .row {
+    justify-content: space-evenly;
+  }
+  .container-fluid main {
+ /*   max-width: 45rem; */
+      margin: 0 1%;
+  }
+  .sidebar {
+    max-width: 15rem;
+  }
+
+  /* Increase font-size for very wide devices */
+  body {
+    font-size: 1.05rem;
+  }
+}
+
+
+
+
+
+
+.subtitle em {
+  font-style: normal !important;
+}
+
+
+
+blockquote {
+  border-left: 1rem solid #ecf0f1;
+  color:  #7b8a8b;
+  padding-left: 1.5rem;
+  margin-left: -0.5rem;
+  font-size: .9rem;
+  font-style: italic;
+  text-align: left;
+}
+
+
+blockquote > p:last-child {
+  text-align: right;
+}
+
+blockquote > p:first-child {
+  text-align: inherit;
+}
+

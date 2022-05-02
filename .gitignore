@@ -1,0 +1,13 @@
+.DS_Store
+.Rhistory
+.Rproj.user
+.Rproj.user/
+.RData
+.Ruserdata
+book.bib
+.Rproj
+.Rapp.history
+_bookdown_files/
+_main.log
+_common.R
+/scratch

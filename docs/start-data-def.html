@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title> 3 Defining “Data” | Data Reporting, Spring 2022</title>
+<meta name="author" content="Sarah Cohen">
+<meta name="description" content="data /ˈdeɪ.tə/ : information in an electronic form that can be stored and used by a computer, or information, especially facts or numbers, collected to be examined and &gt;considered and used to help...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content=" 3 Defining “Data” | Data Reporting, Spring 2022">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://github.com/cronkitedata/djtextbook/start-data-def.html">
+<meta property="og:description" content="data /ˈdeɪ.tə/ : information in an electronic form that can be stored and used by a computer, or information, especially facts or numbers, collected to be examined and &gt;considered and used to help...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content=" 3 Defining “Data” | Data Reporting, Spring 2022">
+<meta name="twitter:site" content="@sarahcnyt">
+<meta name="twitter:description" content="data /ˈdeɪ.tə/ : information in an electronic form that can be stored and used by a computer, or information, especially facts or numbers, collected to be examined and &gt;considered and used to help...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Muli-0.4.0/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/core-js-2.5.3/shim.min.js"></script><script src="libs/react-17.0.0/react.min.js"></script><script src="libs/react-17.0.0/react-dom.min.js"></script><script src="libs/reactwidget-1.0.0/react-tools.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="libs/reactable-binding-0.2.3/reactable.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link rel="shortcut icon" href="assets/images/favicon.ico">
+<!--
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        --><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Data Reporting, Spring 2022</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li class="book-part">Reporting with data</li>
+<li><a class="" href="starter-intro.html">In this section</a></li>
+<li><a class="" href="start-story.html"><span class="header-section-number">1</span> Learn a new way to read</a></li>
+<li><a class="" href="start-math.html"><span class="header-section-number">2</span> Newsroom math</a></li>
+<li><a class="active" href="start-data-def.html"><span class="header-section-number">3</span> Defining “Data”</a></li>
+<li><a class="" href="start-data-diary.html"><span class="header-section-number">4</span> Replication and the data diary</a></li>
+<li><a class="" href="start-hunt.html"><span class="header-section-number">5</span> Finding the right data for your story</a></li>
+<li><a class="" href="start-build-own.html"><span class="header-section-number">6</span> Build your own database</a></li>
+<li class="book-part">Spreadsheets</li>
+<li><a class="" href="xl-intro.html">Introduction</a></li>
+<li><a class="" href="xl-refresher.html"><span class="header-section-number">7</span> An Excel Refresher</a></li>
+<li><a class="" href="xl-filter-sort.html"><span class="header-section-number">8</span> Sorting and filtering to find stories</a></li>
+<li><a class="" href="xl-pivot.html"><span class="header-section-number">9</span> Grouping with pivot tables</a></li>
+<li><a class="" href="xl-formulas.html"><span class="header-section-number">10</span> Formulas in Excel</a></li>
+<li><a class="" href="xl-practice-noc.html"><span class="header-section-number">11</span> Practice exercise</a></li>
+<li class="book-part">R Study Guide</li>
+<li><a class="" href="r-intro.html">Introduction</a></li>
+<li><a class="" href="r-start.html"><span class="header-section-number">12</span> Getting started with R and RStudio</a></li>
+<li><a class="" href="r-markdown.html"><span class="header-section-number">13</span> R Markdown</a></li>
+<li><a class="" href="r-data-import.html"><span class="header-section-number">14</span> Getting and saving data</a></li>
+<li><a class="" href="r-verbs.html"><span class="header-section-number">15</span> A quick tour of verbs</a></li>
+<li><a class="" href="r-verb-filter.html"><span class="header-section-number">16</span> Verbs in depth: Select, filter, arrange</a></li>
+<li><a class="" href="r-verb-groupby.html"><span class="header-section-number">17</span> Verbs in depth: Aggregating with groups</a></li>
+<li><a class="" href="r-verb-mutate.html"><span class="header-section-number">18</span> Verbs in depth: New from old data with Mutate</a></li>
+<li><a class="" href="r-verb-join.html"><span class="header-section-number">19</span> Verbs in depth: Matchmaking with joins</a></li>
+<li><a class="" href="r-recipes.html"><span class="header-section-number">20</span> Recipes</a></li>
+<li class="book-part">Visualization as a reporting tool</li>
+<li><a class="" href="viz-intro.html">Introduction</a></li>
+<li><a class="" href="viz-reporting.html"><span class="header-section-number">21</span> Visualization as a reporting tool</a></li>
+<li><a class="" href="viz-demo.html"><span class="header-section-number">22</span> Visualization demo</a></li>
+<li class="book-part">Special skills</li>
+<li><a class="" href="advanced-intro.html">Introduction</a></li>
+<li><a class="" href="advanced-regex.html"><span class="header-section-number">23</span> Regular Expressions for pattern matching</a></li>
+<li><a class="" href="advanced-openrefine.html"><span class="header-section-number">24</span> Open refine walkthrough</a></li>
+<li><a class="" href="advanced-scrape1.html"><span class="header-section-number">25</span> Scraping without programming</a></li>
+<li><a class="" href="advanced-scrape2.html"><span class="header-section-number">26</span> Introduction to scraping in R</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="" href="appendix-math.html"><span class="header-section-number">A</span> Newsroom numbers cheat sheet</a></li>
+<li><a class="" href="appendix-program.html"><span class="header-section-number">B</span> A gentle intro to programming</a></li>
+<li><a class="" href="appendix-glossary.html"><span class="header-section-number">C</span> Glossary</a></li>
+<li><a class="" href="appendix-resources.html"><span class="header-section-number">D</span> Great R Resources</a></li>
+<li><a class="" href="appendix-ppp.html"><span class="header-section-number">E</span> Documentation for PPP data chapters</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="start-data-def" class="section level1" number="3">
+<h1>
+<span class="header-section-number"> 3</span> Defining “Data”<a class="anchor" aria-label="anchor" href="#start-data-def"><i class="fas fa-link"></i></a>
+</h1>
+<blockquote>
+<p>data /ˈdeɪ.tə/ :</p>
+<p>information in an electronic form that can be stored and used by a computer, or information, especially facts or numbers, collected to be examined and &gt;considered and used to help decision-making</p>
+<p>– Cambridge Dictionary – sort of <a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;I flipped the order of these two definitions!&lt;/p&gt;"><sup>2</sup></a></p>
+</blockquote>
+<div id="the-birth-of-a-dataset" class="section level2" number="3.1">
+<h2>
+<span class="header-section-number">3.1</span> The birth of a dataset<a class="anchor" aria-label="anchor" href="#the-birth-of-a-dataset"><i class="fas fa-link"></i></a>
+</h2>
+<p>Most journalism uses data collected for one purpose for something entirely different. Understanding its original uses – what matters to the people who collected it, and what doesn’t – will profoundly affect its accuracy or usefulness.</p>
+<div id="trace-data-and-administrative-records" class="section level3 unnumbered">
+<h3>Trace data and administrative records<a class="anchor" aria-label="anchor" href="#trace-data-and-administrative-records"><i class="fas fa-link"></i></a>
+</h3>
+<p>In “<a href="https://www.amazon.com/Art-Access-Strategies-Acquiring-Records/dp/1604265507">The Art of Access</a>”, David Cullier and Charles N. Davis describe a process of tracking down the life and times of a dataset. Their purpose is to make sure they know how to request it from a government agency. The same idea applies to using data that we acquire elsewhere.</p>
+<p>Understanding how and why data exists is crucial to understanding what you, as a reporter, might do with it.</p>
+<p>Anything you can systematically search or analyze could be considered one piece of of data. As reporters, we usually deal with data that was created in the process of doing something else – conducting an inspection, delivering a tweet, or scoring a musical. In the sciences, this flotsam and jetsom that is left behind is called “digital trace data” if it was born digitally.</p>
+<p>In journalism and in the social sciences, many of our data sources were born during some government process – a safety inspection, a traffic ticket, or the filing of a death certificate. These administrative records form the basis of much investigative reporting and they are often the subject of public records and FOIA requests. They were born as part of the government doing its job, without any thought given to how it might be used in another way. In the sciences, those are often called “administrative records”.</p>
+<p>This trace data might be considered the first part of the definition above – information that can be stored and used.</p>
+<p>Here’s how Chris Bail from Duke University describes it:</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/uuSWQN7uYhk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+</div>
+<div id="data-collected-and-curated-for-analysis" class="section level3 unnumbered">
+<h3>Data collected and curated for analysis<a class="anchor" aria-label="anchor" href="#data-collected-and-curated-for-analysis"><i class="fas fa-link"></i></a>
+</h3>
+<p>Another kind of data is that which is compiled or collected specifically for the purpose of studying something. It might collected in the form of a survey or a poll, or it might be a system of sampling to measure pollution or weather. But it’s there because the information has intrinsic value AS information.</p>
+<p>The video suggests a hard line between trace data and custom data. In practice, it’s not that clear. Many newsrooms may curate data published in other sources or in administrative records, such as the Washington Post’s police shooting dataset. In other cases, the agencies we are covering get already-compiled data from state and local governments.</p>
+<p>This type of data might be considered the second type in the definition – tabular information that is used for decision-making.</p>
+</div>
+</div>
+<div id="granular-and-aggregated-data" class="section level2" number="3.2">
+<h2>
+<span class="header-section-number">3.2</span> Granular and aggregated data<a class="anchor" aria-label="anchor" href="#granular-and-aggregated-data"><i class="fas fa-link"></i></a>
+</h2>
+<p>One of the hardest concepts for a lot of new data journalists is the idea of <em>granularity</em> of your data source. There are a lot of ways to think about this: individual items in a list vs. figures in a table; original records vs. compilations; granular data vs. statistics.</p>
+<p>Generally, an investigative reporter is interested in getting data that is as close as possible to the most granular information that exists, at least on computer files. Here’s an example , which might give you a little intuition about why it’s so important to think this way:</p>
+<p>When someone dies in the US, a standard death certificate is filled out by a series of officials - the attending physician, the institution where they died and even the funeral direcor.</p>
+<p><a href="https://www.cdc.gov/nchs/data/dvs/death11-03final-acc.pdf">Click on this link</a> to see a blank version of the standard US death certificate form – notice the detail and the detailed instructions on how it is supposed to be filled out. <a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;You should do this whenever you get a dataset created from administrative records. That is, track down its origin and examine the pieces you were given and the pieces that were left out; look at what is written in free-form vs what is presented as a check box. You may need a copy of the template that an agency uses to collect the information, but many governments make these available on their websites or are willing to provide them without a fuss.&lt;/p&gt;"><sup>3</sup></a></p>
+<p>A good reporter could imagine many stories coming out of these little boxes. Limiting yourself to just to COVID-19-related stories: You could profile the local doctor who signed the most COVID-19-related death certificates in their city, or examine the number of deaths that had COVID as a contributing, but not underlying or immediate, cause of death. You could compare smoking rates in the city with the number of decedents whose tobacco use likely contributed to their death. Maybe you’d want to know how long patients suffered with the disease before they died. And you could map the deaths to find the block in your town most devastated by the virus.</p>
+<p>Early in the pandemic, Coulter Jones and Jon Kamp examined the records from one of the few states that makes them public, and concluded that “<a href="https://www.wsj.com/articles/coronavirus-deaths-were-likely-missed-in-michigan-death-certificates-suggest-11590073280%5D%20%5E%5BWall%20Street%20Journal,%20May%2021,%202020">Coronavirus Deaths were Likely Missed in Michigan, Death Certificates Suggest</a>”</p>
+<p>But you probably can’t do that. The reason is that, in most states, death certificates are not public records and are treated as secrets. <a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;See “&lt;a href="https://www.researchgate.net/publication/348322257_Secrecy_in_Death_Records_A_Call_to_Action"&gt;Secrecy in Death Records: A call to action&lt;/a&gt;”, by Megain Craig and Madeleine Davison, Journal of Civic Information, December 2020&lt;/p&gt;'><sup>4</sup></a>. Instead, state and local governments provide limited statistics related to the deaths, usually by county, with no detail. Here’s an example from Arizona:</p>
+<div class="inline-figure"><img src="assets/images/start-data-def-01.png" style="width:90.0%"></div>
+<p>That’s the difference between granular data and aggregate data. Here are some of the typical (not universal) characteristics of each:</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
+<thead><tr class="header">
+<th>Granular</th>
+<th>Aggregate</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Intended for some purpose other than your work</td>
+<td>Intended to be presented as is to the public</td>
+</tr>
+<tr class="even">
+<td>Many rows (records), few columns (variables)</td>
+<td>Many columns (variables), few rows (records)</td>
+</tr>
+<tr class="odd">
+<td>Requires a good understanding of the source</td>
+<td>Explanatory notes usually come with the data</td>
+</tr>
+<tr class="even">
+<td>Easy to cross-reference and compile</td>
+<td>Often impossible to repurpose</td>
+</tr>
+<tr class="odd">
+<td>Has few numeric columns</td>
+<td>May be almost entirely numerical</td>
+</tr>
+<tr class="even">
+<td>Is intended for use in a database</td>
+<td>Is intended for use in a spreadsheet</td>
+</tr>
+</tbody>
+</table></div>
+<p>We often have to consider the trade-offs. Granular data with the detail we need - especially when it involves personally identifiable information like names and addresses - can take months or years of negotiation over public records requests, even when the law allows it. It’s often much easier to convince an agency to provide summarized or incomplete data. Don’t balk at using it if it works for you. But understand that in the vast majority of cases, it’s been summarized in a way that’s lost information that could be important to your story.</p>
+</div>
+<div id="nouns" class="section level2" number="3.3">
+<h2>
+<span class="header-section-number">3.3</span> Nouns<a class="anchor" aria-label="anchor" href="#nouns"><i class="fas fa-link"></i></a>
+</h2>
+<p>That brings us to one of the most important things you must find out about any data you begin to analyze: What “noun” does each row in a tabular dataset represent? In statistics, they might be called <em>observations</em> or <em>cases</em>. In data science, they’re usually called <em>records</em>. Either way, every row must represent the same thing – a person, a place, a year, a water sample or a school. And you can’t really do anything with it until you figure out what that is.</p>
+<p>In 2015, we did a story at The New York Times called <a href="https://www.nytimes.com/2014/04/07/us/more-deportations-follow-minor-crimes-data-shows.html">“More Deportation Follow Minor Crimes, Records Show”</a> . The government had claimed it was only removing hardened criminals from the country, but our analysis of the data suggested that many of them were for minor infractions.</p>
+<p>In writing the piece, we had to work around a problem in our data: the agency refused to provide us anything that would help us distinguish individuals from one another. All we knew was that each row represented one deportation – not one person! Without a column, or <em>field</em> or a <em>variable</em> or an <em>attribute</em> for an individual – say, name and date of birth, or some scrambled version of an their DHS number – we had no way to even estimate how often people were deported multiple times. If you read the story, you’ll see the very careful wording, except when we had reported out and spoken to people on the ground.</p>
+</div>
+<div id="further-reading" class="section level2" number="3.4">
+<h2>
+<span class="header-section-number">3.4</span> Further reading<a class="anchor" aria-label="anchor" href="#further-reading"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li><p><a href="https://datajournalism.com/read/handbook/one/understanding-data/basic-steps-in-working-with-data">“Basic steps in working with data”</a>, the Data Journalism Handbook, Steve Doig, ASU Professor. He describes in this piece the problem of not knowing exactly how the data was compiled.</p></li>
+<li><p>“<a href="https://www.nytimes.com/2020/07/08/podcasts/the-daily/coronavirus-data-united-states.html">Counting the Infected</a>” , Rob Gebellof on The Daily, July 8, 2020.</p></li>
+<li><p>“<a href="https://eagereyes.org/basics/spreadsheet-thinking-vs-database-thinking">Spreadsheet thinking vs. Database thinking</a>”, by Robert Kosara, gets at the idea that looking at individual items is often a “database”, and statistical compilations are often “spreadsheets”.</p></li>
+<li><p>“<a href="https://vita.had.co.nz/papers/tidy-data.pdf">Tidy Data</a>”, in the Journal of Statistical Software (linked here in a pre-print) by Hadley Wickham , is the quintessential article on describing what we think of as “clean” data. For our purposes, much of what he describes as “tidy” comes when we have individual, granular records – not statistical compilations. It’s an academic article, but it has the underlying concepts that we’ll be working with all year.</p></li>
+</ul>
+</div>
+<div id="exercises-2" class="section level2" number="3.5">
+<h2>
+<span class="header-section-number">3.5</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-2"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li><p>Get a copy of a parking ticket from your local government, and try to imagine what a database of those would look like. What would every row represent? What would every column represent? What’s missing that you would expect to find, and what is included that surprises you?</p></li>
+<li><p>The next time you get a government statistical report, scour all of the footnotes to find some explanation of where the data came from. You’ll be surprised how often they are compilations of administrative records - the government version of trace data.</p></li>
+</ul>
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="start-math.html"><span class="header-section-number">2</span> Newsroom math</a></div>
+<div class="next"><a href="start-data-diary.html"><span class="header-section-number">4</span> Replication and the data diary</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#start-data-def"><span class="header-section-number">3</span> Defining “Data”</a></li>
+<li>
+<a class="nav-link" href="#the-birth-of-a-dataset"><span class="header-section-number">3.1</span> The birth of a dataset</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#trace-data-and-administrative-records">Trace data and administrative records</a></li>
+<li><a class="nav-link" href="#data-collected-and-curated-for-analysis">Data collected and curated for analysis</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#granular-and-aggregated-data"><span class="header-section-number">3.2</span> Granular and aggregated data</a></li>
+<li><a class="nav-link" href="#nouns"><span class="header-section-number">3.3</span> Nouns</a></li>
+<li><a class="nav-link" href="#further-reading"><span class="header-section-number">3.4</span> Further reading</a></li>
+<li><a class="nav-link" href="#exercises-2"><span class="header-section-number">3.5</span> Exercises</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Data Reporting, Spring 2022</strong>" was written by Sarah Cohen. It was last built on 2022-03-31.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

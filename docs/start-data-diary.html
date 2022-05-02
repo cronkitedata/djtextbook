@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title> 4 Replication and the data diary | Data Reporting, Spring 2022</title>
+<meta name="author" content="Sarah Cohen">
+<meta name="description" content="At the Associated Press, data reporters issue a simple command when beginning a project, which sets up a common set of files and folders. From there, reporters’ work is centrally stored and...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content=" 4 Replication and the data diary | Data Reporting, Spring 2022">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://github.com/cronkitedata/djtextbook/start-data-diary.html">
+<meta property="og:description" content="At the Associated Press, data reporters issue a simple command when beginning a project, which sets up a common set of files and folders. From there, reporters’ work is centrally stored and...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content=" 4 Replication and the data diary | Data Reporting, Spring 2022">
+<meta name="twitter:site" content="@sarahcnyt">
+<meta name="twitter:description" content="At the Associated Press, data reporters issue a simple command when beginning a project, which sets up a common set of files and folders. From there, reporters’ work is centrally stored and...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Muli-0.4.0/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/core-js-2.5.3/shim.min.js"></script><script src="libs/react-17.0.0/react.min.js"></script><script src="libs/react-17.0.0/react-dom.min.js"></script><script src="libs/reactwidget-1.0.0/react-tools.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="libs/reactable-binding-0.2.3/reactable.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link rel="shortcut icon" href="assets/images/favicon.ico">
+<!--
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        --><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Data Reporting, Spring 2022</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li class="book-part">Reporting with data</li>
+<li><a class="" href="starter-intro.html">In this section</a></li>
+<li><a class="" href="start-story.html"><span class="header-section-number">1</span> Learn a new way to read</a></li>
+<li><a class="" href="start-math.html"><span class="header-section-number">2</span> Newsroom math</a></li>
+<li><a class="" href="start-data-def.html"><span class="header-section-number">3</span> Defining “Data”</a></li>
+<li><a class="active" href="start-data-diary.html"><span class="header-section-number">4</span> Replication and the data diary</a></li>
+<li><a class="" href="start-hunt.html"><span class="header-section-number">5</span> Finding the right data for your story</a></li>
+<li><a class="" href="start-build-own.html"><span class="header-section-number">6</span> Build your own database</a></li>
+<li class="book-part">Spreadsheets</li>
+<li><a class="" href="xl-intro.html">Introduction</a></li>
+<li><a class="" href="xl-refresher.html"><span class="header-section-number">7</span> An Excel Refresher</a></li>
+<li><a class="" href="xl-filter-sort.html"><span class="header-section-number">8</span> Sorting and filtering to find stories</a></li>
+<li><a class="" href="xl-pivot.html"><span class="header-section-number">9</span> Grouping with pivot tables</a></li>
+<li><a class="" href="xl-formulas.html"><span class="header-section-number">10</span> Formulas in Excel</a></li>
+<li><a class="" href="xl-practice-noc.html"><span class="header-section-number">11</span> Practice exercise</a></li>
+<li class="book-part">R Study Guide</li>
+<li><a class="" href="r-intro.html">Introduction</a></li>
+<li><a class="" href="r-start.html"><span class="header-section-number">12</span> Getting started with R and RStudio</a></li>
+<li><a class="" href="r-markdown.html"><span class="header-section-number">13</span> R Markdown</a></li>
+<li><a class="" href="r-data-import.html"><span class="header-section-number">14</span> Getting and saving data</a></li>
+<li><a class="" href="r-verbs.html"><span class="header-section-number">15</span> A quick tour of verbs</a></li>
+<li><a class="" href="r-verb-filter.html"><span class="header-section-number">16</span> Verbs in depth: Select, filter, arrange</a></li>
+<li><a class="" href="r-verb-groupby.html"><span class="header-section-number">17</span> Verbs in depth: Aggregating with groups</a></li>
+<li><a class="" href="r-verb-mutate.html"><span class="header-section-number">18</span> Verbs in depth: New from old data with Mutate</a></li>
+<li><a class="" href="r-verb-join.html"><span class="header-section-number">19</span> Verbs in depth: Matchmaking with joins</a></li>
+<li><a class="" href="r-recipes.html"><span class="header-section-number">20</span> Recipes</a></li>
+<li class="book-part">Visualization as a reporting tool</li>
+<li><a class="" href="viz-intro.html">Introduction</a></li>
+<li><a class="" href="viz-reporting.html"><span class="header-section-number">21</span> Visualization as a reporting tool</a></li>
+<li><a class="" href="viz-demo.html"><span class="header-section-number">22</span> Visualization demo</a></li>
+<li class="book-part">Special skills</li>
+<li><a class="" href="advanced-intro.html">Introduction</a></li>
+<li><a class="" href="advanced-regex.html"><span class="header-section-number">23</span> Regular Expressions for pattern matching</a></li>
+<li><a class="" href="advanced-openrefine.html"><span class="header-section-number">24</span> Open refine walkthrough</a></li>
+<li><a class="" href="advanced-scrape1.html"><span class="header-section-number">25</span> Scraping without programming</a></li>
+<li><a class="" href="advanced-scrape2.html"><span class="header-section-number">26</span> Introduction to scraping in R</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="" href="appendix-math.html"><span class="header-section-number">A</span> Newsroom numbers cheat sheet</a></li>
+<li><a class="" href="appendix-program.html"><span class="header-section-number">B</span> A gentle intro to programming</a></li>
+<li><a class="" href="appendix-glossary.html"><span class="header-section-number">C</span> Glossary</a></li>
+<li><a class="" href="appendix-resources.html"><span class="header-section-number">D</span> Great R Resources</a></li>
+<li><a class="" href="appendix-ppp.html"><span class="header-section-number">E</span> Documentation for PPP data chapters</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="start-data-diary" class="section level1" number="4">
+<h1>
+<span class="header-section-number"> 4</span> Replication and the data diary<a class="anchor" aria-label="anchor" href="#start-data-diary"><i class="fas fa-link"></i></a>
+</h1>
+<p>At the Associated Press, data reporters issue a simple command when beginning a project, which sets up a common set of files and folders. From there, reporters’ work is centrally stored and documented in agreed-upon locations, making it easy for any one on the team to dip in and out of the project.</p>
+<p>All of the unit’s work, including its story memos, are done using standardized tools that allow for replication at any point in the project and ensure that any communication with all members of the reporting and graphics teams are looking at the same, up-to-date results.</p>
+<p>Meghan Hoyer, the team’s former manager, said the goal was to make sure that anyone on the team could pick up a project in the event of an emergency without wasting any time.</p>
+<p>One concession Hoyer made was to standardize the team around the R programming language. She doesn’t regret it. “It was a big lift at the time,” she said. “But now I could never go back” to overseeing projects done using less formal structure and documentation.</p>
+<div id="replication-and-the-data-diary" class="section level2" number="4.1">
+<h2>
+<span class="header-section-number">4.1</span> Replication and the data diary<a class="anchor" aria-label="anchor" href="#replication-and-the-data-diary"><i class="fas fa-link"></i></a>
+</h2>
+<p>The formal processes used by AP might not work for smaller endeavors, but anyone can put the underlying ideas to work. At the Center for Public Integrity, <a href="https://cronkitedata.s3.amazonaws.com/docs/TB_Data_Diary.pdf">Talia Buford, now at ProPublica, kept a simple Word document</a> with her questions and code annotated to help her repeat her work. That “data diary” served as a backstop and roadmap for fact-checking.</p>
+<p><strong>Your analysis and the way it’s characterized in publication must be demonstrably accurate.</strong> That means understanding exactly what you did, why, where it all is and how it should be communicated to a general audience. If you can’t describe exactly where the data came from, what you did to derive your findings, and where to find it all, it simply shouldn’t be published.</p>
+<!-- I was watched something recently that had something about how you should have your data in one place, and is it really there? I don't remember what that was. Fleeting vs. permanent. I just can't find it. -->
+<p>Think of the data work the same way you think about interview notes or transcripts and any other research for a story. You wouldn’t quote a court case without reading it and probably talking to some of the participants. You’d make sure you know where to find the documents and what people say about them. You will consult those documents during your fact-checking. All data work – even the most short-lived – should be documented in at least the same detail. Ideally, someone reading through your notes would be able to repeat your work and understand what it means.</p>
+<p>You also don’t want your future self to curse your present self. It is very likely you’ll have to drop the work at some point as other stories become more urgent and return to it months later. You should be able to pick up where you left off after briefly refreshing yourself on your work.</p>
+<p>There are disagreements among reporters about how much to try to make our work replicable just as scientists do. <a href="https://github.com/datajtext/DataJournalismTextbook/blob/master/Modules/Replication/introduction.md">Matt Waite’s rant</a> on the subject prompted me to <a href="https://github.com/datajtext/DataJournalismTextbook/blob/master/Modules/Replication/response.md">write a rebuttal</a>. The right answer is probably somewhere in between.</p>
+</div>
+<div id="first-steps-in-documentation" class="section level2" number="4.2">
+<h2>
+<span class="header-section-number">4.2</span> First steps in documentation<a class="anchor" aria-label="anchor" href="#first-steps-in-documentation"><i class="fas fa-link"></i></a>
+</h2>
+<p>Anyone who has taken a hard sciences or computer programming class in school probably had to maintain a lab notebook. Your data diary is the same idea – a running list of sources and steps taken to get to the final answers.</p>
+<p>Start the documentation process before you even open a new dataset. For a quick daily story, you might be able to keep your work in one short document or as a page in a spreadsheet file. For a longer project, you may find it easier to break your documents apart into logical pieces.
+Most computer languages are self-documenting – they write out the steps taken. A data diary may not be necessary when a programming language is combined with narrative as in Jupyter Notebooks or R Markdown documents.</p>
+<p>Whether doing it alongside computer code or in a separate document, here are some sections that are worth considering whenever you start a story or project.</p>
+<div id="data-sourcing" class="section level3 unnumbered">
+<h3>Data sourcing<a class="anchor" aria-label="anchor" href="#data-sourcing"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li><p>The source of YOUR data, and how you know it’s authentic. Be specific. And don’t pretend you got it from the original source when you found it elsewhere, such as in this textbook or in a data.world archive.</p></li>
+<li><p>Describe the original source of the data and how it is collected and released.</p></li>
+<li><p>In a separate set of notes, reference other stories and studies that use this or similar data. Include interview notes, advice, warnings and findings along with stories that have already been done.</p></li>
+<li><p>Identify alternative sources for this and similar or related datasets or documents.</p></li>
+<li><p>Specifically write down where you have stored all of this and how you have organized your work. You want to make sure you can get back to the latest version easily, and that you have all of the supporting documents you need to check it.</p></li>
+</ul>
+</div>
+<div id="data-documentation-and-flaws" class="section level3 unnumbered">
+<h3>Data documentation and flaws<a class="anchor" aria-label="anchor" href="#data-documentation-and-flaws"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li><p>Be sure to include links or copies of any original documentation such as a record layout, data dictionary<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;A data dictionary lists every table and column in the database, along with definitions. It may be very straightfoward but can become quite complex.&lt;/p&gt;"><sup>5</sup></a> or manual. If there isn’t one, consider making a data dictionary with what you’ve learned.</p></li>
+<li><p>Document the ways you checked the integrity of the data. There are many ways it might be inaccurate. Try to reconcile the number of rows and any totals you can produce to match other reports created by the source, or other reports that have used it. On longer stories, you’ll also check for impossible combinations (10-year-olds with DUIs), missing data, improper importing or exporting of dates, among other things. (We’ll come back to this.)</p></li>
+<li><p>Record any questions (and answers as you get them) about the meaning of fields or the scope of the data.</p></li>
+<li><p>Document decisions you’ve made about the scope or method of your analysis. For example, if you want to look at “serious” crimes, describe how and why you categorized each crime as “serious” or “not serious.” Some of these should be vetted by experts or should be verified by documenting industry standards.</p></li>
+<li><p>Include a list of interviews conducted / questions asked of officials and what they said.</p></li>
+</ul>
+</div>
+<div id="processing-notes" class="section level3 unnumbered">
+<h3>Processing notes<a class="anchor" aria-label="anchor" href="#processing-notes"><i class="fas fa-link"></i></a>
+</h3>
+<p>Some projects require many steps to get to a dataset that can be analyzed. You may have had to scrape the data, combine it with other sources or fix some entries. Some common elements you should document:</p>
+<ul>
+<li><p>Hand-made corrections. Try to list every one, but it’s ok if you describe HOW you did it, such as clustering and hand-entering using OpenRefine. Link to any spreadsheet, document or program you used. Just be sure to always work on a copy of the data.</p></li>
+<li><p>Geocoding (affixing geographic coordinates to addresses). Note how many were correct, how many missing, and what you did about it.</p></li>
+<li><p>A description of how you got messy data into a tabular form or a form suitable for analysis. For example, you may have had to strip headings or flip a spreadsheet on its head. Make sure to write down how you did that.</p></li>
+</ul>
+</div>
+<div id="the-good-part-your-analysis" class="section level3 unnumbered">
+<h3>The good part: Your analysis<a class="anchor" aria-label="anchor" href="#the-good-part-your-analysis"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li><p>Each question you asked of your data, and the steps you took to answer it. If you use programming notebooks, write it out in plain language before or after the query or statements.</p></li>
+<li><p>Vetting of your answers: who has looked them over, commented on them</p></li>
+<li><p>Why they might be wrong.</p></li>
+</ul>
+</div>
+</div>
+<div id="examples-of-documentation" class="section level2" number="4.3">
+<h2>
+<span class="header-section-number">4.3</span> Examples of documentation<a class="anchor" aria-label="anchor" href="#examples-of-documentation"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li><p><a href="http://nbviewer.jupyter.org/github/datadesk/ferc-enforcement-analysis/blob/master/02_analyze.ipynb">A published Jupyter notebook for an analysis of FEC enforcement</a> actions from the Los Angeles Times’ data desk. Ben Welsh, the author of that notebook, says that there are previous versions with unpublishable work.</p></li>
+<li><p><a href="https://github.com/BuzzFeedNews/2018-05-fentanyl-and-cocaine-overdose-deaths">A 2018 Buzzfeed News repo with start-to-finish documentation</a> of an opioid deaths story.</p></li>
+<li><p>One year, I created a <a href="https://cronkitedata.s3.us-west-1.amazonaws.com/xlfiles/arizona_popchange_2018.xlsx">dataset for practice in class</a> that contained information on population changes in Arizona counties. It turned out not to be an awesome exercise, but I created an <a href="https://docs.google.com/document/d/1EzjZYKmr8u5QIIDEmVKCtyzlzie06VMyFRa2RRqmiT0/edit?usp=sharing">example data diary</a> to go with it that is more instructive than the data itself.</p></li>
+<li><p>Data cleaning will come up a lot in the future, but it’s closely intertwined with documenting your work. Here’s <a href="https://cronkitedata.s3.amazonaws.com/docs/bulletproof-email.pdf">an email exchange between me and Craig Silverman</a>, now at ProPublica, about the process I used at The New York Times in reporting and fact-checking. This isn’t the same as a process for replication, but it discusses the kinds of things that should be in it.</p></li>
+</ul>
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="start-data-def.html"><span class="header-section-number">3</span> Defining “Data”</a></div>
+<div class="next"><a href="start-hunt.html"><span class="header-section-number">5</span> Finding the right data for your story</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#start-data-diary"><span class="header-section-number">4</span> Replication and the data diary</a></li>
+<li><a class="nav-link" href="#replication-and-the-data-diary"><span class="header-section-number">4.1</span> Replication and the data diary</a></li>
+<li>
+<a class="nav-link" href="#first-steps-in-documentation"><span class="header-section-number">4.2</span> First steps in documentation</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#data-sourcing">Data sourcing</a></li>
+<li><a class="nav-link" href="#data-documentation-and-flaws">Data documentation and flaws</a></li>
+<li><a class="nav-link" href="#processing-notes">Processing notes</a></li>
+<li><a class="nav-link" href="#the-good-part-your-analysis">The good part: Your analysis</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#examples-of-documentation"><span class="header-section-number">4.3</span> Examples of documentation</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Data Reporting, Spring 2022</strong>" was written by Sarah Cohen. It was last built on 2022-03-31.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

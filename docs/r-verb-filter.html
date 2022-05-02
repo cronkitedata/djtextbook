@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title> 16 Verbs in depth: Select, filter, arrange | Data Reporting, Spring 2022</title>
+<meta name="author" content="Sarah Cohen">
+<meta name="description" content="In this chapter  select to pick out columns efficiently and rename them arrange to order the rows in your data frame filter using Boolean logic str_detect in filters for fuzzy matching This the...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content=" 16 Verbs in depth: Select, filter, arrange | Data Reporting, Spring 2022">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://github.com/cronkitedata/djtextbook/r-verb-filter.html">
+<meta property="og:description" content="In this chapter  select to pick out columns efficiently and rename them arrange to order the rows in your data frame filter using Boolean logic str_detect in filters for fuzzy matching This the...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content=" 16 Verbs in depth: Select, filter, arrange | Data Reporting, Spring 2022">
+<meta name="twitter:site" content="@sarahcnyt">
+<meta name="twitter:description" content="In this chapter  select to pick out columns efficiently and rename them arrange to order the rows in your data frame filter using Boolean logic str_detect in filters for fuzzy matching This the...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Muli-0.4.0/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/core-js-2.5.3/shim.min.js"></script><script src="libs/react-17.0.0/react.min.js"></script><script src="libs/react-17.0.0/react-dom.min.js"></script><script src="libs/reactwidget-1.0.0/react-tools.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="libs/reactable-binding-0.2.3/reactable.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link rel="shortcut icon" href="assets/images/favicon.ico">
+<!--
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        --><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Data Reporting, Spring 2022</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li class="book-part">Reporting with data</li>
+<li><a class="" href="starter-intro.html">In this section</a></li>
+<li><a class="" href="start-story.html"><span class="header-section-number">1</span> Learn a new way to read</a></li>
+<li><a class="" href="start-math.html"><span class="header-section-number">2</span> Newsroom math</a></li>
+<li><a class="" href="start-data-def.html"><span class="header-section-number">3</span> Defining “Data”</a></li>
+<li><a class="" href="start-data-diary.html"><span class="header-section-number">4</span> Replication and the data diary</a></li>
+<li><a class="" href="start-hunt.html"><span class="header-section-number">5</span> Finding the right data for your story</a></li>
+<li><a class="" href="start-build-own.html"><span class="header-section-number">6</span> Build your own database</a></li>
+<li class="book-part">Spreadsheets</li>
+<li><a class="" href="xl-intro.html">Introduction</a></li>
+<li><a class="" href="xl-refresher.html"><span class="header-section-number">7</span> An Excel Refresher</a></li>
+<li><a class="" href="xl-filter-sort.html"><span class="header-section-number">8</span> Sorting and filtering to find stories</a></li>
+<li><a class="" href="xl-pivot.html"><span class="header-section-number">9</span> Grouping with pivot tables</a></li>
+<li><a class="" href="xl-formulas.html"><span class="header-section-number">10</span> Formulas in Excel</a></li>
+<li><a class="" href="xl-practice-noc.html"><span class="header-section-number">11</span> Practice exercise</a></li>
+<li class="book-part">R Study Guide</li>
+<li><a class="" href="r-intro.html">Introduction</a></li>
+<li><a class="" href="r-start.html"><span class="header-section-number">12</span> Getting started with R and RStudio</a></li>
+<li><a class="" href="r-markdown.html"><span class="header-section-number">13</span> R Markdown</a></li>
+<li><a class="" href="r-data-import.html"><span class="header-section-number">14</span> Getting and saving data</a></li>
+<li><a class="" href="r-verbs.html"><span class="header-section-number">15</span> A quick tour of verbs</a></li>
+<li><a class="active" href="r-verb-filter.html"><span class="header-section-number">16</span> Verbs in depth: Select, filter, arrange</a></li>
+<li><a class="" href="r-verb-groupby.html"><span class="header-section-number">17</span> Verbs in depth: Aggregating with groups</a></li>
+<li><a class="" href="r-verb-mutate.html"><span class="header-section-number">18</span> Verbs in depth: New from old data with Mutate</a></li>
+<li><a class="" href="r-verb-join.html"><span class="header-section-number">19</span> Verbs in depth: Matchmaking with joins</a></li>
+<li><a class="" href="r-recipes.html"><span class="header-section-number">20</span> Recipes</a></li>
+<li class="book-part">Visualization as a reporting tool</li>
+<li><a class="" href="viz-intro.html">Introduction</a></li>
+<li><a class="" href="viz-reporting.html"><span class="header-section-number">21</span> Visualization as a reporting tool</a></li>
+<li><a class="" href="viz-demo.html"><span class="header-section-number">22</span> Visualization demo</a></li>
+<li class="book-part">Special skills</li>
+<li><a class="" href="advanced-intro.html">Introduction</a></li>
+<li><a class="" href="advanced-regex.html"><span class="header-section-number">23</span> Regular Expressions for pattern matching</a></li>
+<li><a class="" href="advanced-openrefine.html"><span class="header-section-number">24</span> Open refine walkthrough</a></li>
+<li><a class="" href="advanced-scrape1.html"><span class="header-section-number">25</span> Scraping without programming</a></li>
+<li><a class="" href="advanced-scrape2.html"><span class="header-section-number">26</span> Introduction to scraping in R</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="" href="appendix-math.html"><span class="header-section-number">A</span> Newsroom numbers cheat sheet</a></li>
+<li><a class="" href="appendix-program.html"><span class="header-section-number">B</span> A gentle intro to programming</a></li>
+<li><a class="" href="appendix-glossary.html"><span class="header-section-number">C</span> Glossary</a></li>
+<li><a class="" href="appendix-resources.html"><span class="header-section-number">D</span> Great R Resources</a></li>
+<li><a class="" href="appendix-ppp.html"><span class="header-section-number">E</span> Documentation for PPP data chapters</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="r-verb-filter" class="section level1" number="16">
+<h1>
+<span class="header-section-number"> 16</span> Verbs in depth: Select, filter, arrange<a class="anchor" aria-label="anchor" href="#r-verb-filter"><i class="fas fa-link"></i></a>
+</h1>
+<div class="alert alert-secondary">
+<p class="alert-heading font-weight-bolder fs-3">
+In this chapter
+</p>
+<ul>
+<li>
+<code>select</code> to pick out columns efficiently and rename them</li>
+<li>
+<code>arrange</code> to order the rows in your data frame</li>
+<li>
+<code>filter</code> using Boolean logic</li>
+<li>
+<code>str_detect</code> in filters for fuzzy matching</li>
+</ul>
+</div>
+<p>This the next several chapters are based on Paycheck Protection Program, or PPP, loans in Arizona. Full documentation of the dataset is in the <a href="appendix-ppp.html">Appendix</a>. If you haven’t already, look through that documentation before you start.</p>
+<div id="select-columns" class="section level2" number="16.1">
+<h2>
+<span class="header-section-number">16.1</span> <code>select</code> columns<a class="anchor" aria-label="anchor" href="#select-columns"><i class="fas fa-link"></i></a>
+</h2>
+<p>The <code>select</code> verb allows you to pick out columns by name or by their order in the data frame. Selecting columns is case-sensitive: a column called <code>amount</code> is completely different than a column named <code>Amount</code>. That’s one reason to use our style of always converting column names to lower case.</p>
+<p><code>select</code> is the easiest verb to understand it, so it’s shown here first. But in practice, you’ll usually include it as your last command in a code chunk because you need to use some columns in filtering or other operations that you don’t want to include in the final output.</p>
+<p>There a lot of ways to pick out column names that are based on their name, their position, their type or other characteristics. For now we’ll stick with a few ways:</p>
+<ul>
+<li>
+<code>select (1:10)</code> picks out the first 10 columns. Think of the colon as the word “through”</li>
+<li>
+<code>select (date_approved, borrower_name, borrower_address, borrower_zip, loan_status, amount, business_type)</code> picks out those columns in order.</li>
+<li>
+<code>select ( 2, 4:6, business_type)</code> combines position and name so you can use whichever is easier.</li>
+</ul>
+<p>You can rename columns at the same time you select them by typing the new name, an equals sign and the old name, for example:</p>
+<pre><code>select ( given_date = date_approved, 
+        borrower = borrower_name ,
+        borrower_city:borrower_zip)
+</code></pre>
+</div>
+<div id="arrange-rows" class="section level2" number="16.2">
+<h2>
+<span class="header-section-number">16.2</span> <code>arrange</code> rows<a class="anchor" aria-label="anchor" href="#arrange-rows"><i class="fas fa-link"></i></a>
+</h2>
+<p>The <code>arrange</code> verb sorts your data in different ways depending on the type of column. They can be alphabetical (character columns), in numeric order ( number or double columns), or chronologically (date or date/time columns) . Reverse the order by using <code><a href="https://dplyr.tidyverse.org/reference/desc.html">desc()</a></code> :</p>
+<pre><code>ppp_orig %&gt;%
+  arrange ( date_approved, desc(amount) )
+  </code></pre>
+</div>
+<div id="filter-rows" class="section level2" number="16.3">
+<h2>
+<span class="header-section-number">16.3</span> <code>filter</code> rows<a class="anchor" aria-label="anchor" href="#filter-rows"><i class="fas fa-link"></i></a>
+</h2>
+<p><code>filter</code> uses Boolean logic to allow quite sophisticated and powerful conditions to pick out just the rows you want to see or to further examine. The conditions are case-sensitive and extremely literal. For example, “PIZZA HUT OF ARIZONA, INC” is completely different than “PIZZA HUT” or “Pizza Hut of Arizona Inc” . A simple extra character will prevent a match.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;That’s why I’ve removed all of the punctuation from your the borrower names and addresses in your data file, and turned all of the names into upper case. &lt;/p&gt;"><sup>15</sup></a></p>
+<p>The conditions are indicated using the following symbols:</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="40%">
+<col width="30%">
+<col width="30%">
+</colgroup>
+<thead><tr class="header">
+<th>Symbol</th>
+<th>Data types</th>
+<th>Meaning</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>==</code></td>
+<td>All</td>
+<td>Equals, exactly. Note the double-equals sign, which distinguishes it from an assignment operator, such as setting new column name.</td>
+</tr>
+<tr class="even">
+<td>
+<code>&gt;</code> , <code>&gt;=</code>
+</td>
+<td>date, numeric</td>
+<td>Greater than / greater than or equal to.</td>
+</tr>
+<tr class="odd">
+<td>
+<code>&lt;</code>, <code>&lt;=</code>
+</td>
+<td>date, numeric</td>
+<td>Less than / less than or equal to.</td>
+</tr>
+<tr class="even">
+<td><code>!=</code></td>
+<td>all</td>
+<td>Not equal to</td>
+</tr>
+<tr class="odd">
+<td><code>%in%</code></td>
+<td>all</td>
+<td>Is equal to any of the items in a list that you type out, such as <code>fruit %in% c("apple", "orange")</code>.</td>
+</tr>
+<tr class="even">
+<td><code>is.na(column_name)</code></td>
+<td>all</td>
+<td>find anything missing, which does not mean the same thing as 0 or ““.</td>
+</tr>
+</tbody>
+</table></div>
+<p>In each of these cases, the column name goes on the left of the operator, and the condition goes on the right.</p>
+<p>You can combine them using <code>and</code> and <code>or</code> :</p>
+<ul>
+<li>
+<code>&amp;</code> is “and” , which means that both conditions must be true. It NARROWS your search</li>
+<li>
+<code>|</code> is “or” , which means that EITHER condition can be true. It WIDENS your search. You’ll usually use this if you want to get results from two different columns. Think of “this or that”. This is rarer than you would think, since you usually are looking for different items within one column.</li>
+<li>
+<code>%in%</code> is the equivalent of an “or” condition within one column.</li>
+</ul>
+<p>This is sometimes confusing because it’s the exact opposite of the way we describe it in English. If we want “apples and oranges”, we have to search for <code>fruit == 'apple' | fruit == 'orange'</code> (Note the plural versus singular as well - we have to search for what is in the data, not what we want to say.)</p>
+<p>You often need to use parentheses to tell R what order you want to evaluate the conditions when you combine “AND” and “OR” conditions.</p>
+<div class="alert alert-info">
+<p>Pro tip: Matching parentheses can be tricky. To make it a little easier, you can set “rainbow parentheses” in the RStudio options, which will show you the matching opening or closing brackets and parentheses in different colors when your cursor is placed next to one of them. It’s under the Preferences -&gt; Code -&gt; Display options, at the bottom.</p>
+</div>
+<div id="a-few-examples" class="section level3 unnumbered">
+<h3>A few examples<a class="anchor" aria-label="anchor" href="#a-few-examples"><i class="fas fa-link"></i></a>
+</h3>
+<p>In the PPP data, all borrower names are in upper case, and all cities and addresses are in proper case. In addition, all of the punctuation has been removed, such as periods, commas, quotes and apostrophes.</p>
+<p>When you use a condition :</p>
+<ul>
+<li>Numbers are without quotes, commas, dollar signs or anything other than digits and decimal points. (1000000.24)</li>
+<li>Text is always in quotes.</li>
+<li>Dates are in the form “2022-01-22”.</li>
+<li>NA values never match anything. Search for them using the <code><a href="https://rdrr.io/r/base/NA.html">is.na()</a></code> function.</li>
+</ul>
+<div class="alert alert-info">
+<p>Pro tip: you can explore your data in the data frame window (by clicking on the name of the data frame in the Environment tab. ) . That is a wildcard search and is not case-sensitive. Use it to test various ways to search for an item, and to find the exact phrasing you need in a filter.</p>
+</div>
+<div id="a-list-of-borrowers-in-flagstaff-and-sedona" class="section level4 unnumbered">
+<h4>A list of borrowers in Flagstaff and Sedona<a class="anchor" aria-label="anchor" href="#a-list-of-borrowers-in-flagstaff-and-sedona"><i class="fas fa-link"></i></a>
+</h4>
+<p>Here’s an example of extracting a few columns of the data, filtering for those borrowers in Flagstaff and Sedona, using the <code>%in%</code> operator on a list of cities, defined with the <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> command, for “combine”:</p>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ppp_orig</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span> <span class="op">(</span> <span class="va">borrower_city</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Flagstaff"</span>, <span class="st">"Sedona"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span> <span class="op">(</span><span class="va">borrower_name</span>, <span class="va">borrower_city</span>, <span class="va">date_approved</span>, <span class="va">amount</span>, <span class="va">forgiveness_amount</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="narrowed-to-under-100000" class="section level4 unnumbered">
+<h4>Narrowed to under $100,000<a class="anchor" aria-label="anchor" href="#narrowed-to-under-100000"><i class="fas fa-link"></i></a>
+</h4>
+<p>To narrow it just to loans under $100,000, you can use an “&amp;” condition, or add another filter. Here, we’ll arrange it in chronological order:</p>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ppp_orig</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span> <span class="op">(</span> <span class="va">borrower_city</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Flagstaff"</span>, <span class="st">"Sedona"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span> <span class="op">(</span> <span class="va">amount</span> <span class="op">&lt;</span> <span class="fl">100000</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span> <span class="op">(</span><span class="va">borrower_name</span>, <span class="va">borrower_city</span>, <span class="va">date_approved</span>, <span class="va">amount</span>, <span class="va">forgiveness_amount</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span> <span class="op">(</span><span class="va">date_approved</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="another-way-to-do-the-same-thing" class="section level4 unnumbered">
+<h4>Another way to do the same thing<a class="anchor" aria-label="anchor" href="#another-way-to-do-the-same-thing"><i class="fas fa-link"></i></a>
+</h4>
+<p>The query above is the equivalent of the last example to produce the same answer. This time it uses a combination of the <code>|</code> “or” operator with the <code>&amp;</code> “and” operator.</p>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ppp_orig</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span> <span class="op">(</span> 
+           <span class="op">(</span><span class="va">borrower_city</span> <span class="op">==</span> <span class="st">"Flagstaff"</span> <span class="op">|</span> <span class="va">borrower_city</span> <span class="op">==</span> <span class="st">"Sedona"</span><span class="op">)</span> <span class="op">&amp;</span>
+              <span class="va">amount</span> <span class="op">&lt;</span> <span class="fl">10000</span>
+  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span> <span class="op">(</span><span class="va">borrower_name</span>, <span class="va">borrower_city</span>, <span class="va">date_approved</span>, 
+          <span class="va">amount</span>, <span class="va">forgiveness_amount</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span> <span class="op">(</span><span class="va">date_approved</span><span class="op">)</span></code></pre></div>
+<p>(You might note how I did the indentations above – it helps in reading the code to make clear what comes before what.)</p>
+</div>
+<div id="projects-in-maricopa-county-that-are-not-in-phoenix-or-scottsdale" class="section level4 unnumbered">
+<h4>Projects in Maricopa County that are NOT in Phoenix or Scottsdale<a class="anchor" aria-label="anchor" href="#projects-in-maricopa-county-that-are-not-in-phoenix-or-scottsdale"><i class="fas fa-link"></i></a>
+</h4>
+<p>And here’s how to negate a filter - everything NOT in two cities. The <code>!</code> means “NOT”.</p>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ppp_orig</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span> <span class="op">(</span> <span class="va">project_county</span> <span class="op">==</span> <span class="st">"MARICOPA"</span> <span class="op">&amp;</span>
+             <span class="op">(</span><span class="op">!</span> <span class="va">borrower_city</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Scottsdale"</span>, <span class="st">"Phoenix"</span><span class="op">)</span><span class="op">)</span> 
+  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span> <span class="op">(</span> <span class="va">borrower_city</span>, <span class="va">borrower_name</span>, 
+           <span class="va">amount</span>, <span class="va">forgiveness_amount</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span> <span class="op">(</span><span class="va">amount</span><span class="op">)</span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="fuzzy-matching-with-patterns" class="section level2" number="16.4">
+<h2>
+<span class="header-section-number">16.4</span> Fuzzy matching with patterns<a class="anchor" aria-label="anchor" href="#fuzzy-matching-with-patterns"><i class="fas fa-link"></i></a>
+</h2>
+<p>So far, you’ve had to do all of your filters for character columns matching exactly. You can see that’s rarely going to be useful in columns like names, cities, or addresses.</p>
+<p>Enter the idea of fuzzy filtering, called <em>pattern matching</em> using <em>regular expressions</em>. We’re going to use a package that is part of the tidyverse called <code>stringr</code> to do this.</p>
+<div class="alert alert-info">
+<p>Googling for help in “regular expressions” or “pattern matching” in R will likely bring back instructions on how to use base R, not the <code>stringr</code> package from the tidyverse. If you get answers that include “grep” or “grepl”, try adding the word “tidyverse” or “stringr” to your Google query.</p>
+</div>
+<p>This chapter has the very basics of pattern matching. There will be an entire chapter on it later in the semester. It’s one of the most powerful things you can do in programming languages.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Every computer language – except the Excel default interface – has an implementation of regular expressions, which is the same thing as pattern matching. This is one of the major strengths of Google Sheets over Excel. &lt;/p&gt;"><sup>16</sup></a></p>
+<div id="regular-expressions---the-short-version" class="section level3 unnumbered">
+<h3>Regular expressions - the short version<a class="anchor" aria-label="anchor" href="#regular-expressions---the-short-version"><i class="fas fa-link"></i></a>
+</h3>
+<p>Regular expressions search for patterns rather than exact words or phrases. You can use them to search a column, to extract a piece of a column in each row, or to replace them. They only work on <em>strings</em>, which is computer-eze for text or character columns.</p>
+<p>For filtering, the function <code><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect()</a></code> <em>detects</em> whether or not a <em>string</em> exists in a cell. It looks a little different than the usual filter command. It’s a function that takes two arguments: The column name to work on and the regular expression to look for. It looks like this:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb41-1"><a href="r-verb-filter.html#cb41-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-2"><a href="r-verb-filter.html#cb41-2" aria-hidden="true" tabindex="-1"></a>filter ( str_detect ( a_column_name, "a regular expression" ))</span></code></pre></div>
+<p>Here are some basic rules for the pattern:</p>
+<ul>
+<li>
+<code>^</code> means “the pattern must come at the beginning of the string”</li>
+<li>
+<code>$</code> means “the pattern must come at the end of the string”</li>
+<li>
+<code>|</code> means “or”, just as it does in the filter. So “(LLC|CORP|INC)” would look for “LLC”, “CORP”, or “INC”</li>
+<li>
+<code>.*</code> means “anything or nothing”</li>
+<li>
+<code>?</code> means “It might or might not exist at all” . You usually need to put a phrase or set of letters in parentheses to make it work properly.</li>
+</ul>
+<p>There are many more instructions you can add, but for now we’ll just stick with these.</p>
+</div>
+<div id="examples-of-regular-expressions" class="section level3 unnumbered">
+<h3>Examples of regular expressions<a class="anchor" aria-label="anchor" href="#examples-of-regular-expressions"><i class="fas fa-link"></i></a>
+</h3>
+<p>To filter for any address containing “Central Ave”:</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb42-1"><a href="r-verb-filter.html#cb42-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-2"><a href="r-verb-filter.html#cb42-2" aria-hidden="true" tabindex="-1"></a>filter ( str_detect(borrower_address, "Central Ave"))</span></code></pre></div>
+<p>To filter for any address using Central, Fillmore or Taylor in the zip code “85004”:</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb43-1"><a href="r-verb-filter.html#cb43-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-2"><a href="r-verb-filter.html#cb43-2" aria-hidden="true" tabindex="-1"></a>filter (str_detect (borrower_name, "Central|Fillmore|Taylor") &amp;  </span>
+<span id="cb43-3"><a href="r-verb-filter.html#cb43-3" aria-hidden="true" tabindex="-1"></a>                    borrower_zip == "85004"</span>
+<span id="cb43-4"><a href="r-verb-filter.html#cb43-4" aria-hidden="true" tabindex="-1"></a>        )</span></code></pre></div>
+<p>To filter for any kind of non-profit:</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb44-1"><a href="r-verb-filter.html#cb44-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-2"><a href="r-verb-filter.html#cb44-2" aria-hidden="true" tabindex="-1"></a>filter (str_detect (business_type, "^Non-Profit"))</span></code></pre></div>
+<p>To filter for “Fillmore St” when you don’t know if it might be misspelled as “Filmore”.</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb45-1"><a href="r-verb-filter.html#cb45-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-2"><a href="r-verb-filter.html#cb45-2" aria-hidden="true" tabindex="-1"></a>filter (str_detect (borrower_address, "Fill?more"))</span></code></pre></div>
+<p>Here is how you’d look for everything on North Scottsdale Road, when you don’t know whether it’s “N” or “North” and “Road” or “Rd”:</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb46-1"><a href="r-verb-filter.html#cb46-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-2"><a href="r-verb-filter.html#cb46-2" aria-hidden="true" tabindex="-1"></a>filter ( str_detect( business_address, "N(orth)? Scottsdale R(oa)?d") )</span></code></pre></div>
+<p>We’ll see later in the semester how to standardize names and addresses so you don’t have to guess – it’s one of the more time consuming and difficult things to do in data journalism. It’s what trips up most people who try to report on campaign finance.</p>
+</div>
+</div>
+<div id="your-turn" class="section level2" number="16.5">
+<h2>
+<span class="header-section-number">16.5</span> Your turn<a class="anchor" aria-label="anchor" href="#your-turn"><i class="fas fa-link"></i></a>
+</h2>
+<p>Create a new markdown document with the <a href="https://gist.githubusercontent.com/sarahcnyt/e60ad2d7ccf65498fc88791f3bb683ae/raw/bcf4fb844d183b62f531a74a445271c5571f3a1d/cronkite-boilerplate.Rmd">YAML (front matter) and setup chunk</a> that you used in the last chapter.</p>
+<p>Create an introduction summarizing what this program does. You may want to just leave room for it now, and come back to it once you’re finished.</p>
+<p>Add a sub-heading that provides documentation and sourcing of the data. You can load the data at the same time using this code chunk<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;This is a “nested” function - a function within a function. The readRDS() function reads a native R file from your computer. The url() function tells R that this file exists on the internet, not on your computer.&lt;/p&gt;"><sup>17</sup></a>:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb47-1"><a href="r-verb-filter.html#cb47-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-2"><a href="r-verb-filter.html#cb47-2" aria-hidden="true" tabindex="-1"></a>ppp_orig &lt;- readRDS( url ( "https://cronkitedata.s3.amazonaws.com/rdata/ppp_az_loans.RDS"))</span></code></pre></div>
+<p>Next, add a code chunk with the <code>glimpse(ppp_orig)</code> command to get a list of the columns in order.</p>
+<div id="filtering-your-data" class="section level3 unnumbered">
+<h3>Filtering your data<a class="anchor" aria-label="anchor" href="#filtering-your-data"><i class="fas fa-link"></i></a>
+</h3>
+<p>Create code chunks that will filter for the following values. You can select just the columns you want to see in whatever sort order makes sense for you to troubleshoot. You can rewrite the list below into plain English sentences to introduce the code chunks.</p>
+<p>Find the following sets of loans, and try to think about why these might make for interesting or possible story ideas.</p>
+<ol style="list-style-type: decimal">
+<li><p>At least $1 million</p></li>
+<li><p>Under $1,000</p></li>
+<li><p>Under $1,000 for projects in Maricopa County</p></li>
+<li><p>Loans that were paid in full but not forgiven. In other words, the borrower decided to pay it back rather than ask for taxpayers to cover it. (These loans are shown as missing, or <code>NA</code> in the forgiveness_amount column)</p></li>
+<li><p>Loans that had more forgiven than approved.</p></li>
+<li><p>Loans in Phoenix, Scottsdale and Tempe</p></li>
+<li><p>Loans in Arizona that were for projects out of state.</p></li>
+<li><p>McDonald’s franchises. (I removed the apostrophe.)</p></li>
+<li><p>Any loan to a Native American tribe or nation or reservation. Hint: It’s hard to do this because “NATION” could be part of the word “NATIONAL” and “TRIBE” could be part of the word “TRIBECA” and “RESERVATION” could be part of the word “PRESERVATION”. You can use a special character to look for “word boundaries” : <code>\\b</code>. To find just the word “NATION”, it would look like this <code>"\\bNATION\\b"</code> . Try to see if you can figure out how make it work when you want to use all three words.</p></li>
+<li><p>Your turn! Think of one filter you want to make based on what is in this chapter.</p></li>
+</ol>
+</div>
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="r-verbs.html"><span class="header-section-number">15</span> A quick tour of verbs</a></div>
+<div class="next"><a href="r-verb-groupby.html"><span class="header-section-number">17</span> Verbs in depth: Aggregating with groups</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#r-verb-filter"><span class="header-section-number">16</span> Verbs in depth: Select, filter, arrange</a></li>
+<li><a class="nav-link" href="#select-columns"><span class="header-section-number">16.1</span> select columns</a></li>
+<li><a class="nav-link" href="#arrange-rows"><span class="header-section-number">16.2</span> arrange rows</a></li>
+<li>
+<a class="nav-link" href="#filter-rows"><span class="header-section-number">16.3</span> filter rows</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#a-few-examples">A few examples</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#fuzzy-matching-with-patterns"><span class="header-section-number">16.4</span> Fuzzy matching with patterns</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#regular-expressions---the-short-version">Regular expressions - the short version</a></li>
+<li><a class="nav-link" href="#examples-of-regular-expressions">Examples of regular expressions</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#your-turn"><span class="header-section-number">16.5</span> Your turn</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#filtering-your-data">Filtering your data</a></li></ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Data Reporting, Spring 2022</strong>" was written by Sarah Cohen. It was last built on 2022-03-31.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>
