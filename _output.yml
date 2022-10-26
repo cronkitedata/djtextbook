@@ -1,0 +1,18 @@
+bookdown::bs4_book:
+  css:
+  - style.css
+  theme:
+    bootswatch: flatly
+    primary: "#096B72"
+    base_font:
+      google: "Muli"
+  includes:
+    in_header: head.html
+  df_print: kable
+  config:
+    toc:
+      before:
+          <li class="toc-logo"><a href="./"><img src="assets/images/djlogo-blue.png"></a></li>
+
+
+

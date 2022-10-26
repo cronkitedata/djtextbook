@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title> 26 Introduction to scraping in R | Data Reporting, Spring 2022</title>
+<meta name="author" content="Sarah Cohen">
+<meta name="description" content="This chapter introduces the rvest – short for “harvest” - library in R. See the glossary in the Appendix for terms used in this tutorial. There are a lot of really good tutorials on the web for...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content=" 26 Introduction to scraping in R | Data Reporting, Spring 2022">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://github.com/cronkitedata/djtextbook/advanced-scrape2.html">
+<meta property="og:description" content="This chapter introduces the rvest – short for “harvest” - library in R. See the glossary in the Appendix for terms used in this tutorial. There are a lot of really good tutorials on the web for...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content=" 26 Introduction to scraping in R | Data Reporting, Spring 2022">
+<meta name="twitter:site" content="@sarahcnyt">
+<meta name="twitter:description" content="This chapter introduces the rvest – short for “harvest” - library in R. See the glossary in the Appendix for terms used in this tutorial. There are a lot of really good tutorials on the web for...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Muli-0.4.0/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/core-js-2.5.3/shim.min.js"></script><script src="libs/react-17.0.0/react.min.js"></script><script src="libs/react-17.0.0/react-dom.min.js"></script><script src="libs/reactwidget-1.0.0/react-tools.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="libs/reactable-binding-0.2.3/reactable.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link rel="shortcut icon" href="assets/images/favicon.ico">
+<!--
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        --><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Data Reporting, Spring 2022</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li class="book-part">Reporting with data</li>
+<li><a class="" href="starter-intro.html">In this section</a></li>
+<li><a class="" href="start-story.html"><span class="header-section-number">1</span> Learn a new way to read</a></li>
+<li><a class="" href="start-math.html"><span class="header-section-number">2</span> Newsroom math</a></li>
+<li><a class="" href="start-data-def.html"><span class="header-section-number">3</span> Defining “Data”</a></li>
+<li><a class="" href="start-data-diary.html"><span class="header-section-number">4</span> Replication and the data diary</a></li>
+<li><a class="" href="start-hunt.html"><span class="header-section-number">5</span> Finding the right data for your story</a></li>
+<li><a class="" href="start-build-own.html"><span class="header-section-number">6</span> Build your own database</a></li>
+<li class="book-part">Spreadsheets</li>
+<li><a class="" href="xl-intro.html">Introduction</a></li>
+<li><a class="" href="xl-refresher.html"><span class="header-section-number">7</span> An Excel Refresher</a></li>
+<li><a class="" href="xl-filter-sort.html"><span class="header-section-number">8</span> Sorting and filtering to find stories</a></li>
+<li><a class="" href="xl-pivot.html"><span class="header-section-number">9</span> Grouping with pivot tables</a></li>
+<li><a class="" href="xl-formulas.html"><span class="header-section-number">10</span> Formulas in Excel</a></li>
+<li><a class="" href="xl-practice-noc.html"><span class="header-section-number">11</span> Practice exercise</a></li>
+<li class="book-part">R Study Guide</li>
+<li><a class="" href="r-intro.html">Introduction</a></li>
+<li><a class="" href="r-start.html"><span class="header-section-number">12</span> Getting started with R and RStudio</a></li>
+<li><a class="" href="r-markdown.html"><span class="header-section-number">13</span> R Markdown</a></li>
+<li><a class="" href="r-data-import.html"><span class="header-section-number">14</span> Getting and saving data</a></li>
+<li><a class="" href="r-verbs.html"><span class="header-section-number">15</span> A quick tour of verbs</a></li>
+<li><a class="" href="r-verb-filter.html"><span class="header-section-number">16</span> Verbs in depth: Select, filter, arrange</a></li>
+<li><a class="" href="r-verb-groupby.html"><span class="header-section-number">17</span> Verbs in depth: Aggregating with groups</a></li>
+<li><a class="" href="r-verb-mutate.html"><span class="header-section-number">18</span> Verbs in depth: New from old data with Mutate</a></li>
+<li><a class="" href="r-verb-join.html"><span class="header-section-number">19</span> Verbs in depth: Matchmaking with joins</a></li>
+<li><a class="" href="r-recipes.html"><span class="header-section-number">20</span> Recipes</a></li>
+<li class="book-part">Visualization as a reporting tool</li>
+<li><a class="" href="viz-intro.html">Introduction</a></li>
+<li><a class="" href="viz-reporting.html"><span class="header-section-number">21</span> Visualization as a reporting tool</a></li>
+<li><a class="" href="viz-demo.html"><span class="header-section-number">22</span> Visualization demo</a></li>
+<li class="book-part">Special skills</li>
+<li><a class="" href="advanced-intro.html">Introduction</a></li>
+<li><a class="" href="advanced-regex.html"><span class="header-section-number">23</span> Regular Expressions for pattern matching</a></li>
+<li><a class="" href="advanced-openrefine.html"><span class="header-section-number">24</span> Open refine walkthrough</a></li>
+<li><a class="" href="advanced-scrape1.html"><span class="header-section-number">25</span> Scraping without programming</a></li>
+<li><a class="active" href="advanced-scrape2.html"><span class="header-section-number">26</span> Introduction to scraping in R</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="" href="appendix-math.html"><span class="header-section-number">A</span> Newsroom numbers cheat sheet</a></li>
+<li><a class="" href="appendix-program.html"><span class="header-section-number">B</span> A gentle intro to programming</a></li>
+<li><a class="" href="appendix-glossary.html"><span class="header-section-number">C</span> Glossary</a></li>
+<li><a class="" href="appendix-resources.html"><span class="header-section-number">D</span> Great R Resources</a></li>
+<li><a class="" href="appendix-ppp.html"><span class="header-section-number">E</span> Documentation for PPP data chapters</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="advanced-scrape2" class="section level1" number="26">
+<h1>
+<span class="header-section-number"> 26</span> Introduction to scraping in R<a class="anchor" aria-label="anchor" href="#advanced-scrape2"><i class="fas fa-link"></i></a>
+</h1>
+<p>This chapter introduces the <code>rvest</code> – short for “harvest” - library in R. See the <a href="appendix-glossary.html">glossary</a> in the Appendix for terms used in this tutorial.</p>
+<p>There are a lot of really good tutorials on the web for rvest. Here are a few:</p>
+<ul>
+<li><p><a href="https://dcl-wrangle.stanford.edu/rvest.html">A chapter in the advanced data wrangling textbook</a> used at Stanford. (The whole book is pretty good, and would be good for you now that you’re no longer beginners.) It uses the page from <a href="https://ourworldindata.org/famines">Our World in Data</a> on famines as its example.</p></li>
+<li><p>A <a href="https://www.dataquest.io/blog/web-scraping-in-r-rvest/">free chapter from DataQuest</a> on the basics of scraping</p></li>
+</ul>
+<p>Cronkite students: I have also posted some PDF’s in Canvas from DataCamp’s scraping course, which can’t be shared publicly. They’re clearer than a lot of the tutorials and can be used as a reference. In the next few weeks, I’ll get you 6 months’ of access to the site and will send you a link to join.</p>
+<p>This chapter assumes you are, by now, relatively comfortable with R code chunks. In particular, it’s assumed you know how to assign the output of a piece of code to a new variable, and that you understand the pipe structure with the key verbs of the tidyverse.</p>
+<div id="understanding-a-web-page-and-its-structure" class="section level2" number="26.1">
+<h2>
+<span class="header-section-number">26.1</span> Understanding a web page and its structure<a class="anchor" aria-label="anchor" href="#understanding-a-web-page-and-its-structure"><i class="fas fa-link"></i></a>
+</h2>
+<p>Web pages are written in HTML, even if they don’t have “html” at the end of the file name.</p>
+<p>HTML is like an upside-down tree. It has a trunk, which is an <code>&lt;html&gt;</code> tag, then two main branches: <code>&lt;head&gt;</code> and <code>&lt;body&gt;</code>. The content of the page branches out from the <code>body</code> tag:</p>
+<div class="figure">
+<img src="assets/images/advanced-scrape2-tree.png" style="width:100.0%" alt=""><p class="caption">Datacamp html tree</p>
+</div>
+<p>All of HTML is just text. The <em>tags</em> tell your browser how to render each <em>element</em>, while <em>attributes</em> give them extra information, like the URL of a link, or a formatting class.</p>
+<p>We can navigate the tree using RVest.</p>
+<ul>
+<li><p>Open or create a project in RStudio, and create a new document. You can do this as a new markdown document, or as an R Script.</p></li>
+<li><p>The code to load two libraries:</p></li>
+</ul>
+<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rvest.tidyverse.org/">rvest</a></span><span class="op">)</span> </code></pre></div>
+<ul>
+<li>Select both lines, and either press Ctl-Enter or choose “Run” at the top of the screen to run the lines you selected.</li>
+</ul>
+<p>The library <code>rvest</code> parses the tree into its distinct elements, retaining the structure of the tree. The <code><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html()</a></code> function takes a chunk of text, a page saved on your computer, or a page on the internet and parses it into its pieces.</p>
+<p>We’re going to parse the page using “css selectors”, which tells the program how to navigate the page. The css selector can use the tag , an attribute, or both to find elements on the page. In this case, there is only one table, so we can just find one element using the “table” tag.</p>
+<p>This method of scraping doesn’t work if the page was created on the fly by executing a Javascript program on your browser, the way that the simple page in the last chapter did. Those pages usually have a json dataset that you can grab more easily.</p>
+<p>Here’s what the page looks like when rendered, with the full tree shown on the right.</p>
+<div class="figure">
+<img src="assets/images/advanced-scrape2-fullpage.png" style="width:100.0%" alt=""><p class="caption">full page</p>
+</div>
+<ul>
+<li>Parse the <a href="%22https://cronkitedata.s3.amazonaws.com/docs/presidents.html">simple page</a> at the address shown into its pieces, and save the result as <code>my_html</code>You may notice that I’ve broken up the code to do one thing at a time. First, it saves the address in a variable called “url”. Then it uses the same piping we used in data work.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;We glossed over this before, but any time you use a pipe, whatever comes above a command is used as the first argument of the current command. So this code is the same as &lt;code&gt;read_html(url)&lt;/code&gt;. Sometimes you need it as something other than the first argument, in which case you reference it using a period.&lt;/p&gt;"><sup>31</sup></a>
+</li>
+</ul>
+<div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">url</span> <span class="op">&lt;-</span> <span class="st">"https://cronkitedata.s3.amazonaws.com/docs/presidents.html"</span>
+
+<span class="va">my_html</span> <span class="op">&lt;-</span>
+  <span class="va">url</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  
+  <span class="va">read_html</span>
+
+
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">my_html</span><span class="op">)</span></code></pre></div>
+<pre><code>## {html_document}
+## &lt;html&gt;
+## [1] &lt;head&gt;\n&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8 ...
+## [2] &lt;body&gt;\n   &lt;h1&gt;A heading&lt;/h1&gt;\n   &lt;p class="intro"&gt; This is  a paragraph  ...</code></pre>
+<p>This is a complex object, and you’re only seeing the beginning of it – the two elements that are at the top of the tree. You’ll notice that there is a new object (our new word for “variable”) that is a list rather than a data frame in you environment. Lists are used to store complicated structures that don’t fit neatly into rectangle.</p>
+<p>To find any element, like the table, use its tag in an <code><a href="https://rvest.tidyverse.org/reference/rename.html">html_node()</a></code> . To find all of the elements of a type, make it plural, like <code><a href="https://rvest.tidyverse.org/reference/rename.html">html_nodes()</a></code>.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;A newer version of rvest prefers the use of &lt;code&gt;html_element()&lt;/code&gt; instead of node. For us, they mean the same thing and both work. The newer syntax throws a warning in your RStudio environment that I can’t troubleshoot, so I’m waiting for an update to the rvest package to switch.&lt;/p&gt;"><sup>32</sup></a></p>
+<p>Use the tag name or CSS selector to get just a piece of the page.</p>
+<div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">my_html</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+ <span class="fu"><a href="https://rvest.tidyverse.org/reference/rename.html">html_node</a></span><span class="op">(</span><span class="st">"body"</span><span class="op">)</span> </code></pre></div>
+<pre><code>## {html_node}
+## &lt;body&gt;
+## [1] &lt;h1&gt;A heading&lt;/h1&gt;
+## [2] &lt;p class="intro"&gt; This is  a paragraph with italic&lt;/p&gt;
+## [3] &lt;div&gt;\n     &lt;p&gt; This is a simple table&lt;/p&gt;\n     &lt;table&gt;\n&lt;thead&gt;&lt;tr&gt;\n&lt;t ...</code></pre>
+<p>To get all of the paragraphs, make the command plural. Note how you now get the HTML of the selected elements in their entirety.</p>
+<div class="sourceCode" id="cb153"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">my_html</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rvest.tidyverse.org/reference/rename.html">html_nodes</a></span> <span class="op">(</span><span class="st">"p"</span><span class="op">)</span></code></pre></div>
+<pre><code>## {xml_nodeset (2)}
+## [1] &lt;p class="intro"&gt; This is  a paragraph with italic&lt;/p&gt;
+## [2] &lt;p&gt; This is a simple table&lt;/p&gt;</code></pre>
+<p>And to get everything with a class of “intro”, use a period to indicate a class, and convert it to text using the <code>html_text</code> function, asking R to remove extra whitespace with the “trim” argument.</p>
+<div class="sourceCode" id="cb155"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">my_html</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rvest.tidyverse.org/reference/rename.html">html_nodes</a></span> <span class="op">(</span><span class="st">".intro"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text</a></span> <span class="op">(</span>trim<span class="op">=</span><span class="cn">T</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] "This is  a paragraph with italic"</code></pre>
+<div id="a-special-type-table" class="section level3 unnumbered">
+<h3>A special type: table<a class="anchor" aria-label="anchor" href="#a-special-type-table"><i class="fas fa-link"></i></a>
+</h3>
+<p>Tables are so commonly scraped that rvest has special way to extract the values, just as we did in Google Sheets, which puts it right into a data frame:</p>
+<div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">my_html</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rvest.tidyverse.org/reference/rename.html">html_node</a></span> <span class="op">(</span><span class="st">"table"</span><span class="op">)</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="va">html_table</span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">First name</th>
+<th align="left">Last name</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Joe</td>
+<td align="left">Biden</td>
+</tr>
+<tr class="even">
+<td align="left">Donald</td>
+<td align="left">Trump</td>
+</tr>
+<tr class="odd">
+<td align="left">Barack</td>
+<td align="left">Obama</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>The singular version of html_node picks out the first piece that matches the selector. The plural version would result in a list of all of them, from which you can select the number you want using the odd syntax <code>.[[n]]</code>, where “n” is the table number.</p>
+</div>
+<div id="a-harder-example-ballotpedia" class="section level3 unnumbered">
+<h3>A harder example: Ballotpedia<a class="anchor" aria-label="anchor" href="#a-harder-example-ballotpedia"><i class="fas fa-link"></i></a>
+</h3>
+<p>Here’s an example using the ballotpedia page we used in the last section:</p>
+<div class="sourceCode" id="cb158"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">url</span> <span class="op">&lt;-</span><span class="st">"https://ballotpedia.org/List_of_current_city_council_officials_of_the_top_100_cities_in_the_United_States"</span>
+
+<span class="va">ballotpedia</span> <span class="op">&lt;-</span> 
+  <span class="va">url</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="va">read_html</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rvest.tidyverse.org/reference/rename.html">html_nodes</a></span> <span class="op">(</span><span class="st">"table"</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span> <span class="op">(</span><span class="va">ballotpedia</span><span class="op">)</span></code></pre></div>
+<pre><code>## {xml_nodeset (12)}
+##  [1] &lt;table class="infobox" style="text-align: center; width:200px"&gt;&lt;tbody&gt;\n ...
+##  [2] &lt;table class="bptable sortable collapsible collapsed" style="background: ...
+##  [3] &lt;table class="bptable gray sortable" id="officeholder-table" style="widt ...
+##  [4] &lt;table class="wikitable;" style="width=100%"&gt;&lt;tbody&gt;\n&lt;tr&gt;\n&lt;th colspan= ...
+##  [5] &lt;table class="navbox" cellspacing="0" style=";"&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style="pa ...
+##  [6] &lt;table cellspacing="0" class="nowraplinks collapsible autocollapse" styl ...
+##  [7] &lt;table class="navbox" cellspacing="0" style=";"&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style="pa ...
+##  [8] &lt;table cellspacing="0" class="nowraplinks collapsible autocollapse" styl ...
+##  [9] &lt;table class="navbox" cellspacing="0" style=";"&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style="pa ...
+## [10] &lt;table cellspacing="0" class="nowraplinks collapsible autocollapse" styl ...
+## [11] &lt;table class="navbox" cellspacing="0" style=";"&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style="pa ...
+## [12] &lt;table cellspacing="0" class="nowraplinks collapsible autocollapse" styl ...</code></pre>
+<p>Looking at this, we have several ways to get at the proper table. We can pick the third element that we just got:</p>
+<div class="sourceCode" id="cb160"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ballotpedia</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span></code></pre></div>
+<pre><code>## {html_node}
+## &lt;table class="bptable gray sortable" id="officeholder-table" style="width:auto; border-bottom:1px solid #bcbcbc;"&gt;
+## [1] &lt;thead&gt;&lt;tr colspan="5" style="background:#4c4c4c!important;color:#fff!imp ...
+## [2] &lt;tbody&gt;\n&lt;tr&gt;\n&lt;td style="padding-left:10px;"&gt;&lt;a href="https://ballotpedi ...</code></pre>
+<p>or, you might notice that it has an “id” attribute called ‘officeholder-table’.</p>
+<div class="sourceCode" id="cb162"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">office_holders</span> <span class="op">&lt;-</span>
+  <span class="va">url</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="va">read_html</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rvest.tidyverse.org/reference/rename.html">html_node</a></span><span class="op">(</span><span class="st">"#officeholder-table &gt; tbody"</span><span class="op">)</span></code></pre></div>
+<p>If you print it, you’ll see something like this:</p>
+<div class="figure">
+<img src="assets/images/advanced-scrape2-largetable.png" style="width:100.0%" alt=""><p class="caption">office image</p>
+</div>
+</div>
+<div id="getting-the-link" class="section level3" number="26.1.1">
+<h3>
+<span class="header-section-number">26.1.1</span> Getting the link<a class="anchor" aria-label="anchor" href="#getting-the-link"><i class="fas fa-link"></i></a>
+</h3>
+<p>Before, in Google Sheets, we had no way to pick up the list of links that would tell us what city each member was in. If we tried, Google Sheets would have choked on the missing links. That’s also true when we use the html_table() function to turn it into a data frame:</p>
+<div class="sourceCode" id="cb163"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">office_table</span> <span class="op">&lt;-</span> 
+  <span class="va">url</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="va">read_html</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rvest.tidyverse.org/reference/rename.html">html_node</a></span><span class="op">(</span><span class="st">"#officeholder-table"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  <span class="co"># keep the whole table to get headings </span>
+  <span class="va">html_table</span></code></pre></div>
+<p>But now we can get a list of the names of cities by extracting an “attribute” from the tag. (This is a little harder than I’d intended because not every row has a link, meaning we have to rejigger the formula to create empty rows when the link doesn’t exist.)</p>
+<div class="sourceCode" id="cb164"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">city_links</span> <span class="op">&lt;-</span>
+  <span class="va">ballotpedia</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  <span class="co"># the third table in our list</span>
+  <span class="fu"><a href="https://rvest.tidyverse.org/reference/rename.html">html_nodes</a></span> <span class="op">(</span><span class="st">"tbody &gt; tr"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  <span class="co"># all rows</span>
+  <span class="fu"><a href="https://rvest.tidyverse.org/reference/rename.html">html_node</a></span> <span class="op">(</span><span class="st">"td &gt; a"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  <span class="co"># justlink tag in the first column </span>
+  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_attr.html">html_attr</a></span><span class="op">(</span><span class="st">"href"</span><span class="op">)</span>  <span class="co"># the URL</span></code></pre></div>
+<p>We’ve never done this before, but we can add this list as a column to the data frame using the tidyverse <code>add_column</code> syntax. At the same time, you can put your regular expression muscles to work by “extracting” rather than “detecting” a pattern:</p>
+<div class="sourceCode" id="cb165"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">office_table</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://tibble.tidyverse.org/reference/add_column.html">add_column</a></span> <span class="op">(</span>city<span class="op">=</span><span class="va">city_links</span>, .before<span class="op">=</span><span class="st">"Office"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span> <span class="op">(</span>city <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract</a></span><span class="op">(</span><span class="va">city</span>, <span class="st">"[^/]+$"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="21%">
+<col width="32%">
+<col width="5%">
+<col width="12%">
+<col width="10%">
+<col width="17%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">city</th>
+<th align="left">Office</th>
+<th align="left">State</th>
+<th align="left">Name</th>
+<th align="left">Party</th>
+<th align="left">Date assumed office</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Albuquerque,_New_Mexico</td>
+<td align="left">Albuquerque City Council District 1</td>
+<td align="left">NM</td>
+<td align="left">Louie Sanchez</td>
+<td align="left">Nonpartisan</td>
+<td align="left">January 1, 2022</td>
+</tr>
+<tr class="even">
+<td align="left">Albuquerque,_New_Mexico</td>
+<td align="left">Albuquerque City Council District 2</td>
+<td align="left">NM</td>
+<td align="left">Isaac Benton</td>
+<td align="left">Nonpartisan</td>
+<td align="left">2005</td>
+</tr>
+<tr class="odd">
+<td align="left">Albuquerque,_New_Mexico</td>
+<td align="left">Albuquerque City Council District 3</td>
+<td align="left">NM</td>
+<td align="left">Klarissa Peña</td>
+<td align="left">Nonpartisan</td>
+<td align="left">2013</td>
+</tr>
+<tr class="even">
+<td align="left">Albuquerque,_New_Mexico</td>
+<td align="left">Albuquerque City Council District 4</td>
+<td align="left">NM</td>
+<td align="left">Brook Bassan</td>
+<td align="left">Nonpartisan</td>
+<td align="left">2019</td>
+</tr>
+<tr class="odd">
+<td align="left">Albuquerque,_New_Mexico</td>
+<td align="left">Albuquerque City Council District 5</td>
+<td align="left">NM</td>
+<td align="left">Dan Lewis</td>
+<td align="left">Nonpartisan</td>
+<td align="left">January 1, 2022</td>
+</tr>
+<tr class="even">
+<td align="left">Albuquerque,_New_Mexico</td>
+<td align="left">Albuquerque City Council District 6</td>
+<td align="left">NM</td>
+<td align="left">Patrick Davis</td>
+<td align="left">Nonpartisan</td>
+<td align="left">2016</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>(The str_extract () function matches everything after the last slash , because the character class is negated. It means “take everything up to the end where where there is no slash in it.”)</p>
+</div>
+</div>
+<div id="your-turn-1" class="section level2" number="26.2">
+<h2>
+<span class="header-section-number">26.2</span> Your turn<a class="anchor" aria-label="anchor" href="#your-turn-1"><i class="fas fa-link"></i></a>
+</h2>
+<p>A lot of people use IMDB pages as practice for scraping because its HTML is a little primitive. Try extracting the name, year, rating, and rank of each item in this list <a href="https://www.imdb.com/chart/toptv/?ref_=nv_tvv_250" class="uri">https://www.imdb.com/chart/toptv/?ref_=nv_tvv_250</a></p>
+<p>Hints:</p>
+<ul>
+<li><p>If you right-click on the table, you’ll see the table has an attribute of <code>class="chart full-width"</code> . That means you can use the class selector <code>.chart &gt; table</code> . If you use plural, it will be a list with one item in it. If you use singular, it will be the table itself.</p></li>
+<li><p>To get three columns in a data frame of text, <code>html_table(trim=T)</code></p></li>
+<li><p>The year is held in a span element with a class of “secondaryInfo” in the first column. See if you can figure out how to get at it. <a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt; &lt;code&gt;html_nodes ("tbody &amp;gt; tr &amp;gt; .titleColumn &amp;gt; .secondaryInfo") %&amp;gt;% html_text(trim=T)&lt;/code&gt;&lt;/p&gt;'><sup>33</sup></a></p></li>
+<li><p>To extract title and its link, use the <code>a</code> tag</p></li>
+<li><p>To get the full information from the rating column, including the number of votes that it’s based on, use the <code>strong</code> tag then the <code>title</code> attribute. See if you can figure that one out.</p></li>
+<li><p>To put them all together, use the add_column() verb</p></li>
+</ul>
+</div>
+<div id="cheat-sheet" class="section level2" number="26.3">
+<h2>
+<span class="header-section-number">26.3</span> Cheat sheet<a class="anchor" aria-label="anchor" href="#cheat-sheet"><i class="fas fa-link"></i></a>
+</h2>
+<div id="html-tags-elements" class="section level3 unnumbered">
+<h3>HTML tags / elements<a class="anchor" aria-label="anchor" href="#html-tags-elements"><i class="fas fa-link"></i></a>
+</h3>
+<p>Each tag has an opening and closing it. This is what a “p” open and close tag looks like, with the text inside it shown on the page:</p>
+<pre><code>&lt;p&gt; This is a paragraph &lt;/p&gt;
+</code></pre>
+<p>Here is a list of common tags you’ll use in scraping:</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="21%">
+<col width="78%">
+</colgroup>
+<thead><tr class="header">
+<th>tag</th>
+<th>description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>p</code></td>
+<td>or a paragraph</td>
+</tr>
+<tr class="even">
+<td><code>div</code></td>
+<td>a block of text , or division of the page.</td>
+</tr>
+<tr class="odd">
+<td><code>span</code></td>
+<td>An area within a div or p element that is treated specially without it breaking into a new line.</td>
+</tr>
+<tr class="even">
+<td><code>a</code></td>
+<td>a link. It should always have an attribute of <code>href</code>, which is the URL to the link.</td>
+</tr>
+<tr class="odd">
+<td>
+<code>h1</code> through <code>h6</code>
+</td>
+<td>which are headline levels. “h1” is the headline, “h2” is a sub-head, and so on.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Modern websites might have these sections, which are used instead of the “div” tag:</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th>tag</th>
+<th>description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>nav</code></td>
+<td>a navigational menu</td>
+</tr>
+<tr class="even">
+<td><code>main</code></td>
+<td>the main block of the page with the content</td>
+</tr>
+<tr class="odd">
+<td><code>aside</code></td>
+<td>a sidebar</td>
+</tr>
+<tr class="even">
+<td><code>footer</code></td>
+<td>the stuff at the bottom.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Tables are structured like this:</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="21%">
+<col width="78%">
+</colgroup>
+<thead><tr class="header">
+<th>tag</th>
+<th>description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>table</code></td>
+<td>the main container.</td>
+</tr>
+<tr class="even">
+<td>
+<code>thead</code> and <code>tbody</code>
+</td>
+<td>A heading area and the body area. These are always just below the table element</td>
+</tr>
+<tr class="odd">
+<td><code>th</code></td>
+<td>the row that contains the headings . These are the first row within the body</td>
+</tr>
+<tr class="even">
+<td><code>tr</code></td>
+<td>all of the content rows. These are subsequent rows within tbody</td>
+</tr>
+<tr class="odd">
+<td><code>td</code></td>
+<td>all of the cells (columns). These are always WITHIN a tr or th element.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Any of these can be nested within any others. Typically, a page starts with an “h1” tag, then has “div” tags for different sections, such as the sidebar or the main content. An “a” tag is typically nested within others.</p>
+<p>Standalone tags:</p>
+<p>A few tags don’t have opening and closing versions - they just stand alone:</p>
+<p><code>img</code> - an image to show. It would have a <code>src</code> attribute for the link, and an <code>alt</code> attribute for text to show for accessibility. example: <code>&lt;img src="path-to-my-image" alt="This is a picture of..."&gt;</code></p>
+<p><code>br</code> - A hard line break.</p>
+</div>
+<div id="common-attributes-for-tags" class="section level3 unnumbered">
+<h3>Common attributes for tags<a class="anchor" aria-label="anchor" href="#common-attributes-for-tags"><i class="fas fa-link"></i></a>
+</h3>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="21%">
+<col width="78%">
+</colgroup>
+<thead><tr class="header">
+<th>tag</th>
+<th>description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>href</code></td>
+<td>the URL of a link within an <code>a</code> tag.</td>
+</tr>
+<tr class="even">
+<td><code>src</code></td>
+<td>the path to an image, within an <code>img</code> tag.</td>
+</tr>
+<tr class="odd">
+<td><code>class</code></td>
+<td>a reference to a CSS class. More than one class can be identified, separated with a space.</td>
+</tr>
+<tr class="even">
+<td><code>id</code></td>
+<td>a unique name for this element using CSS</td>
+</tr>
+</tbody>
+</table></div>
+<p>People can also make up their own attributes - they’re arbitrary.</p>
+</div>
+<div id="rvest-functions" class="section level3 unnumbered">
+<h3>Rvest functions<a class="anchor" aria-label="anchor" href="#rvest-functions"><i class="fas fa-link"></i></a>
+</h3>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="21%">
+<col width="78%">
+</colgroup>
+<thead><tr class="header">
+<th>function</th>
+<th>description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html()</a></code></td>
+<td>to parse the page. Start with a file name or URL.</td>
+</tr>
+<tr class="even">
+<td>
+<code><a href="https://rvest.tidyverse.org/reference/rename.html">html_nodes()</a></code> or <code>html_elements</code>
+</td>
+<td>to get ALL elements that match your query. It always gives back a list of objects, even if it’s empty. To pluck one by number, use <code>[[n]]</code>.</td>
+</tr>
+<tr class="odd">
+<td>
+<code><a href="https://rvest.tidyverse.org/reference/rename.html">html_node()</a></code> or <code>html_element</code>
+</td>
+<td>the FIRST element that matches your query. Always returns a single object.</td>
+</tr>
+<tr class="even">
+<td><code><a href="https://rvest.tidyverse.org/reference/html_table.html">html_table()</a></code></td>
+<td>convert a table to a data frame with just its text</td>
+</tr>
+<tr class="odd">
+<td><code>html_text(trim=T)</code></td>
+<td>get the text within an element.</td>
+</tr>
+<tr class="even">
+<td><code>html_attr (attr_name)</code></td>
+<td>get the value of an attribute, such as the link URL in “href”.</td>
+</tr>
+<tr class="odd">
+<td><code>add_column</code></td>
+<td>append columns to the end of a dataframe from lists/vectors. They must be in the same order, and there have to be the same number of items as there are rows.</td>
+</tr>
+<tr class="even">
+<td><code>add_row</code></td>
+<td>to append rows at the bottom. These can be by name or position. There can’t be any columns in the row you want to add that aren’t in the one you’re adding to.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Use these with pipes, for example:</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb167-1"><a href="advanced-scrape2.html#cb167-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb167-2"><a href="advanced-scrape2.html#cb167-2" aria-hidden="true" tabindex="-1"></a>url %&gt;% </span>
+<span id="cb167-3"><a href="advanced-scrape2.html#cb167-3" aria-hidden="true" tabindex="-1"></a>  read_html %&gt;%</span>
+<span id="cb167-4"><a href="advanced-scrape2.html#cb167-4" aria-hidden="true" tabindex="-1"></a>  html_nodes ( "table") %&gt;%</span>
+<span id="cb167-5"><a href="advanced-scrape2.html#cb167-5" aria-hidden="true" tabindex="-1"></a>  .[<span class="co">[</span><span class="ot">3</span><span class="co">]</span>] %&gt;%</span>
+<span id="cb167-6"><a href="advanced-scrape2.html#cb167-6" aria-hidden="true" tabindex="-1"></a>  html_table(trim=T)</span>
+<span id="cb167-7"><a href="advanced-scrape2.html#cb167-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb167-8"><a href="advanced-scrape2.html#cb167-8" aria-hidden="true" tabindex="-1"></a>NB: In the fourth line, you need a period before the [<span class="co">[</span><span class="ot">3</span><span class="co">]</span>] . </span>
+<span id="cb167-9"><a href="advanced-scrape2.html#cb167-9" aria-hidden="true" tabindex="-1"></a>I don't know why. </span>
+<span id="cb167-10"><a href="advanced-scrape2.html#cb167-10" aria-hidden="true" tabindex="-1"></a>It stands for "whatever came before this", and is usually implied when we use the pipe.</span>
+<span id="cb167-11"><a href="advanced-scrape2.html#cb167-11" aria-hidden="true" tabindex="-1"></a>  </span></code></pre></div>
+<p>(You’ll often see these operations as <code>cbind</code> and <code>rbind</code> - they’re similar. Our way is just the tidyverse way.)</p>
+</div>
+<div id="examples-of-common-css-selectors" class="section level3 unnumbered">
+<h3>Examples of common CSS selectors<a class="anchor" aria-label="anchor" href="#examples-of-common-css-selectors"><i class="fas fa-link"></i></a>
+</h3>
+<p>This uses an example assuming the tag “p” , class “myclass” and id “myid” are used. You substitute the tags, classes, and id’s you want. See <a href="https://www.scraperapi.com/blog/css-selectors-cheat-sheet/" class="uri">https://www.scraperapi.com/blog/css-selectors-cheat-sheet/</a> for a more in-depth cheat sheet.</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="42%">
+<col width="57%">
+</colgroup>
+<thead><tr class="header">
+<th>selector</th>
+<th>description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>p</code></td>
+<td>a “p” element</td>
+</tr>
+<tr class="even">
+<td><code>.myclass</code></td>
+<td>any element with class=“myclass”</td>
+</tr>
+<tr class="odd">
+<td><code>p .myclass</code></td>
+<td>“p” element with a class of “myclass”.</td>
+</tr>
+<tr class="even">
+<td><code>p &gt; .myclass</code></td>
+<td>every child element of p with a class of ‘myclass’ regardless of the tag. Must be a direct child.</td>
+</tr>
+<tr class="odd">
+<td><code>#myid</code></td>
+<td>Any element with “id=‘myid’”</td>
+</tr>
+<tr class="even">
+<td><code>body &gt; div &gt; table .content-table &gt; tbody &gt; tr</code></td>
+<td>A row within a table classed “content-table” within a div.</td>
+</tr>
+</tbody>
+</table></div>
+<p>You have to go through the whole path to an element if you need it, which is why you have to look in the inspector section of your browser or use the CSS Selector Gadget (a chrome extension that I’ve never been able to work properly!)</p>
+<p>[]</p>
+
+</div>
+</div>
+</div>
+
+
+
+
+  <div class="chapter-nav">
+<div class="prev"><a href="advanced-scrape1.html"><span class="header-section-number">25</span> Scraping without programming</a></div>
+<div class="next"><a href="appendix-math.html"><span class="header-section-number">A</span> Newsroom numbers cheat sheet</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#advanced-scrape2"><span class="header-section-number">26</span> Introduction to scraping in R</a></li>
+<li>
+<a class="nav-link" href="#understanding-a-web-page-and-its-structure"><span class="header-section-number">26.1</span> Understanding a web page and its structure</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#a-special-type-table">A special type: table</a></li>
+<li><a class="nav-link" href="#a-harder-example-ballotpedia">A harder example: Ballotpedia</a></li>
+<li><a class="nav-link" href="#getting-the-link"><span class="header-section-number">26.1.1</span> Getting the link</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#your-turn-1"><span class="header-section-number">26.2</span> Your turn</a></li>
+<li>
+<a class="nav-link" href="#cheat-sheet"><span class="header-section-number">26.3</span> Cheat sheet</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#html-tags-elements">HTML tags / elements</a></li>
+<li><a class="nav-link" href="#common-attributes-for-tags">Common attributes for tags</a></li>
+<li><a class="nav-link" href="#rvest-functions">Rvest functions</a></li>
+<li><a class="nav-link" href="#examples-of-common-css-selectors">Examples of common CSS selectors</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Data Reporting, Spring 2022</strong>" was written by Sarah Cohen. It was last built on 2022-03-31.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

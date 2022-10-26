@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title> 10 Formulas in Excel | Data Reporting, Spring 2022</title>
+<meta name="author" content="Sarah Cohen">
+<meta name="description" content="The quick review of math in Excel uses the City of Phoenix’s budgeted spending for the 2018 fiscal year, compared with previous years. Download the data file to follow along You should get into...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content=" 10 Formulas in Excel | Data Reporting, Spring 2022">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://github.com/cronkitedata/djtextbook/xl-formulas.html">
+<meta property="og:description" content="The quick review of math in Excel uses the City of Phoenix’s budgeted spending for the 2018 fiscal year, compared with previous years. Download the data file to follow along You should get into...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content=" 10 Formulas in Excel | Data Reporting, Spring 2022">
+<meta name="twitter:site" content="@sarahcnyt">
+<meta name="twitter:description" content="The quick review of math in Excel uses the City of Phoenix’s budgeted spending for the 2018 fiscal year, compared with previous years. Download the data file to follow along You should get into...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Muli-0.4.0/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/core-js-2.5.3/shim.min.js"></script><script src="libs/react-17.0.0/react.min.js"></script><script src="libs/react-17.0.0/react-dom.min.js"></script><script src="libs/reactwidget-1.0.0/react-tools.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="libs/reactable-binding-0.2.3/reactable.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link rel="shortcut icon" href="assets/images/favicon.ico">
+<!--
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        --><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Data Reporting, Spring 2022</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li class="book-part">Reporting with data</li>
+<li><a class="" href="starter-intro.html">In this section</a></li>
+<li><a class="" href="start-story.html"><span class="header-section-number">1</span> Learn a new way to read</a></li>
+<li><a class="" href="start-math.html"><span class="header-section-number">2</span> Newsroom math</a></li>
+<li><a class="" href="start-data-def.html"><span class="header-section-number">3</span> Defining “Data”</a></li>
+<li><a class="" href="start-data-diary.html"><span class="header-section-number">4</span> Replication and the data diary</a></li>
+<li><a class="" href="start-hunt.html"><span class="header-section-number">5</span> Finding the right data for your story</a></li>
+<li><a class="" href="start-build-own.html"><span class="header-section-number">6</span> Build your own database</a></li>
+<li class="book-part">Spreadsheets</li>
+<li><a class="" href="xl-intro.html">Introduction</a></li>
+<li><a class="" href="xl-refresher.html"><span class="header-section-number">7</span> An Excel Refresher</a></li>
+<li><a class="" href="xl-filter-sort.html"><span class="header-section-number">8</span> Sorting and filtering to find stories</a></li>
+<li><a class="" href="xl-pivot.html"><span class="header-section-number">9</span> Grouping with pivot tables</a></li>
+<li><a class="active" href="xl-formulas.html"><span class="header-section-number">10</span> Formulas in Excel</a></li>
+<li><a class="" href="xl-practice-noc.html"><span class="header-section-number">11</span> Practice exercise</a></li>
+<li class="book-part">R Study Guide</li>
+<li><a class="" href="r-intro.html">Introduction</a></li>
+<li><a class="" href="r-start.html"><span class="header-section-number">12</span> Getting started with R and RStudio</a></li>
+<li><a class="" href="r-markdown.html"><span class="header-section-number">13</span> R Markdown</a></li>
+<li><a class="" href="r-data-import.html"><span class="header-section-number">14</span> Getting and saving data</a></li>
+<li><a class="" href="r-verbs.html"><span class="header-section-number">15</span> A quick tour of verbs</a></li>
+<li><a class="" href="r-verb-filter.html"><span class="header-section-number">16</span> Verbs in depth: Select, filter, arrange</a></li>
+<li><a class="" href="r-verb-groupby.html"><span class="header-section-number">17</span> Verbs in depth: Aggregating with groups</a></li>
+<li><a class="" href="r-verb-mutate.html"><span class="header-section-number">18</span> Verbs in depth: New from old data with Mutate</a></li>
+<li><a class="" href="r-verb-join.html"><span class="header-section-number">19</span> Verbs in depth: Matchmaking with joins</a></li>
+<li><a class="" href="r-recipes.html"><span class="header-section-number">20</span> Recipes</a></li>
+<li class="book-part">Visualization as a reporting tool</li>
+<li><a class="" href="viz-intro.html">Introduction</a></li>
+<li><a class="" href="viz-reporting.html"><span class="header-section-number">21</span> Visualization as a reporting tool</a></li>
+<li><a class="" href="viz-demo.html"><span class="header-section-number">22</span> Visualization demo</a></li>
+<li class="book-part">Special skills</li>
+<li><a class="" href="advanced-intro.html">Introduction</a></li>
+<li><a class="" href="advanced-regex.html"><span class="header-section-number">23</span> Regular Expressions for pattern matching</a></li>
+<li><a class="" href="advanced-openrefine.html"><span class="header-section-number">24</span> Open refine walkthrough</a></li>
+<li><a class="" href="advanced-scrape1.html"><span class="header-section-number">25</span> Scraping without programming</a></li>
+<li><a class="" href="advanced-scrape2.html"><span class="header-section-number">26</span> Introduction to scraping in R</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="" href="appendix-math.html"><span class="header-section-number">A</span> Newsroom numbers cheat sheet</a></li>
+<li><a class="" href="appendix-program.html"><span class="header-section-number">B</span> A gentle intro to programming</a></li>
+<li><a class="" href="appendix-glossary.html"><span class="header-section-number">C</span> Glossary</a></li>
+<li><a class="" href="appendix-resources.html"><span class="header-section-number">D</span> Great R Resources</a></li>
+<li><a class="" href="appendix-ppp.html"><span class="header-section-number">E</span> Documentation for PPP data chapters</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="xl-formulas" class="section level1" number="10">
+<h1>
+<span class="header-section-number"> 10</span> Formulas in Excel<a class="anchor" aria-label="anchor" href="#xl-formulas"><i class="fas fa-link"></i></a>
+</h1>
+<p>The quick review of math in Excel uses the City of Phoenix’s budgeted spending for the 2018 fiscal year, compared with previous years.</p>
+<div class="alert alert-info opacity-2">
+<p>Download the <a href="https://cronkitedata.s3.amazonaws.com/xlfiles/phx_budget_summary.xlsx">data file</a> to follow along</p>
+</div>
+<p>You should get into the habit of creating unique identifiers, checking your corners and looking for documentation before you ever start working with a spreadsheet. These habits were covered in <a href="start-data-diary.html">Replication and the data diary</a> and on <a href="xl-refresher.html">an Excel refresher</a> .</p>
+<div id="formulas-in-spreadsheets" class="section level2" number="10.1">
+<h2>
+<span class="header-section-number">10.1</span> Formulas in spreadsheets<a class="anchor" aria-label="anchor" href="#formulas-in-spreadsheets"><i class="fas fa-link"></i></a>
+</h2>
+<p>Whether you use Excel or Google sheets, remember that every formula begins with the equals sign <strong>(=)</strong>. Rather than the values you want to work with in the formula, you’ll use <em>references</em> to other cells in the sheet.</p>
+<p>The easiest formulas are simple arithmetic: adding, subtracting, multiplying and dividing two or more cells. You’ll just use simple operators to do this:</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th>operator</th>
+<th>symbol</th>
+<th>example</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>addition</td>
+<td>+</td>
+<td>=A2+B2</td>
+</tr>
+<tr class="even">
+<td>subtraction</td>
+<td>-</td>
+<td>=A2-B2</td>
+</tr>
+<tr class="odd">
+<td>multiplication</td>
+<td>*</td>
+<td>=A2*B2</td>
+</tr>
+<tr class="even">
+<td>division</td>
+<td>/</td>
+<td>=A2/B2</td>
+</tr>
+</tbody>
+</table></div>
+<p>Here’s what a spreadsheet looks like while editing some simple arithmetic:</p>
+<div class="figure">
+<img src="assets/images/xl_mathreview_00.png" alt=""><p class="caption">formula</p>
+</div>
+<p>The other kind of formula is a <em>function</em>. A function is a command that has a name, and requires <em>arguments</em> – usually the cell addresses or the range of addresses that it will act on. Every programming language has functions built in and many have extensions, or packages or libraries, that add even more as users find things they want to do more efficiently. You begin using a function the same way you begin a formula – with an = sign. Here are three common functions that create summary statistics for the numbers contained in a <em>range</em> of addresses. A range is a set of cells defined by its corner cell address: the top left through the bottom right.</p>
+<p>You’ll usually use them on a single column at a time.</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th>Formula</th>
+<th>What it does</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>=SUM(start:finish)</td>
+<td>Adds up the numbers between <code>start</code> and <code>finish</code>
+</td>
+</tr>
+<tr class="even">
+<td>=AVERAGE(start:finish)</td>
+<td>Computes the mean of the numbers</td>
+</tr>
+<tr class="odd">
+<td>=MEDIAN(start:finish)</td>
+<td>Derives the median of the numbers</td>
+</tr>
+</tbody>
+</table></div>
+<p>…where “start” means the first cell you want to include, and finish means the last cell. Use the cell address of the first number you want to include , a colon, then the cell address of the last number you want to include. You can also select them while you’re editing the formula.</p>
+<p>Here’s an example of adding up all of the rows in a list by county:</p>
+<div class="figure">
+<img src="assets/images/xl_mathreview_00A.png" alt=""><p class="caption">formula</p>
+</div>
+</div>
+<div id="common-spreadsheet-arithmetic" class="section level2" number="10.2">
+<h2>
+<span class="header-section-number">10.2</span> Common spreadsheet arithmetic<a class="anchor" aria-label="anchor" href="#common-spreadsheet-arithmetic"><i class="fas fa-link"></i></a>
+</h2>
+<p>The budget document shows three years’ of data: The actual spending in the fiscal year that ended in 2016; the spending that was estimated for the end of fiscal year 2017; and the proposed spending for fiscal year 2018. The first page of the document shows these amounts for broad spending categories.</p>
+<p>You may want to widen the columns and format the numbers before you start:</p>
+<div class="col-12">
+<div class="inline-figure"><img src="assets/images/xl_mathreview_01.gif" style="width:100.0%"></div>
+</div>
+<div id="check-the-governments-math-with-sum" class="section level3" number="10.2.1">
+<h3>
+<span class="header-section-number">10.2.1</span> Check the government’s math with SUM<a class="anchor" aria-label="anchor" href="#check-the-governments-math-with-sum"><i class="fas fa-link"></i></a>
+</h3>
+<p>Our first job is to make sure the government has provided us data that adds up. To do that, we’ll SUM all of the departments’ spending.</p>
+<p>To add up the numbers from 2016, enter the following formula in cell C11, just below the number provided by the government:</p>
+<pre><code>  =SUM(C2:C8)
+  and hit the enter key</code></pre>
+<p>Copy that formula to the right. Notice how the formula changes the addresses that it is using as you move to the right – it’s adjusted them to refer to the current column.</p>
+<div class="col-12">
+<div class="inline-figure"><img src="assets/images/xl_mathreview_02.gif" style="width:100.0%"></div>
+</div>
+<p>What’s wrong? The numbers for the budget 2018 don’t add up. (Hint: look at the page called “notes” for an explanation.)</p>
+</div>
+<div id="change-in-spending" class="section level3" number="10.2.2">
+<h3>
+<span class="header-section-number">10.2.2</span> Change in spending<a class="anchor" aria-label="anchor" href="#change-in-spending"><i class="fas fa-link"></i></a>
+</h3>
+<p>The increase or decrease in projected spending from 2017 to 2018 is just the difference between the two values, beginning in cell F3</p>
+<pre><code>  new-old, or  =E2-D2</code></pre>
+<p>When you copy it down, note how the references to each row also adjusted. In line 3, it’s E3-D3, and so on. Excel and other spreadsheets assume that, most of the time, you want these kinds of adjustments to be made.</p>
+<div class="inline-figure"><img src="assets/images/xl_mathreview_03.gif" style="width:100.0%"></div>
+</div>
+<div id="percent-change" class="section level3" number="10.2.3">
+<h3>
+<span class="header-section-number">10.2.3</span> Percent change<a class="anchor" aria-label="anchor" href="#percent-change"><i class="fas fa-link"></i></a>
+</h3>
+<p>We can’t tell the <em>rate</em> of growth for each department until we calculate the percent change from one year to another. Now that we already have the change, the percent change is easy. The formula is:</p>
+<pre><code>  ( new - old ) / old
+
+  .. or just scream "NOO"</code></pre>
+<p>The new-old is already in column F, so all that’s left is to divide again. In grade school, you also had to move the decimal place over two spots, since the concept of percent change is “out of 100”. Excel formats will do that for you.</p>
+<p>Remember, it’s always (new-old)/old , <strong>NOT</strong> the big one minus the little one. Doing it correctly, the answer could be negative, meaning the value fell.</p>
+<div class="col-12">
+<div class="figure">
+<img src="assets/images/xl_mathreview_04.png" style="width:100.0%" alt=""><p class="caption">“% change”</p>
+</div>
+</div>
+<p>When you’re done, you can format the answer as a percentage to get it into whole numbers.</p>
+<p>Until you get used to it, there’s no harm in doing these calculations step by step. Excel won’t complain if you have extra columns. You can always hide them.</p>
+<p>It’s also worth comparing the picture you get by looking at raw numbers vs. percentages. In our case, the budget for public safety is expected to rise by a whopping $102 million, but it’s a smaller percentage increase than other, smaller departments.</p>
+</div>
+<div id="parts-of-a-whole-percent-of-total" class="section level3" number="10.2.4">
+<h3>
+<span class="header-section-number">10.2.4</span> Parts of a whole: percent of total<a class="anchor" aria-label="anchor" href="#parts-of-a-whole-percent-of-total"><i class="fas fa-link"></i></a>
+</h3>
+<p>We’d also like to know what portion of the total spending is eaten up by each department. To do that, we need the percent of total.</p>
+<p>In our case, let’s use the total that the government gave us. In practice, you’d have to decide what to do if your figures didn’t match those provided by officials. You can’t assume that the total is wrong – you could be missing a category, or there could be a mistake in one of the line items.</p>
+<p>The formula for percent of total is:</p>
+<pre><code>  category / total</code></pre>
+<p>Again, Excel will multiply by 100, or move the decimal place over for you once you format.</p>
+<p>But you have a problem: You either have to type in each row, or you get something like this if you try to copy:</p>
+<div class="col-12">
+<div class="figure">
+<img src="assets/images/xl_mathreview_05.png" style="width:100.0%" alt=""><p class="caption">Wrong way</p>
+</div>
+</div>
+<p>Excel has done its magic, adjusting the location of both the numerator and the denominator when you copied. You don’t have to type in each formula one by one, though. Instead, you’ll use anchors, known in spreadsheets as “absolute references”. Think of a dollar sign as an anchor or stickpin, holding down the location of part of your formula. If you put the stickpin before the letter in the formula, it holds the column in place. If you put it before the number, it holds the row in place. If you put it in both places, it holds the cell in place.</p>
+<p>So our new formula for the percent of total is:</p>
+<div class="col-12">
+<div class="figure">
+<img src="assets/images/xl_mathreview_06.png" style="width:100.0%" alt=""><p class="caption">E2/E$10</p>
+</div>
+</div>
+</div>
+</div>
+<div id="while-were-at-it-two-kinds-of-averages" class="section level2" number="10.3">
+<h2>
+<span class="header-section-number">10.3</span> While we’re at it: two kinds of averages<a class="anchor" aria-label="anchor" href="#while-were-at-it-two-kinds-of-averages"><i class="fas fa-link"></i></a>
+</h2>
+<p>Although it doesn’t make a lot of sense in this context, we’ll go ahead and calculate the <em>average</em> or <em>mean</em> size of each department, and then calculate the <em>median</em> size.</p>
+<p><strong>Simple average, or mean</strong></p>
+<p>A simple average, also known as the mean, is skewed toward very high or very low values. Its formula is</p>
+<pre><code>    sum of pieces / # of pieces that were summed</code></pre>
+<p>But in Excel, all we need is the word AVERAGE:</p>
+<pre><code>    =AVERAGE(C2:C9)</code></pre>
+<p><strong>Median</strong></p>
+<p>In Excel, you can get the median of a list of numbers by just using the formula, MEDIAN()</p>
+<pre><code>  = MEDIAN(C2:C9)</code></pre>
+</div>
+<div id="the-final-spreadsheet" class="section level2" number="10.4">
+<h2>
+<span class="header-section-number">10.4</span> The final spreadsheet<a class="anchor" aria-label="anchor" href="#the-final-spreadsheet"><i class="fas fa-link"></i></a>
+</h2>
+<div class="col-12">
+<div class="figure">
+<img src="assets/images/xl_mathreview_07.png" style="width:100.0%" alt=""><p class="caption">final worksheet</p>
+</div>
+</div>
+<p>Doing simple calclutions like this on data that is provided to you by the government lets you ask better questions when you get an interview, and may even convince officials to talk with you. There’s a big difference between asking them to tell you what the budget numbers are, and asking them to explain specific results!</p>
+</div>
+<div id="faqs" class="section level2" number="10.5">
+<h2>
+<span class="header-section-number">10.5</span> FAQs<a class="anchor" aria-label="anchor" href="#faqs"><i class="fas fa-link"></i></a>
+</h2>
+<div id="excel-wont-let-me-copy-my-formula" class="section level4 unnumbered">
+<h4>Excel won’t let me copy my formula<a class="anchor" aria-label="anchor" href="#excel-wont-let-me-copy-my-formula"><i class="fas fa-link"></i></a>
+</h4>
+<p>Make sure your formula is locked in by either hitting “Enter” or “Escape”. This is a common problem if you’re in the habit of double-clicking instead of selecting a cell. There are a lot things you can’t do while Excel thinks you’re still entering information.</p>
+</div>
+<div id="should-i-use-average-or-median" class="section level4 unnumbered">
+<h4>Should I use average or median?<a class="anchor" aria-label="anchor" href="#should-i-use-average-or-median"><i class="fas fa-link"></i></a>
+</h4>
+<p>It depends. Averages are easier to explain but can be misleading. Usually, if they’re very different, median will be a better representation of the typical person, city or department. Averages in these cases are more like totals.</p>
+</div>
+<div id="my-percents-are-small-numbers-with-decimal-points" class="section level4 unnumbered">
+<h4>My percents are small numbers with decimal points<a class="anchor" aria-label="anchor" href="#my-percents-are-small-numbers-with-decimal-points"><i class="fas fa-link"></i></a>
+</h4>
+<p>Use the format as a % button to move the decimal point over two places and insert the percentage symbol.</p>
+</div>
+<div id="mac-users-theres-some-kind-of-weird-image-on-top-of-my-spreadsheet.-or-some-other-very-weird-hiccup." class="section level4 unnumbered">
+<h4>Mac Users: There’s some kind of weird image on top of my spreadsheet. Or some other very weird hiccup.<a class="anchor" aria-label="anchor" href="#mac-users-theres-some-kind-of-weird-image-on-top-of-my-spreadsheet.-or-some-other-very-weird-hiccup."><i class="fas fa-link"></i></a>
+</h4>
+<p>I have no idea what this is, but it happens. Save your spreadsheet, close it and then re-open. It should go away.</p>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="xl-pivot.html"><span class="header-section-number">9</span> Grouping with pivot tables</a></div>
+<div class="next"><a href="xl-practice-noc.html"><span class="header-section-number">11</span> Practice exercise</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#xl-formulas"><span class="header-section-number">10</span> Formulas in Excel</a></li>
+<li><a class="nav-link" href="#formulas-in-spreadsheets"><span class="header-section-number">10.1</span> Formulas in spreadsheets</a></li>
+<li>
+<a class="nav-link" href="#common-spreadsheet-arithmetic"><span class="header-section-number">10.2</span> Common spreadsheet arithmetic</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#check-the-governments-math-with-sum"><span class="header-section-number">10.2.1</span> Check the government’s math with SUM</a></li>
+<li><a class="nav-link" href="#change-in-spending"><span class="header-section-number">10.2.2</span> Change in spending</a></li>
+<li><a class="nav-link" href="#percent-change"><span class="header-section-number">10.2.3</span> Percent change</a></li>
+<li><a class="nav-link" href="#parts-of-a-whole-percent-of-total"><span class="header-section-number">10.2.4</span> Parts of a whole: percent of total</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#while-were-at-it-two-kinds-of-averages"><span class="header-section-number">10.3</span> While we’re at it: two kinds of averages</a></li>
+<li><a class="nav-link" href="#the-final-spreadsheet"><span class="header-section-number">10.4</span> The final spreadsheet</a></li>
+<li><a class="nav-link" href="#faqs"><span class="header-section-number">10.5</span> FAQs</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Data Reporting, Spring 2022</strong>" was written by Sarah Cohen. It was last built on 2022-03-31.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

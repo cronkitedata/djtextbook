@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title> 15 A quick tour of verbs | Data Reporting, Spring 2022</title>
+<meta name="author" content="Sarah Cohen">
+<meta name="description" content="In this chapter You only need a handful of key verbs of the tidyverse to get a lot done: filter: Pick out rows based on a condition group_by : Collapse your data into categories based on a column,...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content=" 15 A quick tour of verbs | Data Reporting, Spring 2022">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://github.com/cronkitedata/djtextbook/r-verbs.html">
+<meta property="og:description" content="In this chapter You only need a handful of key verbs of the tidyverse to get a lot done: filter: Pick out rows based on a condition group_by : Collapse your data into categories based on a column,...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content=" 15 A quick tour of verbs | Data Reporting, Spring 2022">
+<meta name="twitter:site" content="@sarahcnyt">
+<meta name="twitter:description" content="In this chapter You only need a handful of key verbs of the tidyverse to get a lot done: filter: Pick out rows based on a condition group_by : Collapse your data into categories based on a column,...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Muli-0.4.0/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/core-js-2.5.3/shim.min.js"></script><script src="libs/react-17.0.0/react.min.js"></script><script src="libs/react-17.0.0/react-dom.min.js"></script><script src="libs/reactwidget-1.0.0/react-tools.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="libs/reactable-binding-0.2.3/reactable.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link rel="shortcut icon" href="assets/images/favicon.ico">
+<!--
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        --><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Data Reporting, Spring 2022</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li class="book-part">Reporting with data</li>
+<li><a class="" href="starter-intro.html">In this section</a></li>
+<li><a class="" href="start-story.html"><span class="header-section-number">1</span> Learn a new way to read</a></li>
+<li><a class="" href="start-math.html"><span class="header-section-number">2</span> Newsroom math</a></li>
+<li><a class="" href="start-data-def.html"><span class="header-section-number">3</span> Defining “Data”</a></li>
+<li><a class="" href="start-data-diary.html"><span class="header-section-number">4</span> Replication and the data diary</a></li>
+<li><a class="" href="start-hunt.html"><span class="header-section-number">5</span> Finding the right data for your story</a></li>
+<li><a class="" href="start-build-own.html"><span class="header-section-number">6</span> Build your own database</a></li>
+<li class="book-part">Spreadsheets</li>
+<li><a class="" href="xl-intro.html">Introduction</a></li>
+<li><a class="" href="xl-refresher.html"><span class="header-section-number">7</span> An Excel Refresher</a></li>
+<li><a class="" href="xl-filter-sort.html"><span class="header-section-number">8</span> Sorting and filtering to find stories</a></li>
+<li><a class="" href="xl-pivot.html"><span class="header-section-number">9</span> Grouping with pivot tables</a></li>
+<li><a class="" href="xl-formulas.html"><span class="header-section-number">10</span> Formulas in Excel</a></li>
+<li><a class="" href="xl-practice-noc.html"><span class="header-section-number">11</span> Practice exercise</a></li>
+<li class="book-part">R Study Guide</li>
+<li><a class="" href="r-intro.html">Introduction</a></li>
+<li><a class="" href="r-start.html"><span class="header-section-number">12</span> Getting started with R and RStudio</a></li>
+<li><a class="" href="r-markdown.html"><span class="header-section-number">13</span> R Markdown</a></li>
+<li><a class="" href="r-data-import.html"><span class="header-section-number">14</span> Getting and saving data</a></li>
+<li><a class="active" href="r-verbs.html"><span class="header-section-number">15</span> A quick tour of verbs</a></li>
+<li><a class="" href="r-verb-filter.html"><span class="header-section-number">16</span> Verbs in depth: Select, filter, arrange</a></li>
+<li><a class="" href="r-verb-groupby.html"><span class="header-section-number">17</span> Verbs in depth: Aggregating with groups</a></li>
+<li><a class="" href="r-verb-mutate.html"><span class="header-section-number">18</span> Verbs in depth: New from old data with Mutate</a></li>
+<li><a class="" href="r-verb-join.html"><span class="header-section-number">19</span> Verbs in depth: Matchmaking with joins</a></li>
+<li><a class="" href="r-recipes.html"><span class="header-section-number">20</span> Recipes</a></li>
+<li class="book-part">Visualization as a reporting tool</li>
+<li><a class="" href="viz-intro.html">Introduction</a></li>
+<li><a class="" href="viz-reporting.html"><span class="header-section-number">21</span> Visualization as a reporting tool</a></li>
+<li><a class="" href="viz-demo.html"><span class="header-section-number">22</span> Visualization demo</a></li>
+<li class="book-part">Special skills</li>
+<li><a class="" href="advanced-intro.html">Introduction</a></li>
+<li><a class="" href="advanced-regex.html"><span class="header-section-number">23</span> Regular Expressions for pattern matching</a></li>
+<li><a class="" href="advanced-openrefine.html"><span class="header-section-number">24</span> Open refine walkthrough</a></li>
+<li><a class="" href="advanced-scrape1.html"><span class="header-section-number">25</span> Scraping without programming</a></li>
+<li><a class="" href="advanced-scrape2.html"><span class="header-section-number">26</span> Introduction to scraping in R</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="" href="appendix-math.html"><span class="header-section-number">A</span> Newsroom numbers cheat sheet</a></li>
+<li><a class="" href="appendix-program.html"><span class="header-section-number">B</span> A gentle intro to programming</a></li>
+<li><a class="" href="appendix-glossary.html"><span class="header-section-number">C</span> Glossary</a></li>
+<li><a class="" href="appendix-resources.html"><span class="header-section-number">D</span> Great R Resources</a></li>
+<li><a class="" href="appendix-ppp.html"><span class="header-section-number">E</span> Documentation for PPP data chapters</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="r-verbs" class="section level1" number="15">
+<h1>
+<span class="header-section-number"> 15</span> A quick tour of verbs<a class="anchor" aria-label="anchor" href="#r-verbs"><i class="fas fa-link"></i></a>
+</h1>
+<div class="alert alert-secondary">
+<p class="alert-heading font-weight-bolder fs-3">
+In this chapter
+</p>
+<p>You only need a handful of key verbs of the tidyverse to get a lot done:</p>
+<ul>
+<li>
+<code>filter</code>: Pick out rows based on a condition</li>
+<li>
+<code>group_by</code> : Collapse your data into categories based on a column, as in pivot tables</li>
+<li>
+<code>summarise</code> : Compute summary statistics such as sum, count or median</li>
+<li>
+<code>mutate</code> : Create new columns using functions and formulas</li>
+<li>
+<code>arrange</code> : Display rows in a certain order</li>
+<li>
+<code>select</code>: Pick out and arrange columns</li>
+</ul>
+<p>You have done all of these in Excel already.</p>
+</div>
+<p>We saw in the first R chapter that the tidyverse is a whole set of packages linked together using common syntax and grammar. One of the key concepts of the tidyverse is its <strong>verbs</strong> . Mastering just a handful of them will equip you to do most of what a data journalist does, and will prepare you for more complicated endeavors.</p>
+<p>This walkthrough gives you a little taste of what most of the verbs do. More details are coming in subsequent chapters.</p>
+<p>It depends on you continuing from the previous chapter. <a href="https://cronkitedata.s3.amazonaws.com/rdata/hit100.RDS">You can download a copy</a> of the data that was saved into your project if you need it.
+## A new markdown program</p>
+<div class="alert alert-primary">
+<p>Open or re-open the project you created in previous chapters. This starts you with a clean slate in the correct location.</p>
+<p>Create a new R Markdown document. Using the program you wrote in the last chapter, copy everything in through the setup chunk and delete anything else. Edit the YAML section to create a new title , and save it as <code>02-top100-analysis.Rmd</code>.</p>
+</div>
+<p>This code chunk loads the data you saved in the last chapter:</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">top100</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"hit100.RDS"</span><span class="op">)</span></code></pre></div>
+<div id="filter-and-arrange" class="section level2" number="15.1">
+<h2>
+<span class="header-section-number">15.1</span> Filter and arrange<a class="anchor" aria-label="anchor" href="#filter-and-arrange"><i class="fas fa-link"></i></a>
+</h2>
+<p><code>filter</code> is the same idea as filtering in Excel, but it’s much more picky. In R, you have to match words exactly, including the upper- or lower-case. (Everything in R is case-sensitive, including the names of columns. That’s why we made them all lower-case last lesson.)</p>
+<p><code>arrange</code> is R’s version of Excel’s <code>sort</code>.</p>
+<p>Here’s how you would pick out all of Taylor Swift’s appearances on the Billboard top 100 list, in chronological order.</p>
+<div class="alert alert-info">
+<p>In R, a condition is tested in a filter by using <strong>two</strong> equal signs, not one.</p>
+</div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">top100</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span> <span class="op">(</span> <span class="va">performer</span> <span class="op">==</span> <span class="st">"Taylor Swift"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span> <span class="op">(</span>  <span class="va">chart_date</span> <span class="op">)</span>   </code></pre></div>
+<div id="htmlwidget-6cc23f13afb8a3b72280" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-6cc23f13afb8a3b72280">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"chart_date":["2006-09-23","2006-09-30","2006-10-07","2006-10-14","2006-10-21","2006-10-28","2006-11-04","2006-11-11","2006-11-18","2006-11-25","2006-12-02","2006-12-09","2006-12-16","2006-12-23","2006-12-30","2007-01-06","2007-01-13","2007-01-20","2007-01-27","2007-02-03","2007-03-24","2007-03-31","2007-04-07","2007-04-14","2007-04-21","2007-04-28","2007-05-05","2007-05-12","2007-05-19","2007-05-26","2007-06-02","2007-06-09","2007-06-16","2007-06-23","2007-06-30","2007-07-07","2007-07-14","2007-07-21","2007-07-28","2007-08-04","2007-08-11","2007-08-18","2007-08-25","2007-09-01","2007-09-08","2007-10-13","2007-10-20","2007-10-27","2007-11-03","2007-11-10","2007-11-17","2007-11-24","2007-12-01","2007-12-08","2007-12-15","2007-12-15","2007-12-22","2007-12-22","2007-12-29","2007-12-29","2008-01-05","2008-01-05","2008-01-12","2008-01-12","2008-01-19","2008-01-19","2008-01-26","2008-01-26","2008-02-02","2008-02-02","2008-02-09","2008-02-09","2008-02-16","2008-02-16","2008-02-23","2008-02-23","2008-03-01","2008-03-01","2008-03-01","2008-03-08","2008-03-08","2008-03-08","2008-03-15","2008-03-15","2008-03-15","2008-03-22","2008-03-22","2008-03-22","2008-03-29","2008-03-29","2008-03-29","2008-04-05","2008-04-05","2008-04-05","2008-04-12","2008-04-12","2008-04-12","2008-04-19","2008-04-19","2008-04-19","2008-04-26","2008-04-26","2008-04-26","2008-05-03","2008-05-03","2008-05-03","2008-05-10","2008-05-10","2008-05-10","2008-05-17","2008-05-17","2008-05-17","2008-05-24","2008-05-24","2008-05-31","2008-05-31","2008-06-07","2008-06-07","2008-06-07","2008-06-14","2008-06-14","2008-06-14","2008-06-21","2008-06-21","2008-06-28","2008-06-28","2008-07-05","2008-07-05","2008-07-12","2008-07-12","2008-07-19","2008-07-26","2008-08-02","2008-08-09","2008-08-16","2008-08-23","2008-08-30","2008-08-30","2008-09-06","2008-09-06","2008-09-13","2008-09-13","2008-09-20","2008-09-27","2008-09-27","2008-10-04","2008-10-04","2008-10-11","2008-10-11","2008-10-18","2008-10-18","2008-10-25","2008-11-01","2008-11-01","2008-11-08","2008-11-08","2008-11-15","2008-11-15","2008-11-15","2008-11-22","2008-11-22","2008-11-22","2008-11-22","2008-11-29","2008-11-29","2008-11-29","2008-11-29","2008-11-29","2008-11-29","2008-12-06","2008-12-06","2008-12-13","2008-12-13","2008-12-20","2008-12-20","2008-12-27","2008-12-27","2009-01-03","2009-01-03","2009-01-10","2009-01-10","2009-01-17","2009-01-17","2009-01-24","2009-01-24","2009-01-31","2009-01-31","2009-02-07","2009-02-07","2009-02-14","2009-02-14","2009-02-21","2009-02-21","2009-02-28","2009-02-28","2009-02-28","2009-03-07","2009-03-07","2009-03-14","2009-03-14","2009-03-21","2009-03-21","2009-03-21","2009-03-28","2009-03-28","2009-03-28","2009-04-04","2009-04-04","2009-04-04","2009-04-11","2009-04-11","2009-04-11","2009-04-18","2009-04-18","2009-04-18","2009-04-25","2009-04-25","2009-04-25","2009-05-02","2009-05-02","2009-05-09","2009-05-09","2009-05-16","2009-05-16","2009-05-16","2009-05-16","2009-05-23","2009-05-23","2009-05-23","2009-05-30","2009-05-30","2009-05-30","2009-06-06","2009-06-06","2009-06-13","2009-06-13","2009-06-20","2009-06-20","2009-06-27","2009-06-27","2009-07-04","2009-07-04","2009-07-11","2009-07-11","2009-07-18","2009-07-18","2009-07-25","2009-07-25","2009-08-01","2009-08-01","2009-08-08","2009-08-08","2009-08-15","2009-08-15","2009-08-22","2009-08-22","2009-08-29","2009-08-29","2009-09-05","2009-09-12","2009-09-19","2009-09-26","2009-10-03","2009-10-03","2009-10-10","2009-10-10","2009-10-17","2009-10-17","2009-10-24","2009-10-24","2009-10-31","2009-10-31","2009-11-07","2009-11-07","2009-11-14","2009-11-14","2009-11-14","2009-11-14","2009-11-14","2009-11-14","2009-11-14","2009-11-14","2009-11-21","2009-11-21","2009-11-21","2009-11-21","2009-11-21","2009-11-21","2009-11-28","2009-11-28","2009-11-28","2009-12-05","2009-12-05","2009-12-12","2009-12-12","2009-12-19","2009-12-19","2009-12-26","2009-12-26","2010-01-02","2010-01-02","2010-01-09","2010-01-09","2010-01-16","2010-01-16","2010-01-23","2010-01-23","2010-01-30","2010-01-30","2010-02-06","2010-02-06","2010-02-06","2010-02-13","2010-02-13","2010-02-13","2010-02-20","2010-02-20","2010-02-20","2010-02-27","2010-02-27","2010-02-27","2010-03-06","2010-03-06","2010-03-13","2010-03-13","2010-03-13","2010-03-20","2010-03-20","2010-03-20","2010-03-27","2010-03-27","2010-03-27","2010-04-03","2010-04-03","2010-04-03","2010-04-10","2010-04-10","2010-04-10","2010-04-17","2010-04-17","2010-04-17","2010-04-24","2010-04-24","2010-05-01","2010-05-01","2010-05-08","2010-05-15","2010-05-22","2010-05-29","2010-06-05","2010-08-21","2010-08-28","2010-09-04","2010-09-11","2010-09-18","2010-09-25","2010-10-02","2010-10-09","2010-10-16","2010-10-23","2010-10-23","2010-10-30","2010-10-30","2010-10-30","2010-11-06","2010-11-06","2010-11-06","2010-11-06","2010-11-13","2010-11-13","2010-11-13","2010-11-13","2010-11-13","2010-11-13","2010-11-13","2010-11-13","2010-11-13","2010-11-13","2010-11-13","2010-11-20","2010-11-20","2010-11-27","2010-11-27","2010-12-04","2010-12-04","2010-12-11","2010-12-11","2010-12-18","2010-12-18","2010-12-25","2010-12-25","2011-01-01","2011-01-01","2011-01-08","2011-01-08","2011-01-15","2011-01-15","2011-01-22","2011-01-22","2011-01-29","2011-02-05","2011-02-12","2011-02-19","2011-02-26","2011-03-05","2011-03-12","2011-03-19","2011-03-26","2011-04-09","2011-04-16","2011-04-23","2011-04-30","2011-05-07","2011-05-14","2011-05-21","2011-05-28","2011-05-28","2011-06-04","2011-06-04","2011-06-11","2011-06-11","2011-06-18","2011-06-18","2011-06-25","2011-06-25","2011-07-02","2011-07-02","2011-07-09","2011-07-09","2011-07-16","2011-07-16","2011-07-23","2011-07-23","2011-07-30","2011-07-30","2011-08-06","2011-08-06","2011-08-13","2011-08-27","2011-09-03","2011-09-10","2011-09-17","2011-09-24","2011-10-01","2011-10-08","2011-10-15","2011-10-22","2011-10-29","2011-11-05","2011-11-12","2011-11-19","2011-11-26","2011-11-26","2011-11-26","2011-11-26","2011-11-26","2011-12-03","2011-12-03","2011-12-03","2011-12-10","2011-12-10","2011-12-17","2011-12-17","2011-12-24","2011-12-24","2011-12-31","2012-01-07","2012-01-14","2012-01-21","2012-01-28","2012-02-04","2012-02-11","2012-02-18","2012-02-25","2012-03-03","2012-03-10","2012-03-17","2012-03-24","2012-03-31","2012-04-07","2012-04-07","2012-04-14","2012-04-21","2012-04-28","2012-05-05","2012-05-12","2012-05-19","2012-05-26","2012-06-02","2012-06-09","2012-06-16","2012-06-23","2012-06-30","2012-08-25","2012-09-01","2012-09-08","2012-09-15","2012-09-22","2012-09-22","2012-09-29","2012-09-29","2012-10-06","2012-10-13","2012-10-13","2012-10-20","2012-10-20","2012-10-20","2012-10-27","2012-10-27","2012-10-27","2012-10-27","2012-11-03","2012-11-03","2012-11-03","2012-11-03","2012-11-03","2012-11-10","2012-11-10","2012-11-10","2012-11-10","2012-11-10","2012-11-17","2012-11-17","2012-11-17","2012-11-17","2012-11-24","2012-11-24","2012-11-24","2012-12-01","2012-12-01","2012-12-01","2012-12-08","2012-12-08","2012-12-08","2012-12-15","2012-12-15","2012-12-15","2012-12-22","2012-12-22","2012-12-22","2012-12-29","2012-12-29","2012-12-29","2013-01-05","2013-01-05","2013-01-05","2013-01-12","2013-01-12","2013-01-12","2013-01-12","2013-01-12","2013-01-19","2013-01-19","2013-01-19","2013-01-26","2013-01-26","2013-01-26","2013-01-26","2013-02-02","2013-02-02","2013-02-02","2013-02-09","2013-02-09","2013-02-16","2013-02-16","2013-02-23","2013-02-23","2013-03-02","2013-03-02","2013-03-09","2013-03-16","2013-03-23","2013-03-30","2013-03-30","2013-04-06","2013-04-06","2013-04-13","2013-04-13","2013-04-20","2013-04-20","2013-04-27","2013-04-27","2013-05-04","2013-05-04","2013-05-11","2013-05-11","2013-05-18","2013-05-18","2013-05-25","2013-05-25","2013-06-01","2013-06-01","2013-06-08","2013-06-08","2013-06-15","2013-06-15","2013-06-22","2013-06-22","2013-06-29","2013-06-29","2013-07-06","2013-07-06","2013-07-13","2013-07-20","2013-07-27","2013-08-24","2013-08-31","2013-09-07","2013-09-14","2013-09-21","2013-09-28","2013-10-05","2013-10-12","2013-10-19","2013-10-26","2013-11-02","2013-11-09","2013-11-09","2013-11-16","2013-11-23","2013-11-30","2013-12-07","2013-12-14","2014-09-06","2014-09-13","2014-09-20","2014-09-27","2014-10-04","2014-10-11","2014-10-18","2014-10-25","2014-11-01","2014-11-01","2014-11-08","2014-11-08","2014-11-08","2014-11-15","2014-11-15","2014-11-15","2014-11-15","2014-11-15","2014-11-22","2014-11-22","2014-11-29","2014-11-29","2014-12-06","2014-12-06","2014-12-13","2014-12-13","2014-12-20","2014-12-20","2014-12-27","2014-12-27","2014-12-27","2015-01-03","2015-01-03","2015-01-10","2015-01-10","2015-01-10","2015-01-17","2015-01-17","2015-01-17","2015-01-24","2015-01-24","2015-01-24","2015-01-31","2015-01-31","2015-01-31","2015-02-07","2015-02-07","2015-02-07","2015-02-14","2015-02-14","2015-02-14","2015-02-21","2015-02-21","2015-02-21","2015-02-28","2015-02-28","2015-02-28","2015-03-07","2015-03-07","2015-03-07","2015-03-07","2015-03-14","2015-03-14","2015-03-14","2015-03-14","2015-03-21","2015-03-21","2015-03-21","2015-03-21","2015-03-28","2015-03-28","2015-03-28","2015-04-04","2015-04-04","2015-04-04","2015-04-11","2015-04-11","2015-04-11","2015-04-18","2015-04-18","2015-04-18","2015-04-25","2015-04-25","2015-04-25","2015-05-02","2015-05-02","2015-05-02","2015-05-09","2015-05-09","2015-05-09","2015-05-16","2015-05-16","2015-05-16","2015-05-23","2015-05-23","2015-05-23","2015-05-30","2015-05-30","2015-05-30","2015-06-06","2015-06-06","2015-06-06","2015-06-13","2015-06-13","2015-06-13","2015-06-20","2015-06-20","2015-06-20","2015-06-27","2015-06-27","2015-06-27","2015-07-04","2015-07-04","2015-07-04","2015-07-11","2015-07-11","2015-07-11","2015-07-18","2015-07-18","2015-07-18","2015-07-25","2015-07-25","2015-08-01","2015-08-01","2015-08-08","2015-08-15","2015-09-19","2015-09-26","2015-10-03","2015-10-10","2015-10-17","2015-10-24","2015-10-31","2015-11-07","2015-11-14","2015-11-21","2015-11-28","2015-12-05","2015-12-12","2015-12-19","2015-12-26","2016-01-02","2016-01-09","2016-01-16","2016-01-23","2016-01-23","2016-01-30","2016-01-30","2016-02-06","2016-02-06","2016-02-13","2016-02-13","2016-02-20","2016-02-20","2016-02-27","2016-02-27","2016-03-05","2016-03-05","2016-03-12","2016-03-12","2016-03-26","2016-04-02","2016-04-09","2016-04-16","2016-04-23","2016-04-30","2016-05-07","2017-09-09","2017-09-16","2017-09-23","2017-09-23","2017-09-30","2017-09-30","2017-10-07","2017-10-07","2017-10-14","2017-10-14","2017-10-21","2017-10-21","2017-10-28","2017-10-28","2017-11-04","2017-11-04","2017-11-11","2017-11-11","2017-11-11","2017-11-18","2017-11-18","2017-11-18","2017-11-25","2017-11-25","2017-11-25","2017-11-25","2017-12-02","2017-12-02","2017-12-02","2017-12-02","2017-12-09","2017-12-09","2017-12-16","2017-12-16","2017-12-23","2017-12-23","2017-12-30","2017-12-30","2018-01-06","2018-01-06","2018-01-13","2018-01-13","2018-01-20","2018-01-27","2018-03-24","2018-03-31","2018-04-07","2018-04-14","2018-04-21","2018-04-28","2018-05-05","2018-05-12","2018-05-19","2018-05-26","2018-06-02","2018-06-09","2018-06-16","2018-06-23","2018-06-30","2018-07-07","2018-07-14","2018-07-21","2018-07-28","2018-08-04","2018-08-11","2018-08-18","2018-08-25","2018-09-01","2018-09-08","2018-09-15","2018-09-22","2018-09-29","2018-10-06","2018-10-13","2018-10-20","2018-10-27","2018-11-03","2018-11-10","2018-11-17","2019-06-29","2019-07-06","2019-07-13","2019-07-20","2019-07-27","2019-08-03","2019-08-03","2019-08-10","2019-08-10","2019-08-17","2019-08-24","2019-08-31","2019-08-31","2019-09-07","2019-09-07","2019-09-07","2019-09-07","2019-09-07","2019-09-07","2019-09-07","2019-09-07","2019-09-07","2019-09-07","2019-09-07","2019-09-07","2019-09-07","2019-09-07","2019-09-07","2019-09-07","2019-09-14","2019-09-14","2019-09-14","2019-09-14","2019-09-14","2019-09-21","2019-09-21","2019-09-21","2019-09-28","2019-09-28","2019-10-05","2019-10-05","2019-10-12","2019-10-12","2019-10-19","2019-10-19","2019-10-26","2019-10-26","2019-11-02","2019-11-02","2019-11-09","2019-11-09","2019-11-16","2019-11-16","2019-11-23","2019-11-30","2019-12-07","2019-12-14","2019-12-21","2019-12-21","2019-12-28","2020-01-04","2020-01-11","2020-01-18","2020-01-25","2020-02-15","2020-03-07","2020-03-14","2020-04-11","2020-04-18","2020-04-25","2020-08-08","2020-08-08","2020-08-08","2020-08-08","2020-08-08","2020-08-08","2020-08-08","2020-08-08","2020-08-08","2020-08-08","2020-08-08","2020-08-08","2020-08-08","2020-08-08","2020-08-08","2020-08-15","2020-08-15","2020-08-15","2020-08-15","2020-08-15","2020-08-15","2020-08-15","2020-08-15","2020-08-15","2020-08-22","2020-08-22","2020-08-29","2020-08-29","2020-09-05","2020-09-05","2020-09-12","2020-09-12","2020-09-19","2020-09-26","2020-10-03","2020-10-10","2020-10-17","2020-10-24","2020-10-31","2020-11-07","2020-12-26","2020-12-26","2020-12-26","2020-12-26","2020-12-26","2020-12-26","2020-12-26","2020-12-26","2020-12-26","2020-12-26","2020-12-26","2020-12-26","2021-01-02","2021-01-02","2021-01-02","2021-01-09","2021-01-16","2021-01-23","2021-01-30","2021-02-06","2021-02-13","2021-02-20","2021-02-27","2021-02-27","2021-03-06","2021-03-13","2021-03-20","2021-03-27","2021-04-03","2021-04-10","2021-04-17","2021-04-17","2021-04-24","2021-04-24","2021-04-24","2021-04-24","2021-04-24","2021-04-24","2021-04-24","2021-04-24","2021-05-01","2021-05-01","2021-05-08","2021-10-02","2021-11-27","2021-11-27","2021-11-27","2021-11-27","2021-11-27","2021-11-27","2021-11-27","2021-11-27","2021-11-27","2021-11-27","2021-11-27","2021-11-27","2021-11-27","2021-11-27","2021-11-27","2021-11-27","2021-11-27","2021-11-27","2021-11-27","2021-11-27","2021-11-27","2021-12-04","2021-12-04","2021-12-04","2021-12-04","2021-12-11","2021-12-11","2021-12-11","2021-12-18","2021-12-18","2021-12-18","2021-12-25","2021-12-25","2021-12-25"],"song":["Tim McGraw","Tim McGraw","Tim McGraw","Tim McGraw","Tim McGraw","Tim McGraw","Tim McGraw","Tim McGraw","Tim McGraw","Tim McGraw","Tim McGraw","Tim McGraw","Tim McGraw","Tim McGraw","Tim McGraw","Tim McGraw","Tim McGraw","Tim McGraw","Tim McGraw","Tim McGraw","Teardrops On My Guitar","Teardrops On My Guitar","Teardrops On My Guitar","Teardrops On My Guitar","Teardrops On My Guitar","Teardrops On My Guitar","Teardrops On My Guitar","Teardrops On My Guitar","Teardrops On My Guitar","Teardrops On My Guitar","Teardrops On My Guitar","Teardrops On My Guitar","Teardrops On My Guitar","Teardrops On My Guitar","Teardrops On My Guitar","Teardrops On My Guitar","Teardrops On My Guitar","Teardrops On My Guitar","Teardrops On My Guitar","Teardrops On My Guitar","Teardrops On My Guitar","Teardrops On My Guitar","Teardrops On My Guitar","Teardrops On My Guitar","Teardrops On My Guitar","Our Song","Our Song","Our Song","Our Song","Our Song","Our Song","Our Song","Our Song","Our Song","Our Song","Teardrops On My Guitar","Our Song","Teardrops On My Guitar","Our Song","Teardrops On My Guitar","Teardrops On My Guitar","Our Song","Our Song","Teardrops On My Guitar","Our Song","Teardrops On My Guitar","Teardrops On My Guitar","Our Song","Teardrops On My Guitar","Our Song","Teardrops On My Guitar","Our Song","Teardrops On My Guitar","Our Song","Teardrops On My Guitar","Our Song","Teardrops On My Guitar","Our Song","Picture To Burn","Teardrops On My Guitar","Our Song","Picture To Burn","Teardrops On My Guitar","Our Song","Picture To Burn","Teardrops On My Guitar","Our Song","Picture To Burn","Teardrops On My Guitar","Our Song","Picture To Burn","Teardrops On My Guitar","Our Song","Picture To Burn","Teardrops On My Guitar","Our Song","Picture To Burn","Teardrops On My Guitar","Our Song","Picture To Burn","Our Song","Teardrops On My Guitar","Picture To Burn","Our Song","Picture To Burn","Teardrops On My Guitar","Picture To Burn","Our Song","Teardrops On My Guitar","Picture To Burn","Our Song","Teardrops On My Guitar","Our Song","Picture To Burn","Our Song","Picture To Burn","Our Song","Picture To Burn","Should've Said No","Our Song","Picture To Burn","Should've Said No","Picture To Burn","Should've Said No","Should've Said No","Picture To Burn","Should've Said No","Picture To Burn","Should've Said No","Picture To Burn","Should've Said No","Should've Said No","Should've Said No","Should've Said No","Should've Said No","Should've Said No","Change","Should've Said No","Change","Should've Said No","Should've Said No","Change","Should've Said No","Love Story","Should've Said No","Love Story","Should've Said No","Love Story","Should've Said No","Love Story","Should've Said No","Love Story","Fearless","Love Story","Love Story","Fearless","You're Not Sorry","Love Story","Fearless","You Belong With Me","Love Story","You're Not Sorry","Fearless","White Horse","Love Story","Forever & Always","The Way I Loved You","Fifteen","Hey Stephen","Love Story","White Horse","Love Story","White Horse","Love Story","White Horse","Love Story","White Horse","Love Story","White Horse","Love Story","White Horse","Love Story","White Horse","Love Story","White Horse","Love Story","White Horse","Love Story","White Horse","Love Story","White Horse","Love Story","White Horse","Love Story","White Horse","Fifteen","Love Story","White Horse","Love Story","White Horse","Love Story","White Horse","You're Not Sorry","Love Story","White Horse","You're Not Sorry","Love Story","White Horse","You're Not Sorry","Love Story","White Horse","Crazier","Love Story","White Horse","Crazier","Love Story","Crazier","White Horse","Love Story","Crazier","Love Story","Crazier","Love Story","Crazier","You Belong With Me","Fearless","Love Story","You Belong With Me","Crazier","Love Story","You Belong With Me","Crazier","Love Story","You Belong With Me","Love Story","You Belong With Me","Love Story","You Belong With Me","You Belong With Me","Love Story","You Belong With Me","Love Story","You Belong With Me","Love Story","You Belong With Me","Love Story","You Belong With Me","Love Story","You Belong With Me","Love Story","You Belong With Me","Love Story","You Belong With Me","Love Story","You Belong With Me","Love Story","You Belong With Me","Love Story","You Belong With Me","You Belong With Me","You Belong With Me","You Belong With Me","You Belong With Me","Fifteen","You Belong With Me","Fifteen","You Belong With Me","Fifteen","You Belong With Me","Fifteen","You Belong With Me","Fifteen","You Belong With Me","Fifteen","Jump Then Fall","You Belong With Me","Untouchable","The Other Side Of The Door","Superstar","Come In With The Rain","Forever & Always","Fifteen","You Belong With Me","Fifteen","Jump Then Fall","Untouchable","The Other Side Of The Door","Forever & Always","You Belong With Me","Fifteen","Jump Then Fall","You Belong With Me","Fifteen","You Belong With Me","Fifteen","You Belong With Me","Fifteen","You Belong With Me","Fifteen","You Belong With Me","Fifteen","You Belong With Me","Fifteen","You Belong With Me","Fifteen","You Belong With Me","Fifteen","You Belong With Me","Fifteen","Today Was A Fairytale","You Belong With Me","Fifteen","Today Was A Fairytale","You Belong With Me","Breathless","You Belong With Me","Today Was A Fairytale","Fearless","You Belong With Me","Today Was A Fairytale","Fearless","Today Was A Fairytale","You Belong With Me","Today Was A Fairytale","You Belong With Me","Fearless","Today Was A Fairytale","You Belong With Me","Fearless","Today Was A Fairytale","You Belong With Me","Fearless","Today Was A Fairytale","You Belong With Me","Fearless","Today Was A Fairytale","You Belong With Me","Fearless","Today Was A Fairytale","You Belong With Me","Fearless","Today Was A Fairytale","Fearless","Today Was A Fairytale","Fearless","Today Was A Fairytale","Today Was A Fairytale","Today Was A Fairytale","Today Was A Fairytale","Today Was A Fairytale","Mine","Mine","Mine","Mine","Mine","Mine","Mine","Mine","Mine","Speak Now","Mine","Back To December","Mine","Speak Now","Mean","Mine","Back To December","Speak Now","Sparks Fly","Mine","Innocent","The Story Of Us","Dear John","Better Than Revenge","Haunted","Last Kiss","Enchanted","Never Grow Up","Long Live","Mine","Sparks Fly","Mine","Back To December","Mine","Back To December","Mine","Back To December","Back To December","Mine","Back To December","Mine","Back To December","Mine","Back To December","Mine","Back To December","Mine","Back To December","Mine","Back To December","Back To December","Back To December","Back To December","Back To December","Back To December","Back To December","Back To December","Back To December","Mean","Mean","Mean","Mean","Mean","Mean","Mean","Mean","The Story Of Us","Mean","The Story Of Us","Mean","The Story Of Us","Mean","The Story Of Us","Mean","The Story Of Us","Mean","The Story Of Us","Mean","The Story Of Us","Mean","The Story Of Us","Mean","The Story Of Us","Mean","The Story Of Us","Mean","The Story Of Us","Mean","Sparks Fly","Sparks Fly","Sparks Fly","Sparks Fly","Sparks Fly","Sparks Fly","Sparks Fly","Sparks Fly","Sparks Fly","Sparks Fly","Sparks Fly","Sparks Fly","Sparks Fly","If This Was A Movie","Ours","Superman","Sparks Fly","Haunted","If This Was A Movie","Sparks Fly","Ours","Sparks Fly","Ours","Sparks Fly","Ours","Ours","Sparks Fly","Ours","Ours","Ours","Ours","Ours","Ours","Ours","Ours","Ours","Ours","Ours","Ours","Ours","Ours","Eyes Open","Ours","Eyes Open","Eyes Open","Eyes Open","Eyes Open","Eyes Open","Eyes Open","Eyes Open","Eyes Open","Eyes Open","Eyes Open","Eyes Open","Eyes Open","We Are Never Ever Getting Back Together","We Are Never Ever Getting Back Together","We Are Never Ever Getting Back Together","We Are Never Ever Getting Back Together","We Are Never Ever Getting Back Together","Ronan","We Are Never Ever Getting Back Together","Ronan","We Are Never Ever Getting Back Together","We Are Never Ever Getting Back Together","Begin Again","We Are Never Ever Getting Back Together","Red","Begin Again","I Knew You Were Trouble.","We Are Never Ever Getting Back Together","Red","Begin Again","We Are Never Ever Getting Back Together","State Of Grace","I Knew You Were Trouble.","Red","Begin Again","We Are Never Ever Getting Back Together","22","I Almost Do","All Too Well","Stay Stay Stay","We Are Never Ever Getting Back Together","I Knew You Were Trouble.","Begin Again","Red","We Are Never Ever Getting Back Together","Begin Again","I Knew You Were Trouble.","We Are Never Ever Getting Back Together","Begin Again","I Knew You Were Trouble.","We Are Never Ever Getting Back Together","I Knew You Were Trouble.","Begin Again","We Are Never Ever Getting Back Together","I Knew You Were Trouble.","Begin Again","I Knew You Were Trouble.","We Are Never Ever Getting Back Together","Begin Again","I Knew You Were Trouble.","We Are Never Ever Getting Back Together","Begin Again","I Knew You Were Trouble.","We Are Never Ever Getting Back Together","Begin Again","I Knew You Were Trouble.","We Are Never Ever Getting Back Together","Begin Again","Red","22","I Knew You Were Trouble.","We Are Never Ever Getting Back Together","Begin Again","I Knew You Were Trouble.","We Are Never Ever Getting Back Together","The Moment I Knew","Begin Again","I Knew You Were Trouble.","We Are Never Ever Getting Back Together","Begin Again","I Knew You Were Trouble.","Begin Again","I Knew You Were Trouble.","Begin Again","I Knew You Were Trouble.","Begin Again","I Knew You Were Trouble.","Begin Again","I Knew You Were Trouble.","I Knew You Were Trouble.","I Knew You Were Trouble.","I Knew You Were Trouble.","22","I Knew You Were Trouble.","22","I Knew You Were Trouble.","22","I Knew You Were Trouble.","22","I Knew You Were Trouble.","22","22","I Knew You Were Trouble.","22","I Knew You Were Trouble.","22","I Knew You Were Trouble.","22","I Knew You Were Trouble.","22","I Knew You Were Trouble.","22","I Knew You Were Trouble.","22","I Knew You Were Trouble.","22","I Knew You Were Trouble.","22","I Knew You Were Trouble.","22","I Knew You Were Trouble.","22","22","22","Red","Red","Red","Red","Red","Red","Red","Red","Red","Red","Red","Sweeter Than Fiction","Red","Red","Red","Red","Red","Red","Shake It Off","Shake It Off","Shake It Off","Shake It Off","Shake It Off","Shake It Off","Shake It Off","Shake It Off","Shake It Off","Out Of The Woods","Shake It Off","Welcome To New York","Out Of The Woods","Shake It Off","Blank Space","Style","Welcome To New York","Wildest Dreams","Shake It Off","Blank Space","Blank Space","Shake It Off","Blank Space","Shake It Off","Blank Space","Shake It Off","Blank Space","Shake It Off","Blank Space","Shake It Off","Style","Blank Space","Shake It Off","Blank Space","Shake It Off","Style","Blank Space","Shake It Off","Style","Blank Space","Shake It Off","Style","Blank Space","Shake It Off","Style","Blank Space","Shake It Off","Style","Blank Space","Shake It Off","Style","Blank Space","Shake It Off","Style","Blank Space","Style","Shake It Off","Blank Space","Style","Shake It Off","Wonderland","Style","Blank Space","Shake It Off","You Are In Love","Style","Blank Space","Shake It Off","New Romantics","Style","Blank Space","Shake It Off","Style","Blank Space","Shake It Off","Style","Blank Space","Shake It Off","Style","Blank Space","Shake It Off","Style","Blank Space","Shake It Off","Style","Blank Space","Shake It Off","Style","Blank Space","Shake It Off","Style","Blank Space","Shake It Off","Style","Blank Space","Shake It Off","Style","Blank Space","Shake It Off","Style","Blank Space","Shake It Off","Style","Blank Space","Shake It Off","Style","Blank Space","Shake It Off","Style","Shake It Off","Blank Space","Style","Shake It Off","Blank Space","Shake It Off","Style","Blank Space","Shake It Off","Style","Blank Space","Style","Shake It Off","Shake It Off","Style","Shake It Off","Shake It Off","Wildest Dreams","Wildest Dreams","Wildest Dreams","Wildest Dreams","Wildest Dreams","Wildest Dreams","Wildest Dreams","Wildest Dreams","Wildest Dreams","Wildest Dreams","Wildest Dreams","Wildest Dreams","Wildest Dreams","Wildest Dreams","Wildest Dreams","Wildest Dreams","Wildest Dreams","Wildest Dreams","Wildest Dreams","Out Of The Woods","Wildest Dreams","Out Of The Woods","Wildest Dreams","Out Of The Woods","Wildest Dreams","Out Of The Woods","Wildest Dreams","Out Of The Woods","Wildest Dreams","Out Of The Woods","Wildest Dreams","Out Of The Woods","Wildest Dreams","Out Of The Woods","New Romantics","New Romantics","New Romantics","New Romantics","New Romantics","New Romantics","New Romantics","Look What You Made Me Do","Look What You Made Me Do","Look What You Made Me Do","...Ready For It?","Look What You Made Me Do","...Ready For It?","Look What You Made Me Do","...Ready For It?","Look What You Made Me Do","...Ready For It?","Look What You Made Me Do","...Ready For It?","Look What You Made Me Do","...Ready For It?","Look What You Made Me Do","...Ready For It?","Gorgeous","Look What You Made Me Do","...Ready For It?","...Ready For It?","Look What You Made Me Do","Gorgeous","Call It What You Want","...Ready For It?","Look What You Made Me Do","Gorgeous","...Ready For It?","Look What You Made Me Do","Call It What You Want","Gorgeous","...Ready For It?","Look What You Made Me Do","...Ready For It?","Look What You Made Me Do","...Ready For It?","Look What You Made Me Do","...Ready For It?","Look What You Made Me Do","...Ready For It?","Look What You Made Me Do","Look What You Made Me Do","...Ready For It?","...Ready For It?","...Ready For It?","Delicate","Delicate","Delicate","Delicate","Delicate","Delicate","Delicate","Delicate","Delicate","Delicate","Delicate","Delicate","Delicate","Delicate","Delicate","Delicate","Delicate","Delicate","Delicate","Delicate","Delicate","Delicate","Delicate","Delicate","Delicate","Delicate","Delicate","Delicate","Delicate","Delicate","Delicate","Delicate","Delicate","Delicate","Delicate","You Need To Calm Down","You Need To Calm Down","You Need To Calm Down","You Need To Calm Down","You Need To Calm Down","You Need To Calm Down","The Archer","You Need To Calm Down","The Archer","You Need To Calm Down","You Need To Calm Down","You Need To Calm Down","Lover","You Need To Calm Down","Lover","The Man","I Forgot That You Existed","Cruel Summer","The Archer","Paper Rings","Miss Americana & The Heartbreak Prince","I Think He Knows","Cornelia Street","London Boy","Death By A Thousand Cuts","Afterglow","False God","Daylight","It's Nice To Have A Friend","You Need To Calm Down","Lover","The Man","Cruel Summer","I Forgot That You Existed","You Need To Calm Down","Lover","The Man","You Need To Calm Down","Lover","You Need To Calm Down","Lover","You Need To Calm Down","Lover","You Need To Calm Down","Lover","You Need To Calm Down","Lover","You Need To Calm Down","Lover","Lover","You Need To Calm Down","Lover","You Need To Calm Down","Lover","Lover","Lover","Lover","Lover","Christmas Tree Farm","Lover","Lover","Lover","Lover","Lover","Only The Young","The Man","The Man","The Man","The Man","The Man","Cardigan","The 1","The Last Great American Dynasty","My Tears Ricochet","August","Mirrorball","Seven","Invisible String","This Is Me Trying","Betty","Illicit Affairs","Mad Woman","Epiphany","Peace","Hoax","Cardigan","The 1","The Last Great American Dynasty","My Tears Ricochet","August","Invisible String","Betty","Mirrorball","Seven","Cardigan","The 1","Cardigan","The 1","Cardigan","The 1","Cardigan","The 1","Cardigan","Cardigan","Cardigan","Cardigan","Cardigan","Cardigan","Cardigan","Cardigan","Willow","Champagne Problems","'Tis The Damn Season","Gold Rush","Tolerate It","Happiness","Ivy","Dorothea","Long Story Short","Cowboy Like Me","Marjorie","Closure","Willow","Champagne Problems","'Tis The Damn Season","Willow","Willow","Willow","Willow","Willow","Willow","Willow","Love Story (Taylor's Version)","Willow","Willow","Willow","Willow","Willow","Willow","Willow","Willow","Mr. Perfectly Fine (Taylor's Version) (From The Vault)","Mr. Perfectly Fine (Taylor's Version) (From The Vault)","Love Story (Taylor's Version)","Willow","Forever & Always (Taylor's Version)","Fearless (Taylor's Version)","You Belong With Me (Taylor's Version)","Fifteen (Taylor's Version)","The Way I Loved You (Taylor's Version)","Willow","Mr. Perfectly Fine (Taylor's Version) (From The Vault)","Willow","Wildest Dreams (Taylor's Version)","All Too Well (Taylor's Version)","State Of Grace (Taylor's Version)","Red (Taylor's Version)","Message In A Bottle (Taylor's Version) (From The Vault)","I Knew You Were Trouble (Taylor's Version)","Better Man (Taylor's Version) (From The Vault)","22 (Taylor's Version)","Treacherous (Taylor's Version)","We Are Never Ever Getting Back Together (Taylor's Version)","I Almost Do (Taylor's Version)","The Very First Night (Taylor's Version) (From The Vault)","Stay Stay Stay (Taylor's Version)","Babe (Taylor's Version) (From The Vault)","Holy Ground (Taylor's Version)","Begin Again (Taylor's Version)","Forever Winter (Taylor's Version) (From The Vault)","The Moment I Knew (Taylor's Version)","The Lucky One (Taylor's Version)","Sad Beautiful Tragic (Taylor's Version)","Come Back...Be Here (Taylor's Version)","Starlight (Taylor's Version)","All Too Well (Taylor's Version)","Message In A Bottle (Taylor's Version) (From The Vault)","Red (Taylor's Version)","State Of Grace (Taylor's Version)","All Too Well (Taylor's Version)","Message In A Bottle (Taylor's Version) (From The Vault)","Christmas Tree Farm (Old Timey Version)","All Too Well (Taylor's Version)","Christmas Tree Farm (Old Timey Version)","Message In A Bottle (Taylor's Version) (From The Vault)","All Too Well (Taylor's Version)","Christmas Tree Farm (Old Timey Version)","Message In A Bottle (Taylor's Version) (From The Vault)"],"performer":["Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift","Taylor Swift"],"this_week":[86,87,77,72,68,65,61,51,51,47,48,45,44,46,45,48,40,43,40,43,93,77,78,70,60,52,56,53,50,51,44,46,49,42,42,45,42,41,40,39,33,34,38,49,50,86,67,56,46,39,36,24,28,23,24,44,22,30,21,24,23,26,17,19,16,18,17,20,14,16,15,24,15,31,15,29,13,30,91,16,35,83,22,39,73,20,39,64,22,39,55,22,39,51,26,33,45,26,28,44,28,29,36,28,29,38,29,31,48,28,29,49,34,36,39,52,48,71,84,48,67,84,74,75,65,80,64,82,55,89,46,38,34,33,38,37,10,35,39,40,51,100,61,16,66,5,83,9,82,13,90,14,9,14,15,38,11,16,79,12,14,35,98,13,18,49,72,79,94,14,56,12,47,12,52,11,51,7,48,5,41,4,38,5,37,5,35,5,39,5,40,7,39,7,34,65,8,34,9,30,12,31,67,13,29,40,13,32,95,15,32,72,14,39,69,14,38,44,16,17,18,38,18,61,87,95,21,50,66,24,46,90,34,47,28,41,26,32,18,26,16,29,11,33,9,38,6,41,3,40,4,42,3,46,2,46,4,49,4,5,6,6,4,94,6,89,7,81,8,77,10,67,11,62,10,14,19,23,26,30,34,46,13,38,41,69,94,100,14,26,91,15,26,18,27,18,23,22,27,22,30,19,25,17,28,16,37,22,36,2,27,40,22,26,72,27,39,99,29,30,97,24,35,31,33,94,30,36,87,30,39,77,35,45,77,36,45,76,38,50,76,41,78,56,84,65,81,85,96,97,3,8,14,9,7,10,12,11,12,8,14,6,14,45,11,13,30,86,17,21,27,41,54,56,63,71,75,84,85,16,78,23,74,33,67,37,47,43,47,34,50,26,52,27,42,25,31,25,50,26,22,18,20,24,24,29,32,37,90,67,48,51,50,54,46,37,98,34,88,39,77,33,72,37,66,31,67,34,67,39,72,44,69,55,83,61,97,63,84,70,67,68,64,57,59,60,54,50,49,46,42,10,13,26,49,98,53,54,56,55,81,65,83,65,85,47,45,43,43,47,44,46,42,47,46,45,48,39,41,19,42,26,29,23,21,20,23,36,45,60,75,87,93,72,1,1,2,1,16,2,36,4,4,7,5,6,52,3,5,54,70,4,13,23,77,78,11,44,65,80,91,5,59,68,89,7,71,73,9,73,77,11,47,78,15,32,77,15,25,78,10,27,75,4,29,76,2,17,63,80,84,3,25,73,4,39,64,73,5,46,73,4,78,5,75,5,71,5,65,4,4,6,7,64,10,26,12,33,16,34,19,32,24,25,20,34,21,35,25,36,26,41,23,48,24,43,26,42,32,49,41,49,49,55,65,100,85,86,82,76,76,76,75,73,73,73,34,76,76,32,51,53,51,1,1,2,2,2,2,2,2,2,18,2,48,77,1,18,60,69,76,1,13,1,3,1,5,1,4,1,6,1,10,76,1,11,1,9,84,2,7,71,2,9,72,3,5,52,4,5,37,4,9,29,5,10,18,7,10,15,7,8,15,51,7,8,21,83,6,10,24,71,7,12,22,7,11,24,7,13,24,7,17,26,10,19,27,12,23,32,12,24,33,15,25,34,17,26,35,20,29,34,23,32,34,27,35,39,31,37,38,34,39,42,38,40,42,39,41,45,46,48,50,48,50,47,48,47,50,15,12,13,10,8,9,6,5,7,8,8,9,13,14,18,23,22,18,21,46,28,55,34,50,34,44,35,49,38,51,46,53,46,77,73,69,62,61,62,46,78,77,1,1,4,1,21,3,34,3,39,5,47,4,53,10,52,13,25,46,19,34,69,27,30,37,85,18,31,73,89,24,44,31,60,43,72,37,70,61,66,55,58,80,96,84,66,52,46,54,51,52,56,46,36,34,28,37,25,27,20,23,15,12,12,13,17,16,19,25,29,25,27,29,37,33,34,38,43,49,2,13,13,16,15,15,69,16,79,18,18,14,19,4,10,23,28,29,38,45,49,51,57,62,67,75,77,89,92,12,23,61,71,74,24,49,96,21,49,23,44,27,45,28,34,33,37,37,38,48,52,43,46,26,15,19,32,40,59,48,57,34,36,50,50,92,85,90,88,88,1,4,13,16,23,26,35,37,39,42,44,47,57,58,71,8,23,66,69,73,85,91,93,98,24,50,33,67,36,85,45,92,52,52,49,53,77,85,88,96,1,21,39,40,45,52,61,67,68,71,75,82,38,77,91,23,22,29,28,28,29,29,11,25,29,32,42,39,50,59,60,90,30,52,62,65,71,75,88,94,60,90,61,37,1,18,25,45,46,51,52,54,55,59,61,67,69,76,77,79,83,84,85,87,90,4,74,86,88,21,78,82,42,74,82,59,81,89],"last_week":["NA",86,87,77,72,68,65,61,51,51,47,48,45,44,46,45,48,40,43,40,"NA",93,77,78,70,60,52,56,53,50,51,44,46,49,42,42,45,42,41,40,39,33,34,38,49,"NA",86,67,56,46,39,36,24,28,23,"NA",24,44,22,30,24,21,26,23,17,19,18,16,17,20,14,16,15,24,15,31,15,29,"NA",13,30,91,16,35,83,22,39,73,20,39,64,22,39,55,22,39,51,26,33,45,28,26,44,28,36,29,29,28,38,29,31,48,29,28,34,36,39,52,"NA",48,71,84,67,84,75,74,65,80,64,82,55,46,38,34,33,38,"NA",37,10,35,40,39,51,"NA",61,16,66,5,83,9,82,13,"NA",14,14,9,"NA",15,38,"NA",16,11,79,"NA",14,"NA","NA","NA","NA",18,13,14,56,12,47,12,52,11,51,7,48,5,41,4,38,5,37,5,35,5,39,5,40,7,39,"NA",7,34,8,34,9,30,"NA",12,31,67,13,29,40,13,32,"NA",15,32,72,14,69,39,14,38,16,17,18,38,"NA","NA",18,87,61,21,50,66,24,46,34,47,28,41,32,26,18,26,16,29,11,33,9,38,6,41,3,40,4,42,3,46,2,46,4,4,5,6,6,"NA",4,94,6,89,7,81,8,77,10,67,"NA",11,"NA","NA","NA","NA","NA",62,14,46,10,19,23,34,13,38,41,14,26,15,26,18,27,18,23,22,27,22,30,19,25,17,28,16,37,"NA",22,36,2,27,"NA",26,22,"NA",27,39,99,30,29,24,35,"NA",31,33,94,30,36,87,30,39,77,35,45,77,36,45,76,38,76,41,78,56,65,81,85,96,"NA",3,8,14,9,7,10,12,11,"NA",12,"NA",14,8,"NA",14,6,45,"NA",13,"NA","NA","NA","NA","NA","NA","NA","NA","NA",21,17,16,"NA",23,74,33,67,47,37,43,47,34,50,26,52,27,42,25,31,25,26,22,18,20,24,24,29,32,"NA",90,67,48,51,50,54,46,"NA",37,98,34,88,39,77,33,72,37,66,31,67,34,67,39,72,44,69,55,83,61,"NA",84,70,67,68,64,57,59,60,54,50,49,46,"NA","NA","NA",42,"NA",10,49,13,54,56,55,81,83,65,65,47,45,43,43,47,44,46,42,47,46,45,48,39,"NA",41,19,26,29,23,21,20,23,36,45,60,75,87,"NA",72,1,1,2,"NA",1,16,2,4,"NA",4,"NA",7,"NA",5,6,52,5,"NA",3,54,70,4,"NA","NA","NA","NA",11,"NA","NA","NA",5,68,59,7,71,73,9,77,73,11,47,78,32,15,77,15,25,78,10,27,75,4,29,76,"NA","NA",2,17,63,3,25,"NA",73,4,39,73,5,73,4,78,5,75,5,71,5,4,4,6,"NA",7,64,10,26,12,33,16,34,32,19,24,25,20,34,21,35,25,36,26,41,23,48,24,43,26,42,32,49,41,49,55,"NA",100,85,86,82,76,76,76,75,73,73,"NA",73,76,76,32,51,53,"NA",1,1,2,2,2,2,2,2,"NA",2,"NA",18,2,"NA","NA",48,"NA",1,18,13,1,1,3,1,5,1,4,1,6,"NA",1,10,1,11,"NA",1,9,84,2,7,71,2,9,72,3,5,52,4,5,37,4,9,29,5,18,10,7,10,15,"NA",8,7,15,"NA",7,8,21,"NA",6,10,24,7,12,22,7,11,24,7,13,24,7,17,26,10,19,27,12,23,32,12,24,33,15,25,34,17,26,35,20,29,34,23,32,34,27,35,39,31,38,37,34,39,42,40,38,42,39,41,45,48,46,50,48,47,47,"NA",15,12,13,10,8,9,6,5,7,8,8,9,13,14,18,23,22,18,"NA",21,46,28,55,34,50,34,44,35,49,38,51,46,53,"NA",73,69,62,61,62,46,"NA",77,1,"NA",1,4,1,21,3,34,3,39,5,47,4,53,"NA",10,52,46,25,13,"NA",19,34,69,30,37,27,85,18,31,24,44,31,60,43,72,59,76,66,61,58,80,"NA",84,66,52,46,54,51,52,56,46,36,34,28,37,25,27,20,23,15,12,12,13,17,16,19,25,29,25,27,29,37,33,34,38,43,"NA",2,13,13,16,15,"NA",15,69,16,18,18,"NA",14,19,"NA","NA","NA","NA","NA","NA","NA","NA","NA","NA","NA","NA","NA","NA",4,10,23,29,28,12,23,61,24,49,21,49,23,44,27,45,28,34,33,37,38,37,48,52,43,26,15,19,32,"NA",40,48,57,34,36,"NA","NA",92,"NA",90,88,"NA","NA","NA","NA","NA","NA","NA","NA","NA","NA","NA","NA","NA","NA","NA",1,4,13,16,23,37,42,26,35,8,23,24,50,33,67,36,85,45,52,52,49,53,77,85,88,"NA","NA","NA","NA","NA","NA","NA","NA","NA","NA","NA","NA",1,21,39,38,23,22,29,28,28,29,"NA",29,25,29,32,42,39,50,59,"NA",90,"NA",60,"NA","NA","NA","NA","NA",62,30,60,"NA","NA","NA","NA","NA","NA","NA","NA","NA","NA","NA","NA","NA","NA","NA","NA","NA","NA","NA","NA","NA","NA",1,45,25,18,4,74,"NA",21,82,78,42,74,82],"peak_pos":[86,86,77,72,68,65,61,51,51,47,47,45,44,44,44,44,40,40,40,40,93,77,77,70,60,52,52,52,50,50,44,44,44,42,42,42,42,41,40,39,33,33,33,33,33,86,67,56,46,39,36,24,24,23,23,33,22,30,21,24,23,21,17,19,16,18,17,16,14,16,14,16,14,16,14,16,13,16,91,13,16,83,13,16,73,13,16,64,13,16,55,13,16,51,13,16,45,13,16,44,16,13,36,16,29,13,29,16,13,28,16,13,16,28,16,28,16,28,84,16,28,84,28,75,65,28,64,28,55,28,46,38,34,33,33,33,10,33,10,33,33,10,33,16,33,5,33,5,33,5,33,5,9,5,5,9,11,5,9,12,5,11,9,13,5,49,72,79,94,5,13,5,13,5,13,5,13,5,13,5,13,4,13,4,13,4,13,4,13,4,13,4,13,4,13,65,4,13,4,13,4,13,11,4,13,11,4,13,11,4,13,72,4,13,69,4,38,13,4,17,4,17,4,17,12,9,4,12,17,4,12,17,4,12,4,12,4,12,12,4,12,4,11,4,9,4,6,4,3,4,3,4,3,4,2,4,2,4,2,2,2,2,2,65,2,65,2,65,2,65,2,65,2,62,10,2,19,23,26,30,34,46,2,38,10,19,23,34,2,26,10,2,26,2,26,2,23,2,23,2,23,2,23,2,23,2,23,2,23,2,2,23,2,2,72,2,2,9,2,2,9,2,2,2,2,9,2,2,9,2,2,9,2,2,9,2,2,9,2,2,9,2,9,2,9,2,2,2,2,2,3,3,3,3,3,3,3,3,3,8,3,6,3,8,11,3,6,8,17,3,27,41,54,56,63,71,75,84,85,3,17,3,6,3,6,3,6,6,3,6,3,6,3,6,3,6,3,6,3,6,6,6,6,6,6,6,6,6,11,11,11,11,11,11,11,11,41,11,41,11,41,11,41,11,41,11,41,11,41,11,41,11,41,11,41,11,41,11,17,17,17,17,17,17,17,17,17,17,17,17,17,10,13,26,17,63,10,17,13,17,13,17,13,13,17,13,13,13,13,13,13,13,13,13,13,13,13,13,13,19,13,19,19,19,19,19,19,19,19,19,19,19,19,72,1,1,1,1,16,1,16,1,1,7,1,6,7,3,1,6,7,1,13,3,6,7,1,44,65,80,91,1,3,7,6,1,7,3,1,7,3,1,3,7,1,3,7,3,1,7,3,1,7,3,1,7,2,1,7,6,44,2,1,7,2,1,64,7,2,1,7,2,7,2,7,2,7,2,7,2,2,2,2,44,2,26,2,26,2,26,2,26,24,2,20,2,20,2,20,2,20,2,20,2,20,2,20,2,20,2,20,2,20,20,20,6,6,6,6,6,6,6,6,6,6,6,34,6,6,6,6,6,6,1,1,1,1,1,1,1,1,1,18,1,48,18,1,18,60,48,76,1,13,1,1,1,1,1,1,1,1,1,1,60,1,1,1,1,60,1,1,60,1,1,60,1,1,52,1,1,37,1,1,29,1,1,18,1,10,1,1,8,1,51,7,1,1,83,6,1,1,71,6,1,1,6,1,1,6,1,1,6,1,1,6,1,1,6,1,1,6,1,1,6,1,1,6,1,1,6,1,1,6,1,1,6,1,1,6,1,1,6,1,1,6,1,1,1,6,1,1,6,1,6,1,1,6,1,1,15,12,12,10,8,8,6,5,5,5,5,5,5,5,5,5,5,5,5,18,5,18,5,18,5,18,5,18,5,18,5,18,5,18,71,69,62,61,61,46,46,77,1,1,4,1,4,1,4,1,4,1,4,1,4,1,4,13,1,4,4,1,13,27,4,1,13,4,1,27,13,4,1,4,1,4,1,4,1,4,1,1,4,4,4,84,66,52,46,46,46,46,46,46,36,34,28,28,25,25,20,20,15,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,2,2,2,2,2,2,69,2,69,2,2,2,19,2,10,23,28,29,38,45,49,51,57,62,67,75,77,89,92,2,10,23,29,28,2,10,23,2,10,2,10,2,10,2,10,2,10,2,10,10,2,10,2,10,10,10,10,10,59,10,10,10,10,10,50,23,23,23,23,23,1,4,13,16,23,26,35,37,39,42,44,47,57,58,71,1,4,13,16,23,37,42,26,35,1,4,1,4,1,4,1,4,1,1,1,1,1,1,1,1,1,21,39,40,45,52,61,67,68,71,75,82,1,21,39,1,1,1,1,1,1,1,11,1,1,1,1,1,1,1,1,90,30,11,1,65,71,75,88,94,1,30,1,37,1,18,25,45,46,51,52,54,55,59,61,67,69,76,77,79,83,84,85,87,90,1,45,25,18,1,45,82,1,74,45,1,74,45],"wks_on_chart":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,1,2,3,4,5,6,7,8,9,10,26,11,27,12,28,29,13,14,30,15,31,32,16,33,17,34,18,35,19,36,20,37,21,1,38,22,2,39,23,3,40,24,4,41,25,5,42,26,6,43,27,7,44,28,8,29,45,9,30,10,46,11,31,47,12,32,48,33,13,34,14,35,15,1,36,16,2,17,3,4,18,5,19,6,20,7,8,9,10,11,12,1,13,2,14,15,3,16,1,17,2,18,3,19,4,20,5,1,6,7,2,1,8,3,1,9,2,4,1,10,1,1,1,1,11,2,12,3,13,4,14,5,15,6,16,7,17,8,18,9,19,10,20,11,21,12,22,13,23,14,2,24,15,25,16,26,17,3,27,18,4,28,19,5,29,20,1,30,21,2,31,3,22,32,4,33,5,34,6,2,5,35,3,7,36,4,8,37,5,38,6,39,7,8,40,9,41,10,42,11,43,12,44,13,45,14,46,15,47,16,48,17,49,18,19,20,21,22,3,23,4,24,5,25,6,26,7,27,8,1,28,1,1,1,1,2,9,29,10,2,2,2,3,30,11,3,31,12,32,13,33,14,34,15,35,16,36,17,37,18,38,19,39,20,1,40,21,2,41,1,42,3,6,43,4,7,5,44,6,45,8,7,46,9,8,47,10,9,48,11,10,49,12,11,50,13,12,14,13,15,14,15,16,17,18,1,2,3,4,5,6,7,8,9,1,10,1,11,2,1,12,2,3,1,13,1,1,1,1,1,1,1,1,1,14,2,15,3,16,4,17,5,6,18,7,19,8,20,9,21,10,22,11,23,12,13,14,15,16,17,18,19,20,2,3,4,5,6,7,8,9,2,10,3,11,4,12,5,13,6,14,7,15,8,16,9,17,10,18,11,19,12,20,3,4,5,6,7,8,9,10,11,12,13,14,15,1,1,1,16,2,2,17,2,18,3,19,4,5,20,6,7,8,9,10,11,12,13,14,15,16,17,18,19,1,20,2,3,4,5,6,7,8,9,10,11,12,13,1,2,3,4,5,1,6,2,7,8,1,9,1,2,1,10,2,3,11,1,2,3,4,12,1,1,1,1,13,3,5,4,14,6,4,15,7,5,16,6,8,17,7,9,8,18,10,9,19,11,10,20,12,11,21,13,5,2,12,22,14,13,23,1,15,14,24,16,15,17,16,18,17,19,18,20,19,20,21,22,3,23,4,24,5,25,6,26,7,8,27,9,28,10,29,11,30,12,31,13,32,14,33,15,34,16,35,17,36,18,19,20,6,7,8,9,10,11,12,13,14,15,16,1,17,18,19,20,21,22,1,2,3,4,5,6,7,8,9,1,10,1,2,11,1,1,2,1,12,2,3,13,4,14,5,15,6,16,7,17,2,8,18,9,19,3,10,20,4,11,21,5,12,22,6,13,23,7,14,24,8,15,25,9,16,10,26,17,11,27,1,12,18,28,1,13,19,29,1,14,20,30,15,21,31,16,22,32,17,23,33,18,24,34,19,25,35,20,26,36,21,27,37,22,28,38,23,29,39,24,30,40,25,31,41,26,32,42,27,43,33,28,44,34,45,29,35,46,30,36,31,47,48,32,49,50,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,3,21,4,22,5,23,6,24,7,25,8,26,9,27,10,2,3,4,5,6,7,8,1,2,3,1,4,2,5,3,6,4,7,5,8,6,9,7,1,10,8,9,11,2,1,10,12,3,11,13,2,4,12,14,13,15,14,16,15,17,17,19,20,18,19,20,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,1,2,3,4,5,6,1,7,2,8,9,10,1,11,2,1,1,1,3,1,1,1,1,1,1,1,1,1,1,12,3,2,2,2,13,4,3,14,5,15,6,16,7,17,8,18,9,19,10,11,20,12,21,13,14,15,16,17,1,18,19,20,21,22,1,4,5,6,7,8,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,3,3,4,4,5,5,6,6,7,8,9,10,11,12,13,14,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,3,4,5,6,7,8,9,1,10,11,12,13,14,15,16,17,1,2,2,18,1,1,1,1,1,19,3,20,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,3,3,1,4,2,4,5,3,5]},"columns":[{"accessor":"chart_date","name":"chart_date","type":"Date"},{"accessor":"song","name":"song","type":"character"},{"accessor":"performer","name":"performer","type":"character"},{"accessor":"this_week","name":"this_week","type":"numeric"},{"accessor":"last_week","name":"last_week","type":"numeric"},{"accessor":"peak_pos","name":"peak_pos","type":"numeric"},{"accessor":"wks_on_chart","name":"wks_on_chart","type":"numeric"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"style":{"fontSize":"smaller"},"dataKey":"ad006878bb0603ddcca309cedf11174d","key":"ad006878bb0603ddcca309cedf11174d"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script><p>So Taylor Swift has songs on the Billboard Hot 100 list more than 1,000 times since 2008.</p>
+<p>Here’s how you’d list only her appearances at the top of the list – No. 1 is the lowest possible value for <code>this_week</code>, indicating the rank , then pick out just a few columns to list in order:</p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">top100</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span> <span class="op">(</span><span class="va">performer</span><span class="op">==</span><span class="st">"Taylor Swift"</span> <span class="op">&amp;</span> <span class="va">this_week</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span> <span class="op">(</span> <span class="va">chart_date</span><span class="op">)</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span> <span class="op">(</span> <span class="va">this_week</span>, <span class="va">song</span>, <span class="va">chart_date</span>, <span class="va">last_week</span><span class="op">)</span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="right">this_week</th>
+<th align="left">song</th>
+<th align="left">chart_date</th>
+<th align="right">last_week</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">We Are Never Ever Getting Back Together</td>
+<td align="left">2012-09-01</td>
+<td align="right">72</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">We Are Never Ever Getting Back Together</td>
+<td align="left">2012-09-08</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">We Are Never Ever Getting Back Together</td>
+<td align="left">2012-09-22</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">Shake It Off</td>
+<td align="left">2014-09-06</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">Shake It Off</td>
+<td align="left">2014-09-13</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">Shake It Off</td>
+<td align="left">2014-11-15</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">Shake It Off</td>
+<td align="left">2014-11-22</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">Blank Space</td>
+<td align="left">2014-11-29</td>
+<td align="right">13</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">Blank Space</td>
+<td align="left">2014-12-06</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">Blank Space</td>
+<td align="left">2014-12-13</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">Blank Space</td>
+<td align="left">2014-12-20</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">Blank Space</td>
+<td align="left">2014-12-27</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">Blank Space</td>
+<td align="left">2015-01-03</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">Blank Space</td>
+<td align="left">2015-01-10</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">Look What You Made Me Do</td>
+<td align="left">2017-09-16</td>
+<td align="right">77</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">Look What You Made Me Do</td>
+<td align="left">2017-09-23</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">Look What You Made Me Do</td>
+<td align="left">2017-09-30</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">Cardigan</td>
+<td align="left">2020-08-08</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">Willow</td>
+<td align="left">2020-12-26</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">All Too Well (Taylor’s Version)</td>
+<td align="left">2021-11-27</td>
+<td align="right">NA</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Her first No. 1 hit was in 2012, and her most recent was in November 2021.</p>
+</div>
+<div id="summary-statistics-in-r" class="section level2" number="15.2">
+<h2>
+<span class="header-section-number">15.2</span> Summary statistics in R<a class="anchor" aria-label="anchor" href="#summary-statistics-in-r"><i class="fas fa-link"></i></a>
+</h2>
+<p>Summary statistics are similar to those you saw in pivot tables. They include</p>
+<ul>
+<li>
+<code><a href="https://dplyr.tidyverse.org/reference/context.html">n()</a></code> – instead of “count”</li>
+<li><code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code></li>
+<li>
+<code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> – instead of “average”</li>
+<li><code><a href="https://rdrr.io/r/stats/median.html">median()</a></code></li>
+<li>
+<code><a href="https://rdrr.io/r/base/Extremes.html">min()</a></code> and <code><a href="https://rdrr.io/r/base/Extremes.html">max()</a></code>
+</li>
+</ul>
+<p>To count the total number of songs in this database, you would use the summary function <code><a href="https://dplyr.tidyverse.org/reference/context.html">n()</a></code>, which is how statisticians think of the concept of “how many?”</p>
+<p>In this case, because we’ve done nothing else, it will match the number of rows in the data frame. This code also creates two other summary statistics: The first (earliest) entry in the entire list, and the last one.</p>
+<div class="alert alert-info">
+<p>In R, use a <strong>single</strong> equals sign when you are naming a new column</p>
+</div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">top100</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span> <span class="op">(</span> number_of_entries <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span> , 
+              first_entry <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">chart_date</span><span class="op">)</span>, 
+              last_entry<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">chart_date</span><span class="op">)</span>
+              <span class="op">)</span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="right">number_of_entries</th>
+<th align="left">first_entry</th>
+<th align="left">last_entry</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="right">330787</td>
+<td align="left">1958-08-04</td>
+<td align="left">2021-12-25</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<div id="grouping-with-summary-statistics-aggregating" class="section level2" number="15.3">
+<h2>
+<span class="header-section-number">15.3</span> Grouping with summary statistics (aggregating)<a class="anchor" aria-label="anchor" href="#grouping-with-summary-statistics-aggregating"><i class="fas fa-link"></i></a>
+</h2>
+<p>Your questions will often be around the idea of “the most” or “the biggest” something. Like in Excel, you could do this by guessing and filtering one thing after another. Or you could make a list of the items, then count them up all at once.</p>
+<p>To get the performer with the most appearances on the list, you combine <code>group_by</code> with <code>summarise</code> to count within each group. We’ll go into this in a lot more detail in future chapters.</p>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">top100</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span> <span class="op">(</span> <span class="va">performer</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span> <span class="op">(</span> times_on_list <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span> <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span> <span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span> <span class="op">(</span> <span class="va">times_on_list</span> <span class="op">)</span><span class="op">)</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span> <span class="op">(</span><span class="fl">10</span><span class="op">)</span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">performer</th>
+<th align="right">times_on_list</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Taylor Swift</td>
+<td align="right">1057</td>
+</tr>
+<tr class="even">
+<td align="left">Elton John</td>
+<td align="right">889</td>
+</tr>
+<tr class="odd">
+<td align="left">Madonna</td>
+<td align="right">857</td>
+</tr>
+<tr class="even">
+<td align="left">Drake</td>
+<td align="right">787</td>
+</tr>
+<tr class="odd">
+<td align="left">Kenny Chesney</td>
+<td align="right">776</td>
+</tr>
+<tr class="even">
+<td align="left">Tim McGraw</td>
+<td align="right">731</td>
+</tr>
+<tr class="odd">
+<td align="left">Keith Urban</td>
+<td align="right">673</td>
+</tr>
+<tr class="even">
+<td align="left">Stevie Wonder</td>
+<td align="right">659</td>
+</tr>
+<tr class="odd">
+<td align="left">Rod Stewart</td>
+<td align="right">657</td>
+</tr>
+<tr class="even">
+<td align="left">Mariah Carey</td>
+<td align="right">626</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>(You may notice that the number next to Taylor Swift’s name on this list is the same number of rows that were found during the filter.)</p>
+<p>That code chunk:</p>
+<ul>
+<li>Began with the <code>top100</code> data frame that was loaded earlier from the saved version, and then</li>
+<li>Made one row for each performer using <code>group_by</code>, and then</li>
+<li>Counted the number of times each one appeared using <code>summarise</code> and <code><a href="https://dplyr.tidyverse.org/reference/context.html">n()</a></code> and named the new column <code>times_on_list</code>, and then</li>
+<li>Sorted, or <code>arrange</code> the list in descending order by that new column created during the summarise step, and then</li>
+<li>Printed off the first 10 rows.</li>
+</ul>
+<p>In Excel, we had trouble sorting a pivot table with city and state as rows. Here, that’s not a problem:</p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">top100</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span> <span class="op">(</span> <span class="va">song</span>, <span class="va">performer</span><span class="op">)</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span> <span class="op">(</span> times_on_list <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span> , 
+              last_time_on_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">chart_date</span><span class="op">)</span>,
+              highest_position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">this_week</span><span class="op">)</span>
+            <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span> <span class="op">(</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span> <span class="op">(</span> <span class="va">times_on_list</span><span class="op">)</span> <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">25</span><span class="op">)</span> </code></pre></div>
+<p>So some of the songs that were on the list the longest never made it to #1.</p>
+<div id="htmlwidget-9afe99b8dcac91181918" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-9afe99b8dcac91181918">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"song":["Blinding Lights","Radioactive","Sail","I'm Yours","How Do I Live","Counting Stars","Party Rock Anthem","Foolish Games/You Were Meant For Me","Rolling In The Deep","Before He Cheats","Ho Hey","I Hope","You And Me","Circles","Demons","Macarena (Bayside Boys Mix)","Need You Now","All Of Me","Somebody That I Used To Know","How To Save A Life","Shape Of You","Smooth","Thinking Out Loud","Dark Horse","Higher"],"performer":["The Weeknd","Imagine Dragons","AWOLNATION","Jason Mraz","LeAnn Rimes","OneRepublic","LMFAO Featuring Lauren Bennett & GoonRock","Jewel","Adele","Carrie Underwood","The Lumineers","Gabby Barrett Featuring Charlie Puth","Lifehouse","Post Malone","Imagine Dragons","Los Del Rio","Lady Antebellum","John Legend","Gotye Featuring Kimbra","The Fray","Ed Sheeran","Santana Featuring Rob Thomas","Ed Sheeran","Katy Perry Featuring Juicy J","Creed"],"times_on_list":[90,87,79,76,69,68,68,65,65,64,62,62,62,61,61,60,60,59,59,58,58,58,58,57,57],"last_time_on_list":["2021-09-04","2014-05-10","2014-03-22","2009-10-10","1998-10-10","2014-10-18","2012-07-21","1998-02-21","2012-04-14","2007-12-01","2013-08-24","2021-03-13","2006-04-22","2020-11-07","2014-07-05","1997-02-08","2010-10-16","2014-12-06","2013-03-02","2007-06-02","2018-03-03","2000-09-02","2015-11-28","2014-11-01","2000-12-02"],"highest_position":[1,3,17,6,2,2,1,2,1,8,3,3,5,1,6,1,2,1,1,3,1,1,2,1,7]},"columns":[{"accessor":"song","name":"song","type":"character"},{"accessor":"performer","name":"performer","type":"character"},{"accessor":"times_on_list","name":"times_on_list","type":"numeric"},{"accessor":"last_time_on_list","name":"last_time_on_list","type":"Date"},{"accessor":"highest_position","name":"highest_position","type":"numeric"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"style":{"fontSize":"smaller"},"dataKey":"5471df9dd6ac5dd107c7fad787475dfe","key":"5471df9dd6ac5dd107c7fad787475dfe"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="thoughts-on-the-verbs" class="section level2" number="15.4">
+<h2>
+<span class="header-section-number">15.4</span> Thoughts on the verbs<a class="anchor" aria-label="anchor" href="#thoughts-on-the-verbs"><i class="fas fa-link"></i></a>
+</h2>
+<p>You’ve now seen most of the key verbs of the tidyverse, and how they can be put together. They are:</p>
+<ul>
+<li>
+<code>mutate</code> , which you saw in the last chapter, to calculate new variables.</li>
+<li>
+<code>select</code>, which lets you pick out columns in the order you want to see them</li>
+<li>
+<code>filter</code>, to pick out rows based on a condition</li>
+<li>
+<code>summarise</code> to compute summary statistics like “how many?” and “how much? or”smallest” and “largest”</li>
+<li>
+<code>group_by</code> to create a single row for each unique item in a list.</li>
+</ul>
+<p>Don’t worry if you don’t understand how this works or how to do it yourself. This walkthrough is just intended to show you how much you can do with just a few lines of code.</p>
+</div>
+<div id="exercise" class="section level2" number="15.5">
+<h2>
+<span class="header-section-number">15.5</span> Exercise<a class="anchor" aria-label="anchor" href="#exercise"><i class="fas fa-link"></i></a>
+</h2>
+<p>If you feel comfortable, consider trying to create a markdown program that accomplishes the same thing that was done with the Washington Post shooting database that you did in Excel lessons.</p>
+<p>Skip the pivot table exercise with ethnicities in rows and years in columns - we’ll get back to that later.</p>
+<p>There are three changes you’ll have to make because the data begins as an Excel file rather than a comma-separated text file (csv):</p>
+<ol style="list-style-type: decimal">
+<li>Add a library to your setup chunk : <code><a href="https://readxl.tidyverse.org">library(readxl)</a></code> and <strong>be sure to run that chunk again</strong> (or you’ll get an error).</li>
+<li>
+<a href="%22https://cronkitedata.s3.amazonaws.com/xlfiles/wapo-shootings-pivot.xlsx%22">Download the file</a> and save it into your project. (The readxl package doesn’t let you read data from a web address.)</li>
+<li>Use the <code>read_excel()</code> function to import it instead of read_csv():</li>
+</ol>
+<div id="answers" class="section level3 unnumbered">
+<h3>Answers<a class="anchor" aria-label="anchor" href="#answers"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>Sort by state, then date, this time only picking a few columns:</li>
+</ol>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">wapo_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span> <span class="op">(</span> <span class="va">state</span>, <span class="va">date</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span> <span class="op">(</span><span class="va">name</span>, <span class="va">date</span>, <span class="va">armed</span>, <span class="va">ethnicity</span>, <span class="va">city</span>, <span class="va">state</span><span class="op">)</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Find fatalities from a Taser:</li>
+</ol>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">wapo_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span> <span class="op">(</span> <span class="va">manner_of_death</span> <span class="op">==</span> <span class="st">"shot and Tasered"</span><span class="op">)</span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Unarmed suspects in cars</li>
+</ol>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">wapo_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span> <span class="op">(</span><span class="va">armed</span> <span class="op">==</span> <span class="st">"unarmed"</span> <span class="op">&amp;</span> <span class="va">flee</span><span class="op">==</span><span class="st">"Car"</span><span class="op">)</span></code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>Fatalities by ethnicity</li>
+</ol>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">wapo_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span> <span class="op">(</span> <span class="va">ethnicity</span> <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span> <span class="op">(</span> count <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span> <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span> <span class="op">(</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span> <span class="op">(</span> <span class="va">count</span> <span class="op">)</span> <span class="op">)</span></code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li>Fatalities by ethnicity and year</li>
+</ol>
+<p>You should skip this one for now – we’ll learn later about how to flip the answer on its head to get something that looks like the pivot table.</p>
+<ol start="6" style="list-style-type: decimal">
+<li>Fatalities by city</li>
+</ol>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">wapo_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span> <span class="op">(</span> <span class="va">city</span>, <span class="va">state</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span> <span class="op">(</span> fatalities <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span> <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span> <span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span> <span class="op">(</span><span class="va">fatalities</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span> <span class="op">(</span><span class="fl">10</span><span class="op">)</span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">city</th>
+<th align="left">state</th>
+<th align="right">fatalities</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Los Angeles</td>
+<td align="left">CA</td>
+<td align="right">92</td>
+</tr>
+<tr class="even">
+<td align="left">Phoenix</td>
+<td align="left">AZ</td>
+<td align="right">86</td>
+</tr>
+<tr class="odd">
+<td align="left">Houston</td>
+<td align="left">TX</td>
+<td align="right">62</td>
+</tr>
+<tr class="even">
+<td align="left">Las Vegas</td>
+<td align="left">NV</td>
+<td align="right">52</td>
+</tr>
+<tr class="odd">
+<td align="left">San Antonio</td>
+<td align="left">TX</td>
+<td align="right">49</td>
+</tr>
+<tr class="even">
+<td align="left">Chicago</td>
+<td align="left">IL</td>
+<td align="right">41</td>
+</tr>
+<tr class="odd">
+<td align="left">Albuquerque</td>
+<td align="left">NM</td>
+<td align="right">39</td>
+</tr>
+<tr class="even">
+<td align="left">Denver</td>
+<td align="left">CO</td>
+<td align="right">36</td>
+</tr>
+<tr class="odd">
+<td align="left">Oklahoma City</td>
+<td align="left">OK</td>
+<td align="right">35</td>
+</tr>
+<tr class="even">
+<td align="left">Columbus</td>
+<td align="left">OH</td>
+<td align="right">33</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>It’s worth noting that most of the top 10 cities are west of the Mississippi.</p>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="r-data-import.html"><span class="header-section-number">14</span> Getting and saving data</a></div>
+<div class="next"><a href="r-verb-filter.html"><span class="header-section-number">16</span> Verbs in depth: Select, filter, arrange</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#r-verbs"><span class="header-section-number">15</span> A quick tour of verbs</a></li>
+<li><a class="nav-link" href="#filter-and-arrange"><span class="header-section-number">15.1</span> Filter and arrange</a></li>
+<li><a class="nav-link" href="#summary-statistics-in-r"><span class="header-section-number">15.2</span> Summary statistics in R</a></li>
+<li><a class="nav-link" href="#grouping-with-summary-statistics-aggregating"><span class="header-section-number">15.3</span> Grouping with summary statistics (aggregating)</a></li>
+<li><a class="nav-link" href="#thoughts-on-the-verbs"><span class="header-section-number">15.4</span> Thoughts on the verbs</a></li>
+<li>
+<a class="nav-link" href="#exercise"><span class="header-section-number">15.5</span> Exercise</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#answers">Answers</a></li></ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Data Reporting, Spring 2022</strong>" was written by Sarah Cohen. It was last built on 2022-03-31.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

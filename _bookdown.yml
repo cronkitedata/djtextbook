@@ -1,0 +1,51 @@
+before_chapter_script: _common.R
+delete_merged_file: true
+new_session: true
+keep_md: false
+language:
+  ui:
+    chapter_name: " "
+output_dir: docs
+book_filename: reporting_book
+rmd_files:
+- index.Rmd
+- start.Rmd
+- start-story.Rmd
+- start-math.Rmd
+- start-data-def.Rmd
+- start-data-diary.Rmd
+- start-hunt.Rmd
+- start-build-own.Rmd
+- xl.Rmd
+- xl-refresher.Rmd
+- xl-filter-sort.Rmd
+- xl-pivot.Rmd
+- xl-formulas.Rmd
+- xl-practice-noc.Rmd
+- r.Rmd
+- r-start.Rmd
+- r-markdown.Rmd
+- r-data-import.Rmd
+- r-verbs.Rmd
+- r-verb-filter.Rmd
+- r-verb-groupby.Rmd
+- r-verb-mutate.Rmd
+- r-verb-join.Rmd
+- r-recipes.Rmd
+- viz.Rmd
+- viz-reporting.Rmd
+- viz-demo.Rmd
+- advanced.Rmd
+- advanced-regex.Rmd
+- advanced-openrefine.Rmd
+- advanced-scrape1.Rmd
+- advanced-scrape2.Rmd
+- appendix-math.Rmd
+- appendix-program.Rmd
+- appendix-glossary.Rmd
+- appendix-resources.Rmd
+- appendix-ppp.Rmd
+
+
+
+

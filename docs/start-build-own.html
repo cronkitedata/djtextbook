@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title> 6 Build your own database | Data Reporting, Spring 2022</title>
+<meta name="author" content="Sarah Cohen">
+<meta name="description" content="6.1 The evolution of a home-made database The day in December 2015 that a San Bernadino couple killed 14 people, The New York Times published a short story called “How Often Do Mass Shootings...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content=" 6 Build your own database | Data Reporting, Spring 2022">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://github.com/cronkitedata/djtextbook/start-build-own.html">
+<meta property="og:description" content="6.1 The evolution of a home-made database The day in December 2015 that a San Bernadino couple killed 14 people, The New York Times published a short story called “How Often Do Mass Shootings...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content=" 6 Build your own database | Data Reporting, Spring 2022">
+<meta name="twitter:site" content="@sarahcnyt">
+<meta name="twitter:description" content="6.1 The evolution of a home-made database The day in December 2015 that a San Bernadino couple killed 14 people, The New York Times published a short story called “How Often Do Mass Shootings...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Muli-0.4.0/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/core-js-2.5.3/shim.min.js"></script><script src="libs/react-17.0.0/react.min.js"></script><script src="libs/react-17.0.0/react-dom.min.js"></script><script src="libs/reactwidget-1.0.0/react-tools.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="libs/reactable-binding-0.2.3/reactable.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link rel="shortcut icon" href="assets/images/favicon.ico">
+<!--
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        --><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Data Reporting, Spring 2022</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li class="book-part">Reporting with data</li>
+<li><a class="" href="starter-intro.html">In this section</a></li>
+<li><a class="" href="start-story.html"><span class="header-section-number">1</span> Learn a new way to read</a></li>
+<li><a class="" href="start-math.html"><span class="header-section-number">2</span> Newsroom math</a></li>
+<li><a class="" href="start-data-def.html"><span class="header-section-number">3</span> Defining “Data”</a></li>
+<li><a class="" href="start-data-diary.html"><span class="header-section-number">4</span> Replication and the data diary</a></li>
+<li><a class="" href="start-hunt.html"><span class="header-section-number">5</span> Finding the right data for your story</a></li>
+<li><a class="active" href="start-build-own.html"><span class="header-section-number">6</span> Build your own database</a></li>
+<li class="book-part">Spreadsheets</li>
+<li><a class="" href="xl-intro.html">Introduction</a></li>
+<li><a class="" href="xl-refresher.html"><span class="header-section-number">7</span> An Excel Refresher</a></li>
+<li><a class="" href="xl-filter-sort.html"><span class="header-section-number">8</span> Sorting and filtering to find stories</a></li>
+<li><a class="" href="xl-pivot.html"><span class="header-section-number">9</span> Grouping with pivot tables</a></li>
+<li><a class="" href="xl-formulas.html"><span class="header-section-number">10</span> Formulas in Excel</a></li>
+<li><a class="" href="xl-practice-noc.html"><span class="header-section-number">11</span> Practice exercise</a></li>
+<li class="book-part">R Study Guide</li>
+<li><a class="" href="r-intro.html">Introduction</a></li>
+<li><a class="" href="r-start.html"><span class="header-section-number">12</span> Getting started with R and RStudio</a></li>
+<li><a class="" href="r-markdown.html"><span class="header-section-number">13</span> R Markdown</a></li>
+<li><a class="" href="r-data-import.html"><span class="header-section-number">14</span> Getting and saving data</a></li>
+<li><a class="" href="r-verbs.html"><span class="header-section-number">15</span> A quick tour of verbs</a></li>
+<li><a class="" href="r-verb-filter.html"><span class="header-section-number">16</span> Verbs in depth: Select, filter, arrange</a></li>
+<li><a class="" href="r-verb-groupby.html"><span class="header-section-number">17</span> Verbs in depth: Aggregating with groups</a></li>
+<li><a class="" href="r-verb-mutate.html"><span class="header-section-number">18</span> Verbs in depth: New from old data with Mutate</a></li>
+<li><a class="" href="r-verb-join.html"><span class="header-section-number">19</span> Verbs in depth: Matchmaking with joins</a></li>
+<li><a class="" href="r-recipes.html"><span class="header-section-number">20</span> Recipes</a></li>
+<li class="book-part">Visualization as a reporting tool</li>
+<li><a class="" href="viz-intro.html">Introduction</a></li>
+<li><a class="" href="viz-reporting.html"><span class="header-section-number">21</span> Visualization as a reporting tool</a></li>
+<li><a class="" href="viz-demo.html"><span class="header-section-number">22</span> Visualization demo</a></li>
+<li class="book-part">Special skills</li>
+<li><a class="" href="advanced-intro.html">Introduction</a></li>
+<li><a class="" href="advanced-regex.html"><span class="header-section-number">23</span> Regular Expressions for pattern matching</a></li>
+<li><a class="" href="advanced-openrefine.html"><span class="header-section-number">24</span> Open refine walkthrough</a></li>
+<li><a class="" href="advanced-scrape1.html"><span class="header-section-number">25</span> Scraping without programming</a></li>
+<li><a class="" href="advanced-scrape2.html"><span class="header-section-number">26</span> Introduction to scraping in R</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="" href="appendix-math.html"><span class="header-section-number">A</span> Newsroom numbers cheat sheet</a></li>
+<li><a class="" href="appendix-program.html"><span class="header-section-number">B</span> A gentle intro to programming</a></li>
+<li><a class="" href="appendix-glossary.html"><span class="header-section-number">C</span> Glossary</a></li>
+<li><a class="" href="appendix-resources.html"><span class="header-section-number">D</span> Great R Resources</a></li>
+<li><a class="" href="appendix-ppp.html"><span class="header-section-number">E</span> Documentation for PPP data chapters</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="start-build-own" class="section level1" number="6">
+<h1>
+<span class="header-section-number"> 6</span> Build your own database<a class="anchor" aria-label="anchor" href="#start-build-own"><i class="fas fa-link"></i></a>
+</h1>
+<div id="the-evolution-of-a-home-made-database" class="section level2" number="6.1">
+<h2>
+<span class="header-section-number">6.1</span> The evolution of a home-made database<a class="anchor" aria-label="anchor" href="#the-evolution-of-a-home-made-database"><i class="fas fa-link"></i></a>
+</h2>
+<p>The day in December 2015 that a San Bernadino couple killed 14 people, The New York Times published a short story called <a href="https://www.nytimes.com/2015/12/03/us/how-often-do-mass-shootings-occur-on-average-every-day-records-show.html">“How Often Do Mass Shootings Occur?</a> On Average, Every Day, Records Show”.</p>
+<p>That daily story spurred the Times to embark on a project to document each mass shooting in America for a year. Five months later, it published this story:</p>
+<iframe src="https://www.nytimes.com/svc/oembed/html/?url=https%3A%2F%2Fwww.nytimes.com%2F2016%2F05%2F23%2Fus%2Famericas-overlooked-gun-violence.html" scrolling="no" frameborder="0" allowtransparency="true" title="A Drumbeat of Multiple Shootings, but America Isn’t Listening" style="border:none;max-width:500px;min-width:300px;min-height:550px;display:block;width:100%;">
+</iframe>
+<p>Here is how Sharon LaFraniere, Daniela Porat and Agustin Armendariz described the results of their work about 10 paragraphs into the story. (I suggest you also read the lede on your own - it’s an exquisite example of framing a lede anecdote with detail and context.)</p>
+<blockquote>
+<p>Seeking deeper insight into the phenomenon, The New York Times identified and analyzed these 358 shootings with four or more casualties, drawing on two databases assembled from news reports and citizen contributors, and then verifying details with law enforcement agencies.</p>
+<p>Only a small handful were high-profile mass shootings like those in South Carolina and Oregon. The rest are a pencil sketch of everyday America at its most violent.</p>
+<p>They chronicle how easily lives are shattered when a firearm is readily available — in a waistband, a glove compartment, a mailbox or garbage can that serves as a gang’s gun locker. They document the mayhem spawned by the most banal of offenses: a push in a bar, a Facebook taunt, the wrong choice of music at a house party. They tally scores of unfortunates in the wrong place at the wrong time: an 11-month-old clinging to his mother’s hip, shot as she prepared to load him into a car; a 77-year-old church deacon, killed by a stray bullet while watching television on his couch.</p>
+<p>The shootings took place everywhere, but mostly outdoors: at neighborhood barbecues, family reunions, music festivals, basketball tournaments, movie theaters, housing project courtyards, Sweet 16 parties, public parks. Where motives could be gleaned, roughly half involved or suggested crime or gang activity. Arguments that spun out of control accounted for most other shootings, followed by acts of domestic violence.</p>
+<p>The typical victim was a man between 18 and 30, but more than 1 in 10 were 17 or younger. Less is known about those who pulled the triggers because nearly half of the cases remain unsolved. But of those arrested or identified as suspects, the average age was 27.</p>
+<p>Most of the shootings occurred in economically downtrodden neighborhoods. These shootings, by and large, are not a middle-class phenomenon.</p>
+<p>The divide is racial as well. Among the cases examined by The Times were 39 domestic violence shootings, and they largely involved white attackers and victims. So did many of the high-profile massacres, including a wild shootout between Texas biker gangs that left nine people dead and 18 wounded.</p>
+<p>Over all, though, nearly three-fourths of victims and suspected assailants whose race could be identified were black. Some experts suggest that helps explain why the drumbeat of dead and wounded does not inspire more outrage.</p>
+</blockquote>
+<p>Notice how the authors weave the details that were chronicled in their database with the data points. Now, try to imagine how their dataset might have been organized to allow for such a rich description of the phenomenon.</p>
+<p>The database, built by Armendariz, and mostly reported by Porat, was designed to anticipate this writing phase:</p>
+<ul>
+<li><p>The database was split into two separate tables – one that detailed the 358 events and another that detailed the 1,592 victims.</p></li>
+<li><p>It included links to original FOIA requests and documentation they’d need for fact-checking.</p></li>
+<li><p>Some columns were categories or items that would be summarized – the ages and ethnicity of the victims, the severity of the injury, and whether it was solved. But much of the data included was detailed descriptions that could be searched using sophisticated filters. Still others were tagged with one-word descriptions that allowed the reporters to pluck just the right examples for just the right part of the story, using words like “suspected gang”, “child”, or “party”. Over time, these tags were reviewed and revised, which is common on small databases like this.</p></li>
+<li><p>Fact-checking and information for publication was included in the database. For example, the database logged photos, interview and contact notes, and specific entries for name spelling and fact checks. That way the reporters could focus on what was NOT ready for publication, rather than review things they’d already checked.</p></li>
+</ul>
+<p>What didn’t they do?</p>
+<p>They didn’t bother to standardize names and addresses into their pieces – they had no interest in counting how many “Smith”s were in the database, and didn’t care how often they occurred a Main Street.</p>
+<p>In other contexts, these fields might be important, but they were only required for filtering and sorting, not for counting. There was no reason to make it more difficult to fill out the database than necessary.</p>
+<p>They also didn’t try to publish the full dataset. That’s an important consideration, especially if the data you are collecting contains sensitive or potentially erroneous information. Getting it to that level of accuracy might have added several months to the project, and probably would not have served readers any better. (The bare bones list of cases, with a few exceptions, was already available and updated elsewhere.)</p>
+</div>
+<div id="when-to-build-your-own-database" class="section level2" number="6.2">
+<h2>
+<span class="header-section-number">6.2</span> When to build your own database<a class="anchor" aria-label="anchor" href="#when-to-build-your-own-database"><i class="fas fa-link"></i></a>
+</h2>
+<p>There are a few common reasons to design and build your own data for stories:</p>
+<ul>
+<li>
+<p>There is a long-running story that is periodically updated with new documents or events that you want to track.</p>
+<p>One reporter created a spreadsheet to log each event related to Jack Kevorkian, a doctor who became famous for helping people commmit suicide. His list made it easy for him to write a story every time another person died, because he had the full list of people and circumstances and knew what he’d already fact-checked.</p>
+<p>My first data-driven set of stories came from following the actions of George Steinbrenner, the former principle owner of the New York Yankees, whose family owned a failing shipbuilding company in Tampa in the early 1990s. After I pressed the “sort” button, I discovered that each time he helped the company gain new Navy contracts by lending it money, he demanded repayment as soon as the contract was signed, sending it back into a downward spiral.</p>
+</li>
+<li><p>You are getting information from disparate sources and you need an easy way to search them, arrange them chronologically, and keep track of what you need to verify. Examples include reviewing court cases across jurisdictions or compiling death records from many medical examiners’ officers. This would also work for tracking your own FOIA requests. You’ve read about this in <a href="https://cronkitedata.s3.amazonaws.com/docs/berens_nerds_words.pdf">Michael Berens’ story</a> of a serial killer in Illinois.</p></li>
+<li><p>You want to fill in details for every item on a list, like the mass shootings story above. This is quite common – you might have a list of opioid overdose deaths from the medical examiner, but you want to fill out the details of this case. At USA Today, Anthony DeBarros did this after 9/11 to tell the story of every person killed in the World Trade Center, including where they were when the planes hit.</p></li>
+</ul>
+</div>
+<div id="tools-for-building-databases" class="section level2" number="6.3">
+<h2>
+<span class="header-section-number">6.3</span> Tools for building databases<a class="anchor" aria-label="anchor" href="#tools-for-building-databases"><i class="fas fa-link"></i></a>
+</h2>
+<p>The simplest tool for a one-table database is just Google Sheets or Excel. In both Google and Microsoft 365, it’s possible to create a data entry form that will feed into a form, so you can make it a little more structured than just a free-form spreadsheet. But when it gets a little more complicated or you want more control over the data types and choices, you might choose to use a different product.</p>
+<p>Airtable is one option (ASU has an enterprise account, which will kick in when you create an account with your school email address). More recently, Microsoft created “Lists” to your 365 account, and Google added “Tables” to your Google account. Airtable and Tables are quite limited in the free edition – so limited that you may find it doesn’t meet your needs. But even if you can’t use it for your full dataset, it might be useful as a sandbox for you to test different ways to set up your dataset.</p>
+<p>These products let you set up related tables, such as the events events and people tables used in the Times story, and create tags or other structured items for you spreadsheet. They’re also good for working in teams.</p>
+</div>
+<div id="how-to-start" class="section level2" number="6.4">
+<h2>
+<span class="header-section-number">6.4</span> How to start<a class="anchor" aria-label="anchor" href="#how-to-start"><i class="fas fa-link"></i></a>
+</h2>
+<p>Work with everyone who might use the dataset before you start to set out goals. Think about the full range of issues that might come up. Most importantly, how are you going to get the information and how long will it take? Is it just a list of things in chronological order or to provide a quick overview of your reporting? Or are you trying to count specific types of events, such as police shootings by race or gender or the lawyer who has had the most disciplinary actions taken?</p>
+<p>The difference is whether you are primarily using your dataset for <em>sorting and filtering</em> versus <em>grouping</em> and <em>counting</em> by category.</p>
+<p>You should also assume that you won’t be able to get all of the information you’d hoped, and that real life doesn’t often fit into neat rectangular boxes. So it’s fine to put in some aspirational columns in case you can get the details, but be sure to stay realistic. If it takes too long to fill out a row in your database, you won’t do it.</p>
+<p>Here are some other considerations:</p>
+<ol style="list-style-type: decimal">
+<li><p>Try to find an interest group or academic researcher who has already tried to tally the information you’re collecting. They may have good structures that you can adapt to your project. If you can’t, try to find a standard that you want to measure your results against – was a policy followed or not, or was a case solved or not? These are the key statistics that will identify the newsworthiness of your results.</p></li>
+<li><p>Carefully define your “universe”. In the case of the Washington Post’s Pulitzer Prize-winning “Fatal Flaws” series on deadly police shootings, the reporters chose to focus only on deaths that were the result of gun discharges in the line of duty. That means they aren’t able to talk about all of the people killed by police, nor all of the people killed in custody, because some happen off hours and others are strangulations or other causes of death. In other cases, you may choose to FOIA the top 50 cities or counties and ignore all the rest. It’s ok to limit your universe. Just be sure that your entire team knows and agrees to the definitions and the limits that places on the results.</p></li>
+<li><p>What is your unit of analysis, or the noun you use to describe a row in your database? Do you want to count events, people, cases, years, or something else? If so, you should have one and only one row for each of those things, which may mean splitting your work inot more than one data frame or table, the way the Times reporters did for people and events.</p></li>
+<li><p>Build your data dictionary before you start filling out the database, and keep adjusting it as you have to adapt to the real world. Make sure to include a detailed data type (eg, a list separated by semicolons, long text, category, number, date….), and list any standardized words or codes you plan to use (“Y” or “N” for yes and no, for example) .</p></li>
+<li><p>Reduce the number of columns by smartly combining categories into tags, and considering the way you’ll use a field. For example, sorting by street name isn’t usually very useful (especially when you can filter for it), so there may be no reason to split the street number, name, etc. into different columns. If you enter names in a standard format (eg, Last, First Middle Suffix), then they’re easy to split later on but can be kept in one column and still be sorted. In other words, consider whether you want to be able to sort, filter or count entries. Each of them requires a different level of standardization.</p></li>
+<li><p>Anticipate errors. One of the more common problems in creating your own dataset is that the whole purpose of it is to sort or arrange it by date, so you have to enter dates properly. But we rarely do get the exact date for every item in the list. There are several strategies for this, such as entering year, month and day in different columns; or entering an approximate date, and flagging it as “approximate” in a separate field (my preference).</p></li>
+<li><p>Build in fact-checking. If nothing else, be sure to include the source of the information in the row, and provide a way to get back to the original quickly. For example, if you are typing in events from a court case, enter a link to the case folder in one field, and the page number of the item you’re entering in another. If I’m publishing anything from the dataset, I include columns for name checks, fact checks and even whether the narrative has been copy edited.</p></li>
+<li><p>How many columns do you really want? On a spreadsheet, things can bet pretty unwieldy pretty fast. Try to avoid having more than about 15 columns, and try to define them so that most are filled out.</p></li>
+</ol>
+<p>This is an example of a spreadsheet created to log the first 100 days of the Obama administration. The “subject_tags” column let the reporters enter a variety of categories, which were then normalized when it came time to use them.</p>
+<div class="figure">
+<img src="assets/images/start-build-obamaexample.png" style="width:100.0%" alt=""><p class="caption">100 days</p>
+</div>
+<p>Those tags resulted in it being relatively easy to create graphics like this by filtering for related tags and ordering it by date:</p>
+<div class="figure">
+<img src="assets/images/start-build-reversalpost.png" style="width:100.0%" alt=""><p class="caption">reversals</p>
+</div>
+</div>
+<div id="an-example" class="section level2" number="6.5">
+<h2>
+<span class="header-section-number">6.5</span> An example<a class="anchor" aria-label="anchor" href="#an-example"><i class="fas fa-link"></i></a>
+</h2>
+<p>In 2013, the New York Times and Frontline collaborated on a story on police-involved domestic violence. Most of the story was a narrative of a single case. But it was important to show that this was not the first time the sheriff in the Florida county was slow to investigate his deputies. Another case several years earlier had the same telltale problems.</p>
+<p>The Times obtained several key documents in the other case.* You can <a href="https://cronkitedata.s3.amazonaws.com/docs/internal-affairs-report.pdf">read a copy</a> of the internal affairs report yourself, but you quickly come away realizing that it’s hard to follow, repetitive and you’re never quite sure what’s happened. Here is the record layout of the table that we built, and a small snippet of what it looks like.</p>
+<div class="figure">
+<img src="assets/images/start-sjso-harris-layout.png" style="width:100.0%" alt=""><p class="caption">data dict</p>
+</div>
+<p>And here is what a few rows look like. Notice that they are not organized chronologically, but are organized in the order that they were listed in the underlying document. The “sort” button turns it into a chronology.</p>
+<div class="figure">
+<img src="assets/images/start-build-harrisexample.png" style="width:100.0%" alt=""><p class="caption">sjso-example</p>
+</div>
+<p>And finally, here is what was written about the case in the final story:</p>
+<blockquote>
+<p>A year before that, Sheriff Shoar’s disciplinary posture had been called into question in a domestic violence case involving a deputy named Halford (Bubba) Harris II.</p>
+<p>Two supervisors learned of accusations that Mr. Harris had abused his wife. But no investigation was immediately opened, records show.</p>
+<p>One sergeant did prepare an affidavit documenting the accusations. But he was told by his supervisor to hold it back, so he stuck it under the visor in his squad car, where it remained, even after another officer became aware of further incidents, according to Mr. Harris’s internal affairs file.</p>
+<p>The case came to a head on Christmas Eve, when his wife fled their house and called the police. Internal affairs officers uncovered other possible acts of domestic violence before his hiring, records show. His wife said that before they married, he had held a knife to her throat and hit her. His ex-wife said he had threatened her with a gun. No charges were filed.</p>
+<p>Col. Todd R. Thompson, the sheriff’s director of law enforcement, recommended that Mr. Harris be fired, saying his actions were “particularly egregious and trouble me deeply.”</p>
+</blockquote>
+<p>Was it necessary to create a spreadsheet logging almost 100 events in this case? No. But we had to go through every document in detail anyway, and this meant we didn’t have to do it over and over again.</p>
+
+</div>
+</div>
+
+
+
+  <div class="chapter-nav">
+<div class="prev"><a href="start-hunt.html"><span class="header-section-number">5</span> Finding the right data for your story</a></div>
+<div class="next"><a href="xl-intro.html">Introduction</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#start-build-own"><span class="header-section-number">6</span> Build your own database</a></li>
+<li><a class="nav-link" href="#the-evolution-of-a-home-made-database"><span class="header-section-number">6.1</span> The evolution of a home-made database</a></li>
+<li><a class="nav-link" href="#when-to-build-your-own-database"><span class="header-section-number">6.2</span> When to build your own database</a></li>
+<li><a class="nav-link" href="#tools-for-building-databases"><span class="header-section-number">6.3</span> Tools for building databases</a></li>
+<li><a class="nav-link" href="#how-to-start"><span class="header-section-number">6.4</span> How to start</a></li>
+<li><a class="nav-link" href="#an-example"><span class="header-section-number">6.5</span> An example</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Data Reporting, Spring 2022</strong>" was written by Sarah Cohen. It was last built on 2022-03-31.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title> 23 Regular Expressions for pattern matching | Data Reporting, Spring 2022</title>
+<meta name="author" content="Sarah Cohen">
+<meta name="description" content="Regular expressions are used to find and replace text based on patterns rather than characters. They’re particularly useful when trying to pull apart and standardize variables in a database such...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content=" 23 Regular Expressions for pattern matching | Data Reporting, Spring 2022">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://github.com/cronkitedata/djtextbook/advanced-regex.html">
+<meta property="og:description" content="Regular expressions are used to find and replace text based on patterns rather than characters. They’re particularly useful when trying to pull apart and standardize variables in a database such...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content=" 23 Regular Expressions for pattern matching | Data Reporting, Spring 2022">
+<meta name="twitter:site" content="@sarahcnyt">
+<meta name="twitter:description" content="Regular expressions are used to find and replace text based on patterns rather than characters. They’re particularly useful when trying to pull apart and standardize variables in a database such...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Muli-0.4.0/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/core-js-2.5.3/shim.min.js"></script><script src="libs/react-17.0.0/react.min.js"></script><script src="libs/react-17.0.0/react-dom.min.js"></script><script src="libs/reactwidget-1.0.0/react-tools.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="libs/reactable-binding-0.2.3/reactable.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link rel="shortcut icon" href="assets/images/favicon.ico">
+<!--
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        --><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Data Reporting, Spring 2022</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li class="book-part">Reporting with data</li>
+<li><a class="" href="starter-intro.html">In this section</a></li>
+<li><a class="" href="start-story.html"><span class="header-section-number">1</span> Learn a new way to read</a></li>
+<li><a class="" href="start-math.html"><span class="header-section-number">2</span> Newsroom math</a></li>
+<li><a class="" href="start-data-def.html"><span class="header-section-number">3</span> Defining “Data”</a></li>
+<li><a class="" href="start-data-diary.html"><span class="header-section-number">4</span> Replication and the data diary</a></li>
+<li><a class="" href="start-hunt.html"><span class="header-section-number">5</span> Finding the right data for your story</a></li>
+<li><a class="" href="start-build-own.html"><span class="header-section-number">6</span> Build your own database</a></li>
+<li class="book-part">Spreadsheets</li>
+<li><a class="" href="xl-intro.html">Introduction</a></li>
+<li><a class="" href="xl-refresher.html"><span class="header-section-number">7</span> An Excel Refresher</a></li>
+<li><a class="" href="xl-filter-sort.html"><span class="header-section-number">8</span> Sorting and filtering to find stories</a></li>
+<li><a class="" href="xl-pivot.html"><span class="header-section-number">9</span> Grouping with pivot tables</a></li>
+<li><a class="" href="xl-formulas.html"><span class="header-section-number">10</span> Formulas in Excel</a></li>
+<li><a class="" href="xl-practice-noc.html"><span class="header-section-number">11</span> Practice exercise</a></li>
+<li class="book-part">R Study Guide</li>
+<li><a class="" href="r-intro.html">Introduction</a></li>
+<li><a class="" href="r-start.html"><span class="header-section-number">12</span> Getting started with R and RStudio</a></li>
+<li><a class="" href="r-markdown.html"><span class="header-section-number">13</span> R Markdown</a></li>
+<li><a class="" href="r-data-import.html"><span class="header-section-number">14</span> Getting and saving data</a></li>
+<li><a class="" href="r-verbs.html"><span class="header-section-number">15</span> A quick tour of verbs</a></li>
+<li><a class="" href="r-verb-filter.html"><span class="header-section-number">16</span> Verbs in depth: Select, filter, arrange</a></li>
+<li><a class="" href="r-verb-groupby.html"><span class="header-section-number">17</span> Verbs in depth: Aggregating with groups</a></li>
+<li><a class="" href="r-verb-mutate.html"><span class="header-section-number">18</span> Verbs in depth: New from old data with Mutate</a></li>
+<li><a class="" href="r-verb-join.html"><span class="header-section-number">19</span> Verbs in depth: Matchmaking with joins</a></li>
+<li><a class="" href="r-recipes.html"><span class="header-section-number">20</span> Recipes</a></li>
+<li class="book-part">Visualization as a reporting tool</li>
+<li><a class="" href="viz-intro.html">Introduction</a></li>
+<li><a class="" href="viz-reporting.html"><span class="header-section-number">21</span> Visualization as a reporting tool</a></li>
+<li><a class="" href="viz-demo.html"><span class="header-section-number">22</span> Visualization demo</a></li>
+<li class="book-part">Special skills</li>
+<li><a class="" href="advanced-intro.html">Introduction</a></li>
+<li><a class="active" href="advanced-regex.html"><span class="header-section-number">23</span> Regular Expressions for pattern matching</a></li>
+<li><a class="" href="advanced-openrefine.html"><span class="header-section-number">24</span> Open refine walkthrough</a></li>
+<li><a class="" href="advanced-scrape1.html"><span class="header-section-number">25</span> Scraping without programming</a></li>
+<li><a class="" href="advanced-scrape2.html"><span class="header-section-number">26</span> Introduction to scraping in R</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="" href="appendix-math.html"><span class="header-section-number">A</span> Newsroom numbers cheat sheet</a></li>
+<li><a class="" href="appendix-program.html"><span class="header-section-number">B</span> A gentle intro to programming</a></li>
+<li><a class="" href="appendix-glossary.html"><span class="header-section-number">C</span> Glossary</a></li>
+<li><a class="" href="appendix-resources.html"><span class="header-section-number">D</span> Great R Resources</a></li>
+<li><a class="" href="appendix-ppp.html"><span class="header-section-number">E</span> Documentation for PPP data chapters</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="advanced-regex" class="section level1" number="23">
+<h1>
+<span class="header-section-number"> 23</span> Regular Expressions for pattern matching<a class="anchor" aria-label="anchor" href="#advanced-regex"><i class="fas fa-link"></i></a>
+</h1>
+<p><em>Regular expressions</em> are used to find and replace text based on <em>patterns</em> rather than <em>characters</em>. They’re particularly useful when trying to pull apart and standardize variables in a database such as names, phone numbers and addresses to make grouping and joining more effective.</p>
+<p>A human can easily discern that the name <em>John W. Smith, Jr.</em> and <em>Smith, John W Jr</em> are probably the same. A computer sees them as completely different – they don’t start with the same characters, they have commas in different places, etc. A regular expression can help you pull apart names based on their pieces and then put them back together in another form.</p>
+<p>There are two or or three parts to a regular expression:</p>
+<ol style="list-style-type: decimal">
+<li>The pattern you are trying to find.</li>
+<li>An optional replacement, which could use part of what you’ve found in the original seeking phase.</li>
+<li>Options - the big one in R is <code>negate=TRUE</code>, which means to match everything EXCEPT what is found.</li>
+</ol>
+<p>In practice, you’ll usually save the pieces of each pattern you’ve found into a variable, then put them back together differently.</p>
+<p>Here are two other good tutorials on regular expressions:</p>
+<ul>
+<li>
+<a href="https://cronkitedata.s3.amazonaws.com/docs/meyer_regex.pdf">From Justin Meyer</a> at a recent IRE conference that can serve as a guide.<br>
+</li>
+<li><a href="https://cronkitedata.s3.amazonaws.com/docs/regex_for_rest_of_us.pdf">From Prof. Christian McDonald of UT-Austin</a></li>
+</ul>
+<p>If you’re using R, you can use a regex using the <code>stringr</code> package (part of the tidyverse) using the functions <em>str_detect</em> , <em>str_extract</em> and their cousins. They look like this:</p>
+<div class="sourceCode" id="cb131"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb131-1"><a href="advanced-regex.html#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="in">    str_detect(var_name, regex("pattern")) </span></span></code></pre></div>
+<div id="types-of-regular-expression-patterns" class="section level2" number="23.1">
+<h2>
+<span class="header-section-number">23.1</span> Types of regular expression patterns<a class="anchor" aria-label="anchor" href="#types-of-regular-expression-patterns"><i class="fas fa-link"></i></a>
+</h2>
+<div id="literal-strings" class="section level3" number="23.1.1">
+<h3>
+<span class="header-section-number">23.1.1</span> Literal strings<a class="anchor" aria-label="anchor" href="#literal-strings"><i class="fas fa-link"></i></a>
+</h3>
+<p>These are just letters, like “abc” or “Mary”. They are case-sensitive and no different than using text in a filter.</p>
+<p>You can tell the regex that you want to find your pattern at the beginning or end of a line:</p>
+<div class="sourceCode" id="cb132"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb132-1"><a href="advanced-regex.html#cb132-1" aria-hidden="true" tabindex="-1"></a>  ^   = "Find only at the beginning of a line"</span>
+<span id="cb132-2"><a href="advanced-regex.html#cb132-2" aria-hidden="true" tabindex="-1"></a>  $   = "Find only at the end of a line"</span></code></pre></div>
+</div>
+<div id="wild-cards" class="section level3" number="23.1.2">
+<h3>
+<span class="header-section-number">23.1.2</span> Wild cards<a class="anchor" aria-label="anchor" href="#wild-cards"><i class="fas fa-link"></i></a>
+</h3>
+<p>A wild card is a character you use to indicate the word “anything”. Here are some ways to use wild cards in regex:</p>
+<div class="sourceCode" id="cb133"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb133-1"><a href="advanced-regex.html#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="in">    .      = "any single character of any type"</span></span>
+<span id="cb133-2"><a href="advanced-regex.html#cb133-2" aria-hidden="true" tabindex="-1"></a><span class="in">    .?     = "a possible single character of any type (but it might not exist)"</span></span>
+<span id="cb133-3"><a href="advanced-regex.html#cb133-3" aria-hidden="true" tabindex="-1"></a><span class="in">    .*     = "anything or nothing of any length"</span></span>
+<span id="cb133-4"><a href="advanced-regex.html#cb133-4" aria-hidden="true" tabindex="-1"></a><span class="in">    .+     = "anything one or more times"</span></span>
+<span id="cb133-5"><a href="advanced-regex.html#cb133-5" aria-hidden="true" tabindex="-1"></a><span class="in">    .{1,3} = "anything running between 1 and 3 characters long"</span></span></code></pre></div>
+<p>Regular expressions also have wild cards of specific types. In R, they are “escaped” using two backslashes. In other languages and in the example <a href="https://regex101.com" class="uri">https://regex101.com</a> site they only use one backslash:</p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb134-1"><a href="advanced-regex.html#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="in">      \\d   = "Any digit"</span></span>
+<span id="cb134-2"><a href="advanced-regex.html#cb134-2" aria-hidden="true" tabindex="-1"></a><span class="in">      \\w   = "Any word character"</span></span>
+<span id="cb134-3"><a href="advanced-regex.html#cb134-3" aria-hidden="true" tabindex="-1"></a><span class="in">      \\s   = "Any whitespace (tab, space, etc.)"</span></span>
+<span id="cb134-4"><a href="advanced-regex.html#cb134-4" aria-hidden="true" tabindex="-1"></a><span class="in">      \\b   = "Any word boundary" (period, comma, space, etc.)</span></span></code></pre></div>
+<p>When you upper-case them, it’s the opposite:</p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb135-1"><a href="advanced-regex.html#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="in">      \\D = "Anything but a digit"</span></span></code></pre></div>
+</div>
+<div id="character-classes" class="section level3" number="23.1.3">
+<h3>
+<span class="header-section-number">23.1.3</span> Character classes<a class="anchor" aria-label="anchor" href="#character-classes"><i class="fas fa-link"></i></a>
+</h3>
+<p>Sometimes you want to tell the regex what characters it is allowed to accept. For example, say you don’t know whether there is an alternative spelling for a name – you can tell the regex to either ignore a character, or take one of several.</p>
+<p>In R, we saw that there were alternative spellings for words like “summarize” – the British and the American spellings. You could, for example, use this pattern to pick up either spelling:</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb136-1"><a href="advanced-regex.html#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="in">        summari[sz]e</span></span></code></pre></div>
+<p>The bracket tells the regex that it’s allowed to take either one of those characters. You can also use ranges:</p>
+<pre><code>  [a-zA-Z0-9]</code></pre>
+<p>means that any lower case, upper case or numeric character is allowed.</p>
+</div>
+<div id="escaping" class="section level3" number="23.1.4">
+<h3>
+<span class="header-section-number">23.1.4</span> Escaping<a class="anchor" aria-label="anchor" href="#escaping"><i class="fas fa-link"></i></a>
+</h3>
+<p>Because they’re already being used for special purposes, some characters have to be “escaped” before you can search for them. Notably, they are parentheses (), periods, backslashes, dollar signs, question marks, dashes and carets.</p>
+<p>This means that to find a period or question mark, you have to use the pattern</p>
+<pre><code>    \\. or
+    \\?</code></pre>
+<p>In the Regex101, this is the biggest difference among the flavors of regex – Python generally requires the least amount of escaping.</p>
+</div>
+<div id="match-groups" class="section level3" number="23.1.5">
+<h3>
+<span class="header-section-number">23.1.5</span> Match groups<a class="anchor" aria-label="anchor" href="#match-groups"><i class="fas fa-link"></i></a>
+</h3>
+<p>Use parentheses within a pattern to pick out pieces, which you can then use over again. The end of this chapter shows how to do this in R, which is a little complicated because we haven’t done much with <code>lists</code>.</p>
+</div>
+</div>
+<div id="sample-data" class="section level2" number="23.2">
+<h2>
+<span class="header-section-number">23.2</span> Sample data<a class="anchor" aria-label="anchor" href="#sample-data"><i class="fas fa-link"></i></a>
+</h2>
+<p>Here are three small text files that you can copy and paste from your browser into the <a href="https://regex101.com/">regex101.com</a> site. It’s a site that lets you test out regular expressions, while explaining to you what’s happening with them.</p>
+<ol style="list-style-type: decimal">
+<li>A <a href="https://cronkitedata.s3.amazonaws.com/csv/regex_phones.txt">list of phone numbers</a> in different formats</li>
+<li>A <a href="https://cronkitedata.s3.amazonaws.com/csv/regex_dates.txt">list of dates</a> that you need to convert into a different form.</li>
+<li>A <a href="https://cronkitedata.s3.amazonaws.com/csv/regex_addresses.txt">list of addresses</a> that are in multiple lines, and you need to pull out the pieces. (Courtesy of IRE)</li>
+<li>A <a href="https://cronkitedata.s3.amazonaws.com/csv/regex_h2bvisas.txt">small chunk of the H2B visa applications</a> from Arizona companies or worksites that has been kind of messed up for this demonstration, in tab-delimited format.</li>
+</ol>
+</div>
+<div id="testing-and-examining-patterns-with-regex101" class="section level2" number="23.3">
+<h2>
+<span class="header-section-number">23.3</span> Testing and examining patterns with Regex101<a class="anchor" aria-label="anchor" href="#testing-and-examining-patterns-with-regex101"><i class="fas fa-link"></i></a>
+</h2>
+<p><a href="https://regex101.com">Regex 101</a> is a website that lets you copy part of your data into a box, then test different patterns to see how they get applied. Regular expressions are very difficult to write and to read, but Regex101 lets you do it a little piece at a time. Just remember that every time you use ‘' in regex101, you will need’\` in R.</p>
+<div id="looking-for-specific-words-or-characters" class="section level3" number="23.3.1">
+<h3>
+<span class="header-section-number">23.3.1</span> Looking for specific words or characters<a class="anchor" aria-label="anchor" href="#looking-for-specific-words-or-characters"><i class="fas fa-link"></i></a>
+</h3>
+<p>The easiest regex is one that has just the characters you’re looking for when you know that they are the right case. They’re called <em>literals</em> because you are literally looking for those letters or characters.</p>
+<div class="inline-figure"><img src="assets/images/advanced-regex1.png" style="width:100.0%"></div>
+</div>
+</div>
+<div id="practice-1-extract-date-parts" class="section level2" number="23.4">
+<h2>
+<span class="header-section-number">23.4</span> Practice #1: Extract date parts<a class="anchor" aria-label="anchor" href="#practice-1-extract-date-parts"><i class="fas fa-link"></i></a>
+</h2>
+<p>In Regex 101, change the “Flavor” to “Python” – otherwise, you have to escape more of the characters.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Each language implements regular expressions slightly differently – when you begin to learn more languages, this will be one of the first things you’ll need to look up.&lt;/p&gt;"><sup>25</sup></a></p>
+<p>We want to turn dates that look like this:</p>
+<pre><code>  1/24/2018</code></pre>
+<p>into something that looks like this:</p>
+<pre><code> 2008-1-24</code></pre>
+<p>Copy and paste these numbers into the regex 101 window:</p>
+<pre><code>9/7/2017
+9/11/1998
+9/11/2017
+9/19/2018
+9/15/2017
+10/13/2019
+11/3/2017</code></pre>
+<p>First, you can use any digit using the pattern “. Try to do it in pieces. First, see if you can find one or two digits at the beginning of the line.</p>
+<pre><code>  ^\d{1,2}</code></pre>
+<p>Try coming up with the rest of it on your own before you type in the answer:</p>
+<pre><code>  ^\d{1,2}.\d{1,2}.\d{4}</code></pre>
+<p>(This works because regular expressions normally are “greedy”. That is, if you tell it “one or two digits”, it will always take two if they exist.)</p>
+<p>Put parentheses around any pieces that you want to use for later:</p>
+<div class="inline-figure"><img src="assets/images/advanced-regex4.png" width="80%"></div>
+<p>Now each piece has its section, numbered 0 for the whole match, and then 1-3 for the pieces.</p>
+<div class="inline-figure"><img src="assets/images/advanced-regex3.png" style="width:100.0%"></div>
+</div>
+<div id="practice-2-extract-pieces-of-phone-numbers" class="section level2" number="23.5">
+<h2>
+<span class="header-section-number">23.5</span> Practice #2: Extract pieces of phone numbers<a class="anchor" aria-label="anchor" href="#practice-2-extract-pieces-of-phone-numbers"><i class="fas fa-link"></i></a>
+</h2>
+<p>Here are some phone numbers in different formats:</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb144-1"><a href="advanced-regex.html#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="in">    623-374-1167</span></span>
+<span id="cb144-2"><a href="advanced-regex.html#cb144-2" aria-hidden="true" tabindex="-1"></a><span class="in">    760.352.5212</span></span>
+<span id="cb144-3"><a href="advanced-regex.html#cb144-3" aria-hidden="true" tabindex="-1"></a><span class="in">    831-676-3833</span></span>
+<span id="cb144-4"><a href="advanced-regex.html#cb144-4" aria-hidden="true" tabindex="-1"></a><span class="in">    (831)-676-3833</span></span>
+<span id="cb144-5"><a href="advanced-regex.html#cb144-5" aria-hidden="true" tabindex="-1"></a><span class="in">    623-374-1167 ext 203</span></span>
+<span id="cb144-6"><a href="advanced-regex.html#cb144-6" aria-hidden="true" tabindex="-1"></a><span class="in">    831-775-0370</span></span>
+<span id="cb144-7"><a href="advanced-regex.html#cb144-7" aria-hidden="true" tabindex="-1"></a><span class="in">    (602)-955-0222  x20</span></span>
+<span id="cb144-8"><a href="advanced-regex.html#cb144-8" aria-hidden="true" tabindex="-1"></a><span class="in">    928-627-8080</span></span>
+<span id="cb144-9"><a href="advanced-regex.html#cb144-9" aria-hidden="true" tabindex="-1"></a><span class="in">    831-784-1453</span></span></code></pre></div>
+<p>This is a little more complicated than it looks, so try piecing together what this one says:</p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb145-1"><a href="advanced-regex.html#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="in">      (\d{3})[-.\)]+(\d{3})[-.]+(\d{4})</span></span></code></pre></div>
+<p>(This won’t work in the “substitute” area – it would be easier to create a new variable with the results than to replace the originals.)</p>
+<p>Anything within parentheses will be “captured” in a block.</p>
+</div>
+<div id="practice-3-extract-address-pieces" class="section level2" number="23.6">
+<h2>
+<span class="header-section-number">23.6</span> Practice #3: Extract address pieces<a class="anchor" aria-label="anchor" href="#practice-3-extract-address-pieces"><i class="fas fa-link"></i></a>
+</h2>
+<p>Here are a few lines of the data from <a href="https://cronkitedata.s3.amazonaws.com/docs/regex_for_rest_of_us.pdf">Prof. McDonald’s tutorial</a>, which you can copy and paste to go his exercise. (He uses the Javascript version of regular expressions, but for our purposes in this exercise, it doesn’t matter which one you use. If you choose Python, you’ll have one extra step, of putting a slash () before the quotes. The colors work a little better if you leave it on the default PHP method.)</p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb146-1"><a href="advanced-regex.html#cb146-1" aria-hidden="true" tabindex="-1"></a><span class="in">    "10111 N LAMAR BLVD</span></span>
+<span id="cb146-2"><a href="advanced-regex.html#cb146-2" aria-hidden="true" tabindex="-1"></a><span class="in">    AUSTIN, TX 78753</span></span>
+<span id="cb146-3"><a href="advanced-regex.html#cb146-3" aria-hidden="true" tabindex="-1"></a><span class="in">    (30.370945933000485, -97.6925542359997)"</span></span>
+<span id="cb146-4"><a href="advanced-regex.html#cb146-4" aria-hidden="true" tabindex="-1"></a><span class="in">    "3636 N FM 620 RD</span></span>
+<span id="cb146-5"><a href="advanced-regex.html#cb146-5" aria-hidden="true" tabindex="-1"></a><span class="in">    AUSTIN, TX 78734</span></span>
+<span id="cb146-6"><a href="advanced-regex.html#cb146-6" aria-hidden="true" tabindex="-1"></a><span class="in">    (30.377873241000486, -97.9523496219997)"</span></span>
+<span id="cb146-7"><a href="advanced-regex.html#cb146-7" aria-hidden="true" tabindex="-1"></a><span class="in">    "9919 SERVICE AVE</span></span>
+<span id="cb146-8"><a href="advanced-regex.html#cb146-8" aria-hidden="true" tabindex="-1"></a><span class="in">    AUSTIN, TX 78743</span></span>
+<span id="cb146-9"><a href="advanced-regex.html#cb146-9" aria-hidden="true" tabindex="-1"></a><span class="in">    (30.205028616000448, -97.6625588019997)"</span></span>
+<span id="cb146-10"><a href="advanced-regex.html#cb146-10" aria-hidden="true" tabindex="-1"></a><span class="in">    "10601 N LAMAR BLVD</span></span>
+<span id="cb146-11"><a href="advanced-regex.html#cb146-11" aria-hidden="true" tabindex="-1"></a><span class="in">    AUSTIN, TX 78753</span></span>
+<span id="cb146-12"><a href="advanced-regex.html#cb146-12" aria-hidden="true" tabindex="-1"></a><span class="in">    (30.37476574700048, -97.6903937089997)"</span></span>
+<span id="cb146-13"><a href="advanced-regex.html#cb146-13" aria-hidden="true" tabindex="-1"></a><span class="in">    "801 E WILLIAM CANNON DR Unit 205</span></span>
+<span id="cb146-14"><a href="advanced-regex.html#cb146-14" aria-hidden="true" tabindex="-1"></a><span class="in">    AUSTIN, TX 78745</span></span>
+<span id="cb146-15"><a href="advanced-regex.html#cb146-15" aria-hidden="true" tabindex="-1"></a><span class="in">    (30.190914575000477, -97.77193838799968)"</span></span>
+<span id="cb146-16"><a href="advanced-regex.html#cb146-16" aria-hidden="true" tabindex="-1"></a><span class="in">    "4408 LONG CHAMP DR</span></span>
+<span id="cb146-17"><a href="advanced-regex.html#cb146-17" aria-hidden="true" tabindex="-1"></a><span class="in">    AUSTIN, TX 78746</span></span>
+<span id="cb146-18"><a href="advanced-regex.html#cb146-18" aria-hidden="true" tabindex="-1"></a><span class="in">    (30.340981111000474, -97.7983147919997)"</span></span>
+<span id="cb146-19"><a href="advanced-regex.html#cb146-19" aria-hidden="true" tabindex="-1"></a><span class="in">    "625 W BEN WHITE BLVD EB</span></span>
+<span id="cb146-20"><a href="advanced-regex.html#cb146-20" aria-hidden="true" tabindex="-1"></a><span class="in">    AUSTIN, TX 78745</span></span>
+<span id="cb146-21"><a href="advanced-regex.html#cb146-21" aria-hidden="true" tabindex="-1"></a><span class="in">    (30.206884239000487, -97.7956469989997)"</span></span>
+<span id="cb146-22"><a href="advanced-regex.html#cb146-22" aria-hidden="true" tabindex="-1"></a><span class="in">    "3914 N LAMAR BLVD</span></span>
+<span id="cb146-23"><a href="advanced-regex.html#cb146-23" aria-hidden="true" tabindex="-1"></a><span class="in">    AUSTIN, TX 78756</span></span>
+<span id="cb146-24"><a href="advanced-regex.html#cb146-24" aria-hidden="true" tabindex="-1"></a><span class="in">    (30.307477098000447, -97.74169675199965)"</span></span>
+<span id="cb146-25"><a href="advanced-regex.html#cb146-25" aria-hidden="true" tabindex="-1"></a><span class="in">    "15201 FALCON HEAD BLVD</span></span>
+<span id="cb146-26"><a href="advanced-regex.html#cb146-26" aria-hidden="true" tabindex="-1"></a><span class="in">    BEE CAVE, TX 78738</span></span>
+<span id="cb146-27"><a href="advanced-regex.html#cb146-27" aria-hidden="true" tabindex="-1"></a><span class="in">    (30.32068282700044, -97.96890311999965)"</span></span>
+<span id="cb146-28"><a href="advanced-regex.html#cb146-28" aria-hidden="true" tabindex="-1"></a><span class="in">    "11905 FM 2244 RD Unit 100</span></span>
+<span id="cb146-29"><a href="advanced-regex.html#cb146-29" aria-hidden="true" tabindex="-1"></a><span class="in">    BEE CAVE, TX 78738</span></span>
+<span id="cb146-30"><a href="advanced-regex.html#cb146-30" aria-hidden="true" tabindex="-1"></a><span class="in">    (30.308363203000454, -97.92393357799966)"</span></span>
+<span id="cb146-31"><a href="advanced-regex.html#cb146-31" aria-hidden="true" tabindex="-1"></a><span class="in">    "3801 JUNIPER TRCE</span></span>
+<span id="cb146-32"><a href="advanced-regex.html#cb146-32" aria-hidden="true" tabindex="-1"></a><span class="in">    BEE CAVE, TX 78738</span></span>
+<span id="cb146-33"><a href="advanced-regex.html#cb146-33" aria-hidden="true" tabindex="-1"></a><span class="in">    (30.308247975000484, -97.93511531999968)"</span></span>
+<span id="cb146-34"><a href="advanced-regex.html#cb146-34" aria-hidden="true" tabindex="-1"></a><span class="in">    "12800 GALLERIA CIR Unit 101</span></span>
+<span id="cb146-35"><a href="advanced-regex.html#cb146-35" aria-hidden="true" tabindex="-1"></a><span class="in">    BEE CAVE, TX 78738</span></span>
+<span id="cb146-36"><a href="advanced-regex.html#cb146-36" aria-hidden="true" tabindex="-1"></a><span class="in">    (30.307996778000472, -97.94065088199966)"</span></span>
+<span id="cb146-37"><a href="advanced-regex.html#cb146-37" aria-hidden="true" tabindex="-1"></a><span class="in">    "12400 W SH 71 Unit 510</span></span>
+<span id="cb146-38"><a href="advanced-regex.html#cb146-38" aria-hidden="true" tabindex="-1"></a><span class="in">    BEE CAVE, TX 78733</span></span>
+<span id="cb146-39"><a href="advanced-regex.html#cb146-39" aria-hidden="true" tabindex="-1"></a><span class="in">    (30.330682136000462, -97.86979886299969)"</span></span>
+<span id="cb146-40"><a href="advanced-regex.html#cb146-40" aria-hidden="true" tabindex="-1"></a><span class="in">    "716 W 6TH ST</span></span>
+<span id="cb146-41"><a href="advanced-regex.html#cb146-41" aria-hidden="true" tabindex="-1"></a><span class="in">    AUSTIN, TX 78701</span></span>
+<span id="cb146-42"><a href="advanced-regex.html#cb146-42" aria-hidden="true" tabindex="-1"></a><span class="in">    (30.27019732500048, -97.75036306299967)"</span></span>
+<span id="cb146-43"><a href="advanced-regex.html#cb146-43" aria-hidden="true" tabindex="-1"></a><span class="in">    "3003 BEE CAVES RD</span></span>
+<span id="cb146-44"><a href="advanced-regex.html#cb146-44" aria-hidden="true" tabindex="-1"></a><span class="in">    ROLLINGWOOD, TX 78746</span></span>
+<span id="cb146-45"><a href="advanced-regex.html#cb146-45" aria-hidden="true" tabindex="-1"></a><span class="in">    (30.271592738000436, -97.79583786499967)"</span></span></code></pre></div>
+</div>
+<div id="on-your-own" class="section level2" number="23.7">
+<h2>
+<span class="header-section-number">23.7</span> On your own<a class="anchor" aria-label="anchor" href="#on-your-own"><i class="fas fa-link"></i></a>
+</h2>
+<p><a href="https://cronkitedata.s3.amazonaws.com/csv/regex_h2bvisas.txt">This is a small list of H2A visa applications</a>, which are requests for agricultural and seasonal workers, from companies or worksites in Arizona. Try importing it into Excel, then copying some of the cells to practice your regular expression skills.</p>
+<p>You might try:</p>
+<ul>
+<li>Finding all of the LLC’s in the list (limited liability companies) of names. (You should turn on the case-insensitive flag in Regex 101 or set that flag in your program if you do.)</li>
+<li>See how far you can get in standardizing the addresses.</li>
+<li>Split the city, state and zip code of the worksite.</li>
+<li>Find all of the jobs related to field crops such as lettuce or celery.</li>
+</ul>
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="advanced-intro.html">Introduction</a></div>
+<div class="next"><a href="advanced-openrefine.html"><span class="header-section-number">24</span> Open refine walkthrough</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#advanced-regex"><span class="header-section-number">23</span> Regular Expressions for pattern matching</a></li>
+<li>
+<a class="nav-link" href="#types-of-regular-expression-patterns"><span class="header-section-number">23.1</span> Types of regular expression patterns</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#literal-strings"><span class="header-section-number">23.1.1</span> Literal strings</a></li>
+<li><a class="nav-link" href="#wild-cards"><span class="header-section-number">23.1.2</span> Wild cards</a></li>
+<li><a class="nav-link" href="#character-classes"><span class="header-section-number">23.1.3</span> Character classes</a></li>
+<li><a class="nav-link" href="#escaping"><span class="header-section-number">23.1.4</span> Escaping</a></li>
+<li><a class="nav-link" href="#match-groups"><span class="header-section-number">23.1.5</span> Match groups</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#sample-data"><span class="header-section-number">23.2</span> Sample data</a></li>
+<li>
+<a class="nav-link" href="#testing-and-examining-patterns-with-regex101"><span class="header-section-number">23.3</span> Testing and examining patterns with Regex101</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#looking-for-specific-words-or-characters"><span class="header-section-number">23.3.1</span> Looking for specific words or characters</a></li></ul>
+</li>
+<li><a class="nav-link" href="#practice-1-extract-date-parts"><span class="header-section-number">23.4</span> Practice #1: Extract date parts</a></li>
+<li><a class="nav-link" href="#practice-2-extract-pieces-of-phone-numbers"><span class="header-section-number">23.5</span> Practice #2: Extract pieces of phone numbers</a></li>
+<li><a class="nav-link" href="#practice-3-extract-address-pieces"><span class="header-section-number">23.6</span> Practice #3: Extract address pieces</a></li>
+<li><a class="nav-link" href="#on-your-own"><span class="header-section-number">23.7</span> On your own</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Data Reporting, Spring 2022</strong>" was written by Sarah Cohen. It was last built on 2022-03-31.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

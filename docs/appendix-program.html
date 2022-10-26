@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>B A gentle intro to programming | Data Reporting, Spring 2022</title>
+<meta name="author" content="Sarah Cohen">
+<meta name="description" content="In this chapter No one is born knowing how to code. It takes practice All programming languages have certain things in common: variables, operators, functions and loops They also have ways to read...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="B A gentle intro to programming | Data Reporting, Spring 2022">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://github.com/cronkitedata/djtextbook/appendix-program.html">
+<meta property="og:description" content="In this chapter No one is born knowing how to code. It takes practice All programming languages have certain things in common: variables, operators, functions and loops They also have ways to read...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="B A gentle intro to programming | Data Reporting, Spring 2022">
+<meta name="twitter:site" content="@sarahcnyt">
+<meta name="twitter:description" content="In this chapter No one is born knowing how to code. It takes practice All programming languages have certain things in common: variables, operators, functions and loops They also have ways to read...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Muli-0.4.0/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/core-js-2.5.3/shim.min.js"></script><script src="libs/react-17.0.0/react.min.js"></script><script src="libs/react-17.0.0/react-dom.min.js"></script><script src="libs/reactwidget-1.0.0/react-tools.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="libs/reactable-binding-0.2.3/reactable.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link rel="shortcut icon" href="assets/images/favicon.ico">
+<!--
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        --><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Data Reporting, Spring 2022</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li class="book-part">Reporting with data</li>
+<li><a class="" href="starter-intro.html">In this section</a></li>
+<li><a class="" href="start-story.html"><span class="header-section-number">1</span> Learn a new way to read</a></li>
+<li><a class="" href="start-math.html"><span class="header-section-number">2</span> Newsroom math</a></li>
+<li><a class="" href="start-data-def.html"><span class="header-section-number">3</span> Defining “Data”</a></li>
+<li><a class="" href="start-data-diary.html"><span class="header-section-number">4</span> Replication and the data diary</a></li>
+<li><a class="" href="start-hunt.html"><span class="header-section-number">5</span> Finding the right data for your story</a></li>
+<li><a class="" href="start-build-own.html"><span class="header-section-number">6</span> Build your own database</a></li>
+<li class="book-part">Spreadsheets</li>
+<li><a class="" href="xl-intro.html">Introduction</a></li>
+<li><a class="" href="xl-refresher.html"><span class="header-section-number">7</span> An Excel Refresher</a></li>
+<li><a class="" href="xl-filter-sort.html"><span class="header-section-number">8</span> Sorting and filtering to find stories</a></li>
+<li><a class="" href="xl-pivot.html"><span class="header-section-number">9</span> Grouping with pivot tables</a></li>
+<li><a class="" href="xl-formulas.html"><span class="header-section-number">10</span> Formulas in Excel</a></li>
+<li><a class="" href="xl-practice-noc.html"><span class="header-section-number">11</span> Practice exercise</a></li>
+<li class="book-part">R Study Guide</li>
+<li><a class="" href="r-intro.html">Introduction</a></li>
+<li><a class="" href="r-start.html"><span class="header-section-number">12</span> Getting started with R and RStudio</a></li>
+<li><a class="" href="r-markdown.html"><span class="header-section-number">13</span> R Markdown</a></li>
+<li><a class="" href="r-data-import.html"><span class="header-section-number">14</span> Getting and saving data</a></li>
+<li><a class="" href="r-verbs.html"><span class="header-section-number">15</span> A quick tour of verbs</a></li>
+<li><a class="" href="r-verb-filter.html"><span class="header-section-number">16</span> Verbs in depth: Select, filter, arrange</a></li>
+<li><a class="" href="r-verb-groupby.html"><span class="header-section-number">17</span> Verbs in depth: Aggregating with groups</a></li>
+<li><a class="" href="r-verb-mutate.html"><span class="header-section-number">18</span> Verbs in depth: New from old data with Mutate</a></li>
+<li><a class="" href="r-verb-join.html"><span class="header-section-number">19</span> Verbs in depth: Matchmaking with joins</a></li>
+<li><a class="" href="r-recipes.html"><span class="header-section-number">20</span> Recipes</a></li>
+<li class="book-part">Visualization as a reporting tool</li>
+<li><a class="" href="viz-intro.html">Introduction</a></li>
+<li><a class="" href="viz-reporting.html"><span class="header-section-number">21</span> Visualization as a reporting tool</a></li>
+<li><a class="" href="viz-demo.html"><span class="header-section-number">22</span> Visualization demo</a></li>
+<li class="book-part">Special skills</li>
+<li><a class="" href="advanced-intro.html">Introduction</a></li>
+<li><a class="" href="advanced-regex.html"><span class="header-section-number">23</span> Regular Expressions for pattern matching</a></li>
+<li><a class="" href="advanced-openrefine.html"><span class="header-section-number">24</span> Open refine walkthrough</a></li>
+<li><a class="" href="advanced-scrape1.html"><span class="header-section-number">25</span> Scraping without programming</a></li>
+<li><a class="" href="advanced-scrape2.html"><span class="header-section-number">26</span> Introduction to scraping in R</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="" href="appendix-math.html"><span class="header-section-number">A</span> Newsroom numbers cheat sheet</a></li>
+<li><a class="active" href="appendix-program.html"><span class="header-section-number">B</span> A gentle intro to programming</a></li>
+<li><a class="" href="appendix-glossary.html"><span class="header-section-number">C</span> Glossary</a></li>
+<li><a class="" href="appendix-resources.html"><span class="header-section-number">D</span> Great R Resources</a></li>
+<li><a class="" href="appendix-ppp.html"><span class="header-section-number">E</span> Documentation for PPP data chapters</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="appendix-program" class="section level1" number="28">
+<h1>
+<span class="header-section-number">B</span> A gentle intro to programming<a class="anchor" aria-label="anchor" href="#appendix-program"><i class="fas fa-link"></i></a>
+</h1>
+<div class="alert alert-secondary">
+<p class="alert-heading font-weight-bolder fs-3">
+In this chapter
+</p>
+<ul>
+<li>No one is born knowing how to code. It takes practice</li>
+<li>All programming languages have certain things in common: <em>variables</em>, <em>operators</em>, <em>functions</em> and <em>loops</em>
+</li>
+<li>They also have ways to read data, or import, from files or the internet.</li>
+<li>An <em>algorithm</em> is just a set of instructions carried out in order.</li>
+</ul>
+</div>
+<div class="alert alert-info">
+<p>The examples here are shown mainly using R syntax. Another language might look a little different.</p>
+</div>
+<div id="building-blocks" class="section level2" number="28.1">
+<h2>
+<span class="header-section-number">B.1</span> Building blocks<a class="anchor" aria-label="anchor" href="#building-blocks"><i class="fas fa-link"></i></a>
+</h2>
+<p>Once you learn to program in one language, learning others is much simpler. That’s because you have the basic concepts down: How to assign values to variables, how to loop through lists, or how to import data. This chapter walks through some of the more universal concepts in programming.</p>
+<div id="variables" class="section level3 unnumbered">
+<h3>Variables<a class="anchor" aria-label="anchor" href="#variables"><i class="fas fa-link"></i></a>
+</h3>
+<p>Variables are just containers with names. Variables an be simple, such as a variable that holds the value, “Sarah”. Or they can be quite complex, such as a multi-level data frame containing details from a Spotify playlist. Some people call them objects.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Technically, these are different things to the innards of the computer, but that difference isn’t important to us right now.&lt;/p&gt;"><sup>40</sup></a></p>
+<ol>
+<li>
+<p><strong>Literals</strong></p>
+<p>The most basic kind of object is a single variable that contains a single value of a specific type:</p>
+<pre><code> "Sarah"
+ 1.0
+ TRUE
+ 2017-01-24</code></pre>
+<p>These are called “literals”, which usually include text, numeric, logical (usually true/false but sometimes yes/no or 1/0) and date or date/time. When you want to use the actual letters of some text, enclose them in quotes. When you want to use the named variable, don’t enclose it in quotes. <a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt; There are two special types that we’ll deal with later, but can cause a lot of headaches: &lt;code&gt;NA&lt;/code&gt; values and factors. You don’t have to deal with them yet.&lt;/p&gt;"><sup>41</sup></a></p>
+</li>
+<li>
+<p><strong>Lists / arrays / vectors</strong></p>
+<p>Most languages have some concept of a list of items called an array, vector or dictionary. In R, you create a vector using the “c” operator, short for “combine”. Once you have your items in a list or a vector, you can apply the same function across all of them or work on them in order.</p>
+<pre><code>c(1, 2, 3, 4, 5) 
+  creates a vector of the values 1 through 5 in R</code></pre>
+</li>
+<li>
+<p><strong>Data frames or tables</strong></p>
+<p>A data frame is a special version of a list, and is equivalent to a spreadsheet: tabular, rectangular data with columns and rows. You don’t need to know much about this yet, but just understand that it will become an important part of your vocabulary.</p>
+</li>
+</ol>
+</div>
+<div id="operators-assignment" class="section level3 unnumbered">
+<h3>Operators &amp; assignment<a class="anchor" aria-label="anchor" href="#operators-assignment"><i class="fas fa-link"></i></a>
+</h3>
+<p>Operators are simple arithmetic or similar operations, like adding, subtracting, dividing and multiplying. Some common operators are:</p>
+<pre><code>   Arithmethic: add (+), subtract (-), multiply (*), or divide (/).
+
+   Comparison: Greater than (&gt;) , less than (&lt;), 
+                equal to (often == ),
+                not equal to (often !=).</code></pre>
+<p>“Assignment” means pushing a value into a variable name using “&lt;-”. It’s amazing how many different ways there are to think of this. Some might call “naming a value”, others might consider it “setting a variable”.</p>
+<pre><code>  my_name &lt;- "Sarah"
+  my_value &lt;- 1.0</code></pre>
+</div>
+<div id="functions" class="section level3 unnumbered">
+<h3>Functions<a class="anchor" aria-label="anchor" href="#functions"><i class="fas fa-link"></i></a>
+</h3>
+<p>A function is a set of instructions. To use a function, you use its name, followed by some parentheses. If it requires information from you, those <em>arguments</em> go inside the parentheses.</p>
+<p>If you think of it as a sentence, the function is the verb, and the arguments are the nouns. You used a function in Excel:</p>
+<pre><code>=SUM(A1:A15)</code></pre>
+<p>Functions are usually categorized by the type of data element that they act upon. An example in R is the function <em>tolower()</em>, which converts a text or character variable inside the parentheses to lower case.</p>
+<p>Many of the functions we use are already built into R, or are in <em>libraries</em> that we borrow – someone else has already written, tested and packaged them up for you.</p>
+<p>Examples include:</p>
+<ul>
+<li>importing text or Excel data</li>
+<li>calculating the average or sum</li>
+<li>counting</li>
+<li>finding phrases within text</li>
+</ul>
+</div>
+<div id="loops" class="section level3 unnumbered">
+<h3>Loops<a class="anchor" aria-label="anchor" href="#loops"><i class="fas fa-link"></i></a>
+</h3>
+<p>A loop is a way to repeat your instructions over and over without having to re-write them every time. They usually work by stepping through some kind of a list, like a directory of files, or by using a counter, such as every year between 2005 and 2018.</p>
+<p>Excel and Google Sheets don’t really have loops, unless you learn the more complicated programming language behind them. This is why many people move to a programming langugate – to get the power of loops.</p>
+<p>One type of loop commonly used in programs is a “for loop”, which says, “for every one of something, follow these instructions”:</p>
+<blockquote class="twitter-tweet">
+<p lang="en" dir="ltr">
+For loops aren't always scary monsters. <br><br>Conceptual intro (no, this code won't run…) to for loops. Thanks <a href="https://twitter.com/ChelseaParlett?ref_src=twsrc%5Etfw"><span class="citation">@ChelseaParlett</span></a> for brainstorming w/ me on this one! <a href="https://t.co/TySFHogG2d">pic.twitter.com/TySFHogG2d</a>
+</p>
+— Allison Horst (<span class="citation">@allison_horst</span>) <a href="https://twitter.com/allison_horst/status/1290774616038809600?ref_src=twsrc%5Etfw">August 4, 2020</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><p>Common tasks that reporters do with loops include combining annual spreadsheets from a government website or downloading and importing many files at once; and scraping web pages that require clicking into each link one by one. We’ll get to this at the end of the semester.</p>
+<figure class="figure float-right col-6"><img src="assets/images/appendix-program-katie-smith-unsplash.jpg" width="100%"><figcaption class="text-secondary small">
+Ingredients by Katie Smith via Unsplash
+</figcaption></figure>
+</div>
+</div>
+<div id="an-algorithm-to-make-an-omelet" class="section level2" number="28.2">
+<h2>
+<span class="header-section-number">B.2</span> An algorithm to make an omelet<a class="anchor" aria-label="anchor" href="#an-algorithm-to-make-an-omelet"><i class="fas fa-link"></i></a>
+</h2>
+<p>Algorithms are just instructions that get followed in order. If you brush your teeth the same way every morning, you can probably write out the steps as an algorithm.</p>
+<p>Suppose you want to make an omelet. Before you even start, you need to know at least two things: which ingredients you have on hand, and what kind of omelet you want to make.</p>
+<p>A function or algorithm that creates an omelet might look something like this. The first row creates a function called <code>make_omelet()</code>, which requires the two pieces of information as <em>arguments</em>. Once you’ve made the function, you can refer to that set of instruction by its name by giving it the arguments it needs.</p>
+<p>(All of these examples are called “pseudo-code”. They won’t actually work in any program, but they lay out the logic that has to be translated into the specific computer language you’re using.)</p>
+<pre><code>function make_omelet (ingredients_on_hand, what_kind) {
+
+     check for necessary ingredients (are all elements of what_kind in ingredients_on_hand?)
+         quit now if you don't have them all.
+         return the error message
+
+     prepare the ingredients for (what_kind)
+
+     whisk the eggs
+
+     melt some butter in a pan
+
+     pour in the eggs
+
+     add ingredients for what_kind
+
+     flip the omelet
+
+     remove from pan
+
+     give me the omelet 
+
+}</code></pre>
+<p>Now, when you want to make an omelet, you can just make your list of ingredients and the kind of omelet you want, and execute the function:</p>
+<p>Here are the ingredients I already have:</p>
+<pre><code>ingredients &lt;-
+        c("butter", "eggs", "cheese", "spinach", "tomatoes")</code></pre>
+<p>I want a spinach and cheese omelet:</p>
+<pre><code>kind &lt;-
+        c("spinach", "cheese")</code></pre>
+<p>Now, use the function we created to make it using those two lists as the required arguments:</p>
+<pre><code>make_omelet (ingredients, kind)</code></pre>
+<p>When you use a built-in function in R, it will show you the arguments that are both required and optional as you type.</p>
+<div id="open-a-restaurant-with-loops" class="section level3 unnumbered">
+<h3>Open a restaurant with loops<a class="anchor" aria-label="anchor" href="#open-a-restaurant-with-loops"><i class="fas fa-link"></i></a>
+</h3>
+<p>Now, you’d have to repeat this over and over if you had a restaurant. It might look like this:</p>
+<pre><code>  make_omelet (ingredients,kind)
+  ** make a new list of ingredients left and the kind**
+  make_omelet (ingredients2, kind2)
+  ** make a new list...**
+  make_omelet (ingredients3, kind3)
+  ... and so on.</code></pre>
+<p>You’d have a program hundreds of lines long – one for each customer. Instead, you could <em>loop</em> through the customers and do the same thing:</p>
+<pre><code>customers &lt;- c("Bob", "Jamal", "Christine", "Lauren")
+
+for each customer in the list of customers {
+  request what kind they want
+  make_omelet (ingredients_on_hand, kind_this_customer_wants)
+  give omelet to customer
+  update your ingredients list if you ran out of something or went shopping
+}</code></pre>
+</div>
+</div>
+<div id="more-resources" class="section level2" number="28.3">
+<h2>
+<span class="header-section-number">B.3</span> More resources<a class="anchor" aria-label="anchor" href="#more-resources"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>“<a href="https://youtu.be/7MUErafri48">Beyond Binary</a>, Lesson 1 from a Google engineer’s drag queen persona named Anna Lytical. This video gives you a good handle on what a computer program does.</li>
+</ul>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/7MUErafri48" style="align:center;" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="appendix-math.html"><span class="header-section-number">A</span> Newsroom numbers cheat sheet</a></div>
+<div class="next"><a href="appendix-glossary.html"><span class="header-section-number">C</span> Glossary</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#appendix-program"><span class="header-section-number">B</span> A gentle intro to programming</a></li>
+<li>
+<a class="nav-link" href="#building-blocks"><span class="header-section-number">B.1</span> Building blocks</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#variables">Variables</a></li>
+<li><a class="nav-link" href="#operators-assignment">Operators &amp; assignment</a></li>
+<li><a class="nav-link" href="#functions">Functions</a></li>
+<li><a class="nav-link" href="#loops">Loops</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#an-algorithm-to-make-an-omelet"><span class="header-section-number">B.2</span> An algorithm to make an omelet</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#open-a-restaurant-with-loops">Open a restaurant with loops</a></li></ul>
+</li>
+<li><a class="nav-link" href="#more-resources"><span class="header-section-number">B.3</span> More resources</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Data Reporting, Spring 2022</strong>" was written by Sarah Cohen. It was last built on 2022-03-31.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

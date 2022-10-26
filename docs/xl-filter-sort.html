@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title> 8 Sorting and filtering to find stories | Data Reporting, Spring 2022</title>
+<meta name="author" content="Sarah Cohen">
+<meta name="description" content="8.1 A sorting miracle After Ferguson, Mo., police killed Michael Brown in 2014, advocates and journalists began examining the racial and ethnic gap between police departments and the communities...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content=" 8 Sorting and filtering to find stories | Data Reporting, Spring 2022">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://github.com/cronkitedata/djtextbook/xl-filter-sort.html">
+<meta property="og:description" content="8.1 A sorting miracle After Ferguson, Mo., police killed Michael Brown in 2014, advocates and journalists began examining the racial and ethnic gap between police departments and the communities...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content=" 8 Sorting and filtering to find stories | Data Reporting, Spring 2022">
+<meta name="twitter:site" content="@sarahcnyt">
+<meta name="twitter:description" content="8.1 A sorting miracle After Ferguson, Mo., police killed Michael Brown in 2014, advocates and journalists began examining the racial and ethnic gap between police departments and the communities...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Muli-0.4.0/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/core-js-2.5.3/shim.min.js"></script><script src="libs/react-17.0.0/react.min.js"></script><script src="libs/react-17.0.0/react-dom.min.js"></script><script src="libs/reactwidget-1.0.0/react-tools.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="libs/reactable-binding-0.2.3/reactable.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link rel="shortcut icon" href="assets/images/favicon.ico">
+<!--
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        --><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Data Reporting, Spring 2022</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li class="book-part">Reporting with data</li>
+<li><a class="" href="starter-intro.html">In this section</a></li>
+<li><a class="" href="start-story.html"><span class="header-section-number">1</span> Learn a new way to read</a></li>
+<li><a class="" href="start-math.html"><span class="header-section-number">2</span> Newsroom math</a></li>
+<li><a class="" href="start-data-def.html"><span class="header-section-number">3</span> Defining “Data”</a></li>
+<li><a class="" href="start-data-diary.html"><span class="header-section-number">4</span> Replication and the data diary</a></li>
+<li><a class="" href="start-hunt.html"><span class="header-section-number">5</span> Finding the right data for your story</a></li>
+<li><a class="" href="start-build-own.html"><span class="header-section-number">6</span> Build your own database</a></li>
+<li class="book-part">Spreadsheets</li>
+<li><a class="" href="xl-intro.html">Introduction</a></li>
+<li><a class="" href="xl-refresher.html"><span class="header-section-number">7</span> An Excel Refresher</a></li>
+<li><a class="active" href="xl-filter-sort.html"><span class="header-section-number">8</span> Sorting and filtering to find stories</a></li>
+<li><a class="" href="xl-pivot.html"><span class="header-section-number">9</span> Grouping with pivot tables</a></li>
+<li><a class="" href="xl-formulas.html"><span class="header-section-number">10</span> Formulas in Excel</a></li>
+<li><a class="" href="xl-practice-noc.html"><span class="header-section-number">11</span> Practice exercise</a></li>
+<li class="book-part">R Study Guide</li>
+<li><a class="" href="r-intro.html">Introduction</a></li>
+<li><a class="" href="r-start.html"><span class="header-section-number">12</span> Getting started with R and RStudio</a></li>
+<li><a class="" href="r-markdown.html"><span class="header-section-number">13</span> R Markdown</a></li>
+<li><a class="" href="r-data-import.html"><span class="header-section-number">14</span> Getting and saving data</a></li>
+<li><a class="" href="r-verbs.html"><span class="header-section-number">15</span> A quick tour of verbs</a></li>
+<li><a class="" href="r-verb-filter.html"><span class="header-section-number">16</span> Verbs in depth: Select, filter, arrange</a></li>
+<li><a class="" href="r-verb-groupby.html"><span class="header-section-number">17</span> Verbs in depth: Aggregating with groups</a></li>
+<li><a class="" href="r-verb-mutate.html"><span class="header-section-number">18</span> Verbs in depth: New from old data with Mutate</a></li>
+<li><a class="" href="r-verb-join.html"><span class="header-section-number">19</span> Verbs in depth: Matchmaking with joins</a></li>
+<li><a class="" href="r-recipes.html"><span class="header-section-number">20</span> Recipes</a></li>
+<li class="book-part">Visualization as a reporting tool</li>
+<li><a class="" href="viz-intro.html">Introduction</a></li>
+<li><a class="" href="viz-reporting.html"><span class="header-section-number">21</span> Visualization as a reporting tool</a></li>
+<li><a class="" href="viz-demo.html"><span class="header-section-number">22</span> Visualization demo</a></li>
+<li class="book-part">Special skills</li>
+<li><a class="" href="advanced-intro.html">Introduction</a></li>
+<li><a class="" href="advanced-regex.html"><span class="header-section-number">23</span> Regular Expressions for pattern matching</a></li>
+<li><a class="" href="advanced-openrefine.html"><span class="header-section-number">24</span> Open refine walkthrough</a></li>
+<li><a class="" href="advanced-scrape1.html"><span class="header-section-number">25</span> Scraping without programming</a></li>
+<li><a class="" href="advanced-scrape2.html"><span class="header-section-number">26</span> Introduction to scraping in R</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="" href="appendix-math.html"><span class="header-section-number">A</span> Newsroom numbers cheat sheet</a></li>
+<li><a class="" href="appendix-program.html"><span class="header-section-number">B</span> A gentle intro to programming</a></li>
+<li><a class="" href="appendix-glossary.html"><span class="header-section-number">C</span> Glossary</a></li>
+<li><a class="" href="appendix-resources.html"><span class="header-section-number">D</span> Great R Resources</a></li>
+<li><a class="" href="appendix-ppp.html"><span class="header-section-number">E</span> Documentation for PPP data chapters</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="xl-filter-sort" class="section level1" number="8">
+<h1>
+<span class="header-section-number"> 8</span> Sorting and filtering to find stories<a class="anchor" aria-label="anchor" href="#xl-filter-sort"><i class="fas fa-link"></i></a>
+</h1>
+<div id="a-sorting-miracle" class="section level2" number="8.1">
+<h2>
+<span class="header-section-number">8.1</span> A sorting miracle<a class="anchor" aria-label="anchor" href="#a-sorting-miracle"><i class="fas fa-link"></i></a>
+</h2>
+<p>After Ferguson, Mo., <a href="https://en.wikipedia.org/wiki/Shooting_of_Michael_Brown">police killed Michael Brown in 2014</a>, advocates and journalists began examining the racial and ethnic gap between police departments and the communities they served. The New York Times found a 7-year-old survey conducted by the Justice Department that allowed it to <a href="https://www.nytimes.com/interactive/2014/09/03/us/the-race-gap-in-americas-police-departments.html">compare the data for major cities in a standalone graphic</a> that it published later that year.</p>
+<p>When newer data reflecting departments’ makeup in 2012 was released a year later, Matt Apuzzo and I hoped it would show some differences. It didn’t. So we were left trying to find news in the data that was clearly of public interest.</p>
+<p>After matching up the demographics of police departments with their cities, I started sorting, filtering and Googling. Could there be news in the outliers on the list? Which departments most closely represented their communities? Which ones had unusually large gaps?</p>
+<figure class="figure float-right col-md-6 ml-3"><image src="assets/images/xl-filter-sort-riley.png" class="figure-img img-fluid"><figcaption class="figure-caption">
+Chief William T. Riley III. Credit: Laura McDermott for The New York Times
+</figcaption></image></figure><p>I quickly stumbled on telling anecdote to frame the story: Inkster, Mich. had one of the least representative departments in the country, and had recently hired a new police chief to help mend the department’s fraught relationship with its largely African-American community. Where had he come from? Selma, Ala., one of the most representative police departments in the nation. Interviews with the chief, William T. Riley III, suggested one reason for some cities’ disparities: there was no state or federal money to pay for training new police officers.</p>
+<p>The story, “<a href="https://www.nytimes.com/2015/11/08/us/politics/police-chiefs-looking-to-diversify-forces-face-structural-hurdles.html?unlocked_article_code=AAAAAAAAAAAAAAAACEIPuonUktbcrohlSVUbCybIRp8_qRmHmfnE2_skgXv_JyXQQjZDwuoORoyH_ETMY6Ume9x20zWFScVaMbE-AfJ11ORSJAljQgKl54CYgokOPzgvoIb2Xn4s05bARvY47TruJCGfGdtI-Yee7ViAISTiRrqMkjB6dlMyv8ZiJ137i3wM2qjERbNq3tUt2eMqD816WWxRNymOv_HoDhl_a86ULU2JsnlAUO5aXD7Zn9-Y-uhAJF0UUQSaOSs5tWUs69pcOMcUP7L_KHMieMn8g7YRAw94PdvjRs1xF8WPyeIc4fOaogeMycG22_w1CKxf2brHuW-7P10kI6iEmzxp800cWiwLurLqbSiQJw&amp;smid=url-share">Police Chiefs, Looking to Diversity Forces, Face Structural Hurdles</a>” helped explain the persistent gap between the makeup of police in some areas and the communities they served.</p>
+</div>
+<div id="sorting-and-filtering-as-a-reporting-tool" class="section level2" number="8.2">
+<h2>
+<span class="header-section-number">8.2</span> Sorting and filtering as a reporting tool<a class="anchor" aria-label="anchor" href="#sorting-and-filtering-as-a-reporting-tool"><i class="fas fa-link"></i></a>
+</h2>
+<p>Sorting and filtering can:</p>
+<ul>
+<li>Narrow your focus to specific items that you want to examine in your story.</li>
+<li>Show you rows containing the highest and lowest values of any column. That can be news or it can be errors or other problems with the data.</li>
+<li>Let you answer quick “how many?” questions, with a count of the rows that match your criteria. (In the next lesson, you’ll see that pivot tables, or group-by queries, are much more powerful for this in most cases.)</li>
+</ul>
+</div>
+<div id="example-data" class="section level2" number="8.3">
+<h2>
+<span class="header-section-number">8.3</span> Example data<a class="anchor" aria-label="anchor" href="#example-data"><i class="fas fa-link"></i></a>
+</h2>
+<div class="alert alert-info">
+<ul>
+<li>
+<a href="https://cronkitedata.s3.amazonaws.com/xlfiles/wapo-shootings-filter.xlsx">Data from the Washington Post</a> for use in this tutorial</li>
+<li><a href="https://github.com/washingtonpost/data-police-shootings#about-the-data">Documentation from the Post’s github site</a></li>
+</ul>
+</div>
+<p>The data for this and several other chapters is the Washington Post’s public data collection of police shootings in the U.S. It includes the nation’s best guess about each fatal police shooting since 2015. There are a couple of caveats:</p>
+<ul>
+<li><p>It excludes deadly police interactions other than shooting a firarem at the suspect. Any strangulation, car crashes, Tasers without guns or other methods are excluded.</p></li>
+<li><p>It is based primarily on news reports and the results public records requests so it often contains the story as told by police. We know that many of those reports are sugar-coated at best, and lies at worst.</p></li>
+<li><p>The Post says this is a list of fatal shootings, but doesn’t say what happens if more than one person is killed. The <a href="https://www.wbtv.com/2019/03/15/dash-cam-footage-aided-investigation-into-deadly-police-shooting-no-charges-officers/">2019 shooting of D’Angelo Brown &amp; Megan Rivera in West Memphis</a> is shown as two rows<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Finding these is something that’s pretty hard in a spreadsheet but will be really easy in R.&lt;/p&gt;"><sup>7</sup></a> in the data even though it was one event. So each row might be considered a shooting “victim”, a “suspect” or a shooting “fatality” rather than a “shooting”.</p></li>
+</ul>
+<p>The original data download link is <a href="https://github.com/washingtonpost/data-police-shootings/releases/download/v0.1/fatal-police-shootings-data.csv" class="uri">https://github.com/washingtonpost/data-police-shootings/releases/download/v0.1/fatal-police-shootings-data.csv</a>. The screenshots in this tutorial may not match exactly to what you get on their data – It had included incomplete 2021 data, and I added a column for the year.</p>
+<p>It’s a good example set for us because it’s been used as the basis of many stories, it has at least one of each <em>data type</em> that we plan to deal with in Excel, and it is <a href="https://github.com/washingtonpost/data-police-shootings#about-the-data">well documented on the Post’s github site</a>.</p>
+</div>
+<div id="understanding-data-types" class="section level2" number="8.4">
+<h2>
+<span class="header-section-number">8.4</span> Understanding data types<a class="anchor" aria-label="anchor" href="#understanding-data-types"><i class="fas fa-link"></i></a>
+</h2>
+<p>When you open the spreadsheet, the first thing to notice is its <a href="start-data-def.html"><em>granularity</em></a>. Unlike Census or budget spreadsheets, this is a list capturing specific characteristics of each fatality Each column has the same <em>type</em> of data from top to bottom. Those types are:</p>
+<ul>
+<li><p><strong>Text</strong>. Text or “character” columns can come in long or short form. When they are standardized (the values can contain only one of a small list of values), they’re called “categorical”. If they’re more free-form, they’re might be called “free text”. The computer doesn’t know the difference, but you should. The Post data has examples of both. In spreadsheets, text is left-justified (they move toward the left of the cell and will line up vertically at the beginning)</p></li>
+<li><p><strong>Numbers</strong>. These are pure numbers with no commas, dollar signs or other embellishments. In Excel, as we’ll see in the computing section, these can be formatted to <em>look</em> like numbers we care about , but underneath they’re just numbers. Adding up a column of numbers that has a word in it or has missing values will just be ignored in Excel. It will trip up most other languages. These are right-justified, so the last digit is always lined up vertically.</p></li>
+<li><p><strong>Logical</strong>: This is a subset of text. It can take one of only two values – yes or no, true or false. There is no “maybe”.</p></li>
+<li>
+<p><strong>Date and times</strong>: These are actual dates on the calendar, which have magical properties. Underneath, they are a number. In Excel, that number is the number of days since Jan. 1, 1900.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Each language deals with dates and times a little differently. We’ll see how R does it later on. But just know that dates can be tricky because of these differences and &lt;a href="https://infiniteundo.com/post/25326999628/falsehoods-programmers-believe-about-time"&gt;time is even more tricky&lt;/a&gt; &lt;/p&gt;'><sup>8</sup></a> They can also have time attached to them, which in Excel is a fraction of a day. What this means is that the number 44,536.5 is really Dec. 6, 2021 at noon. In Excel, you use a format to tell the spreadsheet how you want to see the date or time, just the way you look at dollar values with commas and symbols. (If you get a spreadsheet with a lot of dates of 1/1/1900, it means there is a 0 in that column, which is sometimes a fill-in for “I don’t know.”)</p>
+<p>Here’s a picture of a date that is shown in a variety of formats.</p>
+<div class="figure">
+<img src="assets/images/xl-filter-sort-dates.png" style="width:100.0%" alt=""><p class="caption">date formats</p>
+</div>
+<p>All of these are the same, underlying value – the number at the left. Notice that all of these are right-justified.</p>
+<p>This means that when you see “Friday, December 10”, the computer sees 44540.87431. When you put the dates in order, they won’t be alphabetized with all of the Fridays shown together. Instead, they’ll be arranged by the actual date and time.</p>
+<p>It also means that you can compute 911 response times even when it crosses midnight, or or compute the someone’s age today given a date of birth. Keeping actual calendar dates in your data will give it much more power than just having the words. (Excel uses the 1st of the month as a stand-in for an actual date when all you know is the month and year.)</p>
+</li>
+</ul>
+</div>
+<div id="working-with-excel-tables" class="section level2" number="8.5">
+<h2>
+<span class="header-section-number">8.5</span> Working with Excel “tables”<a class="anchor" aria-label="anchor" href="#working-with-excel-tables"><i class="fas fa-link"></i></a>
+</h2>
+<p>Excel lets you put any type of data anywhere on your spreadsheet. To bring a little order to the chaos, it allows you to turn your data into a “table”, which is set up for sorting and filtering. It enforces some data types on you, and deals with missing information more smoothly. It is designed for tabular data without empty rows or columns, and where there is nothing else on the sheet.</p>
+<p>Put your cursor somewhere in the table, then use the “Format as table” button on the home screen. Check to make sure the “My table has headers” is checked.</p>
+<div class="w-auto" style="overflow-x:visible;">
+<div class="inline-figure"><img src="assets/images/xl-filter-sort-table.gif" width="100%"></div>
+</div>
+<div id="sorting-rows" class="section level3" number="8.5.1">
+<h3>
+<span class="header-section-number">8.5.1</span> Sorting rows<a class="anchor" aria-label="anchor" href="#sorting-rows"><i class="fas fa-link"></i></a>
+</h3>
+<p>Sorting means rearranging the rows of a data table into a different order. Some reporters take a conceptual shortcut and call this “sorting columns”. That thinking will only get you into trouble – it lets you forget that you want to keep the rows in tact while changing the order in which you see them. In fact, in other languages it’s called “order by” or “arrange” by one or more columns – a much clearer way to think of it.</p>
+<p>In Excel, look for the sort options under the Data tab at the top of your screen. In this case, sorting from oldest to newest gives you a list of the fatalities in chronological order, including the time of day.</p>
+<p>To sort your data, put your cursor in one of the cells within your data area, and choose Data…Sort. Please don’t use the A-&gt;Z or Z-&gt;A buttons!</p>
+<div class="inline-figure"><img src="assets/images/xl-filter-sort-sortbox.png" style="width:100.0%"></div>
+<div id="adding-fields-to-the-sort" class="section level4 unnumbered">
+<h4>Adding fields to the sort<a class="anchor" aria-label="anchor" href="#adding-fields-to-the-sort"><i class="fas fa-link"></i></a>
+</h4>
+<p>Adding more columns to the sort box tells Excel what to do when the first one is the same or tied. For example, sorting first by state then by date gives you a list that shows all of the events by state in sequence:</p>
+<div class="inline-figure"><img src="assets/images/xl-filter-sort-state.png" style="width:100.0%"></div>
+</div>
+</div>
+<div id="filtering" class="section level3" number="8.5.2">
+<h3>
+<span class="header-section-number">8.5.2</span> Filtering<a class="anchor" aria-label="anchor" href="#filtering"><i class="fas fa-link"></i></a>
+</h3>
+<p>Filtering means picking out only some of the rows you want to see based on a criteria you select in a column. Think of it as casting a fishing net – the more filters you add, the fewer fish will be caught.</p>
+<p>When you created the table, it also created little drop-down arrows on the top row. If you can’t see them, use CTL-HOME or CTL-UP on the first column to get yourself back to the top. Each filter you select adds more conditions, narrowing your net.</p>
+<p>To find fatalities that involved a firearm with a Taser, use the drop-down menu under <code>manner_of_death</code> select it. (This is an example of naming a column in an unexpected way. Usually, a “manner” of death relates to the circumstances such as accident, suicide or homicide. It’s why you can’t count on understanding the column names without a crib sheet from the data’s maker, called a data dictionary or record layout. The Post’s crib sheet is excellent!)</p>
+<p>When you do this, notice that the bottom left briefly shows you the number of rows that matched your filter, and the line numbers turn blue. Any rows that don’t match your filter hidden.</p>
+<div class="inline-figure"><img src="assets/images/xl-filter-sort-onefilter.gif" width="100%"></div>
+<div class="alert alert-warning">
+<p>This method works for small-ish and simple-ish columns. If your column has more than 10,000 different entries, such as names or addresses, only the first 10,000 will be considered. We only caught these for stories when someone did a fact-check using a different method of filtering. If your column has a lot of distinct entries, use option that says “Choose One”, and then use the “Contains” option. Better yet, don’t use filtering for counting things at all.</p>
+</div>
+<p>Add more filters to narrow down your list of cases even more. For example, the New York Times ran a series of stories in 2021 about unarmed people shot by police. One story was about those who were fleeing by car. Here’s one way to get a preliminary list of those cases:</p>
+<ol style="list-style-type: decimal">
+<li>Remove any filter you already have on.</li>
+<li>Turn on the filters again if you turned them off.</li>
+<li>Choose “unarmed” under <code>armed</code> and “car” under <code>flee</code>.</li>
+</ol>
+<p>(Of course, the Times didn’t stop there in trying to find more cases and teasing out more of them from this and other data. But this is a start. )</p>
+<div class="inline-figure"><img src="assets/images/xl-filter-sort-unarmed-fleeing.gif" width="100%"></div>
+<div id="different-kinds-of-filters" class="section level4 unnumbered">
+<h4>Different kinds of filters<a class="anchor" aria-label="anchor" href="#different-kinds-of-filters"><i class="fas fa-link"></i></a>
+</h4>
+<p>There are several options under the filter box, depending on what data <em>type</em> in in the column. In numeric columns, you can get top and bottom lists. Dates will automatically collapse into years, then months, then days to let you choose more efficiently.</p>
+<div class="inline-figure"><img src="assets/images/xl-filter-sort-filter-options.png" style="width:100.0%"></div>
+</div>
+</div>
+</div>
+<div id="video-of-sorting-and-filtering-with-salaries" class="section level2" number="8.6">
+<h2>
+<span class="header-section-number">8.6</span> Video of sorting and filtering with salaries<a class="anchor" aria-label="anchor" href="#video-of-sorting-and-filtering-with-salaries"><i class="fas fa-link"></i></a>
+</h2>
+<p>This video goes through many of the details of sorting and filtering. <a href="https://cronkitedata.s3.us-west-1.amazonaws.com/xlfiles/phoenix_salaries.xlsx">Follow along using this spreadsheet of Phoenix city salaries</a>. It’s from a different year, but the idea is just the same.</p>
+<p>Note that in this case, the original order of the dataset was alphabetical, except lower-case names came at the very end. It would be very hard to get back to this order in a spreadsheet if you didn’t have that leftmost column of numbers that indicated the original order.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/QByd8L7owsQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="margin: 2em;">
+</iframe>
+</div>
+<div id="faq" class="section level2" number="8.7">
+<h2>
+<span class="header-section-number">8.7</span> FAQ<a class="anchor" aria-label="anchor" href="#faq"><i class="fas fa-link"></i></a>
+</h2>
+<div id="how-do-i-turn-off-all-of-my-sort-and-filters" class="section level3 unnumbered">
+<h3>How do I turn off all of my sort and filters<a class="anchor" aria-label="anchor" href="#how-do-i-turn-off-all-of-my-sort-and-filters"><i class="fas fa-link"></i></a>
+</h3>
+<p>In the data tab, chose “Clear” (the funnel with the red “X”) to remove all of the filters and sorts on your table.</p>
+</div>
+<div id="where-is-the-button-to-filter-columns" class="section level3 unnumbered">
+<h3>Where is the button to filter <em>columns</em>?<a class="anchor" aria-label="anchor" href="#where-is-the-button-to-filter-columns"><i class="fas fa-link"></i></a>
+</h3>
+<p>Sometimes you don’t want to see all of your columns – there are too many and they’re getting confusing. There is no column filter in Excel. (You’ll see how to filter, or “Select”, columns from a dataset in standard programming languages later.)</p>
+<p>Instead, you can hide the columns you don’t want to see. When columns and rows are hidden, they generally won’t copy to a new sheet.</p>
+</div>
+<div id="im-getting-weird-questions-and-alerts-about-sorting" class="section level3 unnumbered">
+<h3>I’m getting weird questions and alerts about sorting<a class="anchor" aria-label="anchor" href="#im-getting-weird-questions-and-alerts-about-sorting"><i class="fas fa-link"></i></a>
+</h3>
+<p><em>Slow down and read the alert</em>. There are two common types of alerts in sorting, since it has the potential to wreck your spreadsheet.</p>
+<p>The first comes if you selected an entire column, and then just hit the button that says “A-Z” with the arrow. Excel won’t let you do that if it’s formatted as a table, but it will if it’s just a normal spreadsheet. This alert asks you if you REALLY want to sort only the column you’ve selected, separating its meaning from the rest of the rows. The answer is NO. Always. Expand the selection as Excel wants you do to by default.</p>
+<div class="figure">
+<img src="assets/images/xl-filter-sort-faq1.png" alt=""><p class="caption">filter date</p>
+</div>
+<p>The other comes when you have numbers that are treated as text. This is a tricky question, and a properly tidied spreadsheet should avoid it most of the time. If you have the same type of data in each column, the answer to this question shouldn’t matter. If not, neither one will give you what you want.</p>
+</div>
+<div id="i-want-to-get-rid-of-my-data-table" class="section level3 unnumbered">
+<h3>I want to get rid of my data table<a class="anchor" aria-label="anchor" href="#i-want-to-get-rid-of-my-data-table"><i class="fas fa-link"></i></a>
+</h3>
+<p>You can revert to the a plain old spreadsheet by selecting any cell within your table, then looking for the “Table” tab at the top of your screen. Choose the option that says “Convert to Range”.</p>
+
+</div>
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="xl-refresher.html"><span class="header-section-number">7</span> An Excel Refresher</a></div>
+<div class="next"><a href="xl-pivot.html"><span class="header-section-number">9</span> Grouping with pivot tables</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#xl-filter-sort"><span class="header-section-number">8</span> Sorting and filtering to find stories</a></li>
+<li><a class="nav-link" href="#a-sorting-miracle"><span class="header-section-number">8.1</span> A sorting miracle</a></li>
+<li><a class="nav-link" href="#sorting-and-filtering-as-a-reporting-tool"><span class="header-section-number">8.2</span> Sorting and filtering as a reporting tool</a></li>
+<li><a class="nav-link" href="#example-data"><span class="header-section-number">8.3</span> Example data</a></li>
+<li><a class="nav-link" href="#understanding-data-types"><span class="header-section-number">8.4</span> Understanding data types</a></li>
+<li>
+<a class="nav-link" href="#working-with-excel-tables"><span class="header-section-number">8.5</span> Working with Excel “tables”</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#sorting-rows"><span class="header-section-number">8.5.1</span> Sorting rows</a></li>
+<li><a class="nav-link" href="#filtering"><span class="header-section-number">8.5.2</span> Filtering</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#video-of-sorting-and-filtering-with-salaries"><span class="header-section-number">8.6</span> Video of sorting and filtering with salaries</a></li>
+<li>
+<a class="nav-link" href="#faq"><span class="header-section-number">8.7</span> FAQ</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#how-do-i-turn-off-all-of-my-sort-and-filters">How do I turn off all of my sort and filters</a></li>
+<li><a class="nav-link" href="#where-is-the-button-to-filter-columns">Where is the button to filter columns?</a></li>
+<li><a class="nav-link" href="#im-getting-weird-questions-and-alerts-about-sorting">I’m getting weird questions and alerts about sorting</a></li>
+<li><a class="nav-link" href="#i-want-to-get-rid-of-my-data-table">I want to get rid of my data table</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Data Reporting, Spring 2022</strong>" was written by Sarah Cohen. It was last built on 2022-03-31.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

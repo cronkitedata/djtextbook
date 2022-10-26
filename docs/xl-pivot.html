@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title> 9 Grouping with pivot tables | Data Reporting, Spring 2022</title>
+<meta name="author" content="Sarah Cohen">
+<meta name="description" content="In the wake of a police shooting in 2016, reporter Mitch Smith obtained a list of traffic stops from the St. Anthony Police Department in Minnesota. He was writing a story on Philandro Castile’s...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content=" 9 Grouping with pivot tables | Data Reporting, Spring 2022">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://github.com/cronkitedata/djtextbook/xl-pivot.html">
+<meta property="og:description" content="In the wake of a police shooting in 2016, reporter Mitch Smith obtained a list of traffic stops from the St. Anthony Police Department in Minnesota. He was writing a story on Philandro Castile’s...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content=" 9 Grouping with pivot tables | Data Reporting, Spring 2022">
+<meta name="twitter:site" content="@sarahcnyt">
+<meta name="twitter:description" content="In the wake of a police shooting in 2016, reporter Mitch Smith obtained a list of traffic stops from the St. Anthony Police Department in Minnesota. He was writing a story on Philandro Castile’s...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Muli-0.4.0/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/core-js-2.5.3/shim.min.js"></script><script src="libs/react-17.0.0/react.min.js"></script><script src="libs/react-17.0.0/react-dom.min.js"></script><script src="libs/reactwidget-1.0.0/react-tools.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="libs/reactable-binding-0.2.3/reactable.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link rel="shortcut icon" href="assets/images/favicon.ico">
+<!--
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        --><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Data Reporting, Spring 2022</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li class="book-part">Reporting with data</li>
+<li><a class="" href="starter-intro.html">In this section</a></li>
+<li><a class="" href="start-story.html"><span class="header-section-number">1</span> Learn a new way to read</a></li>
+<li><a class="" href="start-math.html"><span class="header-section-number">2</span> Newsroom math</a></li>
+<li><a class="" href="start-data-def.html"><span class="header-section-number">3</span> Defining “Data”</a></li>
+<li><a class="" href="start-data-diary.html"><span class="header-section-number">4</span> Replication and the data diary</a></li>
+<li><a class="" href="start-hunt.html"><span class="header-section-number">5</span> Finding the right data for your story</a></li>
+<li><a class="" href="start-build-own.html"><span class="header-section-number">6</span> Build your own database</a></li>
+<li class="book-part">Spreadsheets</li>
+<li><a class="" href="xl-intro.html">Introduction</a></li>
+<li><a class="" href="xl-refresher.html"><span class="header-section-number">7</span> An Excel Refresher</a></li>
+<li><a class="" href="xl-filter-sort.html"><span class="header-section-number">8</span> Sorting and filtering to find stories</a></li>
+<li><a class="active" href="xl-pivot.html"><span class="header-section-number">9</span> Grouping with pivot tables</a></li>
+<li><a class="" href="xl-formulas.html"><span class="header-section-number">10</span> Formulas in Excel</a></li>
+<li><a class="" href="xl-practice-noc.html"><span class="header-section-number">11</span> Practice exercise</a></li>
+<li class="book-part">R Study Guide</li>
+<li><a class="" href="r-intro.html">Introduction</a></li>
+<li><a class="" href="r-start.html"><span class="header-section-number">12</span> Getting started with R and RStudio</a></li>
+<li><a class="" href="r-markdown.html"><span class="header-section-number">13</span> R Markdown</a></li>
+<li><a class="" href="r-data-import.html"><span class="header-section-number">14</span> Getting and saving data</a></li>
+<li><a class="" href="r-verbs.html"><span class="header-section-number">15</span> A quick tour of verbs</a></li>
+<li><a class="" href="r-verb-filter.html"><span class="header-section-number">16</span> Verbs in depth: Select, filter, arrange</a></li>
+<li><a class="" href="r-verb-groupby.html"><span class="header-section-number">17</span> Verbs in depth: Aggregating with groups</a></li>
+<li><a class="" href="r-verb-mutate.html"><span class="header-section-number">18</span> Verbs in depth: New from old data with Mutate</a></li>
+<li><a class="" href="r-verb-join.html"><span class="header-section-number">19</span> Verbs in depth: Matchmaking with joins</a></li>
+<li><a class="" href="r-recipes.html"><span class="header-section-number">20</span> Recipes</a></li>
+<li class="book-part">Visualization as a reporting tool</li>
+<li><a class="" href="viz-intro.html">Introduction</a></li>
+<li><a class="" href="viz-reporting.html"><span class="header-section-number">21</span> Visualization as a reporting tool</a></li>
+<li><a class="" href="viz-demo.html"><span class="header-section-number">22</span> Visualization demo</a></li>
+<li class="book-part">Special skills</li>
+<li><a class="" href="advanced-intro.html">Introduction</a></li>
+<li><a class="" href="advanced-regex.html"><span class="header-section-number">23</span> Regular Expressions for pattern matching</a></li>
+<li><a class="" href="advanced-openrefine.html"><span class="header-section-number">24</span> Open refine walkthrough</a></li>
+<li><a class="" href="advanced-scrape1.html"><span class="header-section-number">25</span> Scraping without programming</a></li>
+<li><a class="" href="advanced-scrape2.html"><span class="header-section-number">26</span> Introduction to scraping in R</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="" href="appendix-math.html"><span class="header-section-number">A</span> Newsroom numbers cheat sheet</a></li>
+<li><a class="" href="appendix-program.html"><span class="header-section-number">B</span> A gentle intro to programming</a></li>
+<li><a class="" href="appendix-glossary.html"><span class="header-section-number">C</span> Glossary</a></li>
+<li><a class="" href="appendix-resources.html"><span class="header-section-number">D</span> Great R Resources</a></li>
+<li><a class="" href="appendix-ppp.html"><span class="header-section-number">E</span> Documentation for PPP data chapters</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="xl-pivot" class="section level1" number="9">
+<h1>
+<span class="header-section-number"> 9</span> Grouping with pivot tables<a class="anchor" aria-label="anchor" href="#xl-pivot"><i class="fas fa-link"></i></a>
+</h1>
+<p>In the wake of a police shooting in 2016, reporter Mitch Smith obtained a <a href="https://cronkitedata.s3.amazonaws.com/xlfiles/saintanthony_police.xlsx">list of traffic stops</a> from the St. Anthony Police Department in Minnesota. He was writing a story on Philandro Castile’s death and was running out of time. He wanted to answer a simple question: Were minority motorists more likely to be stopped in St. Anthony than whites?</p>
+<p>Rob Gebeloff made a quick pivot table to answer the question. That night, <a href="https://www.nytimes.com/2016/07/13/us/philando-castile-minnesota-police-shooting.html">Smith wrote</a>:</p>
+<blockquote>
+<p>In each of the three small suburbs patrolled by the St. Anthony police, less than 10 percent of the population is black. But data released by the city on Tuesday showed that a far higher percentage of the people ticketed or arrested by St. Anthony officers were African-American.</p>
+Last year, around 19 percent of those cited by St. Anthony police were black, as were roughly 41 percent of people arrested by the department, a review of the city’s data showed. Those percentages do not include the large number of defendants whose race was unknown.
+<p>
+</p>
+</blockquote>
+<p>Summarizing a list of items in a spreadsheet is done using pivot tables. In other languages, it’s considered “aggregating” or “grouping and summarizing”. Think of pivot tables and grouping as answering the questions, “How many?” and “How much?”. They are particularly powerful when your question also has the words “the most” or the “the least” or “of each”. Some examples:</p>
+<ul>
+<li>Which <em>Zip Code</em> had <em>the most</em> crimes?</li>
+<li>What <em>month</em> had <em>the least</em> total rainfall?</li>
+<li>
+<em>How much</em> did <em>each candidate</em> raise last quarter?</li>
+<li>In playing cards, <em>how many</em> of <em>each suit</em> do I have in my hand?</li>
+<li>On average, are <em>Cronkite students</em> <em>taller or shorter</em> than in other schools?</li>
+</ul>
+<div id="confusing-grouping-with-sorting-or-arranging" class="section level3 unnumbered">
+<h3>Confusing grouping with sorting or arranging<a class="anchor" aria-label="anchor" href="#confusing-grouping-with-sorting-or-arranging"><i class="fas fa-link"></i></a>
+</h3>
+<p>Many reporters confuse this summarization with “sorting”. One reason is that this is how we express the concept in plain language: “I want to sort Skittles by color”.</p>
+<p>But in data analysis, sorting and and grouping are very different things. <em>Sorting</em> involves shuffling a table’s rows into some order based on the values in a column. In other languages, this is called <em>arranging</em> or <em>ordering</em>, much clearer concepts. <em>Grouping</em>, which is what pivot tables do, is a path to aggregating and computing summary statistics such as a count (the number of items), sum (how much they add up to), or average for category. It means “make piles and compute statistics for each one.”</p>
+</div>
+<div id="when-to-use-filter-vs.-pivot-tables" class="section level3 unnumbered">
+<h3>When to use filter vs. pivot tables<a class="anchor" aria-label="anchor" href="#when-to-use-filter-vs.-pivot-tables"><i class="fas fa-link"></i></a>
+</h3>
+<p>Something that trips up beginners is a desire to see details and totals at the same time, which is more difficult than it sounds.</p>
+<p>A filter is used to <em>display</em> your selected items as a list. You’ll get to see all of the detail and every column. As a convenience, Excel shows you how many items are in that filtered list. That’s great when you want to just look at them, or get more information about them. For instance, if you had a list of crimes by ZIP code, you might just want to see the list in your neighborhood – where, exactly, were they? When did they happen? Was it at night or the morning? What crimes happened on which blocks?</p>
+<p>A pivot table is used when you <em>just want to see summaries</em> – does my ZIP code have more crime than others? Are robberies more common than car theft in my Zip code, and how does that compare to others?</p>
+<p>In practice, you’ll go back and forth between summary and detail. They’re both important, just different.</p>
+</div>
+<div id="tutorial" class="section level2" number="9.1">
+<h2>
+<span class="header-section-number">9.1</span> Tutorial<a class="anchor" aria-label="anchor" href="#tutorial"><i class="fas fa-link"></i></a>
+</h2>
+<div class="alert alert-info opacity-2">
+<p>This continues with the Washington Post’s police shooting database, but I updated it to include the descriptions of ethnicities.</p>
+<p><a href="https://cronkitedata.s3.amazonaws.com/xlfiles/wapo-shootings-pivot.xlsx">Download the new version</a></p>
+</div>
+<div id="tldr" class="section level3 unnumbered">
+<h3>TL;DR<a class="anchor" aria-label="anchor" href="#tldr"><i class="fas fa-link"></i></a>
+</h3>
+<p>Here’s a video with the same material:</p>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/P_udA-XFpGY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+</div>
+<div id="setting-up-the-pivot-table" class="section level3 unnumbered">
+<h3>Setting up the pivot table<a class="anchor" aria-label="anchor" href="#setting-up-the-pivot-table"><i class="fas fa-link"></i></a>
+</h3>
+<p>Start with your cursor somewhere in your data , and choose <em>Insert</em>, then <em>Pivot table</em></p>
+<div class="figure">
+<img src="assets/images/xl-pivot-insert.png" alt=""><p class="caption">insert menu</p>
+</div>
+<p>If all goes well, it will look like your data disappeared. It didn’t – you’re just on a new page. Here’s what it looks like:</p>
+<div class="figure">
+<img src="assets/images/xl-pivot-pivotscreen.png" style="width:100.0%" alt=""><p class="caption">pivot menu</p>
+</div>
+</div>
+<div id="counting-or-how-many" class="section level3 unnumbered">
+<h3>Counting , or “how many”?<a class="anchor" aria-label="anchor" href="#counting-or-how-many"><i class="fas fa-link"></i></a>
+</h3>
+<p>The section on the right gives you an outline of what to do. The section on the left will get filled in as you make your pivot table. If you want to see the number of fatalities by ethnicity, drag that column into the “Rows” area, then drag something that’s always filled out into the Values area (<code>state</code> is a safe one in this data).</p>
+<div class="inline-figure"><img src="assets/images/xl-pivot-success.png" style="width:100.0%"></div>
+</div>
+<div id="percents-of-total" class="section level3 unnumbered">
+<h3>Percents of total<a class="anchor" aria-label="anchor" href="#percents-of-total"><i class="fas fa-link"></i></a>
+</h3>
+<p>It’s hard to compare raw numbers unless they’re really small. Instead, we’d like to know what <em>percent</em> of fatalities by ethnicity. Right-click on any number in the pivot table, and choose “Show data as…” , then choose “Percent of Column total”.</p>
+<div class="inline-figure"><img src="assets/images/xl-pivot-percentcolumn.png" style="width:100.0%"></div>
+<p>To remove it, right-click on it and choose “Remove”Count of state2”“.</p>
+</div>
+<div id="more-variables" class="section level3 unnumbered">
+<h3>More variables<a class="anchor" aria-label="anchor" href="#more-variables"><i class="fas fa-link"></i></a>
+</h3>
+<p>Suppose you’d like to see the number of fatalities by year, with the years across the top and the <code>ethnicity</code> down the sides. Drag the <code>year</code> variable into the column area . Sorting can get hinky on pivot tables, but in this case it will work to put the largest number on top. This won’t work with percentages – it still sorts by the underlying number.</p>
+<div class="inline-figure"><img src="assets/images/xl-pivot-twovariables.png" style="width:100.0%"></div>
+</div>
+<div id="even-more-variables" class="section level3 unnumbered">
+<h3>Even more variables<a class="anchor" aria-label="anchor" href="#even-more-variables"><i class="fas fa-link"></i></a>
+</h3>
+<p>Say you wanted to see each city’s total shootings by year. Which one had the most last year, and which one had the most overall?</p>
+<p>This is actually really hard in a pivot table, because there are cities with the same names in different states. It means you’d need to have a pivot table with TWO columns down the side, and one across the top. Here’s my attempt at getting there:</p>
+<div class="figure">
+<img src="assets/images/xl-pivot-badsort.png" style="width:100.0%" alt=""><p class="caption">badsort</p>
+</div>
+<p>This is after some fiddling with the formats, and I still can’t sort properly – the city “Phoenix”, including those in Maryland and Arizona, had the second-highest number of shootings. We can’t sort by the combination of city and state.</p>
+<p>Your choices in Excel are limited: Copy and paste the values of the pivot table into a new sheet and sort there, or create a new variable by concatenating the name of the city and state into one column.</p>
+</div>
+</div>
+<div id="faq-1" class="section level2" number="9.2">
+<h2>
+<span class="header-section-number">9.2</span> FAQ<a class="anchor" aria-label="anchor" href="#faq-1"><i class="fas fa-link"></i></a>
+</h2>
+<div id="everything-disappeared" class="section level3 unnumbered">
+<h3>Everything disappeared!<a class="anchor" aria-label="anchor" href="#everything-disappeared"><i class="fas fa-link"></i></a>
+</h3>
+<p>If you select something outside of that pivot table on the left, the menu on the right disappears. Select something in the pivot table area and it will likely come back.</p>
+</div>
+<div id="i-have-too-many-columns" class="section level3 unnumbered">
+<h3>I have too many columns<a class="anchor" aria-label="anchor" href="#i-have-too-many-columns"><i class="fas fa-link"></i></a>
+</h3>
+<p>If you want two sets of statistics – say, number of fatalities and percent of fatalities – across the top, it can get very wide and confusing very quickly. One alternative is to change it into more of a vertical rectangle by dragging the “Values” element from the columns to the rows on the right. (This only shows up when you have two calculations being made.)</p>
+</div>
+<div id="i-want-to-sort-by-percents-not-numbers" class="section level3 unnumbered">
+<h3>I want to sort by percents, not numbers<a class="anchor" aria-label="anchor" href="#i-want-to-sort-by-percents-not-numbers"><i class="fas fa-link"></i></a>
+</h3>
+<p>You can’t.</p>
+</div>
+<div id="things-arent-adding-up" class="section level3 unnumbered">
+<h3>Things aren’t adding up<a class="anchor" aria-label="anchor" href="#things-arent-adding-up"><i class="fas fa-link"></i></a>
+</h3>
+<p>You have to be super careful about which column you use to Count things – it has to always be filled out (there can’t be any blanks). Go through the filters and find one that doesnt have (Blanks) at the bottom to be sure.</p>
+</div>
+<div id="its-a-crazy-number" class="section level3 unnumbered">
+<h3>Its a crazy number!<a class="anchor" aria-label="anchor" href="#its-a-crazy-number"><i class="fas fa-link"></i></a>
+</h3>
+<p>You might have dragged a numeric column into the “Values” area. Check to see if it says “Count” or “Sum”. Change it to “Count” if it has something else on it, unless you wanted to add up that column.</p>
+</div>
+<div id="this-is-so-frustrating---i-cant-get-what-i-want" class="section level3 unnumbered">
+<h3>This is so frustrating - I can’t get what I want<a class="anchor" aria-label="anchor" href="#this-is-so-frustrating---i-cant-get-what-i-want"><i class="fas fa-link"></i></a>
+</h3>
+<p>Right? It’s time to go to a programming language!</p>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="xl-filter-sort.html"><span class="header-section-number">8</span> Sorting and filtering to find stories</a></div>
+<div class="next"><a href="xl-formulas.html"><span class="header-section-number">10</span> Formulas in Excel</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li>
+<a class="nav-link" href="#xl-pivot"><span class="header-section-number">9</span> Grouping with pivot tables</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#confusing-grouping-with-sorting-or-arranging">Confusing grouping with sorting or arranging</a></li>
+<li><a class="nav-link" href="#when-to-use-filter-vs.-pivot-tables">When to use filter vs. pivot tables</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#tutorial"><span class="header-section-number">9.1</span> Tutorial</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#tldr">TL;DR</a></li>
+<li><a class="nav-link" href="#setting-up-the-pivot-table">Setting up the pivot table</a></li>
+<li><a class="nav-link" href="#counting-or-how-many">Counting , or “how many”?</a></li>
+<li><a class="nav-link" href="#percents-of-total">Percents of total</a></li>
+<li><a class="nav-link" href="#more-variables">More variables</a></li>
+<li><a class="nav-link" href="#even-more-variables">Even more variables</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#faq-1"><span class="header-section-number">9.2</span> FAQ</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#everything-disappeared">Everything disappeared!</a></li>
+<li><a class="nav-link" href="#i-have-too-many-columns">I have too many columns</a></li>
+<li><a class="nav-link" href="#i-want-to-sort-by-percents-not-numbers">I want to sort by percents, not numbers</a></li>
+<li><a class="nav-link" href="#things-arent-adding-up">Things aren’t adding up</a></li>
+<li><a class="nav-link" href="#its-a-crazy-number">Its a crazy number!</a></li>
+<li><a class="nav-link" href="#this-is-so-frustrating---i-cant-get-what-i-want">This is so frustrating - I can’t get what I want</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Data Reporting, Spring 2022</strong>" was written by Sarah Cohen. It was last built on 2022-03-31.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

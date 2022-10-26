@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title> 13 R Markdown | Data Reporting, Spring 2022</title>
+<meta name="author" content="Sarah Cohen">
+<meta name="description" content="In this chapter Create a new markdown document in a project Write narrative sections including headlines, subheads and formatting using R Markdown Set the “front matter” or YAML for the page...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content=" 13 R Markdown | Data Reporting, Spring 2022">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://github.com/cronkitedata/djtextbook/r-markdown.html">
+<meta property="og:description" content="In this chapter Create a new markdown document in a project Write narrative sections including headlines, subheads and formatting using R Markdown Set the “front matter” or YAML for the page...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content=" 13 R Markdown | Data Reporting, Spring 2022">
+<meta name="twitter:site" content="@sarahcnyt">
+<meta name="twitter:description" content="In this chapter Create a new markdown document in a project Write narrative sections including headlines, subheads and formatting using R Markdown Set the “front matter” or YAML for the page...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Muli-0.4.0/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/core-js-2.5.3/shim.min.js"></script><script src="libs/react-17.0.0/react.min.js"></script><script src="libs/react-17.0.0/react-dom.min.js"></script><script src="libs/reactwidget-1.0.0/react-tools.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="libs/reactable-binding-0.2.3/reactable.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link rel="shortcut icon" href="assets/images/favicon.ico">
+<!--
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        --><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Data Reporting, Spring 2022</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li class="book-part">Reporting with data</li>
+<li><a class="" href="starter-intro.html">In this section</a></li>
+<li><a class="" href="start-story.html"><span class="header-section-number">1</span> Learn a new way to read</a></li>
+<li><a class="" href="start-math.html"><span class="header-section-number">2</span> Newsroom math</a></li>
+<li><a class="" href="start-data-def.html"><span class="header-section-number">3</span> Defining “Data”</a></li>
+<li><a class="" href="start-data-diary.html"><span class="header-section-number">4</span> Replication and the data diary</a></li>
+<li><a class="" href="start-hunt.html"><span class="header-section-number">5</span> Finding the right data for your story</a></li>
+<li><a class="" href="start-build-own.html"><span class="header-section-number">6</span> Build your own database</a></li>
+<li class="book-part">Spreadsheets</li>
+<li><a class="" href="xl-intro.html">Introduction</a></li>
+<li><a class="" href="xl-refresher.html"><span class="header-section-number">7</span> An Excel Refresher</a></li>
+<li><a class="" href="xl-filter-sort.html"><span class="header-section-number">8</span> Sorting and filtering to find stories</a></li>
+<li><a class="" href="xl-pivot.html"><span class="header-section-number">9</span> Grouping with pivot tables</a></li>
+<li><a class="" href="xl-formulas.html"><span class="header-section-number">10</span> Formulas in Excel</a></li>
+<li><a class="" href="xl-practice-noc.html"><span class="header-section-number">11</span> Practice exercise</a></li>
+<li class="book-part">R Study Guide</li>
+<li><a class="" href="r-intro.html">Introduction</a></li>
+<li><a class="" href="r-start.html"><span class="header-section-number">12</span> Getting started with R and RStudio</a></li>
+<li><a class="active" href="r-markdown.html"><span class="header-section-number">13</span> R Markdown</a></li>
+<li><a class="" href="r-data-import.html"><span class="header-section-number">14</span> Getting and saving data</a></li>
+<li><a class="" href="r-verbs.html"><span class="header-section-number">15</span> A quick tour of verbs</a></li>
+<li><a class="" href="r-verb-filter.html"><span class="header-section-number">16</span> Verbs in depth: Select, filter, arrange</a></li>
+<li><a class="" href="r-verb-groupby.html"><span class="header-section-number">17</span> Verbs in depth: Aggregating with groups</a></li>
+<li><a class="" href="r-verb-mutate.html"><span class="header-section-number">18</span> Verbs in depth: New from old data with Mutate</a></li>
+<li><a class="" href="r-verb-join.html"><span class="header-section-number">19</span> Verbs in depth: Matchmaking with joins</a></li>
+<li><a class="" href="r-recipes.html"><span class="header-section-number">20</span> Recipes</a></li>
+<li class="book-part">Visualization as a reporting tool</li>
+<li><a class="" href="viz-intro.html">Introduction</a></li>
+<li><a class="" href="viz-reporting.html"><span class="header-section-number">21</span> Visualization as a reporting tool</a></li>
+<li><a class="" href="viz-demo.html"><span class="header-section-number">22</span> Visualization demo</a></li>
+<li class="book-part">Special skills</li>
+<li><a class="" href="advanced-intro.html">Introduction</a></li>
+<li><a class="" href="advanced-regex.html"><span class="header-section-number">23</span> Regular Expressions for pattern matching</a></li>
+<li><a class="" href="advanced-openrefine.html"><span class="header-section-number">24</span> Open refine walkthrough</a></li>
+<li><a class="" href="advanced-scrape1.html"><span class="header-section-number">25</span> Scraping without programming</a></li>
+<li><a class="" href="advanced-scrape2.html"><span class="header-section-number">26</span> Introduction to scraping in R</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="" href="appendix-math.html"><span class="header-section-number">A</span> Newsroom numbers cheat sheet</a></li>
+<li><a class="" href="appendix-program.html"><span class="header-section-number">B</span> A gentle intro to programming</a></li>
+<li><a class="" href="appendix-glossary.html"><span class="header-section-number">C</span> Glossary</a></li>
+<li><a class="" href="appendix-resources.html"><span class="header-section-number">D</span> Great R Resources</a></li>
+<li><a class="" href="appendix-ppp.html"><span class="header-section-number">E</span> Documentation for PPP data chapters</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="r-markdown" class="section level1" number="13">
+<h1>
+<span class="header-section-number"> 13</span> R Markdown<a class="anchor" aria-label="anchor" href="#r-markdown"><i class="fas fa-link"></i></a>
+</h1>
+<div class="alert alert-secondary">
+<p class="alert-heading font-weight-bolder fs-3">
+In this chapter
+</p>
+<ul>
+<li>Create a new markdown document in a project</li>
+<li>Write narrative sections including headlines, subheads and formatting using R Markdown</li>
+<li>Set the “front matter” or YAML for the page</li>
+<li>Insert your first code chunk and run some R code!</li>
+<li>Knit your document - you can do it as often as you want to see drafts.</li>
+<li>Optional: download <a href="https://cronkitedata.s3.amazonaws.com/markdown_templates/markdown_template.Rmd">a new skeleton</a> page you can use in class with some formatting options pre-set.</li>
+</ul>
+</div>
+<p>Creating documents with R Markdown lets you ditch those tiresome data diaries and combine your documentation, code and results all in one, reproducible page. It’s a variant of the markdown language that was was invented as an easy way for early contributors to Wikipedia to author documents that would translate to the web.</p>
+<p>You will write your document around chunks of R code, which integrates your analysis with your writing. (R Markdown is also designed to output your work in other formats, like an actual printed book or slides.) Some news organizations do much of their internal work using R Markdown documents and code.</p>
+<div class="alert alert-info opacity-2">
+<p>Shannon Pileggi <a href="https://www.pipinghotdata.com/posts/2020-09-07-introducing-the-rstudio-ide-and-r-markdown/">created a series of gifs</a> that illustrate some of the nuances of the RStudio interface – look there for illustrations on customizing your windows and troubleshooting documents as we move forward. A lot of it has to do with R Markdown documents.</p>
+</div>
+<div id="your-first-markdown" class="section level2" number="13.1">
+<h2>
+<span class="header-section-number">13.1</span> Your first markdown<a class="anchor" aria-label="anchor" href="#your-first-markdown"><i class="fas fa-link"></i></a>
+</h2>
+<div class="alert alert-primary">
+<p>Open the <strong>project</strong> you created in the last chapter. After that, use the File menu to choose “New File”, or press the leftmost green plus sign at the top of your screen, then choose “R Markdown.” You’ll be prompted for a headline and the author, and then it will create a new, unsaved filed. Save it as <code>yourlastname-firstmarkdown.Rmd</code>. Then delete everything after the last set of three dashes. Create your own Markdown document by following along (<a href="r-markdown.html#walkthrough">Specific steps are in the walkthrough</a>)</p>
+</div>
+<div class="inline-figure"><img src="assets/images/r-markdown-firstmarkdown.gif" width="100%"></div>
+</div>
+<div id="the-anatomy-of-a-document" class="section level2" number="13.2">
+<h2>
+<span class="header-section-number">13.2</span> The anatomy of a document<a class="anchor" aria-label="anchor" href="#the-anatomy-of-a-document"><i class="fas fa-link"></i></a>
+</h2>
+<p>There are four parts to an R Markdown document:</p>
+<ol style="list-style-type: decimal">
+<li>The “front matter”, or YAML.</li>
+<li>Narrative and document features including headlines, subheads, images and other elements you’d normally see on a web page. You don’t have to write in HTML - Markdown writes it for you.</li>
+<li>Code chunks – your R computer code.</li>
+<li>The results of code chunks - what you get back when you execute the code, including charts, graphs, tables and maps.</li>
+</ol>
+<div id="markdown-punctuation-and-symbols" class="section level3 unnumbered">
+<h3>Markdown punctuation and symbols<a class="anchor" aria-label="anchor" href="#markdown-punctuation-and-symbols"><i class="fas fa-link"></i></a>
+</h3>
+<p>The narrative part follows a few basic rules. <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">This markdown cheatsheet from Adam Pritchard</a> goes through them, but the most common are:</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="36%">
+<col width="36%">
+<col width="27%">
+</colgroup>
+<thead><tr class="header">
+<th>Symbol</th>
+<th>Format</th>
+<th>Comments</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>##</code></td>
+<td>Headline</td>
+<td>Technically, this is a second-level outline. But R uses the title as the first level.</td>
+</tr>
+<tr class="even">
+<td><code>###</code></td>
+<td>Subhead</td>
+<td>You can go to the 6th level of these by adding more #’s</td>
+</tr>
+<tr class="odd">
+<td>
+<code>-</code> at the beginning of a line</td>
+<td>A bulleted list item</td>
+<td>Separate from the text by one empty line and leave a space after the dash.</td>
+</tr>
+<tr class="even">
+<td>
+<code>1</code>, <code>2</code>… at the beginning of a line</td>
+<td>A numbered list</td>
+<td>Ditto</td>
+</tr>
+<tr class="odd">
+<td><code>[]()</code></td>
+<td>A link</td>
+<td><code>[my link words](https//....)</code></td>
+</tr>
+<tr class="even">
+<td><code>![]()</code></td>
+<td>An image</td>
+<td>
+<code>![alt-text](path/to/myimage.jpg){width=100%}</code> <br> Change width to shrink or grow, but there can’t be any spaces before or between anything.</td>
+</tr>
+<tr class="odd">
+<td><code>&lt;&gt;</code></td>
+<td>A simple link shown as an address</td>
+<td>
+<code>&lt;https/cronkitedata.github...</code>&gt;</td>
+</tr>
+<tr class="even">
+<td><code>**</code></td>
+<td>Bold text</td>
+<td>
+<code>**This would be bold**</code> <br> This time with no spaces</td>
+</tr>
+<tr class="odd">
+<td><code>*</code></td>
+<td>Italic text</td>
+<td>
+<code>*This would be italic*</code> <br> No spaces</td>
+</tr>
+<tr class="even">
+<td>back-ticks (`)</td>
+<td>Computer code format</td>
+<td>`<code>this is how you print code</code>`</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div id="front-matter-yaml-at-the-top" class="section level3 unnumbered">
+<h3>Front matter / YAML at the top<a class="anchor" aria-label="anchor" href="#front-matter-yaml-at-the-top"><i class="fas fa-link"></i></a>
+</h3>
+<p>The way the R knows how to process the page is by reading the very top of the file and looking at the section between three dashes. This is called YAML, or front matter, and it’s extremely picky.</p>
+<p>The default YAML is very basic – there are no options. You might want to set up a skeleton document in your r-projects folder that you can use as a starting point each time. Here is some YAML you can copy and put at the top of your document that will make it look a little more polished.</p>
+<pre><code>---
+title: "A title for your page"
+autor: "Your name"
+date:  "A date"
+output: 
+  html_document: 
+    theme: cerulean
+    toc: true
+    toc_float: true
+    df_print: paged
+    fig_width: 5
+    code_download: true
+---</code></pre>
+<p>Another way to customize it is to use the Output Options under the gear.</p>
+</div>
+</div>
+<div id="knitting-your-document" class="section level2" number="13.3">
+<h2>
+<span class="header-section-number">13.3</span> Knitting your document<a class="anchor" aria-label="anchor" href="#knitting-your-document"><i class="fas fa-link"></i></a>
+</h2>
+<p>Look at the top of your screen, and you’ll see a knitting needle and the word, “Knit”. Pressing that button will convert your markdown into the finished document.</p>
+<p>Here’s how it looks pre-knitted and after knitting:</p>
+<div class="inline-figure"><img src="assets/images/r-markdown-first-moose.png" style="width:100.0%"></div>
+<p>There are several reasons it might not work:</p>
+<ol style="list-style-type: decimal">
+<li>You haven’t saved the document yet.</li>
+<li>There is an error in that top YAML section. Just copy one that works and try again.</li>
+<li>There is an error in your R code. (You’ll see how to skip a chunk with an error later on.)</li>
+<li>Everything’s too smushed together. Give your document room to breathe , by inserting blank lines between elements.</li>
+</ol>
+</div>
+<div id="including-r-code-and-its-results" class="section level2" number="13.4">
+<h2>
+<span class="header-section-number">13.4</span> Including R code and its results<a class="anchor" aria-label="anchor" href="#including-r-code-and-its-results"><i class="fas fa-link"></i></a>
+</h2>
+<p>So far, this is just a simple document. It doesn’t contain any R code. To add code, you insert a “code chunk”. You can add it by pressing the green “+C” button at the top of the document, or by pressing <em><code>Option/Alt-Ctl-i</code></em> . Write your code in the gray area between the triple-backtic symbols. Run the code chunk by pressing the arrow button within it, or by pressing <code>Cmd/Ctl-Shft-Enter</code> (either Cmd or Ctl)</p>
+<div class="inline-figure"><img src="assets/images/r-markdown-add-code.gif" width="100%"></div>
+<p>The following code chunk creates a new variable called <code>my_variable</code>, another called <code>my_name</code>, then prints out the value stored in the <code>my_name</code> one.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#this is a comment - it won't be run</span>
+
+<span class="va">my_variable</span> <span class="op">&lt;-</span> <span class="fl">13</span>
+<span class="va">my_name</span> <span class="op">&lt;-</span> <span class="st">"Sarah"</span>
+
+<span class="va">my_name</span></code></pre></div>
+<pre><code>## [1] "Sarah"</code></pre>
+<p>This might not seem like much, but think about how it helps you do your analysis. You can write all of your notes right where you do the work. You don’t have to copy and paste information from one place to another, or share out-of-date spreadsheets with your teammates.</p>
+</div>
+<div id="more-markdown-details" class="section level2" number="13.5">
+<h2>
+<span class="header-section-number">13.5</span> More markdown details<a class="anchor" aria-label="anchor" href="#more-markdown-details"><i class="fas fa-link"></i></a>
+</h2>
+<p>Take a minute now and explore the toolbar above your document. Now that you know what a lot of this means it will make more sense.</p>
+<div class="inline-figure"><img src="assets/images/r-markdown-topbar.png" style="width:100.0%"></div>
+<div class="alert alert-info">
+<p>As you’re working, you might knit every time you do a significant amount of work on your document to make sure it’s coming out the way you expect. There’s no harm in doing it and it will get you used to seeing how your markdown and code looks when it’s a finished document.</p>
+</div>
+<div id="r-starts-from-scratch" class="section level3 unnumbered">
+<h3>R starts from scratch<a class="anchor" aria-label="anchor" href="#r-starts-from-scratch"><i class="fas fa-link"></i></a>
+</h3>
+<p>When you close down your computer, you will have to run any program you’ve written from the start - it doesn’t remember where you left off. This includes loading any libraries and data. This is actually good – it ensures that your project is reproducible.</p>
+<p>For long programs or working on complicated datasets, you might split your analysis into several of these programs, saving interim versions of the data as you go along.</p>
+<p>Every time you knit your document, it pretends you’ve also started over from scratch - you may see variables in your environment, but the computer is doing its work in an entirely new, empty “session”, so it starts from the top.</p>
+<p>Make sure that you run every part of your document every time you re-open it. The easiest way to do that is to get into the habit of running all chunks as soon as you start your work session using the menu or using Alt-Cmd-R, or through the Run menu:</p>
+<div class="figure">
+<img src="assets/images/r-markdown-run-all.png" style="width:100.0%" alt=""><p class="caption">runall</p>
+</div>
+</div>
+<div id="a-replacement-skeleton-for-you" class="section level3 unnumbered">
+<h3>A replacement skeleton for you<a class="anchor" aria-label="anchor" href="#a-replacement-skeleton-for-you"><i class="fas fa-link"></i></a>
+</h3>
+<p>The skeleton that R gives you by default is a stripped down version of the YAML. Here is a replacement for you to copy that you can copy and paste instead. It has some options that make your output look a little more polished. The <code>code_download</code> set to true means that you don’t need to send anyone your raw Markdown document – the final version will have it embedded in it. Make sure you replace everything, including the three dashes at the top and bottom. The colons and indentations are important.</p>
+<pre><code>---
+title: "A title for your page"
+author: "Your name"
+date:  "A date in quotes"
+output: 
+  html_document: 
+    theme: cerulean
+    toc: true
+    df_print: paged
+    code_download: true
+---
+</code></pre>
+</div>
+<div id="resources" class="section level3 unnumbered">
+<h3>Resources<a class="anchor" aria-label="anchor" href="#resources"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>“<a href="https://ds4ps.org/docs/#what-are-data-driven-docs">Data driven docs</a>” walkthrough on DS4PS (or, Data Science for the Public Sector), from Jesse Lecy.</li>
+<li>RStudio has a <a href="https://rmarkdown.rstudio.com/authoring_quick_tour.html">quick tour of R Markdown</a> that goes through more than you even need. It goes a little fast.</li>
+</ul>
+</div>
+</div>
+<div id="walkthrough" class="section level2" number="13.6">
+<h2>
+<span class="header-section-number">13.6</span> Walkthrough<a class="anchor" aria-label="anchor" href="#walkthrough"><i class="fas fa-link"></i></a>
+</h2>
+<p>Make sure you have already installed the <code>rmarkdown</code> package before going further.</p>
+<p>Create a new R Markdown document with the following elements:</p>
+<ul>
+<li>Front matter with your name, the date and a title for your page.</li>
+<li>A heading introducing a subtopic</li>
+<li>Within that heading, a list of three things about yourself or about a topic you love, in a bulleted list.</li>
+<li>Another heading</li>
+<li>An image that you like (you’ll have to save it in your project.)</li>
+<li>Another heading</li>
+<li>A code chunk, in which you create a variable and assign it a value.</li>
+</ul>
+<p>Then knit the document and compare the sections.</p>
+<p><a href="assets/first-markdown.Rmd">Here is one I created about myself</a> that you can use as a guide, but I implore you not to copy it – just use it as a guide if you have questions or if something is happening that you don’t expect. Here is a rendered version if you want to see how it translates into an HTML page: <a href="https://rpubs.com/cohensh/firstmarkdown" class="uri">https://rpubs.com/cohensh/firstmarkdown</a></p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="r-start.html"><span class="header-section-number">12</span> Getting started with R and RStudio</a></div>
+<div class="next"><a href="r-data-import.html"><span class="header-section-number">14</span> Getting and saving data</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#r-markdown"><span class="header-section-number">13</span> R Markdown</a></li>
+<li><a class="nav-link" href="#your-first-markdown"><span class="header-section-number">13.1</span> Your first markdown</a></li>
+<li>
+<a class="nav-link" href="#the-anatomy-of-a-document"><span class="header-section-number">13.2</span> The anatomy of a document</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#markdown-punctuation-and-symbols">Markdown punctuation and symbols</a></li>
+<li><a class="nav-link" href="#front-matter-yaml-at-the-top">Front matter / YAML at the top</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#knitting-your-document"><span class="header-section-number">13.3</span> Knitting your document</a></li>
+<li><a class="nav-link" href="#including-r-code-and-its-results"><span class="header-section-number">13.4</span> Including R code and its results</a></li>
+<li>
+<a class="nav-link" href="#more-markdown-details"><span class="header-section-number">13.5</span> More markdown details</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#r-starts-from-scratch">R starts from scratch</a></li>
+<li><a class="nav-link" href="#a-replacement-skeleton-for-you">A replacement skeleton for you</a></li>
+<li><a class="nav-link" href="#resources">Resources</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#walkthrough"><span class="header-section-number">13.6</span> Walkthrough</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Data Reporting, Spring 2022</strong>" was written by Sarah Cohen. It was last built on 2022-03-31.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

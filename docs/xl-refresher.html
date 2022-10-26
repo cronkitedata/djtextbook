@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title> 7 An Excel Refresher | Data Reporting, Spring 2022</title>
+<meta name="author" content="Sarah Cohen">
+<meta name="description" content="Spreadsheets are everywhere, so it’s worth re-learning how to use them well. Reporters usually use spreadsheets in three ways: To create original databases of events for sorting, filtering and...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content=" 7 An Excel Refresher | Data Reporting, Spring 2022">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://github.com/cronkitedata/djtextbook/xl-refresher.html">
+<meta property="og:description" content="Spreadsheets are everywhere, so it’s worth re-learning how to use them well. Reporters usually use spreadsheets in three ways: To create original databases of events for sorting, filtering and...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content=" 7 An Excel Refresher | Data Reporting, Spring 2022">
+<meta name="twitter:site" content="@sarahcnyt">
+<meta name="twitter:description" content="Spreadsheets are everywhere, so it’s worth re-learning how to use them well. Reporters usually use spreadsheets in three ways: To create original databases of events for sorting, filtering and...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Muli-0.4.0/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/core-js-2.5.3/shim.min.js"></script><script src="libs/react-17.0.0/react.min.js"></script><script src="libs/react-17.0.0/react-dom.min.js"></script><script src="libs/reactwidget-1.0.0/react-tools.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="libs/reactable-binding-0.2.3/reactable.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link rel="shortcut icon" href="assets/images/favicon.ico">
+<!--
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        --><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Data Reporting, Spring 2022</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li class="book-part">Reporting with data</li>
+<li><a class="" href="starter-intro.html">In this section</a></li>
+<li><a class="" href="start-story.html"><span class="header-section-number">1</span> Learn a new way to read</a></li>
+<li><a class="" href="start-math.html"><span class="header-section-number">2</span> Newsroom math</a></li>
+<li><a class="" href="start-data-def.html"><span class="header-section-number">3</span> Defining “Data”</a></li>
+<li><a class="" href="start-data-diary.html"><span class="header-section-number">4</span> Replication and the data diary</a></li>
+<li><a class="" href="start-hunt.html"><span class="header-section-number">5</span> Finding the right data for your story</a></li>
+<li><a class="" href="start-build-own.html"><span class="header-section-number">6</span> Build your own database</a></li>
+<li class="book-part">Spreadsheets</li>
+<li><a class="" href="xl-intro.html">Introduction</a></li>
+<li><a class="active" href="xl-refresher.html"><span class="header-section-number">7</span> An Excel Refresher</a></li>
+<li><a class="" href="xl-filter-sort.html"><span class="header-section-number">8</span> Sorting and filtering to find stories</a></li>
+<li><a class="" href="xl-pivot.html"><span class="header-section-number">9</span> Grouping with pivot tables</a></li>
+<li><a class="" href="xl-formulas.html"><span class="header-section-number">10</span> Formulas in Excel</a></li>
+<li><a class="" href="xl-practice-noc.html"><span class="header-section-number">11</span> Practice exercise</a></li>
+<li class="book-part">R Study Guide</li>
+<li><a class="" href="r-intro.html">Introduction</a></li>
+<li><a class="" href="r-start.html"><span class="header-section-number">12</span> Getting started with R and RStudio</a></li>
+<li><a class="" href="r-markdown.html"><span class="header-section-number">13</span> R Markdown</a></li>
+<li><a class="" href="r-data-import.html"><span class="header-section-number">14</span> Getting and saving data</a></li>
+<li><a class="" href="r-verbs.html"><span class="header-section-number">15</span> A quick tour of verbs</a></li>
+<li><a class="" href="r-verb-filter.html"><span class="header-section-number">16</span> Verbs in depth: Select, filter, arrange</a></li>
+<li><a class="" href="r-verb-groupby.html"><span class="header-section-number">17</span> Verbs in depth: Aggregating with groups</a></li>
+<li><a class="" href="r-verb-mutate.html"><span class="header-section-number">18</span> Verbs in depth: New from old data with Mutate</a></li>
+<li><a class="" href="r-verb-join.html"><span class="header-section-number">19</span> Verbs in depth: Matchmaking with joins</a></li>
+<li><a class="" href="r-recipes.html"><span class="header-section-number">20</span> Recipes</a></li>
+<li class="book-part">Visualization as a reporting tool</li>
+<li><a class="" href="viz-intro.html">Introduction</a></li>
+<li><a class="" href="viz-reporting.html"><span class="header-section-number">21</span> Visualization as a reporting tool</a></li>
+<li><a class="" href="viz-demo.html"><span class="header-section-number">22</span> Visualization demo</a></li>
+<li class="book-part">Special skills</li>
+<li><a class="" href="advanced-intro.html">Introduction</a></li>
+<li><a class="" href="advanced-regex.html"><span class="header-section-number">23</span> Regular Expressions for pattern matching</a></li>
+<li><a class="" href="advanced-openrefine.html"><span class="header-section-number">24</span> Open refine walkthrough</a></li>
+<li><a class="" href="advanced-scrape1.html"><span class="header-section-number">25</span> Scraping without programming</a></li>
+<li><a class="" href="advanced-scrape2.html"><span class="header-section-number">26</span> Introduction to scraping in R</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="" href="appendix-math.html"><span class="header-section-number">A</span> Newsroom numbers cheat sheet</a></li>
+<li><a class="" href="appendix-program.html"><span class="header-section-number">B</span> A gentle intro to programming</a></li>
+<li><a class="" href="appendix-glossary.html"><span class="header-section-number">C</span> Glossary</a></li>
+<li><a class="" href="appendix-resources.html"><span class="header-section-number">D</span> Great R Resources</a></li>
+<li><a class="" href="appendix-ppp.html"><span class="header-section-number">E</span> Documentation for PPP data chapters</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="xl-refresher" class="section level1" number="7">
+<h1>
+<span class="header-section-number"> 7</span> An Excel Refresher<a class="anchor" aria-label="anchor" href="#xl-refresher"><i class="fas fa-link"></i></a>
+</h1>
+<p>Spreadsheets are everywhere, so it’s worth re-learning how to use them well. Reporters usually use spreadsheets in three ways:</p>
+<ul>
+<li><p>To create original databases of events for sorting, filtering and counting. Examples include a long-running court case; the details of each opioid death in a city; a list of police shootings and their documents; or even a list of your own public records requests or contact log.</p></li>
+<li><p>To use data created by others for fast, simple analysis and data cleanup. Many government agencies provide their information in spreadsheet form, but they often require some rejiggering before you can use them.</p></li>
+<li><p>To perform simple, straightforward analysis on data and share with team members. This is becoming less common as more reporters learn programming languages, but it’s still common in newsrooms to share data, especially through Google Sheets.</p></li>
+</ul>
+<p>This guide will use Excel rather than Google sheets because it is a little easier to work with larger datasets and is still available in most newsrooms. But the Google Sheets has essentially the same capabilities and is easier to share with teammates. They also have a few features lacking in Excel when it comes to getting data from the Web. <a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;This guide is done using a Mac. Windows machines will be a little different, mainly because you’ll have more choices in most menus. The Mac CMD key is the same as the Windows CTL key.&lt;/p&gt;"><sup>6</sup></a></p>
+<p>Some reporters flinch at typing in 30 or 100 entries into a spreadsheet. You shouldn’t. If you learn to take notes in a structured way, you’ll always be able to find and verify your work. If you try to calculate a sum of 30 numbers on a calculator, you’ll have to type them all in at least twice anyway. Also, getting used to these easy tasks on a spreadsheet keeps your muscles trained for when you need to do more.</p>
+<div id="re-learning-excel-from-the-ground-up" class="section level2" number="7.1">
+<h2>
+<span class="header-section-number">7.1</span> Re-learning Excel from the ground up<a class="anchor" aria-label="anchor" href="#re-learning-excel-from-the-ground-up"><i class="fas fa-link"></i></a>
+</h2>
+<div id="the-spreadsheet-grid" class="section level3 unnumbered">
+<h3>The spreadsheet grid<a class="anchor" aria-label="anchor" href="#the-spreadsheet-grid"><i class="fas fa-link"></i></a>
+</h3>
+<div class="pl-2rem float-right col-md-4">
+<div class="inline-figure"><img src="assets/images/xl-refresher-battleship.png"></div>
+</div>
+<p>When you start up a spreadsheet, you’ll see letters across the top and numbers down the side. If you ever played Battleship, you’ll recognize the idea – every little square, or cell, is referenced by the intersection of its column letter and row number:</p>
+<p>B2 is the cell that is currently active. You can tell because it’s outlined in the sheet and it’s shown on the upper left corner.</p>
+</div>
+<div id="mouse-shapes" class="section level3 unnumbered">
+<h3>Mouse shapes<a class="anchor" aria-label="anchor" href="#mouse-shapes"><i class="fas fa-link"></i></a>
+</h3>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="78%">
+<col width="21%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>
+<strong>BFWPS</strong>: The Big Fat White Plus Sign. This is the default shape, and you can never get into trouble when you see it</td>
+<td><img src="assets/images/xl-refresher-bfwps.png" title="fig:" alt="BFwPS"></td>
+</tr>
+<tr class="even">
+<td>
+<strong>The Copy Tool</strong>, or the thin black cross. When you see this, you’ll copy anything that’s selected. This can be good or bad.</td>
+<td><img src="assets/images/xl-refresher-copy.png" title="fig:" alt="copy"></td>
+</tr>
+<tr class="odd">
+<td>
+<strong>The Evil Hand</strong>. (In Windows, this is the Evil Arrow). If you use this symbol, you will MOVE the selection to a new location. This is very rarely a good idea or something you intend.</td>
+<td><img src="assets/images/xl-refresher-evilhand.png" title="fig:" alt="evil hand"></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div id="selecting-cells-and-ranges" class="section level3 unnumbered">
+<h3>Selecting cells and ranges<a class="anchor" aria-label="anchor" href="#selecting-cells-and-ranges"><i class="fas fa-link"></i></a>
+</h3>
+<p>Spreadsheets act only on the cells or regions you have selected. If you begin typing, you’ll start entering information into the currently selected cell.</p>
+<p>To select: Hold the BFWPS over the cell and clice ONCE – <em>not twice</em>. Check the formula bar to make sure you’ve selected what you think you’ve got. You can also look at the bottom right of your spreadsheet for more information.</p>
+<p>You’ll often work with <em>ranges</em> of cells in formulas. These are defined by the corners of the area you want to work on – often a column of information. In the example below, the range is A1:B6, with the “:” referring to the word “through”.</p>
+<p><em>To select a group of cells and act on them all at once</em>: Hover the BFWPS over one corner, click ONCE and drag to the diagonal corner. Make sure the Evil Hand is nowhere to be seen. The entire area will be shaded in except for the currently selected cell. Look at the upper right corner to see how many rows and columns you selected.</p>
+<div class="inline-figure"><img src="assets/images/xl-refresher-select.gif" width="100%"></div>
+<div class="col-md-4 float-md-right">
+<div class="inline-figure"><img src="assets/images/xl-refresher-columnselect.png"></div>
+</div>
+<p><em>To select a column or row</em> : Hover the BFWPS over the letter at the top of the column. For a row, hover it over the row number in the margin</p>
+</div>
+<div id="reading-the-screen" class="section level3 unnumbered mt-4" style="clear:both">
+<h3>Reading the screen<a class="anchor" aria-label="anchor" href="#reading-the-screen"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<p>The areas of the spreadsheet have different visual clues, and learning to read them will make your life much easier.</p>
+<p>This image shows some key areas on the screen when you’re just viewing the sheet:</p>
+<div class="figure">
+<img src="assets/images/xl-refresher-screen1.png" style="width:100.0%" alt=""><p class="caption">ready</p>
+</div>
+<p>This is how it changes when you’re editing</p>
+<div class="figure">
+<img src="assets/images/xl-refresher-screen2.png" style="width:100.0%" alt=""><p class="caption">editing</p>
+</div>
+<div id="entering-data" class="section level3 unnumbered">
+<h3>Entering data<a class="anchor" aria-label="anchor" href="#entering-data"><i class="fas fa-link"></i></a>
+</h3>
+<p>Select the cell and start typing. The information you type won’t be locked into the cell until you hit the Return / Enter key, or move your selection to another cell. Hit “Escape” to cancel the entry.</p>
+<p>You can’t do a lot of things while you’re editing, so if you have a lot of greyed out menu items, look at your formula bar to see if you are still editing a cell.</p>
+<p>If you’re having trouble getting to a menu item or seeing the result of your work, try hitting “Escape” and try again. You may not have actually entered the information into the sheet.</p>
+</div>
+<div id="locking-in-headings" class="section level3 unnumbered">
+<h3>Locking in headings<a class="anchor" aria-label="anchor" href="#locking-in-headings"><i class="fas fa-link"></i></a>
+</h3>
+<p>As your spreadsheet grows vertically with more rows, you’ll want to be able to see the top all the time. When it grows horizontally with more columns, you’ll probably want to see columns in the left, such as names. This is called “Freezing Panes” – you freeze part of the page so it stays in place when you move around.</p>
+<p>Select the corner that you want frozen. For example, if you want the first three columns frozen (A:C) and the first row frozen (1), then select the cell in D2. This is the first cell that will move, and everything to the left of it and above it will stay on the screen.</p>
+<div class="figure">
+<img src="assets/images/xl-refresher-freezepanes.png" style="width:100.0%" alt=""><p class="caption">freeze panes</p>
+</div>
+</div>
+<div id="formatting-tricks" class="section level3 unnumbered">
+<h3>Formatting tricks<a class="anchor" aria-label="anchor" href="#formatting-tricks"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li><p>Use the buttons or the format dialog box to make numbers easier to read.</p></li>
+<li><p>If a column is filled with a lot of text, select the column and look on the Home ribbon next to the formatting area for “Wrap Text”. This means that when you double-click to widen a column, it will get taller, not wider. This is good when you need to save valuable real estate on the screen.</p></li>
+</ul>
+</div>
+</div>
+<div id="getting-started-with-a-dataset" class="section level2" number="7.2">
+<h2>
+<span class="header-section-number">7.2</span> Getting started with a dataset<a class="anchor" aria-label="anchor" href="#getting-started-with-a-dataset"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>SLOW DOWN!</strong> Don’t do anything until you understand what you have in front of you and can predict what your next mouse click will do to it.</p>
+<p>Most data we encounter was created by someone else for some purpose other than ours. This means that you can’t assume anything. It may not be complete. It may be inaccurate. It may mean something completely different than it appears at first blush.</p>
+<div id="first-steps" class="section level3 unnumbered">
+<h3>First steps<a class="anchor" aria-label="anchor" href="#first-steps"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>Document where you got the spreadsheet and how you can get back to the original.</li>
+<li>Read anything you can about what it contains. Look for documentation that comes with the data.</li>
+<li>Save the original into a safe place with its original name and metadata. Work on a copy.</li>
+<li>If the spreadsheet shows #### instead of words or numbers, widen your columns. If it shows 7E-14 or something like that, format them as numbers, not “General”.</li>
+<li>Check your corners – look at the top left and bottom right. Is the data all in one area? Are there footnotes or other non-data sections mixed in? We’re going to want to fix that later.</li>
+</ul>
+</div>
+<div id="interview-your-data" class="section level3 unnumbered">
+<h3>Interview your data<a class="anchor" aria-label="anchor" href="#interview-your-data"><i class="fas fa-link"></i></a>
+</h3>
+<div id="headings" class="section level4 unnumbered">
+<h4>Headings<a class="anchor" aria-label="anchor" href="#headings"><i class="fas fa-link"></i></a>
+</h4>
+<p>The most fraught part of data reporting is understanding what each <em>column</em> actually means. These often have cryptic, bureaucratic names. You may need to go back to the source of the data to be sure you actually understand them.</p>
+<p>If your data doesn’t have any headings, that’s going to be your first priority. In effect, you’ll need to build what we call a <em>data dictionary</em> or <em>record layout</em> if one hasn’t been provided. Many reporters create these as a page in a dataset.</p>
+</div>
+<div id="unit-of-analysis" class="section level4 unnumbered">
+<h4>Unit of analysis<a class="anchor" aria-label="anchor" href="#unit-of-analysis"><i class="fas fa-link"></i></a>
+</h4>
+<p>A <em>unit of analysis</em> refers to the items that are listed in the rows of your dataset. Ideally, every row should be at the same unit of analysis – a person, an inspection, or a city, for example. Summaries should be separated by a blank row, or moved to a different sheet. Think of this as the noun you’d use to describe every row.</p>
+</div>
+<div id="row-numbers" class="section level4 unnumbered">
+<h4>Row numbers<a class="anchor" aria-label="anchor" href="#row-numbers"><i class="fas fa-link"></i></a>
+</h4>
+<p>The data was probably given to you in some sort of natural sort order. Different computer systems sort differently – some are case-sensitive, others are not. It may depend on when and where the data as created! The order of the data may even depend on a column you don’t have. If you don’t do something now, you’ll never be able to get back to the original order, which could have meaning for both the agency and for fact-checking.</p>
+</div>
+</div>
+</div>
+<div id="video-walkthrough" class="section level2" number="7.3">
+<h2>
+<span class="header-section-number">7.3</span> Video walkthrough<a class="anchor" aria-label="anchor" href="#video-walkthrough"><i class="fas fa-link"></i></a>
+</h2>
+<p>These first steps, along with adding an ID row, are shown here. You can <a href="https://cronkitedata.s3.us-west-1.amazonaws.com/xlfiles/phoenix_salaries.xlsx">follow along with the same dataset</a>.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/iGCpfop0zvs?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+</iframe>
+</div>
+<div id="keyboard-shortcuts" class="section level2" number="7.4">
+<h2>
+<span class="header-section-number">7.4</span> Keyboard shortcuts<a class="anchor" aria-label="anchor" href="#keyboard-shortcuts"><i class="fas fa-link"></i></a>
+</h2>
+<p>For Mac users, it’s much easier to use Excel if you override the action of function keys while you’re in the program. In your Mac’s System Preferences, choose Keyboard, and select the box that says, “Use F1, F2, etc. as standard function keys.” (NOTE: If you have a MacBook Pro with a touch bar (circa 2017-2020 or so), this option may not be there. Instead, go into the Shortcuts section of the keyboard options and turn off all of the options for Mission Control. Those are the ones that interfere with Excel.)</p>
+<p><img src="assets/images/xl-refresher-options.png" width="60%" height="60%"><img></p>
+<p>Once you’ve done that, these keyboard shortcuts will work:</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="62%">
+<col width="17%">
+<col width="20%">
+</colgroup>
+<thead><tr class="header">
+<th>To do this</th>
+<th>Windows or IMac</th>
+<th>Macbook</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Edit a cell</td>
+<td>F2</td>
+<td>Ctl-U or F2</td>
+</tr>
+<tr class="even">
+<td>Toggle between absolute and relative references</td>
+<td>F4</td>
+<td>Ctl-T or F4</td>
+</tr>
+<tr class="odd">
+<td>Insert cut cells</td>
+<td>Ctl+</td>
+<td>Ctl+</td>
+</tr>
+<tr class="even">
+<td>Delete a cell</td>
+<td>Ctl-</td>
+<td>Ctl-</td>
+</tr>
+<tr class="odd">
+<td>Select the top left of a spreadsheet</td>
+<td>Ctl-Home</td>
+<td>Ctl-Fn-Left arrow</td>
+</tr>
+<tr class="even">
+<td>Move to the bottom right of a spreadsheet</td>
+<td>Ctl-End</td>
+<td>Ctl-Fn-Right arrow</td>
+</tr>
+<tr class="odd">
+<td>Select a region (a contiguous rectangle of cells that are filled out)</td>
+<td>Ctl -*</td>
+<td>Ctl-Shift_spacebar</td>
+</tr>
+</tbody>
+</table></div>
+<p>You should practice getting around a spreadsheet efficiently, since scrolling with the mouse while selecting is a lesson in frustration.</p>
+
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="xl-intro.html">Introduction</a></div>
+<div class="next"><a href="xl-filter-sort.html"><span class="header-section-number">8</span> Sorting and filtering to find stories</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#xl-refresher"><span class="header-section-number">7</span> An Excel Refresher</a></li>
+<li>
+<a class="nav-link" href="#re-learning-excel-from-the-ground-up"><span class="header-section-number">7.1</span> Re-learning Excel from the ground up</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#the-spreadsheet-grid">The spreadsheet grid</a></li>
+<li><a class="nav-link" href="#mouse-shapes">Mouse shapes</a></li>
+<li><a class="nav-link" href="#selecting-cells-and-ranges">Selecting cells and ranges</a></li>
+<li><a class="nav-link" href="#reading-the-screen">Reading the screen</a></li>
+<li><a class="nav-link" href="#entering-data">Entering data</a></li>
+<li><a class="nav-link" href="#locking-in-headings">Locking in headings</a></li>
+<li><a class="nav-link" href="#formatting-tricks">Formatting tricks</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#getting-started-with-a-dataset"><span class="header-section-number">7.2</span> Getting started with a dataset</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#first-steps">First steps</a></li>
+<li><a class="nav-link" href="#interview-your-data">Interview your data</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#video-walkthrough"><span class="header-section-number">7.3</span> Video walkthrough</a></li>
+<li><a class="nav-link" href="#keyboard-shortcuts"><span class="header-section-number">7.4</span> Keyboard shortcuts</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Data Reporting, Spring 2022</strong>" was written by Sarah Cohen. It was last built on 2022-03-31.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

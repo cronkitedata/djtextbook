@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title> 19 Verbs in depth: Matchmaking with joins | Data Reporting, Spring 2022</title>
+<meta name="author" content="Sarah Cohen">
+<meta name="description" content="In this chapter A join combines two or more tables (data frames) by column joining to data frames requires exact matches on one or more columns. Close matches don’t count. Use codes in one data...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content=" 19 Verbs in depth: Matchmaking with joins | Data Reporting, Spring 2022">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://github.com/cronkitedata/djtextbook/r-verb-join.html">
+<meta property="og:description" content="In this chapter A join combines two or more tables (data frames) by column joining to data frames requires exact matches on one or more columns. Close matches don’t count. Use codes in one data...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content=" 19 Verbs in depth: Matchmaking with joins | Data Reporting, Spring 2022">
+<meta name="twitter:site" content="@sarahcnyt">
+<meta name="twitter:description" content="In this chapter A join combines two or more tables (data frames) by column joining to data frames requires exact matches on one or more columns. Close matches don’t count. Use codes in one data...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Muli-0.4.0/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/core-js-2.5.3/shim.min.js"></script><script src="libs/react-17.0.0/react.min.js"></script><script src="libs/react-17.0.0/react-dom.min.js"></script><script src="libs/reactwidget-1.0.0/react-tools.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="libs/reactable-binding-0.2.3/reactable.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link rel="shortcut icon" href="assets/images/favicon.ico">
+<!--
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        --><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Data Reporting, Spring 2022</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li class="book-part">Reporting with data</li>
+<li><a class="" href="starter-intro.html">In this section</a></li>
+<li><a class="" href="start-story.html"><span class="header-section-number">1</span> Learn a new way to read</a></li>
+<li><a class="" href="start-math.html"><span class="header-section-number">2</span> Newsroom math</a></li>
+<li><a class="" href="start-data-def.html"><span class="header-section-number">3</span> Defining “Data”</a></li>
+<li><a class="" href="start-data-diary.html"><span class="header-section-number">4</span> Replication and the data diary</a></li>
+<li><a class="" href="start-hunt.html"><span class="header-section-number">5</span> Finding the right data for your story</a></li>
+<li><a class="" href="start-build-own.html"><span class="header-section-number">6</span> Build your own database</a></li>
+<li class="book-part">Spreadsheets</li>
+<li><a class="" href="xl-intro.html">Introduction</a></li>
+<li><a class="" href="xl-refresher.html"><span class="header-section-number">7</span> An Excel Refresher</a></li>
+<li><a class="" href="xl-filter-sort.html"><span class="header-section-number">8</span> Sorting and filtering to find stories</a></li>
+<li><a class="" href="xl-pivot.html"><span class="header-section-number">9</span> Grouping with pivot tables</a></li>
+<li><a class="" href="xl-formulas.html"><span class="header-section-number">10</span> Formulas in Excel</a></li>
+<li><a class="" href="xl-practice-noc.html"><span class="header-section-number">11</span> Practice exercise</a></li>
+<li class="book-part">R Study Guide</li>
+<li><a class="" href="r-intro.html">Introduction</a></li>
+<li><a class="" href="r-start.html"><span class="header-section-number">12</span> Getting started with R and RStudio</a></li>
+<li><a class="" href="r-markdown.html"><span class="header-section-number">13</span> R Markdown</a></li>
+<li><a class="" href="r-data-import.html"><span class="header-section-number">14</span> Getting and saving data</a></li>
+<li><a class="" href="r-verbs.html"><span class="header-section-number">15</span> A quick tour of verbs</a></li>
+<li><a class="" href="r-verb-filter.html"><span class="header-section-number">16</span> Verbs in depth: Select, filter, arrange</a></li>
+<li><a class="" href="r-verb-groupby.html"><span class="header-section-number">17</span> Verbs in depth: Aggregating with groups</a></li>
+<li><a class="" href="r-verb-mutate.html"><span class="header-section-number">18</span> Verbs in depth: New from old data with Mutate</a></li>
+<li><a class="active" href="r-verb-join.html"><span class="header-section-number">19</span> Verbs in depth: Matchmaking with joins</a></li>
+<li><a class="" href="r-recipes.html"><span class="header-section-number">20</span> Recipes</a></li>
+<li class="book-part">Visualization as a reporting tool</li>
+<li><a class="" href="viz-intro.html">Introduction</a></li>
+<li><a class="" href="viz-reporting.html"><span class="header-section-number">21</span> Visualization as a reporting tool</a></li>
+<li><a class="" href="viz-demo.html"><span class="header-section-number">22</span> Visualization demo</a></li>
+<li class="book-part">Special skills</li>
+<li><a class="" href="advanced-intro.html">Introduction</a></li>
+<li><a class="" href="advanced-regex.html"><span class="header-section-number">23</span> Regular Expressions for pattern matching</a></li>
+<li><a class="" href="advanced-openrefine.html"><span class="header-section-number">24</span> Open refine walkthrough</a></li>
+<li><a class="" href="advanced-scrape1.html"><span class="header-section-number">25</span> Scraping without programming</a></li>
+<li><a class="" href="advanced-scrape2.html"><span class="header-section-number">26</span> Introduction to scraping in R</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="" href="appendix-math.html"><span class="header-section-number">A</span> Newsroom numbers cheat sheet</a></li>
+<li><a class="" href="appendix-program.html"><span class="header-section-number">B</span> A gentle intro to programming</a></li>
+<li><a class="" href="appendix-glossary.html"><span class="header-section-number">C</span> Glossary</a></li>
+<li><a class="" href="appendix-resources.html"><span class="header-section-number">D</span> Great R Resources</a></li>
+<li><a class="" href="appendix-ppp.html"><span class="header-section-number">E</span> Documentation for PPP data chapters</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="r-verb-join" class="section level1" number="19">
+<h1>
+<span class="header-section-number"> 19</span> Verbs in depth: Matchmaking with joins<a class="anchor" aria-label="anchor" href="#r-verb-join"><i class="fas fa-link"></i></a>
+</h1>
+<div class="alert alert-secondary">
+<p class="alert-heading font-weight-bolder fs-3">
+In this chapter
+</p>
+<ul>
+<li>A <code>join</code> combines two or more tables (data frames) by column</li>
+<li>joining to data frames requires exact matches on one or more columns. Close matches don’t count.</li>
+<li>Use codes in one data frame to “look up” information in another, and attach it to a row, such as the translation of codes to words or demographics of a Census tract.<br>
+</li>
+<li>Many public records databases come with “lookup tables” or “code sheets”. Make sure to ask for the codes AND their translations in a data request.</li>
+<li>Reporters don’t always stick to matchmaking the way the database designers intended. “Enterprise” joins are those that let you find needles in a haystack, such as bus drivers with a history of DUIs.</li>
+<li>Matching one data frame against an entirely different one will always produce errors. You can minimize the <em>kind</em> of error you fear most – false positives or false negatives – but you likely will have to report out your findings on the ground.</li>
+</ul>
+</div>
+<div id="join-basics" class="section level2" number="19.1">
+<h2>
+<span class="header-section-number">19.1</span> Join basics<a class="anchor" aria-label="anchor" href="#join-basics"><i class="fas fa-link"></i></a>
+</h2>
+<p>Here is a great explainer on joins made by a previous MAIJ student, Andy Blye. Be sure to watch it:</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4xPrnDYZXw4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+<p><code>joins</code> in computer programming means adding columns to a data frame by combining it with another data frame or table. Reporters use it in many ways, some intended by the people who made the data source, and some not.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;From now on, we’ll start using the term “table” instead of “data frame”, since we can talk about several different ones at the same time.&lt;/p&gt;"><sup>22</sup></a></p>
+<p>Many databases are created expecting you to join tables (data frames) because it’s a more efficient way to store and work with large databases. This is what’s called a “relational database”, and they’re everywhere (or at least everywhere that has updated its computer systems since 1980 or so).</p>
+<p>Here’s an example, using campaign finance information. The Federal Elections Commission distributions campaign contribution in <em>related</em> tables, each referring to a different noun. One table lists donations, the other lists candidates and other political action committees. They link together using a common code:</p>
+<div class="figure">
+<img src="assets/images/r-verb-join-diagram.png" style="width:100.0%" alt=""><p class="caption">Campaign finance join</p>
+</div>
+<p>The reason to do this is that you never have to worry that any changes to the candidate information – the treasurer, the address or the office sought – carries over to the donation. It’s only listed once in the candidate table. Most large databases are constructed this way. For example:</p>
+<ul>
+<li>Your school records are held using your student ID, which means that your address and home email only needs to be changed once, not in every class or in every account you have with the school.</li>
+<li>Inspection records, such as those for restaurants, hospitals, housing code violations and workplace safety, typically have at least <em>three</em> tables: The establishment (like a restaurant or a workplace), an inspection (an event on a date), and a violation (something that they found). They’re linked together using establishment ID’s.</li>
+<li>A court database usually has many types of records: A master case record links to information on charges, defendants, lawyers, sentences and court hearings.</li>
+</ul>
+<p>Each table, then, is described using a different noun – candidates or contributions; defendants or cases; students or courses. This conforms to the <strong>tidy data</strong> principle that different types of information are stored in different tables.</p>
+<div id="join-syntax" class="section level3" number="19.1.1">
+<h3>
+<span class="header-section-number">19.1.1</span> join syntax<a class="anchor" aria-label="anchor" href="#join-syntax"><i class="fas fa-link"></i></a>
+</h3>
+<p>There are several kinds of joins, but the syntax is similar across them.</p>
+<pre><code>  old_table_1 %&gt;%
+     inner_join (new_table , by=c("old table col. name" = "new table col. name") )
+     </code></pre>
+</div>
+</div>
+<div id="matchmaking-with-joins" class="section level2" number="19.2">
+<h2>
+<span class="header-section-number">19.2</span> Matchmaking with joins<a class="anchor" aria-label="anchor" href="#matchmaking-with-joins"><i class="fas fa-link"></i></a>
+</h2>
+<p>The type of join described above is often referred to as a “lookup table”. You’ll match codes to their meanings in a way that was intended by the people who made the database.
+But there are other ways reporters use joins:</p>
+<div id="enterprise-joins" class="section level3 unnumbered">
+<h3>“Enterprise” joins<a class="anchor" aria-label="anchor" href="#enterprise-joins"><i class="fas fa-link"></i></a>
+</h3>
+<p>Journalists have taken to calling a specific kind of join “enterprise”, referring to the enterprising reporters who do this. Here, you’ll look for needles in a haystack. Some of the most famous data journalism investigations relied on joining two databases that started from completely different sources, such as:</p>
+<ul>
+<li>Bus drivers who had DUI citations</li>
+<li>Donors to a governor who got contracts from the state</li>
+<li>Day care workers with criminal records</li>
+<li>Small businesses that have defaulted on government backed loans that got a PPP loan anyway.</li>
+</ul>
+<p>When you match these kinds of datasets, you will always have some error. You always have to report out any suspected matches, so they are time consuming stories.</p>
+<p>In the mid-2000s, when some politicians insisted that dead people were voting and proposed measures to restrict registration, almost every regional news organization sent reporters on futile hunts for the dead voters. They got lists of people on the voter rolls, then lists of people who had died through the Social Security Death Index or local death certificates. I never met anyone who found a single actual dead voter, but months of reporter-hours were spent tracking down each lead.</p>
+<p>It’s very common for two people to have the same name in a city. In fact, it’s common to have two people at the same home with the same name – they’ve just left off “Jr.” and “Sr.” in the database. In this case, you’ll find matches that you shouldn’t. These are false positives, or Type I errors in statistics.</p>
+<p>Also, we rarely get dates of birth or Social Security Numbers in public records, so we have to join by name and sometimes location. If someone has moved, sometimes uses a nickname, or the government has recorded the spelling incorrectly, the join will fail – you’ll miss some of the possible matches. This is very common with company names, which can change with mergers and other changes in management, and can be listed in many different ways.</p>
+<p>These are false negatives, or Type II errors in statistics.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;I remember them by thinking of the boy who cried wolf. When the village came running and there was no wolf, it was a Type I error, or false positive ; when the village ignored the boy and there was a wolf, it was a Type II error, or false negative.&lt;/p&gt;"><sup>23</sup></a></p>
+<p>In different contexts, you’ll want to minimize different kinds of errors. For example, if you are looking for something extremely rare, and you want to examine every possible case – like a child sex offender working in a day care center – you might choose to make a “loose” match and get lots of false positives, which you can check. If you want to limit your reporting only to the most promising leads, you’ll be willing to live with missing some cases in order to be more sure of the joins you find.</p>
+<p>You’ll see stories of this kind write around the lack of precision – they’ll often say, “we verified x cases of….” rather than pretend that they know of them all.</p>
+</div>
+<div id="find-cases-with-interesting-characteristics" class="section level3 unnumbered">
+<h3>Find cases with interesting characteristics<a class="anchor" aria-label="anchor" href="#find-cases-with-interesting-characteristics"><i class="fas fa-link"></i></a>
+</h3>
+<p>You’ll often want to learn more about a geographic area’s demographics or voting habits or other characteristics, and match it to other data. Sometimes it’s simple: Find the demographics of counties that switched from Trump to Biden as a way to isolate places you might want to visit. Another example from voting might be to find the precinct that has the highest percentage of Latino citizens in the county, then match that precinct against the voter registration rolls to get a list of people you might want to interview on election day. In these instances, the <code>join</code> is used for a <code>filter</code>.</p>
+<p>This is also common when you have data by zip code or some other geography, and you want to find clusters of interesting potential stories, such as PPP loans in minority neighborhoods.</p>
+</div>
+<div id="summarize-data-against-another-dataset" class="section level3 unnumbered">
+<h3>Summarize data against another dataset<a class="anchor" aria-label="anchor" href="#summarize-data-against-another-dataset"><i class="fas fa-link"></i></a>
+</h3>
+<p>The previous examples all result in lists of potential story people or places. If you use join on summarized data, you can characterize a broad range of activity across new columns. Simplified, this is how you can write that more PPP money went to predominantly white neighborhoods than those that were majority Black.</p>
+</div>
+</div>
+<div id="simple-join-using-ppp-industry-codes" class="section level2" number="19.3">
+<h2>
+<span class="header-section-number">19.3</span> Simple join using PPP industry codes<a class="anchor" aria-label="anchor" href="#simple-join-using-ppp-industry-codes"><i class="fas fa-link"></i></a>
+</h2>
+<p>The PPP data has a code called the <code>naics_code</code>, which is a standardized code to identify industries. They are assigned by the company itself or by the bank, not by the government, but they are a good guide. Here is a data frame that contains the list of industries in the PPP data. It was derived from the <code>concordance</code> package in R, but is fully explained at the <a href="https://www.census.gov/naics/?58967?yearbck=2017">Census website</a>.</p>
+<p>Here are the two tables: The original PPP data, and the industry code “lookup”.</p>
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">naics_codes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html">url</a></span> <span class="op">(</span> <span class="st">"https://cronkitedata.s3.amazonaws.com/rdata/naics_lookup.RDS"</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">ppp_orig</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/connections.html">url</a></span> <span class="op">(</span> <span class="st">"https://cronkitedata.s3.amazonaws.com/rdata/ppp_az_loans.RDS"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>Here is an example of looking at one sector – the sector code “72” has subsectors and industry codes. Each digit in the code after the 72 refers to a different definition. Those tha end in zero are not as specific as those that have a digit.:</p>
+<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">naics_codes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span> <span class="op">(</span> <span class="va">sector_code</span> <span class="op">==</span> <span class="st">"72"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span> <span class="op">(</span><span class="op">-</span><span class="va">sector_code</span>, <span class="op">-</span><span class="va">subsector_code</span><span class="op">)</span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="8%">
+<col width="24%">
+<col width="26%">
+<col width="40%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">naics_code</th>
+<th align="left">sector_desc</th>
+<th align="left">subsector_desc</th>
+<th align="left">naics_desc</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">721110</td>
+<td align="left">Accommodation and Food Services</td>
+<td align="left">Accommodation</td>
+<td align="left">Hotels (except Casino Hotels) and Motels</td>
+</tr>
+<tr class="even">
+<td align="left">721120</td>
+<td align="left">Accommodation and Food Services</td>
+<td align="left">Accommodation</td>
+<td align="left">Casino Hotels</td>
+</tr>
+<tr class="odd">
+<td align="left">721191</td>
+<td align="left">Accommodation and Food Services</td>
+<td align="left">Accommodation</td>
+<td align="left">Bed-and-Breakfast Inns</td>
+</tr>
+<tr class="even">
+<td align="left">721199</td>
+<td align="left">Accommodation and Food Services</td>
+<td align="left">Accommodation</td>
+<td align="left">All Other Traveler Accommodation</td>
+</tr>
+<tr class="odd">
+<td align="left">721211</td>
+<td align="left">Accommodation and Food Services</td>
+<td align="left">Accommodation</td>
+<td align="left">RV (Recreational Vehicle) Parks and Campgrounds</td>
+</tr>
+<tr class="even">
+<td align="left">721214</td>
+<td align="left">Accommodation and Food Services</td>
+<td align="left">Accommodation</td>
+<td align="left">Recreational and Vacation Camps (except Campgrounds)</td>
+</tr>
+<tr class="odd">
+<td align="left">721310</td>
+<td align="left">Accommodation and Food Services</td>
+<td align="left">Accommodation</td>
+<td align="left">Rooming and Boarding Houses</td>
+</tr>
+<tr class="even">
+<td align="left">722110</td>
+<td align="left">Accommodation and Food Services</td>
+<td align="left">Food Services and Drinking Places</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">722211</td>
+<td align="left">Accommodation and Food Services</td>
+<td align="left">Food Services and Drinking Places</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">722310</td>
+<td align="left">Accommodation and Food Services</td>
+<td align="left">Food Services and Drinking Places</td>
+<td align="left">Food Service Contractors</td>
+</tr>
+<tr class="odd">
+<td align="left">722320</td>
+<td align="left">Accommodation and Food Services</td>
+<td align="left">Food Services and Drinking Places</td>
+<td align="left">Caterers</td>
+</tr>
+<tr class="even">
+<td align="left">722330</td>
+<td align="left">Accommodation and Food Services</td>
+<td align="left">Food Services and Drinking Places</td>
+<td align="left">Mobile Food Services</td>
+</tr>
+<tr class="odd">
+<td align="left">722410</td>
+<td align="left">Accommodation and Food Services</td>
+<td align="left">Food Services and Drinking Places</td>
+<td align="left">Drinking Places (Alcoholic Beverages)</td>
+</tr>
+<tr class="even">
+<td align="left">722511</td>
+<td align="left">Accommodation and Food Services</td>
+<td align="left">Food Services and Drinking Places</td>
+<td align="left">Full-Service Restaurants</td>
+</tr>
+<tr class="odd">
+<td align="left">722513</td>
+<td align="left">Accommodation and Food Services</td>
+<td align="left">Food Services and Drinking Places</td>
+<td align="left">Limited-Service Restaurants</td>
+</tr>
+<tr class="even">
+<td align="left">722514</td>
+<td align="left">Accommodation and Food Services</td>
+<td align="left">Food Services and Drinking Places</td>
+<td align="left">Cafeterias, Grill Buffets, and Buffets</td>
+</tr>
+<tr class="odd">
+<td align="left">722515</td>
+<td align="left">Accommodation and Food Services</td>
+<td align="left">Food Services and Drinking Places</td>
+<td align="left">Snack and Nonalcoholic Beverage Bars</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>To put this together with the PPP data, you “join” it using the column that it has in common – the <code>naics_code</code>. This is an example of an “inner join”, in which only the rows that match are kept in the result. The result below uses just a few columns from the saved data frame, and then picks out some random rows to view:</p>
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">loans_with_industry</span> <span class="op">&lt;-</span> 
+  <span class="va">ppp_orig</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span> <span class="op">(</span> <span class="va">naics_codes</span>, by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"naics_code"</span><span class="op">=</span><span class="st">"naics_code"</span><span class="op">)</span><span class="op">)</span>  </code></pre></div>
+<p>(In this case, they have the same column name, but they don’t have to. As long as they CONTAIN the same thing, they can have different names. You can also join using more than one column, such as county and state together.)</p>
+<div id="htmlwidget-0c89b33167da5a2fb97f" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-0c89b33167da5a2fb97f">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Borrower":["NICOLL CONSTRUCTION LLC","RQ MEXICAN FOOD LLC","NATHAN SMOTHERSON","MATTHEW HARRISON","NAME RECOGNITION MEDIA LLC","EDUARDO ROMERO","MAUREEN MOORE","ROBERT R EYER LLC","MANCINI TUREK CONSULTING LLC","REDLINE TOOLS LLC","ALLEN MANAGEMENT GROUP LLC","PATRICK HARMES","JAIMES BARBER SHOP LLC","ROBERT SANTIESTEBAN OO","DALLAS ALLEN","M SCOTT FERRELL MD PC","1TV","GRACIELA GARCIA","GRANT DESTACHE","JILLIAN JORGENSEN","TONY RIVERA FLOORING LLC","DRIVEN ENTERPRISES AZ LLC","DAMEN FLAGG","PM PROFESSIONAL SERVICES CORPORATION","LYNN HARDER","MICHAEL MONTOYA REAL ESTATE LLC","GIAO PHAM","JOSHUA BUCKNER","SDTT INC","MARYANN REYNA","PIANO GALLERY LLC","YASIME WARD","COEBY BROWN","OLD PUEBLO ANESTHESIA PLLC","LOS LOCOS LLC","BRIAN DALEY","JESSE LEWIS","RAFAEL TIRADO ASSOCIATES PLC","BLINE DIRECTIONAL DRILLING LLC","MINYON HOLLY","MUTUAL PRODUCERS GROUP LLC","ZANAVEA GAINES","KAREN MAY","XAML ZOMBIES INC","CHRISTINA BORREGO","NELI FLORES","LAURA BURK PLLC","GOSERCO INC","MEJDRICH PHOTOGRAPHY LLC DBA SCHOOL PICS","LYDIA SEISE","SUN VALLEY DIESEL AMP AUTOMOTIVE LLC","GFSC INC","SHANE LEWTHWAITE","ELITE BEAUTY WELLNESS","HOT SHOT DELIVERY INC","HASSAN AHMED","KLINGER ENTERPRISE LLC","ARIZONA HEALTHY SMILES","RABADI AND SONS INC","ARIZONA MEDICAL CENTER PLC","SUPERIOR DRYWALL CO INC","BLAKE BOLSER","THE CYCLE DOCTOR","STRAIGHT LINE INSTALLATIONS LLC","CYNTHIA MANNING","TRUC NGUYEN","CARON MITCHELL","ISHA COGBORN","TUCSON EMBEDDED SYSTEMS INC","HOWE PRECAST CONCRETE BARRIER INC","NRG BUILDING SPECIALISTS LLC","LEMUEL TOVAR","BRUCE L NELSON DDS PC","ASHLEY ARMSTRONG","CINDI HAMWRIGHT","MOORE LAW PLLC","RISPOLI LAW PLLC","SHANNON CHI","GLOBAL FAMILY PHILANTHROPY","BBA SYSTEMS LLC","RNM SERVICES INC DBA DIGITALWIRE360","BRIAN GUBERNICK PLLC","LAQUANDRIA MILLER","BANKERS TITLE SERVICE","FLINK MEDICAL BILLING LLC","ORI HEYMAN","SUNDAY BUMPS INC","VAN METRE CHIROPRACTIC PLLC","RITO39S BURRITOS LLC","JESSE VIERA","ROWE ASSOCIATES DENTAL CARE PLLC","BPS TOTAL SOLUTIONS LLC","SPASCHEDULER LLC","PREMIER BACKHOE INC","PCM LLC","HIGH ALTITUDE PERSONAL TRAINING LLC","EAGLE SIGN AND ENGRAVING LLC","ARCELIA BANUELOS","HILLSONG PHOENIX LLC","GUBERNACULUM LLC"],"city":["Eagar","Phoenix","Phoenix","Gilbert","Fountain Hills","Mesa","Surprise","Tucson","Cornville","Tucson","Avondale","Laveen","Phoenix","Tucson","Clay Springs","Tucson","Miami","Chandler","Phoenix","Phoenix","Glendale","Mesa","Goodyear","Gilbert","Phoenix","Phoenix","Phoenix","Laveen","Phoenix","Phoenix","Scottsdale","Tucson","Phoenix","Tucson","Tucson","Glendale","Phoenix","Phoenix","Phoenix","Tolleson","Chandler","Laveen","Scottsdale","Cave Creek","Phoenix","Phoenix","Sun City","Mesa","Phoenix","Glendale","Prescott Valley","Phoenix","Camp Verde","Scottsdale","Phoenix","Phoenix","Casa Grande","Tempe","Phoenix","Yuma","Gilbert","San Tan Valley","Mesa","Phoenix","Phoenix","Queen Creek","Tucson","Chandler","Tucson","Mesa","Sedona","Phoenix","Phoenix","Phoenix","Chandler","Show Low","Phoenix","Tucson","Paradise Valley","Scottsdale","Chandler","Scottsdale","Maricopa","Tucson","Scottsdale","Tempe","Scottsdale","Surprise","Glendale","Tolleson","Glendale","Scottsdale","Surprise","Fort Mohave","Flagstaff","Flagstaff","Mesa","Peoria","Mesa","Scottsdale"],"naics_code":["236115","722511","448150","541990","541613","452319","812112","524210","611710","236210","236220","531390","812111","484121","236118","621112","334220","812199","621498","812112","238330","561740","453998","541611","541990","531210","531210","812111","812112","722320","423990","561499","484110","621111","722511","561790","512110","541110","237130","484230","524210","812112","711320","541990","485310","812199","531210","454390","541921","722320","811111","523120","711130","812199","484110","485310","531210","621399","424320","621111","238310","236118","236220","238290","812112","812113","541213","541990","541330","327390","236115","236115","621210","812112","812112","541110","541110","561720","813219","541330","541810","999990","812112","541191","621111","441310","541410","621310","722511","484230","621210","812990","446199","237110","721110","713940","561990","236220","813110","453998"],"sector_desc":["Construction","Accommodation and Food Services","Retail Trade","Professional and Technical Services","Professional and Technical Services","Retail Trade","Other Services","Finance and Insurance","Educational Services","Construction","Construction","Real Estate and Rental and Leasing","Other Services","Transportation and Warehousing","Construction","Health Care and Social Assistance","Manufacturing","Other Services","Health Care and Social Assistance","Other Services","Construction","Administrative and Waste Services","Retail Trade","Professional and Technical Services","Professional and Technical Services","Real Estate and Rental and Leasing","Real Estate and Rental and Leasing","Other Services","Other Services","Accommodation and Food Services","Wholesale Trade","Administrative and Waste Services","Transportation and Warehousing","Health Care and Social Assistance","Accommodation and Food Services","Administrative and Waste Services","Information","Professional and Technical Services","Construction","Transportation and Warehousing","Finance and Insurance","Other Services","Arts, Entertainment, and Recreation","Professional and Technical Services","Transportation and Warehousing","Other Services","Real Estate and Rental and Leasing","Retail Trade","Professional and Technical Services","Accommodation and Food Services","Other Services","Finance and Insurance","Arts, Entertainment, and Recreation","Other Services","Transportation and Warehousing","Transportation and Warehousing","Real Estate and Rental and Leasing","Health Care and Social Assistance","Wholesale Trade","Health Care and Social Assistance","Construction","Construction","Construction","Construction","Other Services","Other Services","Professional and Technical Services","Professional and Technical Services","Professional and Technical Services","Manufacturing","Construction","Construction","Health Care and Social Assistance","Other Services","Other Services","Professional and Technical Services","Professional and Technical Services","Administrative and Waste Services","Other Services","Professional and Technical Services","Professional and Technical Services","Unclassified establishments","Other Services","Professional and Technical Services","Health Care and Social Assistance","Retail Trade","Professional and Technical Services","Health Care and Social Assistance","Accommodation and Food Services","Transportation and Warehousing","Health Care and Social Assistance","Other Services","Retail Trade","Construction","Accommodation and Food Services","Arts, Entertainment, and Recreation","Administrative and Waste Services","Construction","Other Services","Retail Trade"],"subsector_desc":["Construction of Buildings","Food Services and Drinking Places","Clothing and Clothing Accessories Stores","Professional, Scientific, and Technical Services","Professional, Scientific, and Technical Services","General Merchandise Stores","Personal and Laundry Services","Insurance Carriers and Related Activities","Educational Services","Construction of Buildings","Construction of Buildings","Real Estate","Personal and Laundry Services","Truck Transportation","Construction of Buildings","Ambulatory Health Care Services","Computer and Electronic Product Manufacturing","Personal and Laundry Services","Ambulatory Health Care Services","Personal and Laundry Services","Specialty Trade Contractors","Administrative and Support Services","Miscellaneous Store Retailers","Professional, Scientific, and Technical Services","Professional, Scientific, and Technical Services","Real Estate","Real Estate","Personal and Laundry Services","Personal and Laundry Services","Food Services and Drinking Places","Merchant Wholesalers, Durable Goods","Administrative and Support Services","Truck Transportation","Ambulatory Health Care Services","Food Services and Drinking Places","Administrative and Support Services","Motion Picture and Sound Recording Industries","Professional, Scientific, and Technical Services","Heavy and Civil Engineering Construction","Truck Transportation","Insurance Carriers and Related Activities","Personal and Laundry Services","Performing Arts, Spectator Sports, and Related Industries","Professional, Scientific, and Technical Services","Transit and Ground Passenger Transportation","Personal and Laundry Services","Real Estate","Nonstore Retailers","Professional, Scientific, and Technical Services","Food Services and Drinking Places","Repair and Maintenance","Securities, Commodity Contracts, and Other Financial Investments and Related Activities","Performing Arts, Spectator Sports, and Related Industries","Personal and Laundry Services","Truck Transportation","Transit and Ground Passenger Transportation","Real Estate","Ambulatory Health Care Services","Merchant Wholesalers, Nondurable Goods","Ambulatory Health Care Services","Specialty Trade Contractors","Construction of Buildings","Construction of Buildings","Specialty Trade Contractors","Personal and Laundry Services","Personal and Laundry Services","Professional, Scientific, and Technical Services","Professional, Scientific, and Technical Services","Professional, Scientific, and Technical Services","Nonmetallic Mineral Product Manufacturing","Construction of Buildings","Construction of Buildings","Ambulatory Health Care Services","Personal and Laundry Services","Personal and Laundry Services","Professional, Scientific, and Technical Services","Professional, Scientific, and Technical Services","Administrative and Support Services","Religious, Grantmaking, Civic, Professional, and Similar Organizations","Professional, Scientific, and Technical Services","Professional, Scientific, and Technical Services","Unclassified","Personal and Laundry Services","Professional, Scientific, and Technical Services","Ambulatory Health Care Services","Motor Vehicle and Parts Dealers","Professional, Scientific, and Technical Services","Ambulatory Health Care Services","Food Services and Drinking Places","Truck Transportation","Ambulatory Health Care Services","Personal and Laundry Services","Health and Personal Care Stores","Heavy and Civil Engineering Construction","Accommodation","Amusement, Gambling, and Recreation Industries","Administrative and Support Services","Construction of Buildings","Religious, Grantmaking, Civic, Professional, and Similar Organizations","Miscellaneous Store Retailers"],"naics_desc":["New Single-Family Housing Construction (except For-Sale Builders)","Full-Service Restaurants","Clothing Accessories Stores","All Other Professional, Scientific, and Technical Services","Marketing Consulting Services","All Other General Merchandise Stores","Beauty Salons","Insurance Agencies and Brokerages","Educational Support Services","Industrial Building Construction","Commercial and Institutional Building Construction","Other Activities Related to Real Estate","Barber Shops","General Freight Trucking, Long-Distance, Truckload","Residential Remodelers","Offices of Physicians, Mental Health Specialists","Radio and Television Broadcasting and Wireless Communications Equipment Manufacturing","Other Personal Care Services","All Other Outpatient Care Centers","Beauty Salons","Flooring Contractors","Carpet and Upholstery Cleaning Services","All Other Miscellaneous Store Retailers (except Tobacco Stores)","Administrative Management and General Management Consulting Services","All Other Professional, Scientific, and Technical Services","Offices of Real Estate Agents and Brokers","Offices of Real Estate Agents and Brokers","Barber Shops","Beauty Salons","Caterers","Other Miscellaneous Durable Goods Merchant Wholesalers","All Other Business Support Services","General Freight Trucking, Local","Offices of Physicians (except Mental Health Specialists)","Full-Service Restaurants","Other Services to Buildings and Dwellings","Motion Picture and Video Production","Offices of Lawyers","Power and Communication Line and Related Structures Construction","Specialized Freight (except Used Goods) Trucking, Long-Distance","Insurance Agencies and Brokerages","Beauty Salons","Promoters of Performing Arts, Sports, and Similar Events without Facilities","All Other Professional, Scientific, and Technical Services","Taxi Service","Other Personal Care Services","Offices of Real Estate Agents and Brokers","Other Direct Selling Establishments","Photography Studios, Portrait","Caterers","General Automotive Repair","Securities Brokerage","Musical Groups and Artists","Other Personal Care Services","General Freight Trucking, Local","Taxi Service","Offices of Real Estate Agents and Brokers","Offices of All Other Miscellaneous Health Practitioners","Men's and Boys' Clothing and Furnishings Merchant Wholesalers","Offices of Physicians (except Mental Health Specialists)","Drywall and Insulation Contractors","Residential Remodelers","Commercial and Institutional Building Construction","Other Building Equipment Contractors","Beauty Salons","Nail Salons","Tax Preparation Services","All Other Professional, Scientific, and Technical Services","Engineering Services","Other Concrete Product Manufacturing","New Single-Family Housing Construction (except For-Sale Builders)","New Single-Family Housing Construction (except For-Sale Builders)","Offices of Dentists","Beauty Salons","Beauty Salons","Offices of Lawyers","Offices of Lawyers","Janitorial Services","Other Grantmaking and Giving Services","Engineering Services","Advertising Agencies","Unclassified","Beauty Salons","Title Abstract and Settlement Offices","Offices of Physicians (except Mental Health Specialists)","Automotive Parts and Accessories Stores","Interior Design Services","Offices of Chiropractors","Full-Service Restaurants","Specialized Freight (except Used Goods) Trucking, Long-Distance","Offices of Dentists","All Other Personal Services","All Other Health and Personal Care Stores","Water and Sewer Line and Related Structures Construction","Hotels (except Casino Hotels) and Motels","Fitness and Recreational Sports Centers","All Other Support Services","Commercial and Institutional Building Construction","Religious Organizations","All Other Miscellaneous Store Retailers (except Tobacco Stores)"],"amount":[32900,8640,20832,20800,30882,482,19522,5905,40400,1445,13000,2290,33500,5791,20832,20833,10333,20647,20833,9500,20833,60897,17890,90500,20743,8751,8397,20833,124507,6068,58737,20832,17700,1392142.08,2300,13812,13750,142420,413220,12915,11000,20833,20833,5727,5207,20000,10100,258000,52700,20833,46600,61912,1041,10854,97798,17135,20830,48400,36600,37800,1695557,11478,18332,62500,16530,6977,13896,4481.67,1036658.96,331000,58087,2732,48179.2,20832,10260,40900,20897,2559,8052,27400,26430,84765,20833,17907,4167,3750,86629.23,31399,20465,9907,66305,20832,2462,162569.17,55769,60456,35675,2082,514200,21000]},"columns":[{"accessor":"Borrower","name":"Borrower","type":"character"},{"accessor":"city","name":"city","type":"character"},{"accessor":"naics_code","name":"naics_code","type":"character"},{"accessor":"sector_desc","name":"sector_desc","type":"character"},{"accessor":"subsector_desc","name":"subsector_desc","type":"character"},{"accessor":"naics_desc","name":"naics_desc","type":"character"},{"accessor":"amount","name":"amount","type":"numeric"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"style":{"fontSize":"smaller"},"dataKey":"48ca6af4f33635e5a8691f1c3103385c","key":"48ca6af4f33635e5a8691f1c3103385c"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script><p>Think about what this means: You now have another thing for grouping, so you can see, for instance, how much went to restaurants, or which restaurants on your block got loans.</p>
+</div>
+<div id="joining-risks" class="section level2" number="19.4">
+<h2>
+<span class="header-section-number">19.4</span> Joining risks<a class="anchor" aria-label="anchor" href="#joining-risks"><i class="fas fa-link"></i></a>
+</h2>
+<div id="joining-tldr" class="section level3" number="19.4.1">
+<h3>
+<span class="header-section-number">19.4.1</span> joining tl;dr<a class="anchor" aria-label="anchor" href="#joining-tldr"><i class="fas fa-link"></i></a>
+</h3>
+<p>There are lots of risks in joining tables that you created yourself, or that were created outside a big relational database system. Keep an eye on the number of rows returned every time that you join – you should know what to expect.</p>
+</div>
+<div id="double-counting-with-joins" class="section level3" number="19.4.2">
+<h3>
+<span class="header-section-number">19.4.2</span> Double counting with joins<a class="anchor" aria-label="anchor" href="#double-counting-with-joins"><i class="fas fa-link"></i></a>
+</h3>
+<p>We won’t go into this in depth, but just be aware it’s easy to double-count rows when you join. Here’s a made-up example, in which a zip code is on the border and is in two counties:</p>
+<p>Say you want to use some data on zip codes :</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th>zip code</th>
+<th>county</th>
+<th>info</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>85232</td>
+<td>Maricopa</td>
+<td>some data</td>
+</tr>
+<tr class="even">
+<td>85232</td>
+<td>Pinal</td>
+<td>some more data</td>
+</tr>
+</tbody>
+</table></div>
+<p>and match it to a list of restaurants in a zip code:</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th>zip code</th>
+<th>restaurant name</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>85232</td>
+<td>My favorite restaurant</td>
+</tr>
+<tr class="even">
+<td>85232</td>
+<td>My second-favorite restaurant</td>
+</tr>
+</tbody>
+</table></div>
+<p>When you match these, you’ll get <strong>4</strong> rows:</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th>zip code</th>
+<th>county</th>
+<th>info</th>
+<th>restaurant name</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>85232</td>
+<td>Maricopa</td>
+<td>some data</td>
+<td>My favorite restaurant</td>
+</tr>
+<tr class="even">
+<td>85232</td>
+<td>Pinal</td>
+<td>some more data</td>
+<td>My favorite restaurant</td>
+</tr>
+<tr class="odd">
+<td>85232</td>
+<td>Maricopa</td>
+<td>some data</td>
+<td>My second-favorite restaurant</td>
+</tr>
+<tr class="even">
+<td>85232</td>
+<td>Pinal</td>
+<td>some more data</td>
+<td>My second-favority restaurant</td>
+</tr>
+</tbody>
+</table></div>
+<p>Now, every time you try to count restaurants, these two will be double-counted.</p>
+<p>In computing, this is called a “many-to-many” relationship – there are many rows of zip codes and many rows of restaurants. In journalism, we call it spaghetti. It’s usually an unintended mess.</p>
+</div>
+<div id="losing-rows-with-joins" class="section level3" number="19.4.3">
+<h3>
+<span class="header-section-number">19.4.3</span> Losing rows with joins<a class="anchor" aria-label="anchor" href="#losing-rows-with-joins"><i class="fas fa-link"></i></a>
+</h3>
+<p>The opposite can occur if you aren’t careful and there are items you want to keep that are missing in your reference table. That’s what happened in the immunization data above for the seven schools that I couldn’t find.</p>
+</div>
+</div>
+<div id="resources-1" class="section level2" number="19.5">
+<h2>
+<span class="header-section-number">19.5</span> Resources<a class="anchor" aria-label="anchor" href="#resources-1"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li><p>The “<a href="https://r4ds.had.co.nz/relational-data.html">Relational data</a>” chapter in the R for Data Science textbook has details on exactly how a complex data set might fit together.</p></li>
+<li><p><a href="https://stat545.com/join-cheatsheet.html#left_joinsuperheroes-publishers">An example using a superheroes dataset</a>, from Stat 545 at the University of British Columbia</p></li>
+</ul>
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="r-verb-mutate.html"><span class="header-section-number">18</span> Verbs in depth: New from old data with Mutate</a></div>
+<div class="next"><a href="r-recipes.html"><span class="header-section-number">20</span> Recipes</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#r-verb-join"><span class="header-section-number">19</span> Verbs in depth: Matchmaking with joins</a></li>
+<li>
+<a class="nav-link" href="#join-basics"><span class="header-section-number">19.1</span> Join basics</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#join-syntax"><span class="header-section-number">19.1.1</span> join syntax</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#matchmaking-with-joins"><span class="header-section-number">19.2</span> Matchmaking with joins</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#enterprise-joins">“Enterprise” joins</a></li>
+<li><a class="nav-link" href="#find-cases-with-interesting-characteristics">Find cases with interesting characteristics</a></li>
+<li><a class="nav-link" href="#summarize-data-against-another-dataset">Summarize data against another dataset</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#simple-join-using-ppp-industry-codes"><span class="header-section-number">19.3</span> Simple join using PPP industry codes</a></li>
+<li>
+<a class="nav-link" href="#joining-risks"><span class="header-section-number">19.4</span> Joining risks</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#joining-tldr"><span class="header-section-number">19.4.1</span> joining tl;dr</a></li>
+<li><a class="nav-link" href="#double-counting-with-joins"><span class="header-section-number">19.4.2</span> Double counting with joins</a></li>
+<li><a class="nav-link" href="#losing-rows-with-joins"><span class="header-section-number">19.4.3</span> Losing rows with joins</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#resources-1"><span class="header-section-number">19.5</span> Resources</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Data Reporting, Spring 2022</strong>" was written by Sarah Cohen. It was last built on 2022-03-31.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

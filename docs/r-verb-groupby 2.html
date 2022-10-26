@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title> 17 Verbs in depth: Aggregating with groups | Data Reporting, Spring 2022</title>
+<meta name="author" content="Sarah Cohen">
+<meta name="description" content="In this chapter  group_by and summarise are the tidyverse’s version of Excel pivot tables, with many more possibilities. R is picky and will create different rows for the tiniest difference...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content=" 17 Verbs in depth: Aggregating with groups | Data Reporting, Spring 2022">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://github.com/cronkitedata/djtextbook/r-verb-groupby.html">
+<meta property="og:description" content="In this chapter  group_by and summarise are the tidyverse’s version of Excel pivot tables, with many more possibilities. R is picky and will create different rows for the tiniest difference...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content=" 17 Verbs in depth: Aggregating with groups | Data Reporting, Spring 2022">
+<meta name="twitter:site" content="@sarahcnyt">
+<meta name="twitter:description" content="In this chapter  group_by and summarise are the tidyverse’s version of Excel pivot tables, with many more possibilities. R is picky and will create different rows for the tiniest difference...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Muli-0.4.0/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/core-js-2.5.3/shim.min.js"></script><script src="libs/react-17.0.0/react.min.js"></script><script src="libs/react-17.0.0/react-dom.min.js"></script><script src="libs/reactwidget-1.0.0/react-tools.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="libs/reactable-binding-0.2.3/reactable.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link rel="shortcut icon" href="assets/images/favicon.ico">
+<!--
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        --><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Data Reporting, Spring 2022</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li class="book-part">Reporting with data</li>
+<li><a class="" href="starter-intro.html">In this section</a></li>
+<li><a class="" href="start-story.html"><span class="header-section-number">1</span> Learn a new way to read</a></li>
+<li><a class="" href="start-math.html"><span class="header-section-number">2</span> Newsroom math</a></li>
+<li><a class="" href="start-data-def.html"><span class="header-section-number">3</span> Defining “Data”</a></li>
+<li><a class="" href="start-data-diary.html"><span class="header-section-number">4</span> Replication and the data diary</a></li>
+<li><a class="" href="start-hunt.html"><span class="header-section-number">5</span> Finding the right data for your story</a></li>
+<li><a class="" href="start-build-own.html"><span class="header-section-number">6</span> Build your own database</a></li>
+<li class="book-part">Spreadsheets</li>
+<li><a class="" href="xl-intro.html">Introduction</a></li>
+<li><a class="" href="xl-refresher.html"><span class="header-section-number">7</span> An Excel Refresher</a></li>
+<li><a class="" href="xl-filter-sort.html"><span class="header-section-number">8</span> Sorting and filtering to find stories</a></li>
+<li><a class="" href="xl-pivot.html"><span class="header-section-number">9</span> Grouping with pivot tables</a></li>
+<li><a class="" href="xl-formulas.html"><span class="header-section-number">10</span> Formulas in Excel</a></li>
+<li><a class="" href="xl-practice-noc.html"><span class="header-section-number">11</span> Practice exercise</a></li>
+<li class="book-part">R Study Guide</li>
+<li><a class="" href="r-intro.html">Introduction</a></li>
+<li><a class="" href="r-start.html"><span class="header-section-number">12</span> Getting started with R and RStudio</a></li>
+<li><a class="" href="r-markdown.html"><span class="header-section-number">13</span> R Markdown</a></li>
+<li><a class="" href="r-data-import.html"><span class="header-section-number">14</span> Getting and saving data</a></li>
+<li><a class="" href="r-verbs.html"><span class="header-section-number">15</span> A quick tour of verbs</a></li>
+<li><a class="" href="r-verb-filter.html"><span class="header-section-number">16</span> Verbs in depth: Select, filter, arrange</a></li>
+<li><a class="active" href="r-verb-groupby.html"><span class="header-section-number">17</span> Verbs in depth: Aggregating with groups</a></li>
+<li><a class="" href="r-verb-mutate.html"><span class="header-section-number">18</span> Verbs in depth: New from old data with Mutate</a></li>
+<li><a class="" href="r-verb-join.html"><span class="header-section-number">19</span> Verbs in depth: Matchmaking with joins</a></li>
+<li><a class="" href="r-recipes.html"><span class="header-section-number">20</span> Recipes</a></li>
+<li class="book-part">Visualization as a reporting tool</li>
+<li><a class="" href="viz-intro.html">Introduction</a></li>
+<li><a class="" href="viz-reporting.html"><span class="header-section-number">21</span> Visualization as a reporting tool</a></li>
+<li><a class="" href="viz-demo.html"><span class="header-section-number">22</span> Visualization demo</a></li>
+<li class="book-part">Special skills</li>
+<li><a class="" href="advanced-intro.html">Introduction</a></li>
+<li><a class="" href="advanced-regex.html"><span class="header-section-number">23</span> Regular Expressions for pattern matching</a></li>
+<li><a class="" href="advanced-openrefine.html"><span class="header-section-number">24</span> Open refine walkthrough</a></li>
+<li><a class="" href="advanced-scrape1.html"><span class="header-section-number">25</span> Scraping without programming</a></li>
+<li><a class="" href="advanced-scrape2.html"><span class="header-section-number">26</span> Introduction to scraping in R</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="" href="appendix-math.html"><span class="header-section-number">A</span> Newsroom numbers cheat sheet</a></li>
+<li><a class="" href="appendix-program.html"><span class="header-section-number">B</span> A gentle intro to programming</a></li>
+<li><a class="" href="appendix-glossary.html"><span class="header-section-number">C</span> Glossary</a></li>
+<li><a class="" href="appendix-resources.html"><span class="header-section-number">D</span> Great R Resources</a></li>
+<li><a class="" href="appendix-ppp.html"><span class="header-section-number">E</span> Documentation for PPP data chapters</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="r-verb-groupby" class="section level1" number="17">
+<h1>
+<span class="header-section-number"> 17</span> Verbs in depth: Aggregating with groups<a class="anchor" aria-label="anchor" href="#r-verb-groupby"><i class="fas fa-link"></i></a>
+</h1>
+<div class="alert alert-secondary">
+<p class="alert-heading font-weight-bolder fs-3">
+In this chapter
+</p>
+<ul>
+<li>
+<code>group_by</code> and <code>summarise</code> are the tidyverse’s version of Excel pivot tables, with many more possibilities.</li>
+<li>R is picky and will create different rows for the tiniest difference between values, such as “Lettuce” vs. “lettuce”.</li>
+<li>You will rarely use <code>group_by</code> without <code>summarise</code>.</li>
+<li>You will often have to accommodate missing data, or the dreaded “NA” values.</li>
+<li>Pivoting a result to spreadsheet rather than database format.</li>
+</ul>
+</div>
+<p>This chapter continues with the Paycheck Protection Program, or PPP, loans in Arizona. Full documentation of the dataset is in the <a href="appendix-ppp.html">Appendix</a>. If you haven’t already, look through that documentation before you start.</p>
+<p>As you did in the last chapter, create a new R Markdown document <a href="(https://gist.githubusercontent.com/sarahcnyt/e60ad2d7ccf65498fc88791f3bb683ae/raw/bcf4fb844d183b62f531a74a445271c5571f3a1d/cronkite-boilerplate.Rmd)">with the usual biolerplate at the top</a>, and read in the data from the internet using the same code chunk as before:</p>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ppp_orig</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html">url</a></span> <span class="op">(</span> <span class="st">"https://cronkitedata.s3.amazonaws.com/rdata/ppp_az_loans.RDS"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div id="get-an-overview-of-your-data-with-skimr" class="section level3 unnumbered">
+<h3>Get an overview of your data with <code>skimr</code><a class="anchor" aria-label="anchor" href="#get-an-overview-of-your-data-with-skimr"><i class="fas fa-link"></i></a>
+</h3>
+<p>Get an overview of the data using the <code>skimr</code> package that I suggested that you install earlier in the book. If you haven’t yet (or if you’re on Cronkite computers), install it now in the Console using the command <code>install.packages("skimr")</code>.</p>
+<p>This command uses the package without loading it in the first chunk by naming the package (<code>skimr</code>) and a function or action that comes with that package (<code>skim</code>). Sometimes you’ll do that when you’re only using it once, or when you want to indicate to your readers which package contributes the function.</p>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">skimr</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/skimr/reference/skim.html">skim</a></span><span class="op">(</span><span class="va">ppp_orig</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="assets/images/r-groupby-skim.png" style="width:100.0%"></div>
+<p>Using the <code>skimr</code> package is an easy way to get a very detailed overview of your data without having to examine each column.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;It can take some time to run on very large datasets. Go get some tea and come back in 5 minutes if that happens. Also, the image above was run on a data frame slightly different than the one you have. Your answers might be slightly different.&lt;/p&gt;"><sup>18</sup></a></p>
+</div>
+<div id="summarise" class="section level2" number="17.1">
+<h2>
+<span class="header-section-number">17.1</span> <code>summarise</code><a class="anchor" aria-label="anchor" href="#summarise"><i class="fas fa-link"></i></a>
+</h2>
+<p>The <code>summarise</code><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Much of the tidyverse uses British spelling, but often American spelling will work as well.&lt;/p&gt;"><sup>19</sup></a> verb computes summary statistics the number of rows, a sum, and an average. It creates a new data frame with just the summary statistics, and none of the columns from the original data frame. Using it alone produces a data frame with one row. It’s the equivalent of putting nothing in your pivot table in Excel other than the “Values” area.</p>
+<div id="the-dreaded-na" class="section level3" number="17.1.1">
+<h3>
+<span class="header-section-number">17.1.1</span> The dreaded NA<a class="anchor" aria-label="anchor" href="#the-dreaded-na"><i class="fas fa-link"></i></a>
+</h3>
+<p>Missing data in computers is always a problem. In R, they are noted as <code>NA</code> (without quotes), to show they’re not available. Sometimes you’ll see <code>NaN</code>, for “Not a number”, which is a form of missing data. The problem is that because they’re unknown, they can’t match anything else, they can’t be considered 0, and they can warp any answers you get.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;The same is true with &lt;code&gt;NULL&lt;/code&gt; values, which is what most other languages call “missing”.&lt;/p&gt;"><sup>20</sup></a></p>
+<p>But there’s usually nothing you can do about missing data, so you have to tell the program exactly what to do about them. There are two choices:</p>
+<ul>
+<li>Let them infect everything they touch, turning everything into <code>NA</code>.</li>
+<li>Ignore them in a computation completely.</li>
+</ul>
+<p>There’s no right answer, and it depends on what you’re doing. In some cases, you know that they stand for the value <code>0</code>, and in others you don’t. We will usually ignore them by adding an <em>argument</em> to every summary function that could be infected by them : <code>na.rm = TRUE</code> , which means, “remove NA’s before you do anything.”.</p>
+</div>
+<div id="summary-functions" class="section level3" number="17.1.2">
+<h3>
+<span class="header-section-number">17.1.2</span> Summary functions<a class="anchor" aria-label="anchor" href="#summary-functions"><i class="fas fa-link"></i></a>
+</h3>
+<p>Some of the common functions you’ll use to summarize are :</p>
+<ul>
+<li>
+<code>mean (column_name, na.rm=T)</code> – for an average</li>
+<li><code>sum (column_name, na.rm = T)</code></li>
+<li>
+<code><a href="https://dplyr.tidyverse.org/reference/context.html">n()</a></code> – for “how many”, or “count”</li>
+<li><code>median (column_name, na.rm=T)</code></li>
+<li><code>min (column_name, na.rm=T)</code></li>
+<li><code>max (column_name , na.rm=T)</code></li>
+</ul>
+<p>Here is an example, creating some of the summary statistics that appeared in the <code>skimr</code> report:</p>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ppp_orig</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span> <span class="op">(</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, 
+              <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span> <span class="op">(</span><span class="va">amount</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>, 
+              <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span> <span class="op">(</span><span class="va">forgiveness_amount</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>, 
+              <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span> <span class="op">(</span><span class="va">date_approved</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>, 
+              <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span> <span class="op">(</span><span class="va">date_approved</span>, na.rm<span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>## Rows: 1
+## Columns: 5
+## $ `n()`                                 &lt;int&gt; 169268
+## $ `mean(amount, na.rm = T)`             &lt;dbl&gt; 73214.08
+## $ `mean(forgiveness_amount, na.rm = T)` &lt;dbl&gt; 78022.49
+## $ `min(date_approved, na.rm = T)`       &lt;date&gt; 2020-04-03
+## $ `max(date_approved, na.rm = T)`       &lt;date&gt; 2021-06-29</code></pre>
+<p>This produced a data frame with 1 row and 5 columns. The column names are the same as the formulas that created them, which is difficult to work with. Create new column names using the name (in back-ticks if it’s got spaces or special characters) and assign them the values of the summaries using the <code>=</code> sign:</p>
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ppp_orig</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span> <span class="op">(</span> number_of_rows <span class="op">=</span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, 
+              mean_amount <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span> <span class="op">(</span><span class="va">amount</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>, 
+              mean_forgiven <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span> <span class="op">(</span><span class="va">forgiveness_amount</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>, 
+              first_loan <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span> <span class="op">(</span><span class="va">date_approved</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>, 
+              last_loan <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span> <span class="op">(</span><span class="va">date_approved</span>, na.rm<span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>## Rows: 1
+## Columns: 5
+## $ number_of_rows &lt;int&gt; 169268
+## $ mean_amount    &lt;dbl&gt; 73214.08
+## $ mean_forgiven  &lt;dbl&gt; 78022.49
+## $ first_loan     &lt;date&gt; 2020-04-03
+## $ last_loan      &lt;date&gt; 2021-06-29</code></pre>
+</div>
+</div>
+<div id="grouping" class="section level2" number="17.2">
+<h2>
+<span class="header-section-number">17.2</span> Grouping<a class="anchor" aria-label="anchor" href="#grouping"><i class="fas fa-link"></i></a>
+</h2>
+<p>Now that you know how to summarize the whole data frame, you’ll want to start getting totals by category. This is the same thing as a pivot table – the columns you use as “groups” are the equivalent of the Rows area in Excel:</p>
+<div class="inline-figure"><img src="assets/images/r-verb-group-pivotcompare.png" style="width:100.0%"></div>
+<div id="grouping-by-one-column" class="section level3" number="17.2.1">
+<h3>
+<span class="header-section-number">17.2.1</span> Grouping by one column<a class="anchor" aria-label="anchor" href="#grouping-by-one-column"><i class="fas fa-link"></i></a>
+</h3>
+<p>In the PPP data, the “draw” refers to which of the two programs was involved - the original one, or the one passed by Congress in late 2020.</p>
+<p>Here’s how we’d get some key statistics by draw:</p>
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ppp_orig</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span> <span class="op">(</span> <span class="va">draw</span> <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span> <span class="op">(</span> first_loan <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span> <span class="op">(</span> <span class="va">date_approved</span> <span class="op">)</span>, 
+              total_amount <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span> <span class="op">(</span><span class="va">amount</span><span class="op">)</span>, 
+              total_forgiven <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span> <span class="op">(</span><span class="va">forgiveness_amount</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>, 
+              `# of loans` <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span> 
+  <span class="op">)</span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">draw</th>
+<th align="left">first_loan</th>
+<th align="right">total_amount</th>
+<th align="right">total_forgiven</th>
+<th align="right"># of loans</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">First</td>
+<td align="left">2020-04-03</td>
+<td align="right">9467812091</td>
+<td align="right">8572869974</td>
+<td align="right">128729</td>
+</tr>
+<tr class="even">
+<td align="left">Second</td>
+<td align="left">2021-01-14</td>
+<td align="right">2924988384</td>
+<td align="right">1803106553</td>
+<td align="right">40539</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>You can do math at the same time as your summarization. This code chunk expresses the amounts in millions of dollars, making it a little easier to read. There is no <code>na.rm=T</code> for the <code>date_approved</code> and the <code>amount</code> columns because they’re always filled in, according to the <code>skimr</code> report above. The <code><a href="https://dplyr.tidyverse.org/reference/context.html">n()</a></code> function never takes an argument, and counts rows rather than values.</p>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ppp_orig</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span> <span class="op">(</span> <span class="va">draw</span> <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span> <span class="op">(</span> first_loan <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span> <span class="op">(</span> <span class="va">date_approved</span> <span class="op">)</span>, 
+              amount_million <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span> <span class="op">(</span><span class="va">amount</span><span class="op">/</span><span class="fl">1000000</span><span class="op">)</span>, 
+              forgiven_million <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span> <span class="op">(</span><span class="va">forgiveness_amount</span><span class="op">/</span><span class="fl">1000000</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>, 
+              `# of loans` <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span> 
+  <span class="op">)</span></code></pre></div>
+<p>Notice that unlike pivot tables, we don’t get a total across the bottom. That has to be a separate step (for now, until we go through how to make better looking tables. )</p>
+</div>
+<div id="grouping-by-more-than-one-column" class="section level3" number="17.2.2">
+<h3>
+<span class="header-section-number">17.2.2</span> Grouping by more than one column<a class="anchor" aria-label="anchor" href="#grouping-by-more-than-one-column"><i class="fas fa-link"></i></a>
+</h3>
+<p>If you wanted to know the numbers outstanding and forgiven by draw, you could add another column to the group by:</p>
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ppp_orig</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span> <span class="op">(</span> <span class="va">loan_status</span>, <span class="va">draw</span> <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span> <span class="op">(</span> first_loan <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span> <span class="op">(</span> <span class="va">date_approved</span> <span class="op">)</span>, 
+              total_amount <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span> <span class="op">(</span><span class="va">amount</span><span class="op">)</span>, 
+              total_forgiven <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span> <span class="op">(</span><span class="va">forgiveness_amount</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>, 
+              `# of loans` <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span> 
+  <span class="op">)</span></code></pre></div>
+<pre><code>## `summarise()` has grouped output by 'loan_status'. You can override using the
+## `.groups` argument.</code></pre>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">loan_status</th>
+<th align="left">draw</th>
+<th align="left">first_loan</th>
+<th align="right">total_amount</th>
+<th align="right">total_forgiven</th>
+<th align="right"># of loans</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Active Un-Disbursed</td>
+<td align="left">First</td>
+<td align="left">2021-03-25</td>
+<td align="right">63813</td>
+<td align="right">0</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Exemption 4</td>
+<td align="left">First</td>
+<td align="left">2020-04-03</td>
+<td align="right">1389553524</td>
+<td align="right">559340578</td>
+<td align="right">38158</td>
+</tr>
+<tr class="odd">
+<td align="left">Exemption 4</td>
+<td align="left">Second</td>
+<td align="left">2021-01-14</td>
+<td align="right">1482652384</td>
+<td align="right">358757422</td>
+<td align="right">18220</td>
+</tr>
+<tr class="even">
+<td align="left">Paid in Full</td>
+<td align="left">First</td>
+<td align="left">2020-04-03</td>
+<td align="right">8078194754</td>
+<td align="right">8013529397</td>
+<td align="right">90567</td>
+</tr>
+<tr class="odd">
+<td align="left">Paid in Full</td>
+<td align="left">Second</td>
+<td align="left">2021-01-14</td>
+<td align="right">1442336000</td>
+<td align="right">1444349131</td>
+<td align="right">22319</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>The <code>summarise</code> verb here has created a data frame that has only the variables you identified in the <code>group_by</code> and <code>summarise</code> commands - everything else has been removed, since it’s a <em>summary</em> of your data.</p>
+</div>
+<div id="understanding-grouped-data" class="section level3 unnumbered">
+<h3>Understanding grouped data<a class="anchor" aria-label="anchor" href="#understanding-grouped-data"><i class="fas fa-link"></i></a>
+</h3>
+<p>You may have noticed an odd warning after you ran the last code chunk that said:</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb58-1"><a href="r-verb-groupby.html#cb58-1" aria-hidden="true" tabindex="-1"></a>"<span class="in">`summarise()`</span> has grouped output by 'loan_status'. You can override using the <span class="in">`.groups`</span> argument." </span></code></pre></div>
+<p>What does that mean?</p>
+<p>When you grouped by loan status and draw, R effectively split up your data frame into five independent and completely divorced piles - one for each combination of draw and status that it found. It processed them one by one to create the output data frame that was printed out.</p>
+<p>After it’s done summarizing your data, R doesn’t know what you want to do with the piles – keep them, or put everything back together again.</p>
+<p>By default, after you group by more than one column, it maintains the separate piles for all but the last group in your list under <code>group_by</code> – in this case the <code>loan_status</code>. Here, everything you do after this will work on three piles seperately.The message tells you what it did with the piles, and how to change that behavior.</p>
+<p>That’s often what you want, as you’ll see in the next chapter. But if you want to stop it from doing that, then add an argument that looks like this at the end of the <code>summarise</code> statement:</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb59-1"><a href="r-verb-groupby.html#cb59-1" aria-hidden="true" tabindex="-1"></a> summarise ( loan_count = n(), </span>
+<span id="cb59-2"><a href="r-verb-groupby.html#cb59-2" aria-hidden="true" tabindex="-1"></a>            .groups = "drop")</span></code></pre></div>
+<p>or add a line at the end of your code (after a pipe) to return it to normal: <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup()</a></code>. You can get some really strange answers if you save a data frame that’s grouped and you don’t notice it.</p>
+<p>Here’s what a “glimpse()” looks like for a data frame that has retained some groups:</p>
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ppp_orig</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span> <span class="op">(</span> <span class="va">loan_status</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>## Rows: 169,268
+## Columns: 24
+## Groups: loan_status [3]
+## $ loan_id            &lt;dbl&gt; 2008847101, 3057347105, 3470877104, 3530847305, 377…
+## $ date_approved      &lt;date&gt; 2020-04-10, 2020-04-11, 2020-04-11, 2020-04-29, 20…
+## $ draw               &lt;chr&gt; "First", "First", "First", "First", "First", "First…
+## $ borrower_name      &lt;chr&gt; "SFE HOLDINGS LLC", "NAVAJO TRIBAL UTILITY AUTHORIT…
+## $ borrower_address   &lt;chr&gt; "9366 East Raintree Drive", "Po Box 170", "2999 N44…
+## $ borrower_city      &lt;chr&gt; "Scottsdale", "Fort Defiance", "Phoenix", "Tucson",…
+## $ borrower_state     &lt;chr&gt; "AZ", "AZ", "AZ", "AZ", "AZ", "AZ", "AZ", "AZ", "AZ…
+## $ borrower_zip       &lt;chr&gt; "85260", "86504", "85018", "85711", "85250", "85012…
+## $ franchise_name     &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ loan_status        &lt;chr&gt; "Paid in Full", "Exemption 4", "Paid in Full", "Exe…
+## $ loan_status_date   &lt;date&gt; 2021-08-17, NA, 2021-09-25, NA, 2021-08-07, NA, 20…
+## $ amount             &lt;dbl&gt; 10000000, 10000000, 10000000, 10000000, 10000000, 1…
+## $ forgiveness_amount &lt;dbl&gt; 10108219, NA, 10133389, 10131667, 10126027, NA, 101…
+## $ forgiveness_date   &lt;date&gt; 2021-06-11, NA, 2021-08-17, 2021-08-26, 2021-07-22…
+## $ lender             &lt;chr&gt; "The Huntington National Bank", "Great Western Bank…
+## $ rural_urban        &lt;chr&gt; "U", "R", "U", "U", "U", "U", "U", "U", "U", "U", "…
+## $ low_income_area    &lt;chr&gt; "N", "Y", "N", "Y", "Y", "Y", "N", "N", "Y", "N", "…
+## $ project_county     &lt;chr&gt; "MARICOPA", "APACHE", "MARICOPA", "PIMA", "MARICOPA…
+## $ project_state      &lt;chr&gt; "AZ", "AZ", "AZ", "AZ", "AZ", "AZ", "AZ", "AZ", "AZ…
+## $ project_cong_dist  &lt;chr&gt; "AZ-06", "AZ-01", "AZ-09", "AZ-02", "AZ-06", "AZ-09…
+## $ employees          &lt;dbl&gt; 500, 500, 500, 500, 500, 500, 500, 378, 500, 500, 5…
+## $ business_type      &lt;chr&gt; "Limited  Liability Company(LLC)", "Non-Profit Orga…
+## $ naics_code         &lt;chr&gt; "722310", "221122", "621610", "621111", "517311", "…
+## $ census_zip         &lt;chr&gt; "85260", "86504", "85018", "85711", "85250", "85012…</code></pre>
+<p>Notice the “Groups” row at the top – that tells you it’s still got three piles.</p>
+</div>
+</div>
+<div id="converting-to-wide-spreadsheet-format" class="section level2" number="17.3">
+<h2>
+<span class="header-section-number">17.3</span> Converting to “wide” (spreadsheet) format<a class="anchor" aria-label="anchor" href="#converting-to-wide-spreadsheet-format"><i class="fas fa-link"></i></a>
+</h2>
+<p>Normally, you’ll only want to have one summary statistic shown in a rectangle, with one column spread across the top and another column shown in rows. In R, this is done by “pivoting” your tables.</p>
+<p>In this case, we’re going from a “long” to a “wide” data structure, so it’s called <code>pivot_wider</code>.</p>
+<p>Here’s an explanation of what the command looks like. Don’t try to run this:</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb62-1"><a href="r-verb-groupby.html#cb62-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-2"><a href="r-verb-groupby.html#cb62-2" aria-hidden="true" tabindex="-1"></a>pivot_wider ( id_cols = *list of columns to keep down the side* , </span>
+<span id="cb62-3"><a href="r-verb-groupby.html#cb62-3" aria-hidden="true" tabindex="-1"></a>            names_from = *the name of the column supplying the headings across the top*, </span>
+<span id="cb62-4"><a href="r-verb-groupby.html#cb62-4" aria-hidden="true" tabindex="-1"></a>            values_from = *the values you want to show in each cell* , </span>
+<span id="cb62-5"><a href="r-verb-groupby.html#cb62-5" aria-hidden="true" tabindex="-1"></a>            values_fill = *what you want to show if it's empty, usually 0 *</span>
+<span id="cb62-6"><a href="r-verb-groupby.html#cb62-6" aria-hidden="true" tabindex="-1"></a>            )</span></code></pre></div>
+<p>So here’s how you’d do it for the previous example:</p>
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ppp_orig</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span> <span class="op">(</span> <span class="va">loan_status</span>, <span class="va">draw</span> <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span> <span class="op">(</span> loan_count <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span> <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span> <span class="op">(</span> id_cols <span class="op">=</span> <span class="va">loan_status</span>, 
+                names_from <span class="op">=</span> <span class="va">draw</span>, 
+                values_from <span class="op">=</span> <span class="va">loan_count</span>, 
+                values_fill <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></code></pre></div>
+<pre><code>## `summarise()` has grouped output by 'loan_status'. You can override using the
+## `.groups` argument.</code></pre>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">loan_status</th>
+<th align="right">First</th>
+<th align="right">Second</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Active Un-Disbursed</td>
+<td align="right">4</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Exemption 4</td>
+<td align="right">38158</td>
+<td align="right">18220</td>
+</tr>
+<tr class="odd">
+<td align="left">Paid in Full</td>
+<td align="right">90567</td>
+<td align="right">22319</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Your instinct will often be that you want to see your data in this form, but you can and should actually do most of your work without it, then turn it on its head when you want to display it. This is usually your very last step.</p>
+<div id="percentages" class="section level3" number="17.3.1">
+<h3>
+<span class="header-section-number">17.3.1</span> Percentages<a class="anchor" aria-label="anchor" href="#percentages"><i class="fas fa-link"></i></a>
+</h3>
+<p>You noticed that when you created the summaries, there was no option to create a “percent of total” such as the percent of loans in each draw, or the percent of money that had been forgiven.</p>
+<p>You’ll get more on the <code>mutate</code> verb in the next chapter, but it’s used to add a column to a data frame. You can use the same summary statistics you create in the <code>summarise</code> section, but they’ll be added to the existing data frame. Here’s how you can try it first using just one “group_by” column:</p>
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ppp_orig</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span> <span class="op">(</span> <span class="va">draw</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span> <span class="op">(</span> loan_count <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span> <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span> <span class="op">(</span> pct_of_total <span class="op">=</span> <span class="va">loan_count</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">loan_count</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">draw</th>
+<th align="right">loan_count</th>
+<th align="right">pct_of_total</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">First</td>
+<td align="right">128729</td>
+<td align="right">76.05041</td>
+</tr>
+<tr class="even">
+<td align="left">Second</td>
+<td align="right">40539</td>
+<td align="right">23.94959</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>When you add a second group_by, R keeps those columns and creates a percentage based on the subtotal:</p>
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ppp_orig</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span> <span class="op">(</span> <span class="va">draw</span>, <span class="va">loan_status</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span> <span class="op">(</span> loan_count <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span> <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span> <span class="op">(</span> pct_of_draw <span class="op">=</span> <span class="va">loan_count</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">loan_count</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span></code></pre></div>
+<pre><code>## `summarise()` has grouped output by 'draw'. You can override using the
+## `.groups` argument.</code></pre>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">draw</th>
+<th align="left">loan_status</th>
+<th align="right">loan_count</th>
+<th align="right">pct_of_draw</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">First</td>
+<td align="left">Active Un-Disbursed</td>
+<td align="right">4</td>
+<td align="right">0.0031073</td>
+</tr>
+<tr class="even">
+<td align="left">First</td>
+<td align="left">Exemption 4</td>
+<td align="right">38158</td>
+<td align="right">29.6421164</td>
+</tr>
+<tr class="odd">
+<td align="left">First</td>
+<td align="left">Paid in Full</td>
+<td align="right">90567</td>
+<td align="right">70.3547763</td>
+</tr>
+<tr class="even">
+<td align="left">Second</td>
+<td align="left">Exemption 4</td>
+<td align="right">18220</td>
+<td align="right">44.9443746</td>
+</tr>
+<tr class="odd">
+<td align="left">Second</td>
+<td align="left">Paid in Full</td>
+<td align="right">22319</td>
+<td align="right">55.0556254</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div id="practice" class="section level2" number="17.4">
+<h2>
+<span class="header-section-number">17.4</span> Practice<a class="anchor" aria-label="anchor" href="#practice"><i class="fas fa-link"></i></a>
+</h2>
+<p>Putting together the grouping and summarizing, along with the commands you learned last chapter to <code>filter</code>, <code>arrange</code> and display the <code><a href="https://rdrr.io/r/utils/head.html">head()</a></code> and <code><a href="https://rdrr.io/r/utils/head.html">tail()</a></code> of a dataset should equip you to write the code for these questions:</p>
+<ol style="list-style-type: decimal">
+<li>Which lenders provided the most loans?</li>
+<li>Which lenders provided the most amount of money loaned?</li>
+<li>Which borrowers got the least amount of money?</li>
+<li>Show the number of loans in each draw that went to the 24 (including <code>NA</code>) types of businesses. To see them all on one screen, add “, rows.print=25” to the heading of the code chunk like this: <code>{r  , rows.print=25}</code>
+</li>
+<li>Try to compute the percent of loans that went to projects in each county in Arizona. This will require first filtering, then grouping.</li>
+</ol>
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="r-verb-filter.html"><span class="header-section-number">16</span> Verbs in depth: Select, filter, arrange</a></div>
+<div class="next"><a href="r-verb-mutate.html"><span class="header-section-number">18</span> Verbs in depth: New from old data with Mutate</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li>
+<a class="nav-link" href="#r-verb-groupby"><span class="header-section-number">17</span> Verbs in depth: Aggregating with groups</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#get-an-overview-of-your-data-with-skimr">Get an overview of your data with skimr</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#summarise"><span class="header-section-number">17.1</span> summarise</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#the-dreaded-na"><span class="header-section-number">17.1.1</span> The dreaded NA</a></li>
+<li><a class="nav-link" href="#summary-functions"><span class="header-section-number">17.1.2</span> Summary functions</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#grouping"><span class="header-section-number">17.2</span> Grouping</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#grouping-by-one-column"><span class="header-section-number">17.2.1</span> Grouping by one column</a></li>
+<li><a class="nav-link" href="#grouping-by-more-than-one-column"><span class="header-section-number">17.2.2</span> Grouping by more than one column</a></li>
+<li><a class="nav-link" href="#understanding-grouped-data">Understanding grouped data</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#converting-to-wide-spreadsheet-format"><span class="header-section-number">17.3</span> Converting to “wide” (spreadsheet) format</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#percentages"><span class="header-section-number">17.3.1</span> Percentages</a></li></ul>
+</li>
+<li><a class="nav-link" href="#practice"><span class="header-section-number">17.4</span> Practice</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Data Reporting, Spring 2022</strong>" was written by Sarah Cohen. It was last built on 2022-03-31.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>
