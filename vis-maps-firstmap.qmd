@@ -1,0 +1,267 @@
+# The first map  {#vis-map-firstmap.qmd}
+
+::: {.alert .alert-secondary}
+::: {.alert-heading .font-weight-bolder .fs-3}
+In this chapter
+:::
+
+-   Create a map based on XY coordinates in a simple data file
+-   Get a base map from the Census using the `tigris` library
+-   Join the map to Census demographics
+-   Combine the two maps in an interactive plot
+:::
+
+Before you start, you will have to install a few new packages, either in the Console or using the "Packages" tab in the lower right of RStudio. These are: 
+
+* `tigris` for getting Census base maps
+* `sf` for working with *simple features*
+* `tmap` for displaying the maps
+* `tmaptools` to allow for an underlying reference map
+
+This tutorial is based on one created by Aaron Kessler, senior data reporter at the Associated Press, for the 2022 NICAR hands-on workshop on visualization. His materials for that session are on his [github repo](https://github.com/amkessler/NICAR2022_Dataviz_in_R/blob/master/Handson_GISMapping.Rmd) 
+
+## Using tmap vs. ggplot and leaflet
+
+There are several approaches to getting maps in R. In general, the heavy lifting is done the same way – through the sf (simple features) library. But displaying the maps can be done many different ways.
+
+The tmap library does a little more automatically than using the visualization library ggplot to make maps, so that's the approach this tutorial will take. Neither is better - tmap is a little easier and requires a little less typing, but is not quite as easy to marry with other Javascript interactive maps or to customize using ggplot.
+
+
+## Setup
+
+You'll want to change your typical setup chunk to this when you start using maps: 
+
+```{r}
+#| label: setup
+#| echo: fenced
+
+
+library(tidyverse)
+library(tigris)
+library(sf)
+library(tmap)
+library(gt)
+
+options(tigris_class="sf",
+        tigris_use_cache = TRUE)
+
+
+```
+
+
+The options make it easier to work with the Census bureau's maps. 
+
+## The first project
+
+Our first project involves getting points on a map of Maricopa County, then displaying it based on Census demographics. Here, we'll use voting locations as the points and Census tract level data for income. 
+
+### Points 
+
+We have a list of voting locations that were geocoded by the Arizona Republic last year, courtesy of Caitlin McGlade. The locations aren't exact -- some of the digits were chopped off, and some weren't found precisely. But they are generally in the right area. 
+
+Import that file using the usual `read_csv()` method. 
+
+```{r}
+
+
+locations <- read_csv("https://cronkitedata.s3.amazonaws.com/rdata/maricopa_voting_places.csv")
+
+glimpse(locations)
+
+```
+
+The Republic used a geocoding service that provides the data in the geographic reference WGS84, which is code 4326. There are names, addresses, and coordinates in this dataset.
+
+Here is how to turn the simple data into a geographic dataset: 
+
+```{r}
+
+locations_map <- 
+    locations |> 
+    st_as_sf ( 
+               coords = c("longitude", "latitude"), 
+               crs = 4326)
+
+
+
+```
+
+Now take a look at its structure, using the "str" rather than "glimpse" command, which provides a little more detail: 
+
+```{r}
+
+str(locations_map)
+
+
+```
+
+This is hard to read, but take a careful look: Its type of data includes "sf", along with data frame and table. The longitude and latitude columns are gone, replaced by a column called `geometry`. 
+
+We can check to see what projection R thinks it is in using the st_crs() function: 
+
+```{r}
+
+st_crs( locations_map)
+
+```
+
+### Using the `tmap` library to display the map
+
+
+```{r}
+#| label: quickmap
+
+
+tm_shape ( locations_map) +
+  tm_dots ( )
+
+
+```
+
+For a static map, there are a lot of extra packages that have to be installed and there are some dependencies that we don't want to deal with. Instead, we'll just view it as a dynamic map: 
+
+```{r}
+#| label: add-basemap
+#| message: false
+
+
+tmap_mode(mode="view")
+tm_shape ( locations_map) +
+  tm_dots ( )
+
+# turn it back to plot
+tmap_mode(mode="plot")
+
+
+```
+
+### Adding census tracts
+
+The `tigris` package gets us access to all of the geographic data from the Census Bureau. Among them are Census tracts. 
+
+```{r}
+#| label: getshapes
+
+maricopa_geo <- 
+  tigris::tracts(state = "04", county="013", year="2020", 
+                 cb=TRUE)
+
+
+```
+
+Take a look at the projection that this file is in, since it ought to match when putting two maps together: 
+
+```{r}
+
+st_crs(maricopa_geo)
+
+
+```
+
+This is a different coordinate system. 
+
+It's ok, since we really want them both to be in a system designed for this part of the world. 
+
+We will present our map  in the Arizona State Plane projection, 2868:
+
+```{r}
+
+tm_shape ( maricopa_geo, projection=2868) +
+  tm_polygons () +
+tm_shape ( locations_map, projection = 2868) +
+  tm_dots ( )
+
+
+
+```
+
+### Adding Census data
+
+I downloaded some data from the 2018-2021 American Community Survey. You can load it into your environment using this code chunk: 
+
+```{r}
+#| label: load-maricopa-data
+
+maricopa_demo <- readRDS(
+                       url ("https://cronkitedata.s3.amazonaws.com/rdata/maricopa_tract.Rds")
+)
+
+
+
+```
+
+Now, just like any other data, we can join these two datasets.
+
+```{r}
+maricopa_demo_map <- 
+  maricopa_geo |> 
+  left_join ( maricopa_demo, join_by ( GEOID==geoid)) |> 
+  select (GEOID, tot_pop:pct_minority )
+  
+
+glimpse (maricopa_demo_map)
+
+```
+
+(You don't need to select the "geometry" column -- it has to be there if it's a map.)
+
+## A chloropleth map
+
+Now we can use colors to show the percent of each tract that identified as a racial or ethnic minority in the American Community Surveys. 
+
+
+```{r}
+
+tm_shape ( maricopa_demo_map, 
+           projection = 2868) +
+  tm_polygons ( col = "pct_minority", 
+                style = "jenks", 
+                palette = "YlGnBu", 
+                border.col = NULL)
+
+
+
+```
+
+There are a lot of options for drawing the maps, but these are the most common. Using "jenks" natural breaks to find the groupings for colors. It tries to find a place where big changes in color won't happen for minor differences, but it sometimes needs to be tweaked. 
+
+#### Color palettes
+
+You may notice I changed the color palette so that the states with a lot of water are in blue and those with little are in yellow! Here are the common palettes used in R, which come from the [Color Brewer: color advice for cartography](https://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3):
+
+```{r}
+#| fig-width: 8
+#| fig-height: 8
+
+RColorBrewer::display.brewer.all()
+
+```
+
+
+## Adding the voting places and making it interactive
+
+```{r}
+#| message: false
+
+tmap_mode("view")
+
+tm_shape ( maricopa_demo_map, 
+           projection = 2868) +
+  tm_polygons ( col = "pct_minority", 
+                style = "jenks", 
+                palette = "YlGnBu", 
+                border.col = NULL, 
+                alpha = .3) +
+tm_shape ( locations_map) +
+  tm_dots (col = "red")
+
+
+```
+
+
+You have now made an interactive map of the Census Tracts and voter locations in Maricopa County, from start to finish! It's not good enough to publish, but it's good enough for you to explore on your own. 
+
+This method of making maps doesn't have very many options, but it's the simplest way to get started. 
+
+You can also use the `ggplot` library, with additional options added with other packages, to create a publishable static or interactive map. 
+

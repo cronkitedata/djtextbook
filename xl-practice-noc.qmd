@@ -1,0 +1,55 @@
+# Practice exercise { #xl-practice-noc}
+
+This exercise gives you a chance to look at some messy real-world data that is frustrating but useful. Use it to practice your filtering and pivot table skills.
+
+## Data source
+
+[Data download](https://cronkitedata.s3.us-west-1.amazonaws.com/xlfiles/phx_claims_flagged.xlsx)
+
+[City link to Notice of claims form and instructions to claimants](https://www.phoenix.gov/financesite/Documents/City%20of%20Phoenix%20Claim%20Form%20%28REVISED%206-7-21%29.pdf) 
+
+[Backgrounder on the data from Helen Wieffering](https://docs.google.com/document/d/1j-vIiuysefqOrDAN-pIR5NqCq8mKqTBmQKcuhRLXy0o/edit?usp=sharing)
+
+This dataset includes all "Notice of Claims" against the city of Phoenix between 2010 and 2020. These claims refer to damages that people say they suffered because of a problem in the government ranging from slip-and-fall in a city building to use of force by police.  It was obtained by Helen Wieffering just after the end of the 2020 fiscal year, so many of the claims from that year will be unresolved. Although the names of the claimants are public record, they were not included in the data compiled here. Also missing is the court case number of any cases that went to court. 
+
+Make sure to look at the "data_dictionary" sheet for the definitions of each column before you start. 
+
+
+
+## Sort / filter
+
+I almost always go into the Excel preferences, and under "Tables & Filters" turn off the check that says "Use table names in formulas".  Sometimes it sticks, sometimes it doesn't. Have no idea why. 
+
+1.  What is the orig_order (id) value of the largest PAID claim in the database (combined personal injury and property) ? 
+
+2. What department and cause were associated with that payment?  
+
+3. How long did it take to resolve it?  
+
+4. Describe the most recent claim made  against the police related to law enforcement activities, regardless of whether it's been resolved.
+
+5. Using your filter, determine how many *paid* claims were made for  "Shootings".  in the type of claim. 
+
+6. Find one other thing that you might want to research further that could make an interesting one-off story.  These are distinct events that you'd like to know more about, not trends or patterns. This requires no calculation, just your news judgment. Base it solely on what you see in this data, not other research. 
+
+## Pivot table practice
+
+
+### Create the pivot table {-}
+
+1, Create an empty pivot table from the data table.
+
+2. Look for the "Options" tab toward the top left, and turn off "Generate GetPivotData". In the same tab, under "Options", set error values to "N/A", and set Empty cells to zero (meaning there was nothing in that category.) 
+
+3. Drag "Department" to the row area
+5. Drag the type_case to the filter area 
+6. Drag the "department" to the Values area and make sure it says "Count of Department". 
+7. Drag the pd_total to the Values area, and make sure it says "Sum of pd_total". If it doesn't, change the pivot table calculation to "Sum". Repeat that three times, with "average", "min" and "max". 
+
+### Other questions {-}
+
+1. What department had the most claims made against them from FY 2015-16 to through 2019-2020? 
+
+2. How much did the city pay in that time because of complaints against Streets. Did any department pay more? 
+
+3. Your turn: Ask an interesting question of this data and try to answer it. 

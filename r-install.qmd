@@ -1,0 +1,114 @@
+# Installing R and RStudio {#r-install}
+
+::: {.alert .alert-secondary}
+::: {.alert-heading .font-weight-bolder .fs-3}
+In this chapter
+:::
+
+-   Install R , RStudio
+-   Change default settings for working in data reporting
+:::
+
+
+
+## Install R and RStudio 
+
+-   R is the programming language itself, and has to be installed first. Andrew Heiss has called it the "engine" behind your work.
+-   RStudio, made by the company [posit.co](https://posit.co), is the way we'll interact with the programming language. Install it second. Heiss calls it the "fancy car" that you drive.
+
+
+::: {.alert-success .alert-dothis .p-3 .mb-2}
+
+Try following this tutorial for installing R, RStudio and the package called the `tidyverse` on your computer. 
+
+<https://learnr-examples.shinyapps.io/ex-setup-r/#section-welcome> .
+
+
+::: 
+
+
+The name of the company has changed from RStudio to Posit, so some of the links may now take you to the Posit site. The name of the software -- RStudio -- has not changed.
+
+
+### Details on installing R
+
+
+
+There are two versions of R for Mac users: The traditional one and the one for the new M1 chip on the latest machines. Choose the one that matches your machine by checking the apple in the upper left and looking at "About this Mac". It will say "Apple M1" as the processor if you have it.
+
+Link to find your version: <https://cloud.r-project.org/>
+
+**Mac OS:**
+
+![The version you see may be higher than "4.1". As of December 2022, it's 4.2.2](assets/images/r-start-dist-macs.png)
+
+**Windows 10/11:**
+
+You only need the "base" version for our class.
+
+### Details on installing RStudio
+
+There is no special RStudio version for Mac M1's. As of December, 2022, these are the versions:
+
+-   [RStudio for Windows 10/11](https://download1.rstudio.org/electron/windows/RStudio-2022.12.0-353.exe)
+-   [RStudio for Mac OS](https://download1.rstudio.org/electron/macos/RStudio-2022.12.0-353.dmg)
+
+Check for later versions of the Desktop product on the [Posit website](https://posit.co/downloads/).
+
+
+::: callout-note
+### Mac users: Command line tools
+
+If you get an error during or after installation about "command line tools", ask me to help you. It's a simple fix. RStudio will actually work without it, but you'll get a lot of annoying warnings.
+
+If later during package installation you get errors that mention "git" or "xcode-select" just say yes!
+
+If R asks you if you want to install packages from "source", say "No".
+:::
+
+If you go all the way through the tutorial, installing the tidyverse will take a while and look like it's stuck. It's not.
+
+
+### Emergency backup plan
+
+[Posit Cloud](https://posit.cloud/) allows you to use R and RStudio without installing it on your computer. Use it as a last resort. Believe me, this will be a pain, but it can work to get you started. You will probably have to upgrade to a paid account if you choose this route. 
+
+Some limitations: 
+
+1. You'll have to upload everything you want to use to the cloud, then download the final (saved) versions when you want to turn them in.  
+2. It doesn't work very well on the Quarto documents that we'll be using. You might not be able to see your finished document. It just fails. A lot.
+3. You can only use 1GB RAM - this won't be enough for some projects. 
+4. You only get 25 hours per month to use it. During the key part of our course, you could (and should) run out of time and won't be able to access your work until you pay.
+5. You have to remember to save your work and periodically restart R. It doesn't remind you and you might lose everything by closing out a tab. If you don't's save before turning in your work, I won't see it. 
+
+
+## Set up RStudio for data reporting
+
+Staying organized is one of the challenges of data reporting -- you're constantly re-downloading and re-jiggering your analysis and it's easy to get your material separated. This setup helps ensure that you always know where to find your work and can move it to another comptuer seamlessly.
+
+Before you start, decide on a folder you'll use to store all of your R work.
+
+::: {.alert .alert-sucess .alert-dothis}
+1.  Create a folder called `maij-working` within your Documents folder (or on the root folder of your portable hard drive)
+
+2.  Start up RStudio (NOT R) , and choose `Tools` -\> `Global options` (in a Mac)
+
+3.  Make sure that all of the options to save .Rdata and load files on startup are UN-checked
+:::
+
+Here's a video of what you should do. It also gives you a little reminder of how your computer is organized in folders. 
+
+
+
+::: {.content-visible when-format="html" }
+
+{{< video "https://youtu.be/KbAcoHbEanI"  >}}
+:::
+
+
+<!-- don't try to keep it for pdf format-->
+
+::: {.content-visible when-format="pdf"}
+<https://www.youtube.com/KbAcoHbEanI>
+:::
+

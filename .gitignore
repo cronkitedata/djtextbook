@@ -1,0 +1,14 @@
+**/.DS_Store
+.Rhistory
+.Rproj.user
+.Rproj.user/
+.RData
+.Ruserdata
+.Rproj
+.Rapp.history
+_main.log
+_common.R
+/.quarto
+/.quarto/
+/scratch
+docs/.nojekyll

@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Data Reporting - 20&nbsp; Verbs in depth: Matchmaking with joins</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./r-recipes.html" rel="next">
+<link href="./r-verb-groupby.html" rel="prev">
+<link href="./assets/images/favicon.ico" rel="icon">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+</head>
+<body class="nav-sidebar floating">
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./r.html">R Study Guide</a></li><li class="breadcrumb-item"><a href="./r-verb-join.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Verbs in depth: Matchmaking with joins</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./assets/images/favicon.ico" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Reporting</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/cronkitedata/djtextbook" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./start.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reporting with data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./start-story.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Learn a new way to read</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./start-math.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Newsroom math</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./start-data-def.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Defining “Data”</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./start-data-diary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Replication and the data diary</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./start-hunt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Finding the right data for your story</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./start-build-own.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Build your own database</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./xl.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Spreadsheets</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./xl-refresher.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">An Excel Refresher</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./xl-filter-sort.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Sorting and filtering to find stories</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./xl-pivot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Grouping with pivot tables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./xl-formulas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Formulas in Excel</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./xl-practice-noc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Practice exercise</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Study Guide</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-install.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Installing R and RStudio</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-start.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Getting started with R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Using Quarto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-data-import.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Getting and saving data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-verbs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">A quick tour of verbs</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-verb-filter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Verbs in depth: Select, arrange, filter</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-verb-mutate.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Verbs in depth: New from old data with Mutate</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-verb-groupby.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Verbs in depth: Aggregating with groups</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-verb-join.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Verbs in depth: Matchmaking with joins</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-recipes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Recipes</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./vis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualization</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vis-reporting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Visualization as a reporting tool</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vis-tables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Report-making in R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vis-demo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Visualization demo</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vis-practice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Visualization exercise</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vis-maps-begin.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Mapping: An introduction</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vis-maps-firstmap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">The first map</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./advanced.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Special skills</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced-pdf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Working with PDF files</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced-regex.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Regular Expressions for pattern matching</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced-openrefine.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Open refine walkthrough</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced-scrape1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Scraping without programming</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced-scrape2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Introduction to scraping in R</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-math.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Newsroom numbers cheat sheet</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-program.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">A gentle intro to programming</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-ppp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Documentation for PPP data chapters</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+    <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li>
+<a href="#join-basics-and-relational-databases" id="toc-join-basics-and-relational-databases" class="nav-link active" data-scroll-target="#join-basics-and-relational-databases"><span class="header-section-number">20.1</span> Join basics and relational databases</a>
+  <ul class="collapse">
+<li><a href="#relational-databases" id="toc-relational-databases" class="nav-link" data-scroll-target="#relational-databases"><span class="header-section-number">20.1.1</span> Relational databases</a></li>
+  <li><a href="#join-syntax" id="toc-join-syntax" class="nav-link" data-scroll-target="#join-syntax"><span class="header-section-number">20.1.2</span> join syntax</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#matchmaking-with-joins" id="toc-matchmaking-with-joins" class="nav-link" data-scroll-target="#matchmaking-with-joins"><span class="header-section-number">20.2</span> Matchmaking with joins</a>
+  <ul class="collapse">
+<li><a href="#attaching-characteristics-to-a-dataset" id="toc-attaching-characteristics-to-a-dataset" class="nav-link" data-scroll-target="#attaching-characteristics-to-a-dataset">Attaching characteristics to a dataset</a></li>
+  <li><a href="#summarize-data-against-another-dataset" id="toc-summarize-data-against-another-dataset" class="nav-link" data-scroll-target="#summarize-data-against-another-dataset">Summarize data against another dataset</a></li>
+  <li><a href="#enterprise-joins" id="toc-enterprise-joins" class="nav-link" data-scroll-target="#enterprise-joins">“Enterprise” joins</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#using-lookup-tables-ppp-industry-codes" id="toc-using-lookup-tables-ppp-industry-codes" class="nav-link" data-scroll-target="#using-lookup-tables-ppp-industry-codes"><span class="header-section-number">20.3</span> Using lookup tables: PPP industry codes</a>
+  <ul class="collapse">
+<li><a href="#attaching-words-to-codes" id="toc-attaching-words-to-codes" class="nav-link" data-scroll-target="#attaching-words-to-codes"><span class="header-section-number">20.3.1</span> Attaching words to codes</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#joining-risks" id="toc-joining-risks" class="nav-link" data-scroll-target="#joining-risks"><span class="header-section-number">20.4</span> Joining risks</a>
+  <ul class="collapse">
+<li><a href="#joining-tldr" id="toc-joining-tldr" class="nav-link" data-scroll-target="#joining-tldr"><span class="header-section-number">20.4.1</span> joining tl;dr</a></li>
+  <li><a href="#double-counting-with-joins" id="toc-double-counting-with-joins" class="nav-link" data-scroll-target="#double-counting-with-joins"><span class="header-section-number">20.4.2</span> Double counting with joins</a></li>
+  <li><a href="#losing-rows-with-joins" id="toc-losing-rows-with-joins" class="nav-link" data-scroll-target="#losing-rows-with-joins"><span class="header-section-number">20.4.3</span> Losing rows with joins</a></li>
+  </ul>
+</li>
+  <li><a href="#congratulate-yourself" id="toc-congratulate-yourself" class="nav-link" data-scroll-target="#congratulate-yourself"><span class="header-section-number">20.5</span> Congratulate yourself</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="header-section-number">20.6</span> Resources</a></li>
+  </ul></nav>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content page-columns page-full column-body" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="r-verb-join" class="quarto-section-identifier"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Verbs in depth: Matchmaking with joins</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Update your packages!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Be sure to update your packages in by pressing the Update button in the lower right panel under “Packages”. This version of joining was introduced in February 2023 – you’ll get errors if the packages are out of date.</p>
+</div>
+</div>
+<div class="alert alert-secondary">
+<div class="alert-heading font-weight-bolder fs-3">
+<p>In this chapter</p>
+</div>
+<ul>
+<li>A <code>join</code> combines two or more data frames when columns contain matching values</li>
+<li>Lookup tables use joins to translate codes into words in traditional database systems. Be sure to ask for them in any public records request for data.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>
+</li>
+<li>Relational databases implement “tidy data” principles by storing different types of units in different tables, linked by ID codes stored in each table. Be sure to ask for unique identifiers for each table when you request public records, or you won’t be able to put them together.</li>
+<li>Reporters don’t always stick to matchmaking the way the database designers intended. “Enterprise” joins are those that let you find needles in a haystack, such as bus drivers with a history of DUIs.</li>
+<li>Matching one data frame against an entirely different one will always produce mistakes, even if your code runs perfectly. You can minimize the <em>kind</em> of error you fear most – false positives or false negatives – but you likely will have to report out your findings on the ground.</li>
+</ul>
+</div>
+<section id="join-basics-and-relational-databases" class="level2 page-columns page-full" data-number="20.1"><h2 data-number="20.1" class="anchored" data-anchor-id="join-basics-and-relational-databases">
+<span class="header-section-number">20.1</span> Join basics and relational databases</h2>
+<p>Here is a great explainer on joins made by a previous MAIJ student, Andy Blye. Be sure to watch it:</p>
+<div class="quarto-video"><iframe data-external="1" src="https://www.youtube.com/embed/4xPrnDYZXw4" width="400" height="300" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<p><code>joining</code> in computer programming matches columns in one table to another, where the values within one or more columns match exactly. Here’s an example from <a href="https://stat545.com/index.html">Jenny Bryan’s Stat 545 course textbook</a>:</p>
+<div class="column-screen-inset-right">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="assets/images/bryan-superheroes.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">superheroes</figcaption></figure>
+</div>
+</div>
+<section id="relational-databases" class="level3" data-number="20.1.1"><h3 data-number="20.1.1" class="anchored" data-anchor-id="relational-databases">
+<span class="header-section-number">20.1.1</span> Relational databases</h3>
+<p>Most large data systems created since the 1980s are called “relational databases”, which means that each unit (person, ticket, vehicle) is stored in a different table<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, and common columns link them together. They also routinely use codes or shorthand to store data, and provide another table to “look up” the details.</p>
+<p>For example, your student ID is stored in one place in the university system with your name, address, email address, etc. When you sign up for courses, the database looks up that information to attach to your schedule. You only have to change it in one place, and it is automatically sent out through all of the interactions you have with the university.</p>
+<p>Similarly, the course number, section and term is all that needs to be stored in the system for any semester. Those data points then populate the name of the course, the students registered for it, and holidays.</p>
+<p>The system is created this way because it’s more efficient and reliable. Important information is stored only once, and can then be applied to millions of rows.</p>
+<p>Examples of relational databases include:</p>
+<ul>
+<li>Campaign finance systems, where donors are stored in one table and candidates in another, linked through a candidate or political action committee id.</li>
+<li>Inspection records, such as those for restaurants, hospitals, housing code violations and workplace safety, which typically have at least <em>three</em> tables: The establishment (like a restaurant or a workplace), an inspection (an event on a date), and a violation (something that they found). Each table has its own ID, which is used whenever they are linked together.</li>
+<li>A court docket data system, which usually has many types of rows: A master case table links to information on charges, defendants, lawyers, sentences and court hearings.</li>
+</ul>
+<p>This conforms to the <strong>tidy data</strong> principles that you examined in the last chapter.</p>
+<p>Usually, you will have what is known as a “1-to-many” join. That is, there are many instances of a value in one table’s column, but just one instance of it in the lookup or related table. The superheroes example above is one of those instances: There are many entries for DC comics in the superhero table, but just one in the publisher table.</p>
+<p>If this isn’t true, you will have what is known as “many-to-many” joins, which is, in layman’s terms, a bowl of tangled spaghetti. Each match will be duplicated the number of times it is in the related table. Experts call this a cartesian join, and it’s usually bad.</p>
+</section><section id="join-syntax" class="level3" data-number="20.1.2"><h3 data-number="20.1.2" class="anchored" data-anchor-id="join-syntax">
+<span class="header-section-number">20.1.2</span> join syntax</h3>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>There are actually pretty good explanations of the <a href="https://dtplyr.tidyverse.org/reference/left_join.dtplyr_step.html">concept of joining</a> and the <a href="https://dplyr.tidyverse.org/reference/join_by.html">variations of it in R</a> in the documentation.</p>
+</div>
+</div>
+<p>There are several kinds of joins, but the syntax is similar across them.</p>
+<pre><code>  old_table |&gt;
+     inner_join (new_table , 
+     join_by = (name of old_table column == name of new_table column) )
+     </code></pre>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Try to piece together what this is saying, similar to the filter conditions: If the two columns are equal (double-equal signs), put them together.</p>
+</div>
+</div>
+<section id="types-of-joins" class="level4"><h4 class="anchored" data-anchor-id="types-of-joins">Types of joins</h4>
+<ul>
+<li>An <code>inner_join</code> means that the value(s) in the common columns must match in BOTH tables – it will eliminate any row without a match</li>
+<li>A <code>left_join</code> or <code>right_join</code> keeps everything from one table, and only the information that matches from the other. Those columns will contain NA wherever the match fails.</li>
+<li>A <code>full_join</code> puts together both tables no matter whether there is any match. It’s pretty rare to use this.</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The new version of the join verb has a lot of new capabilities, including “fuzzy joins”, which let you get answers when they are almost the same. For now, we’re sticking with the standard way joins work across programming languages, but will come back to fuzzy matching later.</p>
+</div>
+</div>
+</section></section></section><section id="matchmaking-with-joins" class="level2" data-number="20.2"><h2 data-number="20.2" class="anchored" data-anchor-id="matchmaking-with-joins">
+<span class="header-section-number">20.2</span> Matchmaking with joins</h2>
+<section id="attaching-characteristics-to-a-dataset" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="attaching-characteristics-to-a-dataset">Attaching characteristics to a dataset</h3>
+<p>You’ll often want to learn more about a geographic area’s demographics, voting habits or other characteristics, and match it to other data. Sometimes it’s simple: Find the demographics of counties that switched from Trump to Biden as a way to isolate places you might want to visit. Another example from voting might be to find the precinct that has the highest percentage of Latino citizens in the county, then match that precinct against the voter registration rolls to get a list of people you might want to interview on election day. In these instances, the <code>join</code> is used as a filter, but it comes from a different table. .</p>
+<p>This is also common when you have data by zip code or some other geography, and you want to find clusters of interesting potential stories, such as PPP loans in minority neighborhoods.</p>
+</section><section id="summarize-data-against-another-dataset" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="summarize-data-against-another-dataset">Summarize data against another dataset</h3>
+<p>The previous examples all result in lists of potential story people or places. If you use join on summarized data, you can characterize a broad range of activity across new columns. Simplified, this is how you can write that more PPP money went to predominantly white neighborhoods than those that were majority Black.</p>
+</section><section id="enterprise-joins" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="enterprise-joins">“Enterprise” joins</h3>
+<p>Investigative reporters often use joins in ways unintended by the data creators. In the 1990s, they dubbed these “enterprise” joins, referring to the enterprising reporters who thought of them. In these instances, reporters combine data sets in ways that find needles in haystacks, such as:</p>
+<ul>
+<li>School bus drivers who have had tickets for driving while intoxicated.</li>
+<li>Day care center operators who are listed on the sex offender registry.</li>
+<li>Donors to a governor who got contracts from the state</li>
+</ul>
+<p>When you match these kinds of datasets, you will <strong>always</strong> have mistakes — some apparent matches are incorrect in the real world; some matches that should exist are ignored because of variations in names or other details. You always have to report out any suspected matches, so they are time consuming stories.</p>
+<p>In the mid-2000s, when some politicians insisted that dead people were voting and proposed measures to restrict voting, almost every regional news organization sent reporters on futile hunts for the dead voters. They got lists of people on the voter rolls, then lists of people who had died through the Social Security Death Index or local death certificates. I never met anyone who found a single actual dead voter, but months of reporter-hours were spent tracking down each lead. Instead, they were people who had not yet been eliminated on the rolls but never voted. In others, they were people with the same names who had nothing to do with the dead person. In still others, they were the same people, but very much alive!</p>
+<p>It’s very common for two people to have the same name in a city. In fact, it’s common to have two people at the same home with the same name – they’ve just left off “Jr.” and “Sr.” in the database. In this case, you’ll find matches that you shouldn’t. These are false positives, or Type I errors in statistics.</p>
+<p>We rarely get dates of birth or Social Security Numbers in public records, so we have to join by name and sometimes location. If someone has moved, sometimes uses a nickname, or the government has recorded the spelling incorrectly, the join will fail – you’ll miss some of the possible matches. This is very common with company names, which can change with mergers and other changes in management, and can be listed in many different ways.</p>
+<p>These are false negatives, or Type II errors in statistics.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<p>In different contexts, you’ll want to minimize different kinds of errors. For example, if you are looking for something extremely rare, and you want to examine every possible case – like a child sex offender working in a day care center – you might choose to make a “loose” match and get lots of false positives, which you can check. If you want to limit your reporting only to the most promising leads, you’ll be willing to live with missing some cases in order to be more sure of the joins you find.</p>
+<p>You’ll see stories of this kind write around the lack of precision – they’ll often say, “we verified x cases of….” rather than pretend that they know of them all.</p>
+</section></section><section id="using-lookup-tables-ppp-industry-codes" class="level2" data-number="20.3"><h2 data-number="20.3" class="anchored" data-anchor-id="using-lookup-tables-ppp-industry-codes">
+<span class="header-section-number">20.3</span> Using lookup tables: PPP industry codes</h2>
+<p>The PPP data has a code called the <code>naics_code</code>, which is an industry coding system created by the Census to categorize all economic activity.</p>
+<p>We’ll use a table that contains the list of industries and match it to the PPP data. (The lookup table was derived from the <code>concordance</code> package in R, but is fully explained at the <a href="https://www.census.gov/naics/?58967?yearbck=2017">Census website</a>.)</p>
+<div class="alert alert-success alert-dothis">
+<p>Once you load these data frames, be sure to explore them a little to make sure you understand what they contain.</p>
+</div>
+<p>The following code chunk loads both the original PPP data and the code table:</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">naics_codes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html">url</a></span> <span class="op">(</span> <span class="st">"https://cronkitedata.s3.amazonaws.com/rdata/naics_lookup.RDS"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">ppp_orig</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/connections.html">url</a></span> <span class="op">(</span> <span class="st">"https://cronkitedata.s3.amazonaws.com/rdata/ppp_az_loans.RDS"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">glimpse</span><span class="op">(</span><span class="va">naics_codes</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 1,043
+Columns: 6
+$ naics_code     &lt;chr&gt; "111110", "111120", "111130", "111140", "111150", "1111…
+$ sector_code    &lt;chr&gt; "11", "11", "11", "11", "11", "11", "11", "11", "11", "…
+$ subsector_code &lt;chr&gt; "111", "111", "111", "111", "111", "111", "111", "111",…
+$ sector_desc    &lt;chr&gt; "Agriculture, Forestry, Fishing and Hunting", "Agricult…
+$ subsector_desc &lt;chr&gt; "Crop Production", "Crop Production", "Crop Production"…
+$ naics_desc     &lt;chr&gt; "Soybean Farming", "Oilseed (except Soybean) Farming", …</code></pre>
+</div>
+</div>
+<p>Notice that the industry code is 7 characters long, and has a detailed description. There are also “sector” and “subsector” codes, which use only the beginning of the code, and link to more general descriptions.</p>
+<section id="attaching-words-to-codes" class="level3" data-number="20.3.1"><h3 data-number="20.3.1" class="anchored" data-anchor-id="attaching-words-to-codes">
+<span class="header-section-number">20.3.1</span> Attaching words to codes</h3>
+<p>In this example, we’ll take a small set of columns from the original table, and show how it links to the lookup table:</p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ppp_orig</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">select</span> <span class="op">(</span> <span class="va">borrower_name</span>, <span class="va">amount</span>, <span class="va">naics_code</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">inner_join</span> <span class="op">(</span> <span class="va">naics_codes</span>, </span>
+<span>               <span class="fu">join_by</span> <span class="op">(</span><span class="va">naics_code</span> <span class="op">==</span> <span class="va">naics_code</span><span class="op">)</span> </span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">glimpse</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 169,259
+Columns: 8
+$ borrower_name  &lt;chr&gt; "SFE HOLDINGS LLC", "NAVAJO TRIBAL UTILITY AUTHORITY", …
+$ amount         &lt;dbl&gt; 10000000, 10000000, 10000000, 10000000, 10000000, 10000…
+$ naics_code     &lt;chr&gt; "722310", "221122", "621610", "621111", "517311", "6211…
+$ sector_code    &lt;chr&gt; "72", "22", "62", "62", "51", "62", "56", "62", "48", "…
+$ subsector_code &lt;chr&gt; "722", "221", "621", "621", "517", "621", "561", "621",…
+$ sector_desc    &lt;chr&gt; "Accommodation and Food Services", "Utilities", "Health…
+$ subsector_desc &lt;chr&gt; "Food Services and Drinking Places", "Utilities", "Ambu…
+$ naics_desc     &lt;chr&gt; "Food Service Contractors", "Electric Power Distributio…</code></pre>
+</div>
+</div>
+</section></section><section id="joining-risks" class="level2" data-number="20.4"><h2 data-number="20.4" class="anchored" data-anchor-id="joining-risks">
+<span class="header-section-number">20.4</span> Joining risks</h2>
+<section id="joining-tldr" class="level3" data-number="20.4.1"><h3 data-number="20.4.1" class="anchored" data-anchor-id="joining-tldr">
+<span class="header-section-number">20.4.1</span> joining tl;dr</h3>
+<p>There are lots of risks in joining tables that you created yourself, or that were created outside a big relational database system. Keep an eye on the number of rows returned every time that you join – you should know what to expect.</p>
+</section><section id="double-counting-with-joins" class="level3" data-number="20.4.2"><h3 data-number="20.4.2" class="anchored" data-anchor-id="double-counting-with-joins">
+<span class="header-section-number">20.4.2</span> Double counting with joins</h3>
+<p>We won’t go into this in depth, but just be aware it’s easy to double-count rows when you join. Here’s a made-up example, in which a zip code is on the border and is in two counties:</p>
+<p>Say you want to use some data on zip codes :</p>
+<table class="table">
+<thead><tr class="header">
+<th>zip code</th>
+<th>county</th>
+<th>info</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>85232</td>
+<td>Maricopa</td>
+<td>some data</td>
+</tr>
+<tr class="even">
+<td>85232</td>
+<td>Pinal</td>
+<td>some more data</td>
+</tr>
+</tbody>
+</table>
+<p>and match it to a list of restaurants in a zip code:</p>
+<table class="table">
+<thead><tr class="header">
+<th>zip code</th>
+<th>restaurant name</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>85232</td>
+<td>My favorite restaurant</td>
+</tr>
+<tr class="even">
+<td>85232</td>
+<td>My second-favorite restaurant</td>
+</tr>
+</tbody>
+</table>
+<p>When you match these, you’ll get <strong>4</strong> rows:</p>
+<table class="table">
+<thead><tr class="header">
+<th>zip code</th>
+<th>county</th>
+<th>info</th>
+<th>restaurant name</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>85232</td>
+<td>Maricopa</td>
+<td>some data</td>
+<td>My favorite restaurant</td>
+</tr>
+<tr class="even">
+<td>85232</td>
+<td>Pinal</td>
+<td>some more data</td>
+<td>My favorite restaurant</td>
+</tr>
+<tr class="odd">
+<td>85232</td>
+<td>Maricopa</td>
+<td>some data</td>
+<td>My second-favorite restaurant</td>
+</tr>
+<tr class="even">
+<td>85232</td>
+<td>Pinal</td>
+<td>some more data</td>
+<td>My second-favority restaurant</td>
+</tr>
+</tbody>
+</table>
+<p>Now, every time you try to count restaurants, these two will be double-counted.</p>
+<p>In computing, this is called a “many-to-many” relationship – there are many rows of zip codes and many rows of restaurants. In journalism, we call it spaghetti. It’s usually an unintended mess.</p>
+</section><section id="losing-rows-with-joins" class="level3" data-number="20.4.3"><h3 data-number="20.4.3" class="anchored" data-anchor-id="losing-rows-with-joins">
+<span class="header-section-number">20.4.3</span> Losing rows with joins</h3>
+<p>The opposite can occur if you aren’t careful and there are items you want to keep that are missing in your reference table. If there were invalid NAICS codes in the original data, they would have been eliminated from the resulting joined table.</p>
+</section></section><section id="congratulate-yourself" class="level2" data-number="20.5"><h2 data-number="20.5" class="anchored" data-anchor-id="congratulate-yourself">
+<span class="header-section-number">20.5</span> Congratulate yourself</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Congratulations! This is the last key verb that you need to understand to address most stories. Your palette now has all of the primary colors!</p>
+</div><div class="column" style="width:50%;">
+<p><img src="assets/images/andres-perez-unsplash.jpg" style="height:3in"></p>
+</div>
+</div>
+</section><section id="resources" class="level2" data-number="20.6"><h2 data-number="20.6" class="anchored" data-anchor-id="resources">
+<span class="header-section-number">20.6</span> Resources</h2>
+<ul>
+<li><p>The “<a href="https://r4ds.had.co.nz/relational-data.html">Relational data</a>” chapter in the R for Data Science textbook has details on exactly how a complex data set might fit together.</p></li>
+<li><p><a href="https://stat545.com/join-cheatsheet.html#left_joinsuperheroes-publishers">An example using a superheroes dataset</a>, from Stat 545 at the University of British Columbia</p></li>
+</ul>
+
+
+</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+<ol>
+<li id="fn1"><p>I ask for “code sheets, lookup tables, or any other material needed to interpret the data.”<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>another name for a data frame<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p> I remember them by thinking of the boy who cried wolf. When the village came running and there was no wolf, it was a Type I error, or false positive ; when the village ignored the boy and there was a wolf, it was a Type II error, or false negative.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation column-body"><div class="nav-page nav-page-previous">
+      <a href="./r-verb-groupby.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Verbs in depth: Aggregating with groups</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./r-recipes.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Recipes</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">Data reporting for investigative journalism, Spring 2023 was written by Sarah Cohen</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">Produced with <a href="https://quarto.org">Quarto</a></div>
+  </div>
+</footer>
+
+
+</body></html>

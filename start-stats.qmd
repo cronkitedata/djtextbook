@@ -1,0 +1,45 @@
+# Newsroom statistical thinking {#start-stats}
+
+
+TAKE FROM FINDING MY WAY: PAPER ROUTE, which is well summarized in Jay's book. 
+
+It's impossible to think of data journalism today without referring to Philip Meyer, who penned "Precision Journalism" a half-century ago. If you have any interest in pursuing work in investigative data reporting, the book should be on your short list.
+
+Meyer's advocacy of the use of social science methods in journalism didn't start with a love of numbers and surveys. Instead, it grew out of a desire to apply the principles identified by Walter Lippman, who sought to apply the scientific definition of objectivity to the propaganda and muckraking of the 1920s.
+
+
+Anyone who has studied or thought about journalism and reporting in the 21st century has come across the tired disputes between advocacy for truth and "objectivity" in news -- disputes that may finally be put to rest by Len Downie and Andrew Heyward's "Beyond Objectivity" report. 
+
+But there are other concepts of objectivity that come from outside journalism, which have been advocated by author Tom Rosenstiel and  Columbia Graduate School of Journalism dean emeritus Nicholas Lemann: They focus on the statistical notion of objectivity, which argues for a method to overcome intrinsic bias, not an outcome that promises equal treatment of unequal positions. 
+
+In "[The Lost Meaning of Objectivity](https://www.tomrosenstiel.com/essential/the-lost-meaning-of-objectivity/)", Rosenstiel writes that the term arose out of a recognition that all people bring bias, often unconsciously, to their work: 
+
+::: blockquote
+Objectivity called for journalists to develop a consistent method of testing information -- a transparent approach to evidence -- precisely so that personal and cultural biases would not undermine the accuracy of their work.
+:::
+
+
+Philip Meyer, in Journalism and the Scientific Tradition: 
+
+::: blockquote
+On a spring morning, running along a misty Chapel Hill street, I topped a low hill and saw in the distance a crouched yellow figure about 18 inches high. It appeared tense, ready to spring, fangs bared, aiming for a point along my path ahead. As I got closer and my eyes were able to resolve the figure more clearly, I saw it for what it really was: an ordinary fireplug. The image of the dog had been the creation of my own brain, imposing an order and a pattern of its own on the ambiguous data relayed by the eyes.
+
+Raw data alone can never be enough. To be useful, to be understood, data have to be processed, abstracted, fit into some kind of structure. You have to put the material into a mental framework that aids in interpretation and understanding. This truism applies equally to the data of everyday perception and to strings of numbers in computers. To think about them at all, you need a perceptual framework. If you don't provide one consciously, then your unconscious mind, perhaps driven by anxiety like that of a jogger in a neighborhood of dog owners, may provide the wrong one for you.
+::: 
+
+Meyer continues by describing his approach to his first major investigation on wasteful insurance purchases in Dade County, Fla. The problem came from a program controlled by an agent, who was paid based on the cost of the insurance. 
+
+::: 
+What was needed to understand the situation was a theoretical model that could be operationalized. Mine was a basic log-rolling or mutual back-scratching model. It led to the following hypotheses:
+
+1. The insurance servicing agent's self-dealing would make insurance more costly than for similar bodies without such a conflict of interest.
+
+2. If the [school] board goes along with this cost, its members must be receiving something of value: for example, the power to reward their friends in the insurance business.
+
+3. If they are rewarding their friends, board members must again get something in return.
+::: 
+
+Walter Lippmann noted seventy years ago that journalism depends on the availability of objectifiable fact.... Scientific method offers a way to make happenings objectified, measured, and named.
+
+Precision journalism is scientific journalism. (In France, the term "precision journalism" has been translated as "le journalisme scientifique.") It means treating journalism as if it were a science, adopting scientific method, scientific objectivity, and scientific ideals to the entire process of mass communication. If that sounds absurdly pretentious, remember that science itself is restrained about its achievements and its possibilities and has its own sanctions against pretension. "There are always hidden facts, and truths are elusive in every domain of human inquiry," Cranberg the physicist wrote. "What is needed to discover hidden facts and arrive at elusive truths is a skilled determination to get at them, and that is a determination that is as appropriate to a properly trained journalist as to a properly trained physicist."
+::: 

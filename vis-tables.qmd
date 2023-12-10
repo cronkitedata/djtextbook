@@ -1,0 +1,238 @@
+# Report-making in R
+
+
+So far, we've focused on the input to data analysis, but not as much on the output. We've stressed the need for "tidy" data, but I would be willing to bet that your instinct is to turn it into what we might call a report -- something that is easier to read and consume rather than easy to analyze. 
+
+You've already seen that it's almost impossible to read a table of numbers using R's default method of printing them out. There are several useful packages available to make better-looking charts of numbers that will be more useful for both a finished document and for your own understanding. 
+
+::: {.alert .alert-secondary}
+
+:::: {.alert-heading .font-weight-bolder .fs-3}
+What we want from tables and reports
+::::
+
+* Numbers with formatting, such as percent, dollar signs and commas. 
+* Automatic wrapping of cells so that you don't have to scroll to find columns. 
+* Totals and sub-totals shown on the same table as the detail. 
+* Printable tables that summarize your data succinctly so that you can write from it, or....
+* Interactive tables with filtering, searching and sorting so you can explore it.
+* Automatically produce crosstabs with values, totals and percentages.
+
+:::: {.alert-heading .font-weight-bolder .fs-3}
+Libraries used in this chapter
+::::
+
+Be sure to install the following packages before attempting to follow this chapter.
+
+* `reactable` , for interactive tables that can incorporate small graphic elements. 
+* `DT`, for interactive tables with a few different features, including selectable columns. 
+* `gt` and its cousin, `gtsummary` , for static tables with formatting, labelling and totals.
+
+You have already installed the `janitor` package, which has a function to create crosstab tables with values and percentages already computed.
+::: 
+
+::: {.callout-warning}
+## Number formatting
+There are a lot of ways to turn a big number into something readable in R. The problem is that most of these turn them into character, or text, columns. That's ok if your data is already sorted in the order you want to see it. But it wrecks the ability to sort (`arrange`) -- "$4" is seen as larger than "$10" as text because 4 comes after 1 in the alphabet. The formatting options in the tables below are difficult to implement, but maintain sortability. The same thing happens with dates.
+::: 
+
+
+Most of these packages will be demonstrated with a random sample of the PPP data we've worked with so far. 
+
+```{r}
+#| include: false
+
+pacman::p_load("tidyverse", "lubridate", "janitor", "reactable", "gt", "gtsummary", "DT")
+
+
+```
+
+
+
+```{r}
+#| label: sample-ppp
+#| echo: false
+#| results: "hide"
+
+
+ppp_orig <- readRDS ( 
+               url ( 
+                 "https://cronkitedata.s3.amazonaws.com/rdata/ppp_az_loans.RDS"
+                 )
+               ) |> 
+  select ( date_approved, borrower_name:borrower_zip, loan_status, loan_status_date, amount, forgiveness_amount, naics_code) |> 
+  sample_n ( 275 ) |> 
+  mutate ( forgiveness_amount = replace_na (forgiveness_amount, 0), 
+             forgiven = if_else ( forgiveness_amount >= amount * .99, "Yes", "No" )
+           ) 
+
+
+
+
+```
+
+
+
+
+### Interactive tables with `DT`
+
+`DT` is a translation of a popular Javascript library called "datatable". It, too,  has difficult syntax because it is based on that language, not R. You can get a pretty usable table with just a few lines of code:
+
+There are many more features of datatables, but this is often enough to get you started
+
+```{r}
+library(DT)
+
+ppp_orig |> 
+ select ( borrower_name:borrower_city, date_approved, amount, forgiveness_amount) |> 
+ datatable(                                          #<1>
+   options = list ( 
+                    scrollX=TRUE,                          #<2>
+                    pageLength = 5
+                )
+  ) |>   
+ formatCurrency( columns = c("amount", "forgiveness_amount"), 
+                   digits = 0)      #<3>
+  
+
+
+
+
+
+```
+1. Create a datatable. 
+2. Turn on a left-right scrollbar and reduce the default number of rows shown.
+2. Format the two amounts as currency. [Other format options](https://rstudio.github.io/DT/functions.html) exist for regular numbers and percentages.
+
+
+One problem with the `DT` package is that the documentation is inscrutable if you don't know Javascript. It is bare bones in R, and most Google searches send you to the Javascript documentation. I usually futz around and look for examples. 
+
+## Interactive tables with `reactable`
+
+The `reactable` library is highly customizable, but it can involve a lot of typing to get a good table. The documentation is excellent and there are great examples in the wild. It was used to produce the table above that contained the sparklines. 
+
+The basic idea is that you select the columns you want to display, then define their format and other details one by one. There are several useful defaults for the whole table, such as the number format. One way to simplify the typing is to just create the names of the columns you want to see in a `select` statement, then put a default number format for the dollar amounts. A [full list of options](https://glin.github.io/reactable/reference/colDef.html) is available on the help page for reactable.
+
+```{r}
+#| code-annotations: hover
+
+ppp_orig |> 
+  select (                                       #<1>
+    Borrower = borrower_name, 
+    City = borrower_city, 
+    `Zip code` = borrower_zip, 
+    `Loan amount` = amount, 
+    `Amt forgiven` = forgiveness_amount
+    ) |> 
+  reactable (   
+     sortable = TRUE,                            #<2>
+     filterable = TRUE,
+     searchable = TRUE,
+     defaultPageSize = 5,
+     compact = TRUE ,                            #<3>
+     striped=TRUE,
+     defaultColDef =                              #<4>
+        colDef ( 
+                format = 
+                   colFormat ( currency="USD", separators = TRUE, digits = 0)    #<4>
+                )
+     )
+
+```
+
+1. using the `select` verb that we've already seen, pick out the columns for the table and rename them. Don't forget the back-ticks if you need something with more than one word. 
+
+2. Set the options for sorting, filtering, and searching. 
+
+3. I usually use the "compact" style because I'm trying to fit as much in the table as possible. 
+
+4. Define how numbers will show up by default. You can change this for individual columns. 
+
+It's a lot of typing for something so simple, but I save it as a code snippet in RStudio and use a shortcut to paste it into a code chunk. 
+
+There is much, much more that reactable tables can do (like [this](https://glin.github.io/reactable/articles/womens-world-cup/womens-world-cup.html)), but this is a good start toward something readable and presentable to your colleagues. It  is also possible to create collapsable rows for large tables, and total rows at the bottom. 
+
+## Crosstabs with the `janitor` library
+
+We've gone through the exercise of creating a grouping, counting, then computing a percentage of total using our usual verbs. The `janitor` package provides a utility for doing that. 
+
+Here's an example with the full PPP dataset: 
+
+```{r}
+#| include: false
+
+ppp <- readRDS ( 
+               url ( 
+                 "https://cronkitedata.s3.amazonaws.com/rdata/ppp_az_loans.RDS"
+                 )
+               )
+
+
+```
+
+
+The `tabyl` function does one and only one thing: Count and compute percentages of totals. It creates an output data frame that you can style any way you want. You can do 1-, 2- or 3-way tables, but no more.  This example creates the table, then formats it using a datatable as above.
+
+### A simple one-way table
+
+```{r}
+ppp |> 
+  tabyl ( lender ) |>   #<1>
+  arrange ( desc (percent)) |>  #<2> 
+  head (5) |>   #<3>
+  datatable (   
+    rownames = FALSE   #<4>
+  ) |> 
+  formatPercentage ("percent") |>  #<5>
+  formatRound (columns ="n",  digits=0) #<6>
+ 
+
+
+
+
+```
+1. Create a one-way data table with count (n) and percent
+2. Sort it from highest to lowest
+3. Keep only the top 5, 
+4. create our default datatable
+5. Format the percentages
+6. Format the raw numbers
+
+
+#### Two-way table with tabyls
+
+That's good, but we have wanted some 2-way tables, the way we did in the group by chapter. Here's an example: 
+
+```{r}
+
+ppp |> 
+  tabyl ( loan_status, draw)  
+
+
+```
+
+This just created the simple counts. There are some "adorn" functions in the package that let you work with the numbers and percentages. 
+
+```{r}
+ppp |> 
+  tabyl (loan_status, draw) |> 
+  adorn_totals (c("row", "col")) |> 
+  adorn_percentages("col" ) |>         #<1>
+  adorn_pct_formatting (digits=0) |> 
+  adorn_ns() |> 
+  adorn_title () 
+
+
+
+```
+
+1. Change "col" to "row" if you want it to add to 100% across rather than down; "all" if you want it to be a percent of the grand total.
+
+This is not a very well documented or developed package, and it balks at giving the "adorn" commands out of order. So sometimes it's not all that helpful, but it does create good crosstabs quickly. 
+
+## Static tables with gt
+
+Section TK. 
+
+
+

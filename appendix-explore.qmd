@@ -1,0 +1,52 @@
+# Exploring data using packages (#appendix-packages-explore)
+
+There are several packages that make looking at your data much easier. In general, they go through each column of your data and create some kind of visualization or summary statistical list for each item.
+
+These can be hard on your computer. On a large dataset, they may take 10 minutes or more to complete. That's ok -- just know that you'll need it.
+
+Packages used:
+
+-   GGally, which plots all of your columns in different ways depending on their types
+
+-   skimr, which provides an overview of all of your columns
+
+-   DataExplorer, which lets you explore your data interactively in RStudio.
+
+One of the first packages you installed was called `pacman`, which is useful for things like this : You tell it the packages you want to use, and it installs any you don't have! This chunk also loads the PPP data used in many of the R chapters.
+
+::: callout-warning
+`dataxray` can't be downloaded in the usual fashion. Instead, you have to use a version included in Github. The code below does that. Un-comment the line that starts with `devtools` if you get an error, then comment it out again.
+:::
+
+```{r}
+#| label: setup
+
+pacman::p_load(tidyverse, lubridate, janitor, GGally, skimr, DataExplorer, devtools)
+# devtools::install_github("agstn/dataxray")
+library(dataxray)
+
+ppp_orig <- readRDS ( 
+               url ( 
+                 "https://cronkitedata.s3.amazonaws.com/rdata/ppp_az_loans.RDS"
+                 )
+               )
+
+options(scipen=999)
+```
+
+## skimr
+
+The `skimr` package is the easiest to use, so we can start there:
+
+```{r}
+#| df-print: tibble
+#| echo: fenced
+
+skim(ppp_orig)
+
+
+```
+
+`skim()` provides an overview, in this case showing you which columns have missing values, how many unique values there are in character columns such as address and name; and the range of values shown in dates and numbers. It's a very quick way of getting a broad overview of your data.
+
+## 

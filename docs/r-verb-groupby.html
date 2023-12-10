@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Data Reporting - 19&nbsp; Verbs in depth: Aggregating with groups</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./r-verb-join.html" rel="next">
+<link href="./r-verb-mutate.html" rel="prev">
+<link href="./assets/images/favicon.ico" rel="icon">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+</head>
+<body class="nav-sidebar floating">
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./r.html">R Study Guide</a></li><li class="breadcrumb-item"><a href="./r-verb-groupby.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Verbs in depth: Aggregating with groups</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./assets/images/favicon.ico" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Reporting</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/cronkitedata/djtextbook" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./start.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reporting with data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./start-story.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Learn a new way to read</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./start-math.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Newsroom math</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./start-data-def.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Defining “Data”</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./start-data-diary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Replication and the data diary</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./start-hunt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Finding the right data for your story</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./start-build-own.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Build your own database</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./xl.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Spreadsheets</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./xl-refresher.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">An Excel Refresher</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./xl-filter-sort.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Sorting and filtering to find stories</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./xl-pivot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Grouping with pivot tables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./xl-formulas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Formulas in Excel</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./xl-practice-noc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Practice exercise</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Study Guide</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-install.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Installing R and RStudio</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-start.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Getting started with R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Using Quarto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-data-import.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Getting and saving data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-verbs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">A quick tour of verbs</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-verb-filter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Verbs in depth: Select, arrange, filter</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-verb-mutate.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Verbs in depth: New from old data with Mutate</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-verb-groupby.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Verbs in depth: Aggregating with groups</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-verb-join.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Verbs in depth: Matchmaking with joins</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-recipes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Recipes</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./vis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualization</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vis-reporting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Visualization as a reporting tool</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vis-tables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Report-making in R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vis-demo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Visualization demo</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vis-practice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Visualization exercise</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vis-maps-begin.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Mapping: An introduction</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vis-maps-firstmap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">The first map</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./advanced.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Special skills</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced-pdf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Working with PDF files</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced-regex.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Regular Expressions for pattern matching</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced-openrefine.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Open refine walkthrough</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced-scrape1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Scraping without programming</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced-scrape2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Introduction to scraping in R</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-math.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Newsroom numbers cheat sheet</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-program.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">A gentle intro to programming</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-ppp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Documentation for PPP data chapters</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+    <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li>
+<a href="#summarize-and-group_by-basics" id="toc-summarize-and-group_by-basics" class="nav-link active" data-scroll-target="#summarize-and-group_by-basics"><span class="header-section-number">19.1</span> <code>summarize</code> and <code>group_by</code> basics</a>
+  <ul class="collapse">
+<li><a href="#summarize" id="toc-summarize" class="nav-link" data-scroll-target="#summarize"><span class="header-section-number">19.1.1</span> <code>summarize</code></a></li>
+  <li><a href="#summary-functions" id="toc-summary-functions" class="nav-link" data-scroll-target="#summary-functions"><span class="header-section-number">19.1.2</span> Summary functions</a></li>
+  <li><a href="#grouping" id="toc-grouping" class="nav-link" data-scroll-target="#grouping"><span class="header-section-number">19.1.3</span> Grouping</a></li>
+  <li><a href="#a-shortcut-count" id="toc-a-shortcut-count" class="nav-link" data-scroll-target="#a-shortcut-count"><span class="header-section-number">19.1.4</span> A shortcut : <code>count()</code></a></li>
+  </ul>
+</li>
+  <li>
+<a href="#using-and-converting-groups" id="toc-using-and-converting-groups" class="nav-link" data-scroll-target="#using-and-converting-groups"><span class="header-section-number">19.2</span> Using and converting groups</a>
+  <ul class="collapse">
+<li><a href="#converting-from-long-to-wide-data" id="toc-converting-from-long-to-wide-data" class="nav-link" data-scroll-target="#converting-from-long-to-wide-data"><span class="header-section-number">19.2.1</span> Converting from long to wide data</a></li>
+  <li><a href="#totals-and-subtotals" id="toc-totals-and-subtotals" class="nav-link" data-scroll-target="#totals-and-subtotals"><span class="header-section-number">19.2.2</span> Totals and subtotals</a></li>
+  </ul>
+</li>
+  <li><a href="#practice" id="toc-practice" class="nav-link" data-scroll-target="#practice"><span class="header-section-number">19.3</span> Practice</a></li>
+  <li>
+<a href="#understanding-grouped-data" id="toc-understanding-grouped-data" class="nav-link" data-scroll-target="#understanding-grouped-data"><span class="header-section-number">19.4</span> Understanding grouped data</a>
+  <ul class="collapse">
+<li><a href="#tidy-data-and-long-vs.-wide-use-in-groups" id="toc-tidy-data-and-long-vs.-wide-use-in-groups" class="nav-link" data-scroll-target="#tidy-data-and-long-vs.-wide-use-in-groups"><span class="header-section-number">19.4.1</span> Tidy data and “long” vs.&nbsp;“wide” use in groups</a></li>
+  </ul>
+</li>
+  </ul></nav>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content column-page-right" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="r-verb-groupby" class="quarto-section-identifier"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Verbs in depth: Aggregating with groups</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Editor’s note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>I have tried and tried to write this chapter so it makes sense. I can’t do it. Think of it instead as three mini-chapters. You might want to skip the third section for now and come back to it when you are more comfortable.</p>
+<ul>
+<li>
+<a href="#summarize-and-group_by-basics">Section 1</a>: Basic counting and summing with <code>group_by</code> and <code>summarize</code>
+</li>
+<li>
+<a href="#using-and-converting-groups">Section 2</a>: Using and converting groups into spreadsheet (wide) format and percentages.</li>
+<li>
+<a href="#understanding-grouped-data">Section 3</a>: Understanding tidy data and how it makes grouping so powerful. You’ll find that things you expect to do for “wide” data is more efficiently done with groups. It’s counterintuitive.</li>
+</ul>
+</div>
+</div>
+<div class="alert alert-secondary">
+<div class="alert-heading font-weight-bolder fs-3">
+<p>In this chapter:</p>
+</div>
+<ul>
+<li>
+<code>group_by</code> and <code>summarize</code> are the tidyverse’s version of Excel pivot tables, with many more possibilities.</li>
+<li>R is picky and will create different rows for the tiniest difference between values, such as “Lettuce” vs.&nbsp;“lettuce”.</li>
+<li>
+<code>group_by</code> and <code>summarize</code> often go together. <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>
+</li>
+<li>You will often have to accommodate missing data, or the dreaded “NA” values.</li>
+<li>Compute percent of total using grouped data</li>
+<li>Go from “long” database format to “wide” spreadsheet format and back using <code>pivot_</code> functions.</li>
+<li>An easy shortcut: <code>count()</code>
+</li>
+<li>Understanding grouped data as a “tidy” data structure with magical powers</li>
+</ul>
+</div>
+<p>This chapter continues with the Paycheck Protection Program, or PPP, loans in Arizona. Full documentation of the dataset is in the <a href="appendix-ppp.html">Appendix</a>. If you haven’t already, look through that documentation before you start.</p>
+<div class="alert-success alert-dothis">
+<p>As you have in the last several chapters, open your R project and create a new Quarto document with the <a href="https://gist.github.com/sarahcnyt/e60ad2d7ccf65498fc88791f3bb683ae">front matter and libraries</a>.</p>
+<p>Then load the saved PPP data with this code chunk:</p>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ppp_orig</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span> <span class="op">(</span></span>
+<span>               <span class="fu"><a href="https://rdrr.io/r/base/connections.html">url</a></span> <span class="op">(</span> </span>
+<span>                 <span class="st">"https://cronkitedata.s3.amazonaws.com/rdata/ppp_az_loans.RDS"</span></span>
+<span>                 <span class="op">)</span></span>
+<span>               <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="summarize-and-group_by-basics" class="level2" data-number="19.1"><h2 data-number="19.1" class="anchored" data-anchor-id="summarize-and-group_by-basics">
+<span class="header-section-number">19.1</span> <code>summarize</code> and <code>group_by</code> basics</h2>
+<section id="summarize" class="level3" data-number="19.1.1"><h3 data-number="19.1.1" class="anchored" data-anchor-id="summarize">
+<span class="header-section-number">19.1.1</span> <code>summarize</code>
+</h3>
+<p><code>summarize</code><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> computes summary statistics such as the number of rows in a data frame or the sum of dollar values. It removes the original columns completely, and only produces the summary statistics you compute within that statement. <strong>Using <code>summarize</code> alone produces a data frame with one row.</strong> It’s the equivalent of putting nothing in your pivot table in Excel other than the “Values” area.</p>
+<p>Another way to think of <code>summarize</code> is that it collapses your list of items (loans, in our example) into a statistical report.</p>
+<section id="the-dreaded-na" class="level4"><h4 class="anchored" data-anchor-id="the-dreaded-na">The dreaded <code>NA</code>
+</h4>
+<p>You saw in the <code>mutate</code> section that missing values are always a problem. Because they’re unknown, they can’t match anything else, they can’t be considered 0, and they can warp any answers you get. But there’s usually nothing you can do about missing data, so you have to tell the program exactly what to do about them.</p>
+<p>There are two choices:</p>
+<ul>
+<li>Let them infect everything they touch, turning everything into <code>NA</code>. In this scenario, a total of the dollar values in a column would be NA if <strong>any</strong> of the values in that column is missing:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ppp_orig</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">summarize</span> <span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">forgiveness_amount</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["sum(forgiveness_amount)"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"NA"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<ul>
+<li>Ignore them in a computation completely, effectively removing that value from your calculation. Be careful with this - it means that two summary statistics (say,<code>n()</code> and <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code>) could be using a different set of rows!</li>
+</ul>
+<p>There’s no right answer, and it depends on what you’re doing. In some cases, you know that they stand for the value <code>0</code>, and in others you don’t. We will usually ignore them by adding an <em>argument</em> to every summary function that could be infected by them : <code>na.rm = TRUE</code> , which means, “remove NA’s before you do anything.”.</p>
+</section></section><section id="summary-functions" class="level3" data-number="19.1.2"><h3 data-number="19.1.2" class="anchored" data-anchor-id="summary-functions">
+<span class="header-section-number">19.1.2</span> Summary functions</h3>
+<p>Some of the common functions you’ll use to summarize are :</p>
+<ul>
+<li>
+<code>mean (column_name, na.rm=T)</code> – for an average : Numbers only</li>
+<li>
+<code>sum (column_name, na.rm = T)</code>: Numbers only</li>
+<li>
+<code>n()</code> – for “how many”, or “count”. Anything - this counts rows, not values</li>
+<li>
+<code>n_distinct ( column_name)</code> : The number of unique entries in the column. Use it to see how many categories there are in a column.</li>
+<li>
+<code>median (column_name, na.rm=T)</code>: Numbers only</li>
+<li>
+<code>min (column_name, na.rm=T)</code>: Dates and numbers</li>
+<li>
+<code>max (column_name , na.rm=T)</code>: Dates and numbers</li>
+</ul>
+<p>When used on the whole data frame, it’s customary to just glimpse the output, since there’s only one row:</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ppp_orig</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">summarize</span> <span class="op">(</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span>, </span>
+<span>              <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span> <span class="op">(</span><span class="va">amount</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>, </span>
+<span>              <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span> <span class="op">(</span><span class="va">forgiveness_amount</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>, </span>
+<span>              <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span> <span class="op">(</span><span class="va">date_approved</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>, </span>
+<span>              <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span> <span class="op">(</span><span class="va">date_approved</span>, na.rm<span class="op">=</span> <span class="cn">T</span><span class="op">)</span>, </span>
+<span>              <span class="fu">n_distinct</span> <span class="op">(</span> <span class="va">business_type</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">glimpse</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 1
+Columns: 6
+$ `n()`                                 &lt;int&gt; 169259
+$ `mean(amount, na.rm = T)`             &lt;dbl&gt; 73206.66
+$ `mean(forgiveness_amount, na.rm = T)` &lt;dbl&gt; 77050.41
+$ `min(date_approved, na.rm = T)`       &lt;date&gt; 2020-04-03
+$ `max(date_approved, na.rm = T)`       &lt;date&gt; 2021-06-29
+$ `n_distinct(business_type)`           &lt;int&gt; 24</code></pre>
+</div>
+</div>
+<p>This produced a data frame with 1 row and 5 columns. The column names are the same as the formulas that created them, which is difficult to work with. Create new column names using the name (in back-ticks if it’s got spaces or special characters) and assign them the values of the summaries using the <code>=</code> sign:</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ppp_orig</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">summarize</span> <span class="op">(</span> number_of_rows <span class="op">=</span>  <span class="fu">n</span><span class="op">(</span><span class="op">)</span>, </span>
+<span>              mean_amount <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span> <span class="op">(</span><span class="va">amount</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>,    </span>
+<span>              median_amount <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span> <span class="op">(</span><span class="va">amount</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>,</span>
+<span>              mean_forgiven <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span> <span class="op">(</span><span class="va">forgiveness_amount</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>,   <span class="co"># doesn't count the missing as zero!</span></span>
+<span>              first_loan <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span> <span class="op">(</span><span class="va">date_approved</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>,   </span>
+<span>              last_loan <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span> <span class="op">(</span><span class="va">date_approved</span>, na.rm<span class="op">=</span> <span class="cn">T</span><span class="op">)</span>, </span>
+<span>              business_type_count <span class="op">=</span> <span class="fu">n_distinct</span><span class="op">(</span><span class="va">business_type</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">glimpse</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 1
+Columns: 7
+$ number_of_rows      &lt;int&gt; 169259
+$ mean_amount         &lt;dbl&gt; 73206.66
+$ median_amount       &lt;dbl&gt; 20800
+$ mean_forgiven       &lt;dbl&gt; 77050.41
+$ first_loan          &lt;date&gt; 2020-04-03
+$ last_loan           &lt;date&gt; 2021-06-29
+$ business_type_count &lt;int&gt; 24</code></pre>
+</div>
+</div>
+</section><section id="grouping" class="level3" data-number="19.1.3"><h3 data-number="19.1.3" class="anchored" data-anchor-id="grouping">
+<span class="header-section-number">19.1.3</span> Grouping</h3>
+<p>Now that you know how to summarize the whole data frame, you’ll want to start getting totals by category. This is the same thing as a pivot table – the column names that create the “groups” are the equivalent of the Rows area a spreadsheet pivot table:</p>
+<p><img src="assets/images/r-verb-group-pivotcompare.png" class="img-fluid" style="width:100.0%"></p>
+<section id="grouping-by-one-column" class="level4"><h4 class="anchored" data-anchor-id="grouping-by-one-column">Grouping by one column</h4>
+<p>In the PPP data, the “draw” refers to which of the two programs was involved - the original one, or the one passed by Congress in late 2020.</p>
+<p>Here’s how we’d get some key statistics by draw:</p>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ppp_orig</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">group_by</span> <span class="op">(</span> <span class="va">draw</span> <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">summarize</span> <span class="op">(</span> first_loan <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span> <span class="op">(</span> <span class="va">date_approved</span> <span class="op">)</span>, </span>
+<span>              total_amount <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span> <span class="op">(</span><span class="va">amount</span><span class="op">)</span>, </span>
+<span>              total_forgiven <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span> <span class="op">(</span><span class="va">forgiveness_amount</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>, </span>
+<span>              `# of loans` <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span> </span>
+<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["draw"],"name":[1],"type":["chr"],"align":["left"]},{"label":["first_loan"],"name":[2],"type":["date"],"align":["right"]},{"label":["total_amount"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["total_forgiven"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["# of loans"],"name":[5],"type":["int"],"align":["right"]}],"data":[{"1":"First","2":"2020-04-03","3":"9465606369","4":"8972228355","5":"128715"},{"1":"Second","2":"2021-01-14","3":"2925279615","4":"2779422635","5":"40544"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Here are a couple of things to note about grouped output:</p>
+<ul>
+<li>The only columns saved are the ones that are shown in either the <code>group_by</code> or <code>summarize</code> rows. All of the other original columns have been eliminated. You no longer have them to work with .<br>
+</li>
+<li>The names of the columns for the summary statistics are the ones defined before the “=” sign in the summarize statement.</li>
+<li>TRAP! Don’t ever name your summary columns the same thing as a group_by column. It will override those names, and your output will be unintelligible.</li>
+</ul>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Naming your columns
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note that the name of the columns doesn’t always follow our standard. In this case, <code># of loans</code> has a special character and spaces. In order to create or use it, you must enclose them in back-tics (`) or you’ll get an error.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Expand your table to a new window
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="grid">
+<div class="g-col-4 pt-2">
+<p>If you’re using visual mode, the table that gets produced can be really squished. To see more of it, pop it out into its own window using the leftmost button. <a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+</div>
+<div class="g-col-8 d-flex justify-content-end mx-4">
+<p><img src="assets/images/r-groupby-squished.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+</div>
+</section><section id="grouping-by-more-than-one-column" class="level4"><h4 class="anchored" data-anchor-id="grouping-by-more-than-one-column">Grouping by more than one column</h4>
+<p>If you wanted to know the numbers outstanding and forgiven by draw, you could add another column to the group by:</p>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ppp_orig</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">group_by</span> <span class="op">(</span> <span class="va">loan_status</span>, <span class="va">draw</span> <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">summarize</span> <span class="op">(</span> first_loan <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span> <span class="op">(</span> <span class="va">date_approved</span> <span class="op">)</span>, </span>
+<span>              total_amount <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span> <span class="op">(</span><span class="va">amount</span><span class="op">)</span>, </span>
+<span>              total_forgiven <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span> <span class="op">(</span><span class="va">forgiveness_amount</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>, </span>
+<span>              loan_ct <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span> </span>
+<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["loan_status"],"name":[1],"type":["chr"],"align":["left"]},{"label":["draw"],"name":[2],"type":["chr"],"align":["left"]},{"label":["first_loan"],"name":[3],"type":["date"],"align":["right"]},{"label":["total_amount"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["total_forgiven"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["loan_ct"],"name":[6],"type":["int"],"align":["right"]}],"data":[{"1":"Active Un-Disbursed","2":"First","3":"2021-02-23","4":"61053","5":"0","6":"3"},{"1":"Exemption 4","2":"First","3":"2020-04-03","4":"488322977","5":"109392926","6":"13573"},{"1":"Exemption 4","2":"Second","3":"2021-01-16","4":"212558139","5":"54122380","6":"3898"},{"1":"Paid in Full","2":"First","3":"2020-04-03","4":"8977222339","5":"8862835430","6":"115139"},{"1":"Paid in Full","2":"Second","3":"2021-01-14","4":"2712721476","5":"2725300255","6":"36646"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>The <code>summarize</code> verb here has created a data frame that has only the variables you identified in the <code>group_by</code> and <code>summarize</code> commands - everything else has been removed, since it’s a <em>summary</em> of your data.</p>
+</section></section><section id="a-shortcut-count" class="level3" data-number="19.1.4"><h3 data-number="19.1.4" class="anchored" data-anchor-id="a-shortcut-count">
+<span class="header-section-number">19.1.4</span> A shortcut : <code>count()</code>
+</h3>
+<p>If all you want to do is count or add by group, you can use the <code>count()</code> function as a shortcut. It does the exact same thing as a combination of <code>group_by()</code> and <code>summarize( n() )</code> and <code>arrange()</code>` to get the number of items in each category, sorted by the most frequent to least:</p>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ppp_orig</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">count</span> <span class="op">(</span> <span class="va">loan_status</span>, <span class="va">draw</span>, </span>
+<span>          sort<span class="op">=</span><span class="cn">TRUE</span>,</span>
+<span>          name <span class="op">=</span> <span class="st">"loans"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["loan_status"],"name":[1],"type":["chr"],"align":["left"]},{"label":["draw"],"name":[2],"type":["chr"],"align":["left"]},{"label":["loans"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"Paid in Full","2":"First","3":"115139"},{"1":"Paid in Full","2":"Second","3":"36646"},{"1":"Exemption 4","2":"First","3":"13573"},{"1":"Exemption 4","2":"Second","3":"3898"},{"1":"Active Un-Disbursed","2":"First","3":"3"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</section></section><section id="using-and-converting-groups" class="level2" data-number="19.2"><h2 data-number="19.2" class="anchored" data-anchor-id="using-and-converting-groups">
+<span class="header-section-number">19.2</span> Using and converting groups</h2>
+<section id="converting-from-long-to-wide-data" class="level3" data-number="19.2.1"><h3 data-number="19.2.1" class="anchored" data-anchor-id="converting-from-long-to-wide-data">
+<span class="header-section-number">19.2.1</span> Converting from long to wide data</h3>
+<p>Typically, if you want to just look at your data, you’d want to see one of the columns down the side (rows in pivot tables), and another across the top (columns in pivot tables). Helpfully, a new verb called <code>pivot_wider()</code> does just that – pivots your data from long to wide.</p>
+<p>Start with a simple query with two grouping columns (note that I’ve called the number of loans <code>loan_ct</code>, so it’s easier to work with later on.</p>
+<div class="cell quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["loan_status"],"name":[1],"type":["chr"],"align":["left"]},{"label":["draw"],"name":[2],"type":["chr"],"align":["left"]},{"label":["loan_ct"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"Active Un-Disbursed","2":"First","3":"3"},{"1":"Exemption 4","2":"First","3":"13573"},{"1":"Exemption 4","2":"Second","3":"3898"},{"1":"Paid in Full","2":"First","3":"115139"},{"1":"Paid in Full","2":"Second","3":"36646"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</div>
+<p>This is really hard to read. Turn it on its head with <code>pivot_wider()</code>:</p>
+<p><img src="assets/images/r-groupby-pivotwider.png" class="img-fluid"></p>
+<p>Normally, you’ll only want to have one summary statistic shown in a rectangle, with one column spread across the top and another column shown in rows. In R, this is done by “pivoting” your tables. There are a lot of advanced options in pivot functions that let you show more than one statistic at a time, and tell R how to name them. There will be a chapter later on that addresses a lot of the problems you have in reading tables, so we’ll put that off for now.</p>
+<p>Here’s an explanation of what the command looks like.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>pivot_wider ( id_cols = *list of columns to keep down the side* , </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                names_from = *the name of the column supplying the headings across the top*, </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                values_from = *the values you want to show in each cell* , </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                values_fill = *what you want to show if it's empty, usually 0 *</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Your instinct will often be that you want to see your data in this form, but you can and should actually do most of your work without it. This is a core concept of the tidyverse, which is detailed in this chapter’s last section. But even if you don’t look at that part, remember that pivoting to a “wide” format is usually your last step, not one of your first.</p>
+</div>
+</div>
+</section><section id="totals-and-subtotals" class="level3" data-number="19.2.2"><h3 data-number="19.2.2" class="anchored" data-anchor-id="totals-and-subtotals">
+<span class="header-section-number">19.2.2</span> Totals and subtotals</h3>
+<p>You noticed that when you created the summaries, there was no option to create a “percent of total” such as the percent of loans in each draw, or the percent of money that had been forgiven.</p>
+<p>You can use summary functions outside a summarize statement! This means that you can compute the percent of total, the same way you used an option in pivot tables. This took me a long time to understand, so try to slow down, and just try it a few times! When you look carefully at your output, you’ll start to understand it better.</p>
+<p>The trick is to summarize, then use <code>mutate</code> to add a column with the percentages made out of totals:</p>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ppp_orig</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">group_by</span> <span class="op">(</span> <span class="va">draw</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">summarize</span> <span class="op">(</span> loan_count <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span> <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">mutate</span> <span class="op">(</span> all_loans <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span> <span class="op">(</span><span class="va">loan_count</span><span class="op">)</span>, </span>
+<span>           pct_of_total <span class="op">=</span> <span class="va">loan_count</span> <span class="op">/</span> <span class="va">all_loans</span> <span class="op">*</span> <span class="fl">100</span></span>
+<span>           <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["draw"],"name":[1],"type":["chr"],"align":["left"]},{"label":["loan_count"],"name":[2],"type":["int"],"align":["right"]},{"label":["all_loans"],"name":[3],"type":["int"],"align":["right"]},{"label":["pct_of_total"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"First","2":"128715","3":"169259","4":"76.04618"},{"1":"Second","2":"40544","3":"169259","4":"23.95382"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<section id="what-happens-if-you-have-more-than-one-group" class="level4"><h4 class="anchored" data-anchor-id="what-happens-if-you-have-more-than-one-group">What happens if you have more than one group?</h4>
+<p>This is where the idea of grouped data gets a little confusing. It depends on exactly how you did your summarize statement. But if you use the default mechanism, the “all_loans” is the subtotal. The default behavior is that the “groups” are kept for all but the last column listed in the group_by statement, meaning any summaries you do off of the data will refer to the subtotal.</p>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ppp_orig</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">group_by</span> <span class="op">(</span> <span class="va">draw</span>, <span class="va">loan_status</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">summarize</span> <span class="op">(</span> loan_count <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span> <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">mutate</span> <span class="op">(</span> loans_in_draw <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span> <span class="op">(</span><span class="va">loan_count</span><span class="op">)</span>,</span>
+<span>           pct_of_draw <span class="op">=</span> <span class="va">loan_count</span> <span class="op">/</span> <span class="va">loans_in_draw</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["draw"],"name":[1],"type":["chr"],"align":["left"]},{"label":["loan_status"],"name":[2],"type":["chr"],"align":["left"]},{"label":["loan_count"],"name":[3],"type":["int"],"align":["right"]},{"label":["loans_in_draw"],"name":[4],"type":["int"],"align":["right"]},{"label":["pct_of_draw"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"First","2":"Active Un-Disbursed","3":"3","4":"128715","5":"0.002330731"},{"1":"First","2":"Exemption 4","3":"13573","4":"128715","5":"10.545002525"},{"1":"First","2":"Paid in Full","3":"115139","4":"128715","5":"89.452666744"},{"1":"Second","2":"Exemption 4","3":"3898","4":"40544","5":"9.614246251"},{"1":"Second","2":"Paid in Full","3":"36646","4":"40544","5":"90.385753749"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Here’s a pretty typical way to do this: Create a subtotal, use it for your percentages, then pivot the percentages:</p>
+<div class="cell">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ppp_orig</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">group_by</span> <span class="op">(</span> <span class="va">draw</span>, <span class="va">loan_status</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">summarize</span> <span class="op">(</span> loan_count <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span> <span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">mutate</span> <span class="op">(</span> loans_in_draw <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">loan_count</span><span class="op">)</span>, </span>
+<span>           pct_of_draw <span class="op">=</span> <span class="va">loan_count</span> <span class="op">/</span> <span class="va">loans_in_draw</span> <span class="op">*</span> <span class="fl">100</span> <span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">pivot_wider</span> <span class="op">(</span> </span>
+<span>    id_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">draw</span>, <span class="va">loans_in_draw</span><span class="op">)</span>, </span>
+<span>    names_from <span class="op">=</span> <span class="va">loan_status</span>, </span>
+<span>    values_from <span class="op">=</span> <span class="va">pct_of_draw</span>,</span>
+<span>    values_fill <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["draw"],"name":[1],"type":["chr"],"align":["left"]},{"label":["loans_in_draw"],"name":[2],"type":["int"],"align":["right"]},{"label":["Active Un-Disbursed"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Exemption 4"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Paid in Full"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"First","2":"128715","3":"0.002330731","4":"10.545003","5":"89.45267"},{"1":"Second","2":"40544","3":"0.000000000","4":"9.614246","5":"90.38575"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Now you can easily compare the outcome by draw, by reading across to reach 100% and reading down to compare them.</p>
+<p>We’ll have a whole chapter / week on making good tables that are readable and understandable. For now, just remember that it’s always possible to turn a data frame on its head, and that you can compute much of what you need BEFORE you do that.</p>
+</section></section></section><section id="practice" class="level2" data-number="19.3"><h2 data-number="19.3" class="anchored" data-anchor-id="practice">
+<span class="header-section-number">19.3</span> Practice</h2>
+<p>Putting together the grouping and summarizing, along with the commands you learned last chapter to <code>filter</code>, <code>arrange</code> and display the <code><a href="https://rdrr.io/r/utils/head.html">head()</a></code> and <code><a href="https://rdrr.io/r/utils/head.html">tail()</a></code> of a dataset should equip you to write the code for these questions:</p>
+<ol type="1">
+<li>Which lenders provided the most loans?</li>
+<li>Which lenders provided the most amount of money loaned?</li>
+<li>Which borrowers got the least amount of money?</li>
+<li>Show the number of loans in each draw that went to the 24 (including <code>NA</code>) types of businesses. To see them all on one screen, add “, rows.print=25” to the heading of the code chunk like this: <code>{r  , rows.print=25}</code>
+</li>
+<li>Try to compute the percent of loans that went to projects in each county in Arizona. This will require first filtering, then grouping.</li>
+</ol></section><section id="understanding-grouped-data" class="level2" data-number="19.4"><h2 data-number="19.4" class="anchored" data-anchor-id="understanding-grouped-data">
+<span class="header-section-number">19.4</span> Understanding grouped data</h2>
+<p>You may have noticed an odd warning after you run the code with multiple grouping columns, for example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="in">`summarise()`</span> has grouped output by 'loan_status'. You can override using the <span class="in">`.groups`</span> argument." </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="what-does-that-mean" class="level4"><h4 class="anchored" data-anchor-id="what-does-that-mean">What does that mean?</h4>
+<p>When you grouped by loan status and draw, R effectively split up your data frame into five independent and completely divorced piles - one for each combination of draw and loan status that it found. It processed them one by one to create the output data frame that was printed out.</p>
+<p>After it’s done summarizing your data, R doesn’t know what you want to do with the piles – keep them, or put everything back together again.</p>
+<p>By default, after you group by more than one column, it maintains the separate piles for all but the last group in your list under <code>group_by</code> – in this case the <code>loan_status</code>. Here, everything you do after this will work on three piles separately.The message tells you what it did with the piles, and how to change that behavior.</p>
+<p>The <a href="https://dplyr.tidyverse.org/articles/grouping.html">documentation of grouped data</a> provides details of how each of the tidyverse’s verbs handle grouped data.</p>
+<p>Here’s what a “glimpse()” looks like for a data frame that has retained some groups:</p>
+<div class="cell">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ppp_orig</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">select</span> <span class="op">(</span> <span class="va">loan_status</span>, <span class="va">date_approved</span><span class="op">:</span><span class="va">amount</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">group_by</span> <span class="op">(</span> <span class="va">loan_status</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">glimpse</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 169,259
+Columns: 11
+Groups: loan_status [3]
+$ loan_status      &lt;chr&gt; "Paid in Full", "Paid in Full", "Paid in Full", "Paid…
+$ date_approved    &lt;date&gt; 2020-04-10, 2020-04-11, 2020-04-11, 2020-04-29, 2020…
+$ draw             &lt;chr&gt; "First", "First", "First", "First", "First", "First",…
+$ borrower_name    &lt;chr&gt; "SFE HOLDINGS LLC", "NAVAJO TRIBAL UTILITY AUTHORITY"…
+$ borrower_address &lt;chr&gt; "9366 East Raintree Drive", "Po Box 170", "2999 N44th…
+$ borrower_city    &lt;chr&gt; "Scottsdale", "Fort Defiance", "Phoenix", "Tucson", "…
+$ borrower_state   &lt;chr&gt; "AZ", "AZ", "AZ", "AZ", "AZ", "AZ", "AZ", "AZ", "AZ",…
+$ borrower_zip     &lt;chr&gt; "85260", "86504", "85018", "85711", "85250", "85012",…
+$ franchise_name   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ loan_status_date &lt;date&gt; 2021-08-17, 2022-02-05, 2021-09-25, 2021-08-21, 2021…
+$ amount           &lt;dbl&gt; 10000000, 10000000, 10000000, 10000000, 10000000, 100…</code></pre>
+</div>
+</div>
+<p>Notice the “Groups” row at the top – that tells you it’s got three piles, defined by the loan_status column.</p>
+</section><section id="getting-rid-of-the-message" class="level4"><h4 class="anchored" data-anchor-id="getting-rid-of-the-message">Getting rid of the message</h4>
+<p>You can do three things to get rid of the message. I suggest the first of these, since it makes you explicitly decide what to do each time, depending on your goal:</p>
+<ol type="1">
+<li>Add a <code>.groups=...</code> argument that looks like this at the end of the <code>summarize</code> statement. This example tells R to do what it does by default, with no warning:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ppp_orig</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">group_by</span> <span class="op">(</span> <span class="va">loan_status</span>, <span class="va">draw</span> <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">summarize</span> <span class="op">(</span> `# of loans` <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span> , </span>
+<span>              .groups <span class="op">=</span> <span class="st">"drop_last"</span></span>
+<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["loan_status"],"name":[1],"type":["chr"],"align":["left"]},{"label":["draw"],"name":[2],"type":["chr"],"align":["left"]},{"label":["# of loans"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"Active Un-Disbursed","2":"First","3":"3"},{"1":"Exemption 4","2":"First","3":"13573"},{"1":"Exemption 4","2":"Second","3":"3898"},{"1":"Paid in Full","2":"First","3":"115139"},{"1":"Paid in Full","2":"Second","3":"36646"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>The other possibilities are : <code>.groups="drop"</code> and <code>".groups="keep"</code> (Note the period before the word “groups”. I have no idea why, but sometimes options are indicated this way.)</p>
+<ol start="2" type="1">
+<li>Suppress all messages either for the whole document or for the code chunk. Here’s what your YAML would look like if you added <code>message: false</code> to it. (This has the benefit of suppressing a lot of other annoying messages that you might not care about as well):</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"YOUR TITLE - CHANGE THIS"</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"YOUR NAME - CHANGE THIS"</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">code-tools</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">embed-resources</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">df-print</span><span class="kw">:</span><span class="at"> paged</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">page-layout</span><span class="kw">:</span><span class="at"> full</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="fu">execute</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">message</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="3" type="1">
+<li>
+<p>Add a line to your setup chunk, changing the default behavior through the systemwide options:</p>
+<p><code>options(dplyr.summarise.inform = FALSE)</code></p>
+</li>
+</ol></section><section id="tidy-data-and-long-vs.-wide-use-in-groups" class="level3" data-number="19.4.1"><h3 data-number="19.4.1" class="anchored" data-anchor-id="tidy-data-and-long-vs.-wide-use-in-groups">
+<span class="header-section-number">19.4.1</span> Tidy data and “long” vs.&nbsp;“wide” use in groups</h3>
+<div class="blockquote mt-3">
+<p>Like families, tidy datasets are all alike but every messy dataset is messy in its own way.</p>
+<p>– Hadley Wickham, with apologies to Leo Tolstoy</p>
+</div>
+<p>The concept of tidy data was outlined by Hadley Wickham in a <a href="https://vita.had.co.nz/papers/tidy-data.pdf">seminal paper</a> nearly a decade ago, which defined a specific way of organizing data values within a dataset. .Wickham argues that by following the principle, you know how you would LIKE your data to be organized, and don’t have to figure it out every time you encounter a new dataset. But a lot of people have trouble internalizing the concepts of tidy data. Once you do, everything else we’re doing in this book makes more sense.</p>
+<ul>
+<li>Each column is a “variable”, in that it defines a single attribute, such as height, weight, or zip code.</li>
+<li>Each row an “observation”, which contains all values of the variables measured on the same unit (say, person)</li>
+<li>Each “value” (usually number, text or date) belongs to a variable and an observation – it lies in the intersection of the two, and is seen in a cell.</li>
+<li>Each dataset, or spreadsheet, or data frame, refers to a different type of unit. There would be one for people, another for traffic tickets and a third for vehicles. These are the nouns that we’ve talked so much about.</li>
+</ul>
+<p>Our PPP data starts in tidy form, but we converted it to un-tidy data by pivoting it.</p>
+<section id="real-world-non-tidy-data" class="level4"><h4 class="anchored" data-anchor-id="real-world-non-tidy-data">Real world non-tidy data</h4>
+<p>Wickham laid out several ways that we see data when it’s not tidy. The three most common are:</p>
+<ol type="1">
+<li><p>Column headings are values, not variables. When a column heading shows each year, it is showing the value of the year variable, not something separate. This happens most of the time when you obtain data that is intended for publication, not analysis.</p></li>
+<li><p>Multiple variables are stored in one column. This can be taken too far, but you have to decide what the important level of detail is: Full name, or first name and last name? It can also come in data like the Census Bureau, where a value might represent both an age and a gender. (Male, 25-54 years old )</p></li>
+<li><p>Rows might contain different levels of detail. This also comes from getting printouts rather than original datasets, where subtotals and totals are shown in rows, not in a separate table. We have talked about the noun represented by each row – it should always be the same, so students and schools shouldn’t be in the same table; schools and school districts should be separated.</p></li>
+</ol></section><section id="what-does-this-have-to-do-with-grouped-data" class="level4"><h4 class="anchored" data-anchor-id="what-does-this-have-to-do-with-grouped-data">What does this have to do with grouped data?</h4>
+<p>Grouped data effectively breaks out values of categories and treats them independently, which is the equivalent of temporarily treating them as their own column.</p>
+<p>It’s somewhat difficult in the tidyverse to summarize across columns – it really wants to summarize rows. In a spreadsheet, it’s just as easy to write an <code>=sum(B1:J1)</code> as it is <code>=sum(B1:B12)</code>. But the tidyverse is only expecting you do to the second version (rows B1:b12), not the first. The reason is that it would make no sense to sum truly different variables (like adding up income and house price)!</p>
+<p>It means that in our R journey so far, grouped data is the first place you would have encountered situations in which your instinct is to wreck a perfectly good dataset.</p>
+<p>We’ll come back to all of that, but just remember that it’s possible to do all kinds of computations within a group that you’d normally think you want to do across columns. One example is, say, the change in COVID cases by county. Computing monthly percent changes would look something like this using the <code><a href="https://rdrr.io/r/stats/lag.html">lag()</a></code> function to get the previous row. This assumes the “tidy” data looks something like this:</p>
+<table class="table">
+<thead><tr class="header">
+<th>state</th>
+<th>county</th>
+<th>month</th>
+<th>cases</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>AL</td>
+<td>Auburn</td>
+<td>2020-04-01</td>
+<td>24</td>
+</tr>
+<tr class="even">
+<td>AL</td>
+<td>Auburn</td>
+<td>2020-05-01</td>
+<td>35</td>
+</tr>
+<tr class="odd">
+<td>AL</td>
+<td>Auburn</td>
+<td>2020-06-01</td>
+<td>200</td>
+</tr>
+</tbody>
+</table>
+<pre><code>covid_data |&gt;
+  group_by (state, county) |&gt; 
+  arrange (month) |&gt; 
+  mutate ( change = cases - lag(cases) , 
+           pct_change = change / lag(cases) * 100 ) </code></pre>
+<p>This method will start over for each county, so it will be <code>NA</code> for the first month within each county.</p>
+<p>(Your instinct may have been to pivot the data to show each month in its own column, then compute the percent change on each of those columns – something that could get really old really quickly. )</p>
+<p>This is just one example of how grouped data is quite powerful when used correctly. There are many others, such as extracting the most recent event in a court history by case. Try to think about how one group would be computed, and then don’t worry how the rest will work – R will do that thinking for you.</p>
+
+
+</section></section></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+<ol>
+<li id="fn1"><p>Beginning in February 2023, there is a new version of <code>summarize</code> that eliminates the need to group the data first. We’re not using that version, and I don’t want to confuse you, so I’m ignoring it. Future versions of this chapter will <em>try</em> to explain it.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>A synonym for the British spelling <code>summarise</code>, which you’ll see in a lot of examples<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>This only works if you have <code>df-print: paged</code> in your front matter (YAML between three dashes at the top<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation column-page-right"><div class="nav-page nav-page-previous">
+      <a href="./r-verb-mutate.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Verbs in depth: New from old data with Mutate</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./r-verb-join.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Verbs in depth: Matchmaking with joins</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">Data reporting for investigative journalism, Spring 2023 was written by Sarah Cohen</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">Produced with <a href="https://quarto.org">Quarto</a></div>
+  </div>
+</footer>
+
+
+</body></html>

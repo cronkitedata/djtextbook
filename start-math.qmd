@@ -1,0 +1,90 @@
+# Newsroom math { #start-math }
+
+>*Statistics are people with the tears washed off*
+>
+>\- Paul Brodeur
+
+Jo Craven McGinty, then of The New York Times, used simple rates and ratios to discover that a 6-story brick New Jersey hospital was the most expensive in the nation. In 2012, Bayonne Medical Center "charged the highest amounts in the country for nearly one-quarter of the most common hospital treatments," the [Times story said](https://www.nytimes.com/2013/05/17/business/bayonne-medical-center-has-highest-us-billing-rates.html).
+
+![NYT, May 17, 2013](assets/images/start-math-01.png)
+
+To do this story, McGinty only needed to know the number of the procedures reported to the government and the total amount each hospital charged. Dividing those to find an average price, then ranking the most common procedures, led to this surprising result.
+
+## Why numbers?
+
+Using averages, percentages and percent change is the bread and butter of data journalism, leading to stories ranging from home price comparisons to school reports and crime trends. It may have been charming at one time for reporters to announce that they didn't "do" math, but no longer. Instead, it is now an announcement that the reporter can only do some of the job. You will never be able to tackle complicated, in-depth stories without reviewing basic math.
+
+The good news is that most of the math and statistics you need in a newsroom isn't nearly as difficult as high school algebra. You learned it somewhere around the 4th grade. You then had a decade to forget it before deciding you didn't like math. But mastering this most basic arithmetic again is a requirement in the modern age.
+
+In working with typical newsroom math, you will need to learn how to:
+
+* Overcome your fear of numbers
+* Integrate numbers into your reporting 
+* Routinely compute averages, differences and rates 
+* Simplify and select the right numbers for your story
+
+While this chapter covers general tips, you can find specific instructions for typical newsroom math in this [Appendix A](#appendix-math)
+
+## Overcoming your fear of math
+
+When we learned to read, we got used to the idea that 26 letters in American English could be assembled into units that we understand without thinking -- words, sentences, paragraphs and books. We never got the same comfort level with 10 digits, and neither did our audience.
+
+Think of your own reaction to seeing a page of words. Now imagine it as a page of numbers.  
+
+Instead, picture the number "five". It's easy. It might be fingers or it might be a team on a basketball court. But it's simple to understand.
+
+Now picture the number 275 million. It's hard. Unfortunately, 275 billion isn't much harder, even though it's magnitudes larger. (A  million seconds goes by in about 11 days but you may not have been alive for a billion seconds -- about 36 years.)  
+
+The easiest way to get used to some numbers is to learn ways to cut them down to size by calculating rates, ratios or percentages. 
+In your analysis, keep an eye out for the simplest *accurate* way to characterize the numbers you want to use. "Characterize" is the important word here -- it's not usually necessary to be overly precise so long as your story doesn't hinge on a nuanced reading of small differences. (And is anything that depends on that news? It may not be.)
+
+Here's one example of putting huge numbers in perspective.  Pay attention to what you really can picture - it's probably the $21 equivalent. 
+
+<blockquote style="font-size:smaller;">
+The Chicago hedge fund billionaire Kenneth C. Griffin, for example, earns about $68.5 million a month after taxes, according to court filings made by his wife in their divorce. He has given a total of $300,000 to groups backing Republican presidential candidates. That is a huge sum on its face, yet is the equivalent of only $21.17 for a typical American household, according to Congressional Budget Office data on after-tax income. 
+<br><br>
+*"[Buying Power](https://www.nytimes.com/interactive/2015/10/11/us/politics/2016-presidential-election-super-pac-donors.html)", Nicholas Confessore, Sarah Cohen and Karen Yourish, The New York Times, October 2015*
+</blockquote>
+
+I had written it a even more simply, but editors found the facts so unbelievable that they wanted give readers a chance to do the math themselves. That's reasonable, but here's an even simpler way to say it: "earned nearly $1 billion after taxes...He has given $300,000 to groups backing candidates, the equivalent of a dinner at Olive Garden for the typical American family , based on Congressional Budget Office income data."   (And yes, I checked the price for an Olive Garden meal at the time for four people.)
+
+## Put math in its place
+
+For journalists, numbers -- or facts -- make up the third leg of a stool supported by human stories or anecdotes , and insightful comment from experts. They serve us in three ways:
+
+* **_As summaries_**. Almost by definition, a number counts something, averages something, or otherwise summarizes something. Sometimes, it does a good job, as in the average height of Americans. Sometimes it does a terrible job, as in the average income of Americans. Try to find summaries that accurately characterize the real world.
+
+* **_As opinions_**. Sometimes it's an opinion derived after years of impartial study. Sometimes it's an opinion tinged with partisan or selective choices of facts. Use them accordingly.
+
+* **_As guesses_**. Sometimes it's a good guess, sometimes it's an off-the-cuff guess. And sometimes it's a hopeful guess. Even when everything is presumably counted many times, it's still a (very nearly accurate) guess. Yes, the "audits" of presidential election results in several states in 2021 found a handful of errors -- not a meaningful number, but a few just the same.
+
+Once you find the humanity in your numbers, by cutting them down to size and relegating them to their proper role, you'll find yourself less fearful. You'll be able to characterize what you've learned rather than numb your readers with every number in your notebook. You may even find that finding facts on your own is fun.
+
+
+## Going further 
+
+### Tipsheets {-}
+
+* Steve Doig's "[Math Crib Sheet](https://businessjournalism.org/2017/09/newsroom-math-crib-sheet/)"
+* [Appendix A](#appendix-math): Common newsroom math, adapted from drafts of the book  *[Numbers in the Newsroom](https://www.ire.org/product/numbers-in-the-newsroom-using-math-and-statistics-in-news-second-edition-e-version/)*, by Sarah Cohen. 
+
+
+### Reading and viewing {-}
+
+* "[Avoiding Numeric Novcain: Writing Well with Numbers](https://www.poynter.org/news/avoiding-numeric-novocain-writing-well-numbers)," by Chip Scanlan, Poynter.com
+
+* T. Christian Miller's "[Writing the data-driven story](https://cronkitedata.s3.amazonaws.com/docs/data-writing-tmiller.pdf)"
+
+* A viral Twitter thread:
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">What happens in your head when you do 27+48?</p>&mdash; Gene Belcher (@Wparks91) <a href="https://twitter.com/Wparks91/status/1143666051793788928?ref_src=twsrc%5Etfw">June 25, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+
+## Exercises
+
+* Imagine that someone gave you $1 million and you could spend it on anything you want. Write down a list of things that would add up to about that amount. That should be easy. Now, imagine someone gave you $1 billion and you could spend it on whatever you want, but anything left over after a  year had to be returned. How would you spend it? (You can give away money, but it can't be more than 50% of a charity's annual revenues. So you can't give 10 $100 million gifts!) See how far you get trying to spend it. A few homes, a few yachts, student loan repayments for all of your friends? You've hardly gotten started.
+
+* Imagine it is Jan. 1, 2020 and you are tasked with writing the annual weather story, summarizing the high and low points of the previous year. Using [this  daily summary](https://cronkitedata.s3.amazonaws.com/xlfiles/phoenix_temperatures.xlsx) of temperatures, rain and wind for Phoenix, try to find three interesting facts for your story. If you want to [download your own data from NOAA]( https://www.ncdc.noaa.gov/cdo-web/datasets), choose "Local Climatalogical Data," and keep only the rows that refer to "SOD," or "Summary of Day".
+
+

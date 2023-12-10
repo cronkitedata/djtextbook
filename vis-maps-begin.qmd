@@ -1,0 +1,135 @@
+# Mapping: An introduction {#vis-maps-begin.qmd}
+
+Data journalism depends on maps. They tell us where clusters of crime exist in a city, or where campaign contributors live. They let us find counties to visit when we're interested in the places that matter in politics. They help us find zoning decisions that put people at risk for mudslides and fires.
+
+Reporters use spatial data to:
+
+-   Match two datasets based on locations rather than common columns
+
+-   Compare areas to one another, identifying disparities or differences based on geography rather than other characteristics.
+
+-   Aggregate data based on location, such as crime hot spots.
+
+## The power of maps
+
+The most famous use of mapping may be the John Snow map, made in 1854 during a cholera outbreak in London. Officials didn't know the cause, but Dr. Snow mapped the deaths and quickly saw the common element: The Broad Street water pump.
+
+![cholera map](assets/images/vis-map-begin-cholera-map-1.jpg){width="50%"}
+
+In data journalism, we use maps to see patterns that would be impossible any other way. Sometimes, they are used to write paragraphs rather than display data.
+
+In 2015, we did a story about the tycoons funding the upcoming presidential election. Mapping their locations let us write this paragraph:
+
+::: blockquote
+Nearly all the neighborhoods where they live would fit within the city limits of New Orleans. But minorities make up less than one-fifth of those neighborhoods' collective population, and virtually no one is Black. Their residents make four and a half times the salary of the average American, and are twice as likely to be college educated.
+:::
+
+Mapping seems magical and inconceivable until you do it. But it does require a little bit of vocabulary and a few basic concepts before you can accurately and confidently work with maps.
+
+## Mapping FAQ
+
+### What is GIS?
+
+Graphical Information Systems are programs and apps built to work with data that have a spatial, or geographic, element to them. In them, data is meant to be worked with in maps or on a spatial plane or globe rather than in columns and rows. Examples of GIS systems are ESRI's ArcMap, which is used primarily by researchers and government agencies who create the underlying maps we'll use in journalism. They are relatively hard on a computer, and require more memory and disk space than we've used.
+
+A popular free and open source GIS system is QGIS, which will work on either Windows or Mac machines. There are excellent tutorials available for QGIS in journalism, including a [Knight Center course](https://journalismcourses.org/course/mappingandgis/) (but the handout links are dead), and Alexandra Kanik's [prerequisite tutorials](prerequisite%20tutorials) for a master class in mapping done for NICAR in 2022.
+
+### What kinds of maps do we use?
+
+1.  "Reference" maps are simply `features` on a screen or on paper. Think of Google Maps as reference maps. Cartographers take great care in making reference maps readable and useful, from the shape of each line or point to the color of kind of area like a mountain range. Font selection and line types are other elements that cartographers care about, so that it is possible to use the map for navigation or to picture a location.
+
+2.  "Thematic maps" are the kind that we usually make in journalism: They are designed to illustrate data such as wealth, topography, or crime.
+
+Generally, your project will begin by finding the right reference map for your work, then layer on top of it thematic elements from your data. Reference maps can come from many places, such as the Census TIGER program, Google Maps (\$\$\$), OpenStreetMap, MapBox, Leaflet or other providers. You don't have to make them yourself. Turn them into thematic maps by joining data to them or layering data on top.
+
+### What are longitude and latitude?
+
+These are the coordinates that define a spot on the globe. In GIS applications, you will usually get these as "decimal degrees" rather than the degree, minute, second form that you learned in junior high.
+
+![Source: mapschool.io](assets/images/vis-map-begin-latlon.png)
+
+Usually, for local data, you will want the numbers to have at least three numbers after the decimal point. However, agencies often mask the actual locations in data they provide by lopping off decimals. Most coding services provide "rooftop" level positions, which have six numbers after the decimal point. For example, longitude (or X) -73.990593 and latitude (Y) 40.740121 define the position of the front of White House.
+
+In the United States, longitude (X) is always negative (except Guam), because it's in the Western Hemisphere. Latitude (Y) is always positive, because there is no place in the United States in the Southern Hemisphere.
+
+### What are features?
+
+Each layer on your map displays a "feature", such as roads, schools, or Census tracts. At its simplest, a feature layer is one of the following three types:
+
+[![Source: mapschool.io](assets/images/vis-map-begin-vector_types.png)](https://mapschool.io/)
+
+1.  Points: The simplest of the types, a point is a place, defined by its longitude and latitude, or its XY position. You can get that information from the data you're requesting or obtaining from the government, or you can try to figure it out yourself using a process called "geocoding". We'll come back to that.
+
+2.  Lines are strings of points smushed together --- they don't have to be straight, but they do not have the concept of an interior or exterior. You can find points along a line, or distances to a line. While there are many line features in reference maps, I have hardly ever used them in my work. People who work with traffic or water flows, however, use them a lot. You can use them to determine patterns on either side of a border, or a distance to a road.
+
+3.  Polygons: These lines smushed together to form an enclosed area, such as a state, a Census tract or a Zip Code. They often touch one another, and you can always find out which points fall within each polygon using a "spatial join" -- one of the most common tasks that we do. You can turn polygons into points by finding their center point, or centroid.
+
+<!-- -->
+
+4.  Raster data and imagery : For simplification, each of the above types are considered "vector" data -- they are defined by positions by connecting a whole bunch of points in space. But raster data, like satellite imagery, are just pixels of different colors. You can technically look at them in any program, but when they are imported to GIS systems, they become "georeferenced", in that their edges are referenced to position on the globe. For now, we are not going to look at raster data.
+
+![Source: mapschool.io](assets/images/vis-maps-begin-raster.png){alt="Source: mapschool.io"}
+
+"Attributes" are the data elements attached to features -- columns in a database! Thematic maps use attributes such as income, population, or temperature to determine the size, color or shape of features on a maps.
+
+### Where do I get map data?
+
+Unlike other parts of the government, sharing map data is very common in agencies. They are so hard to make, and so useful, that most cities and states have GIS departments whose job it is to organize and document the map data.
+
+Map data comes in various forms -- usually a bundle of files called "shapefiles", which were originally created by ESRI. More modern systems often have "geojson" files, which are easier to use. Google Earth uses "KML" or "KMZ" data, which is also easy to use. JSON files are less efficient than shapefiles, so they are often much larger.
+
+-   Local and state governments: In Arizona, the [AZGEO hub](https://azgeo-data-hub-agic.hub.arcgis.com/) (accessible with a free user account) coordinates the map data for many agencies of the state. At ASU, the library has a [GIS lab](https://lib.asu.edu/geo) with access to much of the base layer information needed, such as county voting districts. They also have contacts in local government who can help you find the underlying map data you need.
+
+-   Federal government: At the federal level, the US Geological Service can sometimes serve as a clearinghouse. The Weather Service, USDA and other agencies often have GIS data for free. The National Map also has many layers that can be used.
+
+-   The Census Bureau has mapped every address and block in the US, and creates TIGER files for counties, voting districts, school districts and other political boundaries.
+
+For very detailed maps, such as the footprints of property parcels in a county , you may have to buy the information. If you get it directly from the county, it shouldn't be a lot -- maybe \$100 -- but if you buy it privately, it can cost thousands of dollars.
+
+#### Getting map data from ESRI / ArcMap
+
+Many government agencies have turned their GIS applications over to the private company, ESRI, and make them public through that system. It's often quite confusing to download data from ESRI, but it is often possible. If you don't see a way to use the data yourself, then call the agency responsible for it and ask -- you will usually be able to get them to send it to you or give you instructions on where to find it. We'll look at an example of getting data from an ESRI map in the next chapter.
+
+### What if my data doesn't have longitude and latitude?
+
+The process of turning addresses into points on a map is called "geocoding", and it is one of the most expensive and time-consuming processes in data journalism. The reason is that there are so many ways to represent an address, and that addresses change all the time. It's not unusual to have 95 percent of your addresses map perfectly, but then you have to look at the remaining 5 percent to see whether there are consistent errors. When I used to do a lot of mapping in Washington, DC, there were three types of addresses that routinely failed -- anything on North or South Capitol Street; anything on Martin Luther King, Jr. Avenue, and anything on Nannie Helen Burroughs Avenue. That meant that any map I made, if I didn't deal with these problems, would be misleading because they would be missing those locations. Geocoding New York City addresses in Queens can also be difficult.
+
+We're not the only ones who struggle with geocoding. In Los Angeles, reporters once found that the crime data supplied to the public was wrong -- every time its geocoding failed, it put the crime at 1st and Spring Streets, which was the center of the city map. (Data used inside the police department was correct, because it came from a different source -- the GPS data sent by police when they made a stop.)
+
+This means that whenever you ask the government for data, you should ALWAYS ask for geographic coordinates and ask if they have GIS files (often using shapefiles). They may not give them to you, but it will save days of work and be much more accurate than trying to put them on a map yourself.
+
+## A note on projections
+
+::: blockquote
+Projections are what we call the mathematical equations that do the trick of turning the world into some flat shape that fits on a printout or a computer screen. It's a messy task to do, this transformation - there's no way to smoosh the world onto a screen without distorting it in some way. You either lose direction, or relative size, or come out with something very weird looking.
+
+\-- mapschool.io
+:::
+
+This clip from The West Wing shows how projections can change the way you see the world.
+
+{{< video https://www.youtube.com/embed/vVX-PrBRtTY >}}
+
+You can play around with how the standard map distorts size at <https://thetruesize.com>
+
+Because every map has a defined projection, you can't do anything with one without the maker of the map telling you how it's been flattened.
+
+#### Geographic coordinate systems
+
+Georgraphic coordinate systems are often used for point features, because they describe posiitons on a globe. They are also often used for reference, or base, maps because they're easy to use and transform.
+
+**WGS84** with the code ESPG:4326, for World Geodetic System (1984 version) is the standard coordinate system for international data and GPS systems.
+
+**NAD83** or EPSG:4269, is the standard used by the Census Bureau for North American data.
+
+#### Projected coordinate systems
+
+Where geographic coordinate systems are measured in degrees, projected coordinate systems use units of measure that we understand -- usually feet or meters. They are used more frequently to define direction, distance or shape. Where you would need a lot of geometry to compute the distance between two points on a globe, the distance between two points in a projected system are just the Pythagorean theorem you used in 6th grade: x^2^ + y^2^ = distance^2^
+
+If a map is projected, it will usually have the information built into the data file. This is one of the files that makes up the bundle for shapefiles, and the other types have the projection built in. R and other mapping systems will usually recognize it.
+
+However, state and local agencies often leave this part out. In those cases, look for a standard projection used by the state. For Maricopa County, the standard is North American Datum 1983, Arizona State Plane, Central Zone, HARN, in feet (code 2868). For US data, many people use the U.S. national atlas equal area projection, or crs 9311 (especially if you're only showing the lower 48) or ESRI:102009.
+
+There's a lot of complicated math that goes into flattening the earth into two dimensions for viewing on a screen or a piece of paper. Each of these projections has a number of characteristics, so instead of listing all of them whenever you want to use them, they have codes. You can look up codes using <https://spatialreference.org/>.
+
+Now that you have some working knowledge of GIS, we can move onto making maps.

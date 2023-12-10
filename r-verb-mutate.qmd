@@ -1,0 +1,290 @@
+# Verbs in depth: New from old data with Mutate {#r-verb-mutate}
+
+::: {.alert .alert-secondary}
+::: {.alert-heading .font-weight-bolder .fs-3}
+In this chapter
+:::
+
+-   Creating new columns with `mutate()`
+-   Combine summary and detail into one data frame
+-   Replacing `NA` values
+-   Using conditional commands `if_else()` and `case_when()` to create categories
+:::
+
+This continues the work using Arizona Paycheck Protection Program loans. Full documentation of the dataset is in the [Appendix](appendix-ppp.html).
+
+```{r}
+#| label: setup
+#| include: false
+
+library(tidyverse)
+library(lubridate)
+library(janitor)
+
+
+options(scipen=999)
+
+```
+
+::: {.alert-success .alert-dothis .p-3}
+To follow along, open your PPP project and create a new markdown the usual way, including the usual setup chunk.
+
+Add this command `options(scipen=999)` to the bottom of your setup chunk to avoid looking at scientific notation for large and small numbers.
+
+Load the data into your environment using this code chunk:
+:::
+
+```{r}
+#| eval: true
+#| label: read-az-loans
+
+ppp_orig <- 
+  readRDS( 
+   url ( 
+     "https://cronkitedata.s3.amazonaws.com/rdata/ppp_az_loans.RDS"
+       )
+   )
+
+
+
+```
+
+## `mutate` to create new columns
+
+Use the verb `mutate` whenever you want to create or change existing columns in your data.
+
+Examples of this include:
+
+-   Computing difference or percent difference
+-   Replacing `NA` values with "Unknown" or zero.
+-   Collapsing or creating categories for more meaningful analysis
+
+You will often use a combination of filtering and mutating to create a new data frame using the `<-` assignment to use in future code chunks. That's because they can get complex, and you don't want to repeat code that you might have to change over and over.
+
+::: callout-warning
+This chapter assumes you have gone through the [filtering](r-verb-filter.qmd) chapter. Many of the expressions and functions are the same, so if they don't look familiar to you, consider reviewing that chapter (again) first.
+:::
+
+`mutate` uses the syntax:
+
+        mutate ( new_column_name = function (arguments))
+
+That's pretty abstract, so we'll do this using examples.
+
+### Math on columns: compute difference and percent difference
+
+Here's an example of computing the difference and percent difference between the amount received and the amount forgiven. Before you run this, try to think of why a reporter might be interested in this list.
+
+Use the single "=" sign to provide a name for the new column and create more than one new column using a comma between them:
+
+```{r}
+#| label: m-difference
+#| eval: false
+
+
+ppp_orig |>
+  mutate ( amt_diff =  forgiveness_amount-amount, 
+           amt_pct_diff = amt_diff / amount  * 100 ) |>                   # compute new columns
+  select ( borrower_name, borrower_city, amount, forgiveness_amount) |>   # pick out a few columns
+  head(5).                                                                # show the first five rows
+  
+  
+
+
+```
+
+If you look hard enough, you'll realize that there are a lot of rows with `NA` instead of a value. That's because whenever you do anything with a missing value, the result is missing. Missing values infect everything they touch. You often have to deal with them before you can do anything else.
+
+### Converting NA to 0
+
+We would like to convert the forgiven amount from a missing value to zero, under the idea that if they have not filled it out, nothing has (yet) been forgiven. Of course, we'd have to check that with the SBA before publication.
+
+There is a specific function used for that: `replace_na()`, with two arguments: The column you want to check for missing values, and the value you want to use instead. This isn't limited to numbers -- you can do the same thing with words, often replacing NA with "Unknown".
+
+```{r}
+#| label: -create-fixed
+#| eval: true
+
+ppp_forgiven_fixed <- 
+  ppp_orig |>
+  mutate (amount_forgiven = replace_na(forgiveness_amount, 0))
+
+```
+
+(Note that nothing came out in this code chunk because the result was saved into a new data frame variable.)
+
+### Detail and total with summary statistics
+
+You can use `mutate` to put summary statistics next to your values so you can see whether or not they are similar to the average or median. (If you skipped converting the `NA` values above, the answers will always come out as `NA`, because they infect everything they touch. )
+
+ˆ
+
+```{r}
+#| eval: true
+#| label: mean-forgiven
+
+
+ppp_forgiven_fixed |> 
+  mutate ( avg_forgiven = mean(amount_forgiven), 
+           median_forgiven = median(amount_forgiven)) |> 
+  select (borrower_name, amount_forgiven, avg_forgiven, median_forgiven ) |> 
+  head()
+
+
+```
+
+## Categorizing text using conditional statements
+
+Very often, you'll want to categorize entries in a database in order to make it simpler to count and sum the values in a meaningful way. For example, the `business_type` column has 24 different values, including `NA` . Here's a list with the number of loans in each category:
+
+
+
+```{r  rows.print=25}
+
+#| label: print-forgiven
+#| eval: true
+#| echo: false 
+
+ppp_forgiven_fixed  |>
+   count ( business_type, sort=TRUE, name="# of rows") 
+
+```
+
+One way to work with these is to create new columns with yes-no indicators for certain types of businesses like non-profits or individuals vs. companies.
+
+### Two categories using `if_else`
+
+The function to do this is `if_else()` , which tests a condition exactly the same way `filter` did, but then assigns a value based on whether it's met or not. You list the condition first, then a comma , then what should happen if the condition is true, and then what should happen if it's false.
+
+The condition is done the same way you did it in a filter, but instead of picking out the rows that match, `mutate` acts on them separately from the rows that don't match.
+
+There's no "maybe", except for NA's in the original value. Here's the general form of what it looks like:
+
+``` markdown
+
+new_column_name = if_else ( test the old column for something as in a a filter,
+                         give it a value if it's true,
+                         give it another value if it's not true)
+```
+
+So here is a way to do this with the business_type using the same %in% operator you used in the `filter` lesson, saving it to new data frame in your Environment, then displaying the first 10 types of businesses using `count()`
+
+::: callout-note
+This code chunk uses a verb called `count()` to count up the number of rows in each category. We'll get into this in much more detail in the next chapter, but it's helpful to use it now to show you the results of creating new categories from old data.
+:::
+
+```{r rows.print=10}
+
+#| label: m-category-indiv 
+#| eval: true 
+#| echo: true
+
+ppp_category_indiv <- 
+  ppp_forgiven_fixed |>
+  mutate ( is_individual = 
+              if_else ( business_type %in% 
+                          c("Independent Contractors", 
+                            "Sole Proprietorship", 
+                            "Self-Employed Individuals", 
+                            "Single Member LLC"), 
+                        "Individual", 
+                        "Organization")
+  )  
+
+ppp_category_indiv |> 
+  count (is_individual, business_type) |> 
+  head(10)
+
+
+```
+
+### Two categories using fuzzy matching
+
+You can also use the same `str_like()` function you used in filtering. Here, it sets whether or not the borrower was a non-profit. Remember, a `%` means "anything or nothing, and a `_` means"any single character but it must be present". In our case, the word is shown as "Non Profit" and "Non-Profit". Once. you've set it to your new words, you can just filter on the new value:
+
+```{r}
+#| label: m-nonprofit
+
+
+ppp_category_nonprofit <-
+  ppp_category_indiv |>
+  mutate ( is_nonprofit = 
+             if_else ( str_like(business_type, "%Non_Profit%") , 
+                       "Is nonprofit", 
+                       "Not nonprofit"))  
+
+
+
+ppp_category_nonprofit |>
+  count ( business_type, is_nonprofit) |>
+  filter ( is_nonprofit == "Is nonprofit")
+  
+```
+
+(The profit categorization is unclear for some of these types, such as professional associations , tribal concerns and cooperatives.)
+
+### More than two categories using `case_when()`
+
+Sometimes you will want more than one outcome, such as setting a value for "High", "Medium" and "Low". Instead of `if_then`, use the function `case_when`, which lets you string along conditions and their outcomes. The tilde (`~`) is used to show what happens if it's true, and a TRUE at the end lets you say "everthing else"[^r-verb-mutate-1]
+
+[^r-verb-mutate-1]: This will change in future versions, which have a much more intuitive "Other" alternative.
+
+::: small
+    original data |> 
+      case_when ( first condition ~ what if it's true,
+                  second condition ~ what if  it's true, 
+                  third condition  ~ what if it's true, 
+                  TRUE ~ what to do with everything that's left
+                  )
+:::
+
+## Putting it all together
+
+Here is how you could set a column to with five types of borrowers instead of three. Once you put it together, you have a much more manageable list of five instead of 25 categories:
+
+```{r}
+#| label: m-borrower_category
+
+
+ppp_business_categories <- 
+  ppp_category_nonprofit |>
+  mutate (  new_business_type = 
+                case_when (  str_like(business_type, "%non_profit%") ~ "Non-profit",    #1st category
+
+                             business_type %in% 
+                               c("Independent Contractors", 
+                                "Sole Proprietorship", 
+                                "Self-Employed Individuals", 
+                                  "Single Member LLC")              ~ "Individual",    # 2nd category
+                             
+                             business_type == "Tribal Concerns"     ~ "Tribal concerns",    #3rd category
+                             
+                             str_detect (business_type, "LLC|Company|Corporation|Partnership") ~ "Companies",  #4th category
+                             
+                             TRUE ~ "Other")         #catchall 5th category
+            )
+
+
+# Now take a look at what you got
+
+ppp_business_categories |>
+  count ( new_business_type)
+
+
+```
+
+::: callout-tip
+This code chunk uses a function you haven't seen yet, called `str_detect()`, which is a powerful way to streamline the conditions. Instead of using `str_like()`, with its limited wildcards, this is based on [regular expressions](advanced-regex.qmd), which we'll look at later. But the way it's used here is to separate words that might be in the description with "\|", for "OR".
+:::
+
+### Save it for use in another program {.unnumbered}
+
+Saving this for future use means you don't have to worry anymore about some of the missing values, and you can filter and group by the simpler new business type instead of the original. This saves a data file called `ppp_edited.RDS` in your project folder.
+
+```{r}
+#| label: saverds
+#| eval: false
+
+saveRDS(ppp_business_categories, file="ppp_edited.RDS")
+
+```

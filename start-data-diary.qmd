@@ -1,0 +1,84 @@
+# Replication and the data diary { #start-data-diary }
+
+At the Associated Press, data reporters issue a simple command when beginning a project, which sets up a common set of files and folders. From there, reporters' work is centrally stored and documented in agreed-upon locations, making it easy for any one on the team to dip in and out of the project.
+
+All of the unit's work, including its story memos, are done using standardized tools that allow for replication at any point in the project and ensure that any communication with all members of the reporting and graphics teams are looking at the same, up-to-date results.
+
+Meghan Hoyer, the team's former manager, said the goal was to make sure that anyone on the team could pick up a project in the event of an emergency without wasting any time.  
+
+One concession Hoyer made was to standardize the team around the R programming language. She doesn't regret it. "It was a big lift at the time," she said. "But now I could never go back" to overseeing projects done using less formal structure and documentation.^[Hoyer is now the manager of the Washington Post's data team, which allows reporters to use R, Python or even SAS. But they still save and organize their projects so that another person can review and replicate them.] 
+
+## Replication and the data diary
+
+The formal processes used by AP might not work for smaller endeavors, but anyone can put the underlying ideas to work. At the Center for Public Integrity, [Talia Buford, now at ProPublica, kept a simple Word document](https://cronkitedata.s3.amazonaws.com/docs/TB_Data_Diary.pdf) with her questions and code annotated to help her repeat her work. That "data diary" served as a backstop and roadmap for fact-checking. 
+
+**Your analysis and the way it's characterized in publication must be demonstrably accurate.** That means understanding exactly what you did, why, where it all is and how it should be communicated to a general audience.  If you can't describe exactly where the data came from, what you did to derive your findings, and where to find it all, it simply shouldn't be published.  
+
+<!-- I was watched something recently that had something about how you should have your data in one place, and is it really there? I don't remember what that was. Fleeting vs. permanent. I just can't find it. -->
+
+Think of the data work the same way you think about interview notes or transcripts and any other research for a story. You wouldn't quote a court case without reading it and probably talking to some of the participants. You'd make sure you know where to find the documents and what people say about them. You will consult those documents during your fact-checking. All data work -- even the most short-lived -- should be documented in at least the same detail. Ideally, someone reading through your notes would be able to repeat your work and understand what it means.
+
+You also don't want your future self to curse your present self. It is very likely you'll have to drop the work at some point as other stories become more urgent and return to it months later. You should be able to pick up where you left off after briefly refreshing yourself on your work.   
+
+There are disagreements among reporters about how much to try to make our work replicable  just as scientists do. [Matt Waite's rant](https://github.com/datajtext/DataJournalismTextbook/blob/master/Modules/Replication/introduction.md) on the subject prompted me to [write a rebuttal](https://github.com/datajtext/DataJournalismTextbook/blob/master/Modules/Replication/response.md). The right answer is probably somewhere in between.
+
+## First steps in documentation
+
+Anyone who has taken a hard sciences or computer programming class in school probably had to maintain a lab notebook. Your data diary is the same idea -- a running list of sources and steps taken to get to the final answers. 
+
+Start the documentation process before you even open a new dataset. For a quick daily story, you might be able to keep your work in one short document or as a page in a spreadsheet file. For a longer project, you may find it easier to break your documents apart into logical pieces.
+Most computer languages are self-documenting -- they write out the steps taken. A data diary may not be necessary when a programming language is combined with narrative as in Jupyter Notebooks in Python or Quarto / R Markdown documents in R. 
+
+Whether doing it alongside computer code or in a separate document, here are some sections that are worth considering whenever you start a story or project.
+
+### Data sourcing {-}
+
+* The source of YOUR data, and how you know it's authentic. Be specific. And don't pretend you got it from the original source when you found it elsewhere, such as in this textbook or in a Github repository. 
+
+* Describe the original source of the data  and how it is collected and released.^[If you want to see a project with a lot of data sources and how they might be documented in your notes, take a look at the [New York City housing data sources](https://docs.google.com/document/d/1NqnPTUWhlJkg7JdBShSTWzSDncE91kBi/edit?usp=sharing&ouid=100970402851917703844&rtpof=true&sd=true) we considered for a project in 2016.]
+
+* In a separate set of notes, reference other stories and studies that use this or similar data. Include interview notes, advice, warnings and findings along with stories that have already been done.  
+
+* Identify alternative sources for this and similar or related datasets or documents.
+
+* Specifically write down where you have stored all of this and how you have organized your work. You want to make sure you can get back to the latest version easily, and that you have all of the supporting documents you need to check it. 
+
+### Data documentation and  flaws ^[Here is [an example](https://docs.google.com/document/d/1NqnPTUWhlJkg7JdBShSTWzSDncE91kBi/edit?usp=share_link&ouid=100970402851917703844&rtpof=true&sd=true) from the New York State housing court]  {-}
+
+* Be sure to include links or copies of any original documentation such as a record layout, data dictionary^[A data dictionary lists every table and column in the database, along with definitions. It may be very straightfoward but can become quite complex.] or manual. If there isn't one, consider making a data dictionary with what you've learned.
+
+* Document the ways you checked the integrity of the data. There are many ways it might be inaccurate. Try to reconcile the number of rows and any totals you can produce to  match other reports created by the source, or other reports that have used it. On longer stories, you'll also check for impossible combinations (10-year-olds with DUIs), missing data, improper importing or exporting of dates, among other things. (We'll come back to this.)
+
+* Record any questions (and answers as you get them) about the meaning of fields or the scope of the data.
+
+* Document decisions you've made about the scope or method of your analysis. For example, if you want to look at "serious" crimes, describe how and why you categorized each crime as "serious" or "not serious." Some of these should be vetted by experts or should be verified by documenting industry standards.
+
+* Include a list of interviews conducted / questions asked of officials and what they said.
+
+### Processing notes ^[[Here is an example](https://cronkitedata.s3.amazonaws.com/docs/lions-readme-data-overview.html) from one very complicated dataset] {-}  
+
+Some projects require many steps to get to a dataset that can be analyzed. You may have had to scrape the data, combine it with other sources or fix some entries. Some common elements you should document:
+
+* Hand-made corrections. Try to list every one, but it's ok if you describe HOW you did it, such as clustering and hand-entering using OpenRefine. Link to any spreadsheet, document or program you used. Just be sure to always work on a copy of the data.
+
+* Geocoding (affixing geographic coordinates to addresses). Note how many were correct, how many missing, and what you did about it.
+
+* A description of how you got messy data into a tabular form or a form suitable for analysis. For example, you may have had to strip headings or flip a spreadsheet on its head. Make sure to write down how you did that.
+
+### The good part: Your analysis {-}
+
+ * Each question you asked of your data, and the steps you took to answer it. If you use programming notebooks, write it out in plain language before or after the query or statements.
+
+ * Vetting of your answers: who has looked them over, commented on them
+
+ * Why they might be wrong.
+
+## Examples of documentation
+
+* [A published Jupyter notebook for an analysis of FEC enforcement](http://nbviewer.jupyter.org/github/datadesk/ferc-enforcement-analysis/blob/master/02_analyze.ipynb) actions from the Los Angeles Times' data desk.  Ben Welsh, the author of that notebook, says that there are previous versions with unpublishable work.
+
+* [A 2018 Buzzfeed News repo with start-to-finish documentation](https://github.com/BuzzFeedNews/2018-05-fentanyl-and-cocaine-overdose-deaths) of an opioid deaths story.
+
+* One year, I created a [dataset for practice in class](https://cronkitedata.s3.us-west-1.amazonaws.com/xlfiles/arizona_popchange_2018.xlsx) that contained information on population changes in Arizona counties. It turned out not to be an awesome exercise, but I created an [example data diary](https://docs.google.com/document/d/1EzjZYKmr8u5QIIDEmVKCtyzlzie06VMyFRa2RRqmiT0/edit?usp=sharing) to go with it that is more instructive than the data itself. 
+
+* Data cleaning will come up a lot in the future, but it's closely intertwined with documenting your work. Here's [an email exchange between me and Craig Silverman](https://cronkitedata.s3.amazonaws.com/docs/bulletproof-email.pdf), now at ProPublica, about the process I used at The New York Times in reporting and fact-checking. This isn't the same as a process for replication, but it discusses the kinds of things that should be in it.

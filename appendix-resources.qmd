@@ -1,0 +1,40 @@
+# Great R Resources { #appendix-resources }
+
+## Key takeaways
+
+* If this set of resources doesn't fit your learning style, there are lots of others that might
+* In our class, we are working almost entirely in the "tidyverse", and in R Markdown documents. Some of the resources you'll find elsewhere might not.
+
+
+<!-- Add link to the drag queen coding class. See if there are other good first-day programming aides I should add.-->
+
+## Coursework in R 
+
+Other professors and universities are also trying to teach R in journalism and other classes. Here are a few that have particularly rich materials for their students: 
+
+* Jesse Lecy's "Introduction to data science for the social sector,"  an ASU course that teaches R in the context of non-profit management. His site, <https://ds4ps.org/cpp-526-fall-2019/> has a [custom-made textbook](https://ds4ps.org/cpp-526-fall-2019/textbook/) that covers much of the same material as us. 
+
+* Matt Waite at the University of Nebraska has been teach R in the context of a sports journalism class and a data journalism. [His textbooks](http://mattwaite.github.io) are all freely available on Github. One minor difference that might trip you up: We're using R Markdown, and he's using R Notebooks. They're very similar, but the "knit" option isn't there when you use Notebooks -- only a "Preview". You'll know what that means when we get moving.
+
+* Christian McDonald at the University of Texas has also [created a textbook for his data reporting class](https://utdata.github.io/rwd-r-reporting-with-data/), which walks through the same data set all the way through. 
+
+* Peter Aldhous's "[R for Data Journalism](https://paldhous.github.io/wcsj/2017/)". Peter uses an R script instead of a markdown document. To do that, you create a new R document instead of a markdown, and run code by pressing CTL-Enter next to the lines that you want to run. It won't be formatted, but it takes away one of the first sets of confusion . 
+
+
+
+## Instructional screencasts and videos
+
+* Mary Jo Webster's [R for journalism videos](https://sites.google.com/view/mj-basic-data-academy/r-basics/r-how-to-videos?authuser=0)
+
+
+* Datacamp has a free introduction to its R class that includes a lot of what we're doing, called "[Transforming data with dplyr](https://www.datacamp.com/courses/data-manipulation-with-dplyr-in-r)"
+
+* Andrew Ba Tran's [R for Journalists](http://learn.r-journalism.com/en/) course, originall created for a MOOC offered by the  Knight Center for the Americas. Previous Cronkite students say that it goes a little fast for someone with no experience in other lanugages, but it has most of what you'd need.
+
+* Ben Stenhaug, a Data Science for Social Good fellow at Stanford, has put together some screencasts and exercises called [teachR](https://teachingr.com/) on starting out in R and the tidyverse.
+
+* "Tidy Tuesday" screencasts from David Robinson, [an example]((https://www.youtube.com/channel/UCeiiqmVK07qhY-wvg3IZiZQ)) using fivethirtyeight.com data on education and salaries. These are very long -- up to an hour -- but they walk through what it's really like to take a dataset from scratch and try to find something interesting. I disagree with one thing he does though -- I believe you should read the documentation FIRST, not after you've done a lot of guessing about what columns mean.
+
+* Sharon Machliss' "[Do More with R](https://www.youtube.com/playlist?list=PL7D2RMSmRO9JOvPC1gbA8Mc3azvSfm8Vv)" YouTube series. These are fairly advanced single-topic, short videos.
+
+

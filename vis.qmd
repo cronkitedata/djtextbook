@@ -1,0 +1,32 @@
+# Visualization  {-}
+
+
+## In this section
+
+The following chapters review ways of looking at your data while reporting. We're leaving publication quality graphic alone -- those often depend on using sites like [Datawrapper](datawrapper.de) or D3 in Javascript to get high-performance visualizations, while static graphics often depend on using Adobe products to make typography and palettes acceptable to your publication. 
+
+This chapter is done in R, mainly using the package `ggplot2`, which is part of the tidyverse. If you want to follow along with with interactive aspects, you'll want to install the `plotly` package. There may be others noted in individual sections.  
+
+## Package installations
+
+There are some packages we'll use that are not standard for the rest of the book. They are shown in the relevant chapters, but here is a full list: 
+
+* `reacatable` and `DT` for good-looking interactive reports
+* `gt` and `gtsummary` for static tables
+* `sf` and several others for geographic analysis
+* `leaflet` and `plotly` for interactive graphics and maps. 
+
+## Visualization tools {-}
+
+You can use a lot of different types of online and free applications to play around with graphics instead of R. They're less reproducible, and they often come and go as free options, but they're sometimes easier: 
+
+* [Datawrapper.de](https://www.datawrapper.de) , which is used in a lot of newsrooms. If you want to publish a visualization, it can link directly from R. It's also easy to use on its own. If you want to eventually publish your visualizations, this is probably the one that is most compatible with newsrooms.
+* [Flourish](https://flourish.studio) (recently purchased by Canva, so who knows? But you can now create private visualizations without paying. )
+* [RAWGraphs](https://rawgraphs.io), made for designers to sketch their work before digging deep into Adobe Illustrator. It's a little hard to use unless your data is in just the right form. 
+* [Tableau Public](https://public.tableau.com/en-us/s/), made mainly for business intelligence, but a free version is available. I haven't used it for a while for a few reasons: Newsrooms don't use it much because it doesn't scale well to mobile; it's hard to save drafts in the free version; it's a little hard to get used to the interface for a quick visualization. 
+ * The underlying [D3](https://observablehq.com/@d3/learn-d3) language of graphics, which is written in Javascript, is what powers a lot of these products. It's what the professional visual storyteller use. (Aside: javascript is probably the second language you'd want to learn. It helps with scraping and is used extensively newsrooms because it's the language of the web and mobile, so there are people to help you. But it's not easy.)
+
+
+
+
+

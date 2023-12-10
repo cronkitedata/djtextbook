@@ -1,0 +1,9 @@
+# Reporting with data {.unnumbered}
+
+Data reporting has come to mean many things. One of the best descriptions that fits this course is the moniker, "Empirical Journalism". For us, that means taking a systematic approach to finding, acquiring, evaluating and analyzing all kinds of data for the purpose of uncovering information that was hidden or otherwise ill-understood by the general public. It will teach you to use documents and data as sources like any other, with flaws and motivations that might thwart or help you report a story.
+
+This introductory section gives you some of the basic skills you need to begin thinking about data and digitally stored documents as sources for your stories. 
+
+Some of the skill comes from recognizing opportunities when they arise. The chapters on defining, finding and creating data should get you thinking about the many ways information is stored, and how difficult it might be to wrangle it for your story idea. 
+
+The section on reading and viewing investigations teaches you how to critically look at stories that attempt to use data, and also to learn from imaginative or effective use of it. There are also sections on the bread and butter of working with data: checking your math-phobia at the door and learning to document your work so that it can be published. 

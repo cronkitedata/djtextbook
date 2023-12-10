@@ -1,0 +1,43 @@
+# Practice exercise 1 { #xl-practice-elex}
+
+This exercise helps you put together everything you've done in this chapter -- sort, filter, group and compute new numbers. 
+
+The 2022 election had a few big-picture characteristics: 
+
+* Katie Hobbs, a Democrat, won by a narrow margin -- fewer than 20,000 votes out of millions cast. 
+* Doug Ducey, the Republican running in the last election -- won by a much higher margin. 
+* In other states, the better-than-expected results for Democratic Party candidates was driven by high Republican turnout, with those voters crossing lines to vote against some of their party's nominees. 
+
+Imagine you are a reporter working a few weeks after the election, when all of the votes have been cast and certified. You want to understand how Katie Hobbs beat Kari Lake to become the first Democratic Party governor of Arizona in a generation. You want to look at both overall results, and to find areas of the county to visit because they have interesting characteristics. 
+
+#### A note on voting precincts
+
+Voting precincts are set up for local and national elections by neighborhood. They are supposed to house about 5,000 voters each, but the county grew so fast that, by 2022, many of them had swelled to more than 10,000. The county undertook a re-precincting project in 2022, and added nearly 200 precincts to the existing 743 locations they previously had. It means that these neighborhoods are not the same as those in the last gubernatorial elections --- you can't look for places that had a lot of change without substantial work. 
+
+Because of this, you decide to look at the overall county results separately from the small areas that define precincts. You'll evaluate changes in the county patterns overall, then look for precincts to visit that have specific characteristics. 
+
+### The data file {-}
+
+::: {.alert .alert-secondary}
+Download the spreadsheet that contains your raw data and save it on your computer so you can find it. 
+::: 
+
+The workbook contains four pages: 
+
+1. Precinct results for the 2022 election ("precincts")
+2. The source information and definitions for the precinct data ("precinct layout") 
+3. Countywide results for 2018 and 2022 ("county")
+4. The source information and definitions for the county level data ("county layout") 
+
+
+
+
+
+
+
+
+
+
+
+
+This exercise provides some data 

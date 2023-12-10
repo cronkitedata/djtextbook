@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Data Reporting - 32&nbsp; Introduction to scraping in R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./appendix-math.html" rel="next">
+<link href="./advanced-scrape1.html" rel="prev">
+<link href="./assets/images/favicon.ico" rel="icon">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+</head>
+<body class="nav-sidebar floating">
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./advanced.html">Special skills</a></li><li class="breadcrumb-item"><a href="./advanced-scrape2.html"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Introduction to scraping in R</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./assets/images/favicon.ico" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Reporting</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/cronkitedata/djtextbook" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./start.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reporting with data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./start-story.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Learn a new way to read</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./start-math.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Newsroom math</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./start-data-def.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Defining “Data”</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./start-data-diary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Replication and the data diary</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./start-hunt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Finding the right data for your story</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./start-build-own.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Build your own database</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./xl.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Spreadsheets</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./xl-refresher.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">An Excel Refresher</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./xl-filter-sort.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Sorting and filtering to find stories</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./xl-pivot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Grouping with pivot tables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./xl-formulas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Formulas in Excel</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./xl-practice-noc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Practice exercise</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Study Guide</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-install.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Installing R and RStudio</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-start.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Getting started with R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Using Quarto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-data-import.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Getting and saving data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-verbs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">A quick tour of verbs</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-verb-filter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Verbs in depth: Select, arrange, filter</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-verb-mutate.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Verbs in depth: New from old data with Mutate</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-verb-groupby.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Verbs in depth: Aggregating with groups</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-verb-join.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Verbs in depth: Matchmaking with joins</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-recipes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Recipes</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./vis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualization</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vis-reporting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Visualization as a reporting tool</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vis-tables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Report-making in R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vis-demo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Visualization demo</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vis-practice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Visualization exercise</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vis-maps-begin.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Mapping: An introduction</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vis-maps-firstmap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">The first map</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./advanced.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Special skills</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced-pdf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Working with PDF files</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced-regex.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Regular Expressions for pattern matching</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced-openrefine.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Open refine walkthrough</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced-scrape1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Scraping without programming</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced-scrape2.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Introduction to scraping in R</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-math.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Newsroom numbers cheat sheet</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-program.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">A gentle intro to programming</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-ppp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Documentation for PPP data chapters</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+    <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li>
+<a href="#understanding-a-web-page-and-its-structure" id="toc-understanding-a-web-page-and-its-structure" class="nav-link active" data-scroll-target="#understanding-a-web-page-and-its-structure"><span class="header-section-number">32.1</span> Understanding a web page and its structure</a>
+  <ul class="collapse">
+<li><a href="#a-special-type-table" id="toc-a-special-type-table" class="nav-link" data-scroll-target="#a-special-type-table">A special type: table</a></li>
+  <li><a href="#a-harder-example-ballotpedia" id="toc-a-harder-example-ballotpedia" class="nav-link" data-scroll-target="#a-harder-example-ballotpedia">A harder example: Ballotpedia</a></li>
+  <li><a href="#getting-the-link" id="toc-getting-the-link" class="nav-link" data-scroll-target="#getting-the-link"><span class="header-section-number">32.1.1</span> Getting the link</a></li>
+  </ul>
+</li>
+  <li><a href="#your-turn" id="toc-your-turn" class="nav-link" data-scroll-target="#your-turn"><span class="header-section-number">32.2</span> Your turn</a></li>
+  <li>
+<a href="#cheat-sheet" id="toc-cheat-sheet" class="nav-link" data-scroll-target="#cheat-sheet"><span class="header-section-number">32.3</span> Cheat sheet</a>
+  <ul class="collapse">
+<li><a href="#html-tags-elements" id="toc-html-tags-elements" class="nav-link" data-scroll-target="#html-tags-elements">HTML tags / elements</a></li>
+  <li><a href="#common-attributes-for-tags" id="toc-common-attributes-for-tags" class="nav-link" data-scroll-target="#common-attributes-for-tags">Common attributes for tags</a></li>
+  <li><a href="#rvest-functions" id="toc-rvest-functions" class="nav-link" data-scroll-target="#rvest-functions">Rvest functions</a></li>
+  <li><a href="#examples-of-common-css-selectors" id="toc-examples-of-common-css-selectors" class="nav-link" data-scroll-target="#examples-of-common-css-selectors">Examples of common CSS selectors</a></li>
+  </ul>
+</li>
+  <li><a href="#going-further" id="toc-going-further" class="nav-link" data-scroll-target="#going-further"><span class="header-section-number">32.4</span> Going further</a></li>
+  </ul></nav>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content column-page-right" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="advanced-scrape2" class="quarto-section-identifier"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Introduction to scraping in R</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><p>This chapter introduces the <code>rvest</code> – short for “harvest” - library in R. See the <a href="appendix-glossary.qmd">glossary</a> in the Appendix for terms used in this tutorial.</p>
+<p>There are a lot of really good tutorials on the web for rvest. Here are a few:</p>
+<ul>
+<li><p><a href="https://dcl-wrangle.stanford.edu/rvest.html">A chapter in the advanced data wrangling textbook</a> used at Stanford. (The whole book is pretty good, and would be good for you now that you’re no longer beginners.) It uses the page from <a href="https://ourworldindata.org/famines">Our World in Data</a> on famines as its example.</p></li>
+<li><p>A <a href="https://www.dataquest.io/blog/web-scraping-in-r-rvest/">free chapter from DataQuest</a> on the basics of scraping</p></li>
+</ul>
+<p>If there is one reason to sign up for DataCamp it may be for the value of their scraping lessons.</p>
+<p>This chapter assumes you are, by now, relatively comfortable with R code chunks. In particular, it’s assumed you know how to assign the output of a piece of code to a new variable, and that you understand the pipe structure with the key verbs of the tidyverse.</p>
+<section id="understanding-a-web-page-and-its-structure" class="level2" data-number="32.1"><h2 data-number="32.1" class="anchored" data-anchor-id="understanding-a-web-page-and-its-structure">
+<span class="header-section-number">32.1</span> Understanding a web page and its structure</h2>
+<p>Web pages are written in HTML, even if they don’t have “html” at the end of the file name.</p>
+<p>HTML is like an upside-down tree. It has a trunk, which is an <code>&lt;html&gt;</code> tag, then two main branches: <code>&lt;head&gt;</code> and <code>&lt;body&gt;</code>. The content of the page branches out from the <code>body</code> tag:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="assets/images/advanced-scrape2-tree.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption class="figure-caption">Datacamp html tree</figcaption></figure>
+</div>
+<p>All of HTML is just text. The <em>tags</em> tell your browser how to render each <em>element</em>, while <em>attributes</em> give them extra information, like the URL of a link, or a formatting class.</p>
+<p>We can navigate the tree using RVest.</p>
+<div class="alert-success alert-dothis">
+<ul>
+<li><p>Open or create a project in RStudio, and create a new document. You can do this as a new markdown document, or as an R Script.</p></li>
+<li><p>The code to load two libraries:</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#| label: setup-scrape2</span></span>
+<span><span class="co">#| message: false </span></span>
+<span><span class="co">#| warning: false</span></span>
+<span><span class="co">#| echo: true</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rvest.tidyverse.org/">rvest</a></span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>And run your setup chunk.</li>
+</ul>
+</div>
+<p>The library <code>rvest</code> splits up the tree into its distinct elements, retaining the structure of the tree. The <code><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html()</a></code> function takes a chunk of text, a page saved on your computer, or a page on the internet and parses it into its pieces.</p>
+<p>We’re going to parse the page using “css selectors”, which tells the program how to navigate the page. The css selector can use the tag , an attribute, or both to find elements on the page. In this case, there is only one table, so we can just find one element using the “table” tag.</p>
+<p>This method of scraping doesn’t work if the page was created on the fly by executing a Javascript program on your browser, the way that the simple page in the last chapter did. Those pages usually have a json dataset that you can grab more easily.</p>
+<p>Here’s what the page looks like when rendered, with the full tree shown on the right.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="assets/images/advanced-scrape2-fullpage.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption class="figure-caption">full page</figcaption></figure>
+</div>
+<p>This code parses the <a href="&quot;https://cronkitedata.s3.amazonaws.com/docs/presidents.html">simple page</a> at the address shown into its pieces, and save the result as <code>my_html</code>You may notice that I’ve broken up the code to do one thing at a time. First, it saves the address in a variable called “url”. Then it uses the same piping we used in data work.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># label: readpres</span></span>
+<span><span class="co"># echo: true</span></span>
+<span><span class="co"># eval: false</span></span>
+<span></span>
+<span><span class="va">url</span> <span class="op">&lt;-</span> <span class="st">"https://cronkitedata.s3.amazonaws.com/docs/presidents.html"</span></span>
+<span></span>
+<span><span class="va">my_html</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">url</span> <span class="op">|&gt;</span>  </span>
+<span>  <span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">my_html</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{html_document}
+&lt;html&gt;
+[1] &lt;head&gt;\n&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8 ...
+[2] &lt;body&gt;\n   &lt;h1&gt;A heading&lt;/h1&gt;\n   &lt;p class="intro"&gt; This is  a paragraph  ...</code></pre>
+</div>
+</div>
+<p>This is a complex object, and you’re only seeing the beginning of it – the two elements that are at the top of the tree. You’ll notice that there is a new object that is a data type called a list rather than a data frame in you environment. Lists are used to store complicated structures that don’t fit neatly into rectangle.</p>
+<p>To find any element, like the table, use its tag in an <code><a href="https://rvest.tidyverse.org/reference/rename.html">html_node()</a></code> . To find all of the elements of a type, make it plural, like <code><a href="https://rvest.tidyverse.org/reference/rename.html">html_nodes()</a></code>.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>Use the tag name or CSS selector to get just a piece of the page.</p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">my_html</span> <span class="op">|&gt;</span></span>
+<span> <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_element</a></span><span class="op">(</span><span class="st">"body"</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{html_node}
+&lt;body&gt;
+[1] &lt;h1&gt;A heading&lt;/h1&gt;
+[2] &lt;p class="intro"&gt; This is  a paragraph with italic&lt;/p&gt;
+[3] &lt;div&gt;\n     &lt;p&gt; This is a simple table&lt;/p&gt;\n     &lt;table&gt;\n&lt;thead&gt;&lt;tr&gt;\n&lt;t ...</code></pre>
+</div>
+</div>
+<p>To get all of the paragraphs, make the command plural. Note how you now get the HTML of the selected elements in their entirety.</p>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">my_html</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_elements</a></span> <span class="op">(</span><span class="st">"p"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{xml_nodeset (2)}
+[1] &lt;p class="intro"&gt; This is  a paragraph with italic&lt;/p&gt;
+[2] &lt;p&gt; This is a simple table&lt;/p&gt;</code></pre>
+</div>
+</div>
+<p>And to get everything with a class of “intro”, use a period to indicate a class, and convert it to text using the <code>html_text</code> function, asking R to remove extra whitespace with the “trim” argument.</p>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">my_html</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_elements</a></span> <span class="op">(</span><span class="st">".intro"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text</a></span> <span class="op">(</span>trim<span class="op">=</span><span class="cn">T</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "This is  a paragraph with italic"</code></pre>
+</div>
+</div>
+<section id="a-special-type-table" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="a-special-type-table">A special type: table</h3>
+<p>Tables are so commonly scraped that rvest has special way to extract the values, just as we did in Google Sheets, which puts it right into a data frame:</p>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">my_html</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_element</a></span> <span class="op">(</span><span class="st">"table"</span><span class="op">)</span>  <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_table.html">html_table</a></span> <span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["First name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Last name"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"Joe","2":"Biden"},{"1":"Donald","2":"Trump"},{"1":"Barack","2":"Obama"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>The singular version of html_element() picks out the first piece that matches the selector. The plural version would result in a list of all of them, from which you can select the number you want using the odd syntax <code>.[[n]]</code>, where “n” is the table number.</p>
+</section><section id="a-harder-example-ballotpedia" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="a-harder-example-ballotpedia">A harder example: Ballotpedia</h3>
+<p>Here’s an example using the ballotpedia page we used in the last section:</p>
+<div class="cell" data-rows.print="4">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">url</span> <span class="op">&lt;-</span><span class="st">"https://ballotpedia.org/List_of_current_city_council_officials_of_the_top_100_cities_in_the_United_States"</span></span>
+<span></span>
+<span><span class="va">ballotpedia</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="va">url</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_elements</a></span><span class="op">(</span><span class="st">"table"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span> <span class="op">(</span><span class="va">ballotpedia</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{xml_nodeset (12)}
+ [1] &lt;table class="infobox" style="text-align: center; width:200px"&gt;&lt;tbody&gt;\n ...
+ [2] &lt;table class="bptable sortable collapsible collapsed" style="background: ...
+ [3] &lt;table class="bptable gray sortable" id="officeholder-table" style="widt ...
+ [4] &lt;table class="wikitable;" style="width=100%"&gt;&lt;tbody&gt;\n&lt;tr&gt;\n&lt;th colspan= ...
+ [5] &lt;table class="navbox" cellspacing="0" style=";"&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style="pa ...
+ [6] &lt;table cellspacing="0" class="nowraplinks collapsible autocollapse" styl ...
+ [7] &lt;table class="navbox" cellspacing="0" style=";"&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style="pa ...
+ [8] &lt;table cellspacing="0" class="nowraplinks collapsible autocollapse" styl ...
+ [9] &lt;table class="navbox" cellspacing="0" style=";"&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style="pa ...
+[10] &lt;table cellspacing="0" class="nowraplinks collapsible autocollapse" styl ...
+[11] &lt;table class="navbox" cellspacing="0" style=";"&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style="pa ...
+[12] &lt;table cellspacing="0" class="nowraplinks collapsible autocollapse" styl ...</code></pre>
+</div>
+</div>
+<p>Looking at this, we have several ways to get at the proper table. We can pick the third element that we just got:</p>
+<div class="cell">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ballotpedia</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{html_node}
+&lt;table class="bptable gray sortable" id="officeholder-table" style="width:auto; border-bottom:1px solid #bcbcbc;"&gt;
+[1] &lt;thead&gt;&lt;tr colspan="5" style="background:#4c4c4c!important;color:#fff!imp ...
+[2] &lt;tbody&gt;\n&lt;tr&gt;\n&lt;td style="padding-left:10px;"&gt;&lt;a href="https://ballotpedi ...</code></pre>
+</div>
+</div>
+<p>or, you might notice that it has an “id” attribute called ‘officeholder-table’.</p>
+<div class="cell">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">office_holders</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">url</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rvest.tidyverse.org/reference/rename.html">html_node</a></span><span class="op">(</span><span class="st">"#officeholder-table &gt; tbody"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you print it, you’ll see something like this:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="assets/images/advanced-scrape2-largetable.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption class="figure-caption">office image</figcaption></figure>
+</div>
+</section><section id="getting-the-link" class="level3" data-number="32.1.1"><h3 data-number="32.1.1" class="anchored" data-anchor-id="getting-the-link">
+<span class="header-section-number">32.1.1</span> Getting the link</h3>
+<p>Before, in Google Sheets, we had no way to pick up the list of links that would tell us what city each member was in. That’s also true when we use the html_table() function to turn it into a data frame:</p>
+<div class="cell">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">office_table</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="va">url</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rvest.tidyverse.org/reference/rename.html">html_node</a></span><span class="op">(</span><span class="st">"#officeholder-table"</span><span class="op">)</span> <span class="op">|&gt;</span>  <span class="co"># keep the whole table to get headings </span></span>
+<span>  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_table.html">html_table</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>But now we can get a list of the names of cities by extracting an “attribute” from the tag. (This is a little harder than I’d intended because not every row has a link, meaning we have to rejigger the formula to create empty rows when the link doesn’t exist.)</p>
+<div class="cell">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">city_links</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">ballotpedia</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span> <span class="op">|&gt;</span>  <span class="co"># the third table in our list</span></span>
+<span>  <span class="fu"><a href="https://rvest.tidyverse.org/reference/rename.html">html_nodes</a></span> <span class="op">(</span><span class="st">"tbody &gt; tr"</span><span class="op">)</span> <span class="op">|&gt;</span>  <span class="co"># all rows</span></span>
+<span>  <span class="fu"><a href="https://rvest.tidyverse.org/reference/rename.html">html_node</a></span> <span class="op">(</span><span class="st">"td &gt; a"</span><span class="op">)</span> <span class="op">|&gt;</span>  <span class="co"># justlink tag in the first column </span></span>
+<span>  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_attr.html">html_attr</a></span><span class="op">(</span><span class="st">"href"</span><span class="op">)</span>  <span class="co"># the URL</span></span>
+<span>  </span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span><span class="op">(</span><span class="va">city_links</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "https://ballotpedia.org/Barbara_Hanes_Burke"         
+[2] "https://ballotpedia.org/Jeff_MacIntosh"              
+[3] "https://ballotpedia.org/John_Larson_(North_Carolina)"
+[4] "https://ballotpedia.org/James_Taylor,_Jr."           
+[5] "https://ballotpedia.org/Kevin_Mundy"                 
+[6] "https://ballotpedia.org/Robert_C._Clark"             </code></pre>
+</div>
+</div>
+<p>We’ve never done this before, but we can add this list as a column to the data frame using the tidyverse <code><a href="https://tibble.tidyverse.org/reference/add_column.html">add_column()</a></code> function of the tidyverse . At the same time, you can put your regular expression muscles to work by “extracting” rather than “detecting” a pattern<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>:</p>
+<div class="cell" data-rows.print="3">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">office_table</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/add_column.html">add_column</a></span> <span class="op">(</span>city<span class="op">=</span><span class="va">city_links</span>, .before<span class="op">=</span><span class="st">"Office"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span> <span class="op">(</span>city_extracted <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract</a></span><span class="op">(</span><span class="va">city</span>, <span class="st">"ballotpedia.org\\/(.*)$"</span>, group<span class="op">=</span><span class="fl">1</span><span class="op">)</span> , .after<span class="op">=</span><span class="st">"city"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/sample_n.html">sample_n</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["city"],"name":[1],"type":["chr"],"align":["left"]},{"label":["city_extracted"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Office"],"name":[3],"type":["chr"],"align":["left"]},{"label":["State"],"name":[4],"type":["chr"],"align":["left"]},{"label":["Name"],"name":[5],"type":["chr"],"align":["left"]},{"label":["Party"],"name":[6],"type":["chr"],"align":["left"]},{"label":["Date assumed office"],"name":[7],"type":["chr"],"align":["left"]}],"data":[{"1":"https://ballotpedia.org/Jacksonville,_Florida","2":"Jacksonville,_Florida","3":"Jacksonville City Council District 1","4":"FL","5":"Joyce Morgan","6":"Democratic","7":"2015"},{"1":"https://ballotpedia.org/Dan_Stewart_(Nevada)","2":"Dan_Stewart_(Nevada)","3":"Henderson City Council Ward IV","4":"NV","5":"Dan Stewart","6":"","7":"January 17, 2017"},{"1":"https://ballotpedia.org/Chandler,_Arizona","2":"Chandler,_Arizona","3":"Chandler City Council At-large","4":"AZ","5":"Mark Stewart","6":"Nonpartisan","7":"2017"},{"1":"https://ballotpedia.org/Cincinnati,_Ohio","2":"Cincinnati,_Ohio","3":"Cincinnati City Council","4":"OH","5":"Jeff Cramerding","6":"Nonpartisan","7":"January 4, 2022"},{"1":"https://ballotpedia.org/Ryana_Parks-Shaw","2":"Ryana_Parks-Shaw","3":"Kansas City City Council District 5","4":"MO","5":"Ryana Parks-Shaw","6":"Nonpartisan","7":"August 1, 2019"},{"1":"https://ballotpedia.org/Charlotte,_North_Carolina","2":"Charlotte,_North_Carolina","3":"Charlotte City Council District 6","4":"NC","5":"Tariq Bokhari","6":"Republican","7":"December 4, 2017"},{"1":"https://ballotpedia.org/Chicago,_Illinois","2":"Chicago,_Illinois","3":"Chicago City Council Ward 10","4":"IL","5":"Susan Garza","6":"Nonpartisan","7":"2015"},{"1":"https://ballotpedia.org/Indianapolis,_Indiana","2":"Indianapolis,_Indiana","3":"Indianapolis City Council District 4","4":"IN","5":"Ethan Evans","6":"Independent","7":"January 1, 2020"},{"1":"https://ballotpedia.org/St._Petersburg,_Florida","2":"St._Petersburg,_Florida","3":"St. Petersburg City Council District 1","4":"FL","5":"Copley Gerdes","6":"Nonpartisan","7":"January 6, 2022"},{"1":"https://ballotpedia.org/Memphis,_Tennessee","2":"Memphis,_Tennessee","3":"Memphis City Council District 2","4":"TN","5":"Frank Colvett Jr.","6":"Nonpartisan","7":"2016"},{"1":"https://ballotpedia.org/Long_Beach,_California","2":"Long_Beach,_California","3":"Long Beach City Council District 5","4":"CA","5":"Stacy Mungo","6":"Nonpartisan","7":"2014"},{"1":"https://ballotpedia.org/Lexington,_Kentucky","2":"Lexington,_Kentucky","3":"Lexington City Council District 8","4":"KY","5":"Fred Brown","6":"Nonpartisan","7":"January 4, 2015"},{"1":"https://ballotpedia.org/Hialeah,_Florida","2":"Hialeah,_Florida","3":"Hialeah City Council Group V","4":"FL","5":"Carl Zogby","6":"Nonpartisan","7":"November 10, 2017"},{"1":"https://ballotpedia.org/Albuquerque,_New_Mexico","2":"Albuquerque,_New_Mexico","3":"Albuquerque City Council District 8","4":"NM","5":"Trudy Jones","6":"Nonpartisan","7":"2007"},{"1":"https://ballotpedia.org/Jacksonville,_Florida","2":"Jacksonville,_Florida","3":"Jacksonville City Council At-large Position 5","4":"FL","5":"Sam Newby","6":"Republican","7":"2015"},{"1":"https://ballotpedia.org/Howard_Shook","2":"Howard_Shook","3":"Atlanta City Council District 7","4":"GA","5":"Howard Shook","6":"Nonpartisan","7":"2001"},{"1":"https://ballotpedia.org/Chicago,_Illinois","2":"Chicago,_Illinois","3":"Chicago City Council Ward 46","4":"IL","5":"James Cappleman","6":"Nonpartisan","7":"2011"},{"1":"https://ballotpedia.org/Chula_Vista,_California","2":"Chula_Vista,_California","3":"Chula Vista City Council District 4","4":"CA","5":"Andrea Cardenas","6":"Nonpartisan","7":"December 8, 2020"},{"1":"https://ballotpedia.org/Orlando,_Florida","2":"Orlando,_Florida","3":"Orlando City Council District 1","4":"FL","5":"Jim Gray","6":"Nonpartisan","7":"2012"},{"1":"https://ballotpedia.org/Oklahoma_City,_Oklahoma","2":"Oklahoma_City,_Oklahoma","3":"Oklahoma City Council Ward 3","4":"OK","5":"Barbara Young","6":"Nonpartisan","7":"April 13, 2021"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[3],"max":[3]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>(The str_extract () function matches everything after the last slash , because we put parentheses around the last part, which is a a capture group. This capability used to be very difficut in R – now it’s a bit easier. )</p>
+<p>It doesn’t work perfectly, but it generally gets us a bit closer to a city name.</p>
+</section></section><section id="your-turn" class="level2" data-number="32.2"><h2 data-number="32.2" class="anchored" data-anchor-id="your-turn">
+<span class="header-section-number">32.2</span> Your turn</h2>
+<p>A lot of people use IMDB pages as practice for scraping because its HTML is a little primitive. Try extracting the name, year, rating, and rank of each item in this list <a href="https://www.imdb.com/chart/toptv/?ref_=nv_tvv_250" class="uri">https://www.imdb.com/chart/toptv/?ref_=nv_tvv_250</a></p>
+<p>Hints:</p>
+<ul>
+<li><p>If you right-click on the table, you’ll see the table has an attribute of <code>class="chart full-width"</code> . That means you can use the class selector <code>.chart &gt; table</code> . If you use plural, it will be a list with one item in it. If you use singular, it will be the table itself.</p></li>
+<li><p>To get three columns in a data frame of text, <code>html_table(trim=T)</code></p></li>
+<li><p>The year is held in a span element with a class of “secondaryInfo” in the first column. See if you can figure out how to get at it. <a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p></li>
+<li><p>To extract title and its link, use the <code>a</code> tag</p></li>
+<li><p>To get the full information from the rating column, including the number of votes that it’s based on, use the <code>strong</code> tag then the <code>title</code> attribute. See if you can figure that one out.</p></li>
+<li><p>To put them all together, use the add_column() verb</p></li>
+</ul></section><section id="cheat-sheet" class="level2" data-number="32.3"><h2 data-number="32.3" class="anchored" data-anchor-id="cheat-sheet">
+<span class="header-section-number">32.3</span> Cheat sheet</h2>
+<section id="html-tags-elements" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="html-tags-elements">HTML tags / elements</h3>
+<p>Each tag has an opening and closing it. This is what a “p” open and close tag looks like, with the text inside it shown on the page:</p>
+<pre><code>&lt;p&gt; This is a paragraph &lt;/p&gt;
+</code></pre>
+<p>Here is a list of common tags you’ll use in scraping:</p>
+<table class="table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 78%">
+</colgroup>
+<thead><tr class="header">
+<th>tag</th>
+<th>description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>p</code></td>
+<td>or a paragraph</td>
+</tr>
+<tr class="even">
+<td><code>div</code></td>
+<td>a block of text , or division of the page.</td>
+</tr>
+<tr class="odd">
+<td><code>span</code></td>
+<td>An area within a div or p element that is treated specially without it breaking into a new line.</td>
+</tr>
+<tr class="even">
+<td><code>a</code></td>
+<td>a link. It should always have an attribute of <code>href</code>, which is the URL to the link.</td>
+</tr>
+<tr class="odd">
+<td>
+<code>h1</code> through <code>h6</code>
+</td>
+<td>which are headline levels. “h1” is the headline, “h2” is a sub-head, and so on.</td>
+</tr>
+</tbody>
+</table>
+<p>Modern websites might have these sections, which are used instead of the “div” tag:</p>
+<table class="table">
+<thead><tr class="header">
+<th>tag</th>
+<th>description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>nav</code></td>
+<td>a navigational menu</td>
+</tr>
+<tr class="even">
+<td><code>main</code></td>
+<td>the main block of the page with the content</td>
+</tr>
+<tr class="odd">
+<td><code>aside</code></td>
+<td>a sidebar</td>
+</tr>
+<tr class="even">
+<td><code>footer</code></td>
+<td>the stuff at the bottom.</td>
+</tr>
+</tbody>
+</table>
+<p>Tables are structured like this:</p>
+<table class="table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 78%">
+</colgroup>
+<thead><tr class="header">
+<th>tag</th>
+<th>description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>table</code></td>
+<td>the main container.</td>
+</tr>
+<tr class="even">
+<td>
+<code>thead</code> and <code>tbody</code>
+</td>
+<td>A heading area and the body area. These are always just below the table element</td>
+</tr>
+<tr class="odd">
+<td><code>th</code></td>
+<td>the row that contains the headings . These are the first row within the body</td>
+</tr>
+<tr class="even">
+<td><code>tr</code></td>
+<td>all of the content rows. These are subsequent rows within tbody</td>
+</tr>
+<tr class="odd">
+<td><code>td</code></td>
+<td>all of the cells (columns). These are always WITHIN a tr or th element.</td>
+</tr>
+</tbody>
+</table>
+<p>Any of these can be nested within any others. Typically, a page starts with an “h1” tag, then has “div” tags for different sections, such as the sidebar or the main content. An “a” tag is typically nested within others.</p>
+<p>Standalone tags:</p>
+<p>A few tags don’t have opening and closing versions - they just stand alone:</p>
+<p><code>img</code> - an image to show. It would have a <code>src</code> attribute for the link, and an <code>alt</code> attribute for text to show for accessibility. example: <code>&lt;img src="path-to-my-image" alt="This is a picture of..."&gt;</code></p>
+<p><code>br</code> - A hard line break.</p>
+</section><section id="common-attributes-for-tags" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="common-attributes-for-tags">Common attributes for tags</h3>
+<table class="table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 78%">
+</colgroup>
+<thead><tr class="header">
+<th>tag</th>
+<th>description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>href</code></td>
+<td>the URL of a link within an <code>a</code> tag.</td>
+</tr>
+<tr class="even">
+<td><code>src</code></td>
+<td>the path to an image, within an <code>img</code> tag.</td>
+</tr>
+<tr class="odd">
+<td><code>class</code></td>
+<td>a reference to a CSS class. More than one class can be identified, separated with a space.</td>
+</tr>
+<tr class="even">
+<td><code>id</code></td>
+<td>a unique name for this element using CSS</td>
+</tr>
+</tbody>
+</table>
+<p>People can also make up their own attributes - they’re arbitrary.</p>
+</section><section id="rvest-functions" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="rvest-functions">Rvest functions</h3>
+<table class="table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 78%">
+</colgroup>
+<thead><tr class="header">
+<th>function</th>
+<th>description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html()</a></code></td>
+<td>to parse the page. Start with a file name or URL.</td>
+</tr>
+<tr class="even">
+<td><code>html_elements</code></td>
+<td>to get ALL elements that match your query. It always gives back a list of objects, even if it’s empty. To pluck one by number, use <code>[[n]]</code>. You might see it as <code><a href="https://rvest.tidyverse.org/reference/rename.html">html_nodes()</a></code>, which is from an older version of the rvest library</td>
+</tr>
+<tr class="odd">
+<td><code>html_element</code></td>
+<td>the FIRST element that matches your query. Always returns a single object. (You might see <code><a href="https://rvest.tidyverse.org/reference/rename.html">html_node()</a></code>)</td>
+</tr>
+<tr class="even">
+<td><code><a href="https://rvest.tidyverse.org/reference/html_table.html">html_table()</a></code></td>
+<td>convert a table to a data frame with just its text</td>
+</tr>
+<tr class="odd">
+<td><code>html_text(trim=T)</code></td>
+<td>get the text within an element.</td>
+</tr>
+<tr class="even">
+<td><code>html_attr (attr_name)</code></td>
+<td>get the value of an attribute. Commonly, this is used as <code>httr_attr("href")</code> to get the link inside an <code>a</code> link element.</td>
+</tr>
+<tr class="odd">
+<td><code>add_column</code></td>
+<td>append columns to the end of a dataframe from lists/vectors. They must be in the same order, and there have to be the same number of items as there are rows.</td>
+</tr>
+<tr class="even">
+<td><code>add_row</code></td>
+<td>to append rows at the bottom. These can be by name or position. There can’t be any columns in the row you want to add that aren’t in the one you’re adding to.</td>
+</tr>
+</tbody>
+</table>
+<p>(You’ll often see these operations as <code>cbind</code> and <code>rbind</code> - they’re similar. Our way is just the tidyverse way.)</p>
+</section><section id="examples-of-common-css-selectors" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="examples-of-common-css-selectors">Examples of common CSS selectors</h3>
+<p>This uses an example assuming the tag “p” , class “myclass” and id “myid” are used. You substitute the tags, classes, and id’s you want. See <a href="https://www.scraperapi.com/blog/css-selectors-cheat-sheet/" class="uri">https://www.scraperapi.com/blog/css-selectors-cheat-sheet/</a> for a more in-depth cheat sheet.</p>
+<table class="table">
+<colgroup>
+<col style="width: 42%">
+<col style="width: 57%">
+</colgroup>
+<thead><tr class="header">
+<th>selector</th>
+<th>description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>p</code></td>
+<td>a “p” element. Replace with the element you want to capture.</td>
+</tr>
+<tr class="even">
+<td><code>.myclass</code></td>
+<td>any element with class=“myclass”</td>
+</tr>
+<tr class="odd">
+<td><code>p .myclass</code></td>
+<td>“p” element with a class of “myclass”.</td>
+</tr>
+<tr class="even">
+<td><code>p &gt; .myclass</code></td>
+<td>every child element of p with a class of ‘myclass’ regardless of the tag. Must be a direct child.</td>
+</tr>
+<tr class="odd">
+<td><code>#myid</code></td>
+<td>Any element with “id=‘myid’”</td>
+</tr>
+<tr class="even">
+<td><code>body &gt; div &gt; table .content-table &gt; tbody &gt; tr</code></td>
+<td>A row within a table classed “content-table” within a div.</td>
+</tr>
+</tbody>
+</table>
+<p>You have to go through the whole path to an element if you need it, which is why you have to look in the inspector section of your browser or use the CSS Selector Gadget (a chrome extension that I’ve never been able to work properly!)</p>
+</section></section><section id="going-further" class="level2" data-number="32.4"><h2 data-number="32.4" class="anchored" data-anchor-id="going-further">
+<span class="header-section-number">32.4</span> Going further</h2>
+<p>The CSS selectors shown in this chapter are a little limiting – you’ll find times when the information you’re seeking isn’t defined using those selectors. That’s when the XPATH selectors we saw in the last chapter are used. It’s beyond the scope of this tutorial, but ask for some help or try to find XPATH examples if you can’t figure out how to get to a part of the page with your css selections – it’s pretty common for this to happen.</p>
+
+
+</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+<ol>
+<li id="fn1"><p>We glossed over this before, but any time you use a pipe, whatever comes above a command is used as the first argument of the current command. So this code is the same as <code>read_html(url)</code>. Sometimes you need it as something other than the first argument, in which case you reference it using a period.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>A newer version of rvest prefers the use of <code><a href="https://rvest.tidyverse.org/reference/html_element.html">html_element()</a></code> instead of node. For us, they mean the same thing and both work. The newer syntax throws a warning in your RStudio environment that I can’t troubleshoot, so I’m waiting for an update to the rvest package to switch.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>str_extract changed in December 2022. Make sure your packages are up to date.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p> <code>html_elements ("tbody &gt; tr &gt; .titleColumn &gt; .secondaryInfo") |&gt; html_text(trim=T)</code><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation column-page-right"><div class="nav-page nav-page-previous">
+      <a href="./advanced-scrape1.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Scraping without programming</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./appendix-math.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Newsroom numbers cheat sheet</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">Data reporting for investigative journalism, Spring 2023 was written by Sarah Cohen</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">Produced with <a href="https://quarto.org">Quarto</a></div>
+  </div>
+</footer>
+
+
+</body></html>

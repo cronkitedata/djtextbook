@@ -1,0 +1,528 @@
+# Newsroom numbers cheat sheet { #appendix-math }
+
+*(Selected and edited from drafts of "Numbers in the Newsroom", 2nd edition, 2014, by Sarah Cohen. Full book available from [IRE](https://ire.org)*)
+ 
+Virtually every number we use must be compared with something – another time, another place or a total. This newsroom math guide helps you put numbers into perspective using three devices: “Per” something, change, and averages.
+
+These are  arithmetic problems – formulas many of us learned sometime around the fourth grade. Unfortunately, we had another decade to forget them before we got into reporting – then got caught in the trap of math phobia – before these  tools became second nature.
+
+The good news is that most news stories don’t depend on fancy math. Master this arithmetic again, and you’ll be able to tackle most reporting jobs.
+
+::::: {.callout-caution}
+### Are you on a mobile device? 
+
+This is going to look incomprehensible. Don't even try until you get to a bigger screen.
+:::::
+
+## The PERS: Fractions, rates, percents and per capita
+
+You can usually simplify your story if you can re-jigger your numbers into a rate, a ratio or a percentage. “One out of four” is a fraction, or a rate. “Forty percent” is another ratio or rate. And 235 deaths per 100,000 people is another.
+
+Percents and fractions are used to scale of very large or very small numbers while putting them into perspective.
+
+Rates are also used to level the playing field – they compare two items that have a different base.  
+
+When you see a lot of numbers in copy, examine them to see if a simple rate – “one of four” or 25 percent – would simplify your story.
+
+### Fractions and percents
+
+Repeat this: “Percents are fractions. Fractions are percents.”
+Remembering this all the time will keep you focused on the key element of percentages: They’re ratios, or rates, expressed as a fraction of 100.
+
+::::: {.m-3  .p-2 .border .border-secondary}
+
+**Figuring a percent**:	
+
+Step 1:	Know your base. Think of the words “out of.”  It’s the total of all the groups.
+
+Step 2:	Divide the category you care about by the base.  
+Remember that a fraction sign (/) means “divided by” (÷).
+
+Step 3:	Move the decimal point two places to the right
+(or multiply by 100) to get the rate per hundred, or percent.
+
+Step 4:	Round the answer to no more than one decimal place. Better    
+yet, look for an easier fraction your readers will understand.
+
+---
+ 
+**Formula**	
+
+Step 1:	Total = The base
+
+Step 2:	(Category / Total) = Proportion 
+
+Step 3:	Proportion x 100 = Percent
+
+Step 4:	Round and simplify.
+
+---
+
+**Example** 
+
+If 58 people say they will vote in an upcoming election and 92 say they won’t, this is how to compute the percent of people who claim they will vote:  
+
+Step 1:	Base = number of people asked = 92 + 58 = 150
+
+Step 2:	Rate = 58 out of 150 = 58/150 = .386666..
+
+Step 3:	Percent = .38666... x 100 = 38.666666....
+
+Step 4:	Round and simplify: = nearly 40 percent  
+
+:::::
+
+<div class="card bg-light mb-3" >
+<div class="card-header font-weight-bold">From fractions to percents and back</div>
+<div class="card-body">
+<div class="card-text">
+
+You probably know that 1 out of 4 is one-quarter, and that it’s also 25 percent. But you may not know how to get from one to another.
+
+*From fractions to percents*:
+
+1/4 = 1 ÷ 4 = 0.25. Move the decimal place over two places, or multiply by 100, to get 25%
+
+*From percents to fractions*:
+
+1. Write your percent as a fraction: 25/100
+
+2. Try to find a “least common denominator:” 25 in this case goes into both the top and the bottom. You might want to round off either number to come out to a simple denominator.
+
+3. Simplify: (25 / 25) / (100 / 25) = 1 / 4
+
+*To get “One out of “ numbers*:
+
+1. Express your percentage as a proportion by dividing by 100, so 25% is 0.25.
+
+2. Now divide one by that number: 1 / .25 = 4, so your answer is one-fourth.
+
+Tip for spreadsheet users: Excel allows you to format a number as a fraction or a percent. Play around with formats to see how the number is most easily described.
+
+</div>
+</div>
+</div>
+
+
+
+### Rates and per capita
+
+As with percentages, per person or per capita rates are used to level the playing field.
+
+They’re often used when you need to compare two dissimilar places or events: Crimes in cities with different populations, deaths from various diseases or Gross Domestic Product across countries.
+
+Rates also are often used with very big or very small numbers to change them into something we can understand.  
+
+Sometimes, though, a rate makes things more complicated, especially when events are rare and there is a consensus that they shouldn't ever happen. Some examples include the 32 crashes attributed to GM's faulty ignition switch, or the 64 deaths that the Centers for Disease Control associated with pharmacy compounding errors in 2012. 
+
+One rule of thumb is to use raw numbers when they are under 100, and revert to some kind of fraction or rate when they grow bigger. 
+
+
+#### Rates for large numbers {-}
+
+A raw per-person figure is an average and should usually be used with very big numbers. 
+
+A Gross Domestic Product of $17 trillion is hard to digest. So we reduce it to a number we can understand. If we divide it by 317 million, we get about $54,000 for every man, woman and child in the country. It doesn’t mean that each person earned  $54,000 – in fact, almost half of all families earned less than that altogether at this writing. Instead, it includes all of the income that is generated by companies as well as people. 
+
+But the device turns an incomprehensible number into something we can picture. It also helps if we want to compare countries – it levels the playing field by adjusting for the size of the country.
+
+#### Rates for small numbers - crime, death, and other rare events {-}
+
+Rates such as 23 per 1,000 people or something like it – are the same as percentages, but you multiply by something bigger than 100 or move the decimal place further to the right. Use these for very small numbers. 
+
+If 2.5 million people die in this country every year, then the percentage of people who die is a really small number: 0.789 per 100, or percent. 
+
+A number that little is hard to digest. So experts up the ante and express the figure as 789 deaths per 100,000 people.
+
+
+:::{.callout-caution}
+### Small numbers warning
+Be careful about rates based on very small numbers. One example is the number of police shootings per 100,000 people. Most police departments in the country are very small and are more likely to serve only about 5,000 people. This means that just one shooting in the department can lift them from one of the lowest rates in the nation to one of the highest. Expect rates based on very small numbers to be unstable and potentially misleading.^[Note the disclaimer in [this story on police shootings by The Washington Post](https://investigativereportingworkshop.org/investigation/police-shot-killed-nearly-1000-in-2018/), in which changes in the rates of police shootings may just be random.]
+::: 
+
+
+
+
+::: { .m-3 .p-2 .border .border-secondary} 
+
+**Figuring a rate**
+
+Step 1:	Choose your base. This is often difficult. In reporting on fatalities by make of car, should you use the number of cars on the road, the number sold, or the total miles driven each year? You’ll have to decide. 
+
+Step 2:	Divide the number you care about by the base. Choosing the numerator can also be tricky. Going back to the automobile fatality example, would you use the total number of deaths or the number of driver deaths? Take a hint using other reports you see on the topic. Experts have often come to an informal agreement about what the most telling number is.
+
+Step 3:	Multiply by a nice round number, such as 1,000, 100,000 or 1 million.
+
+Step 4:	Round the answer and simplify.
+
+***
+
+**Formula**
+
+Step 1:	Choose the base, or “total”
+
+Step 2:	(Category / Total) = Proportion or Rate
+
+Step 3:	Proportion x 1,000 = Rate per thousand 
+
+Step 4:	Round to zero decimal places
+
+***
+
+**Example**
+
+According to the FBI Crime in the United States for 2012, there were 13,000 violent and property crimes in Pittsburgh out of a population of  312,000. There were 8,870 crimes in Tucson out of a population of 531,000. Figuring a rate per thousand residents lets you compare the two cities: 
+
+
+| Pittsburgh                       | Tucson                               |
+|------                            |------                                |
+| Step 1: Base= 312,000 people | Step 1: Base = 531,000 people |
+| Step 2: 13,000 crimes / 312,000 people = 0.041 | Step 2: 8,870 / 531,000 people = 0.017
+| Step 3: 0.041 x 1,000 = 41 crimes per thousand | Step 3: .017 * 1,000 = 17 crimes per thousand
+
+So the crime rate for Pittsburgh was nearly 2 1/2 times that of Tucson that year , or 47/17 = 2.4
+
+:::
+
+
+<div class="card bg-light my-3" >
+<div class="card-header font-weight-bold">Selecting your multiplier</div>
+<div class="card-body">
+<div class="card-text">
+
+Some people feel that changing their multiplier from 100 to something bigger is cheating.
+
+After all, a 0.2 percent rate becomes a big number – 200 – when you change the base from 100 to 100,000!
+
+In practice, though, there’s nothing magical about using a base of 100 (or percent). Instead, use the number that makes sense for the comparison you’re making.
+
+* Choose a round number – 1,000, 1 million or 100,000. 
+
+* Choose the same number that the experts use: Crimes per 1,000 people, deaths per 100,000, or crashes per million miles driven, for example. 
+
+* Choose a base that will give you an easy way to express it to your readers. This is one that results in a number generally between 1 and 1,000 or so.
+
+* Try to avoid using an outrageously large base. For instance, avoid expressing a local number in terms of 1 million people. Only a handful of cities have more than a million people. 
+
+* Keep the same base throughout your story. Don’t shift from 100,000 to 1,000 in crime statistics, for instance, when you move from murders to total crime rates.
+
+You will often have to balance these rules of thumb against each other to come up with a compromise that allows you to write gracefully while keeping the sense of scale appropriate for the comparisons you're making. 
+
+</div>
+</div>
+</div>
+
+
+
+
+## Measuring change
+
+We often write about change or difference, usually as a difference between place or time.  
+
+### Simple differences
+
+A simple difference is just the result of subtracting one number from another. If you are measuring differences in time, it’s the newer number minus the older number.
+
+
+One time to use a simple difference is when the number is understandable without any calculations. Prices of common household goods, salaries and home prices are examples of numbers that needn’t always be put into perspective using percentage changes.
+
+In the end, we work in news. That means that sometimes you’ll use a raw number when it’s more newsworthy. This doesn’t necessarily mean the number is more alarming – just more meaningful.
+
+
+::: {.pl-4 .pt-1 .border .border-secondary}
+
+**Figuring a difference**:
+
+Subtract the older number from the newer number. 
+
+This is not the same as subtracting the little number from the big number. 
+
+If a number has fallen you get a negative number. If a number has risen you get a positive number.
+
+**Formula**
+
+New – Old.
+
+**Example** An executive made $2.4 million last year. She made $2.9 million this year.
+
+Her raise was:
+$2.9 – $2.4 = 0.5 million, or $500,000, or half a million dollars.
+
+:::
+
+## Percent change / Percent difference
+
+The most butchered form of newsroom math is the percent difference, or the percent change.
+
+Part of the problem is that some folks have found five or six different ways to compute them. Unfortunately, only two of them work every time. I'll show you both because sometimes -- especially when you want to compare rates -- one is easier than the other. 
+
+Note that these methods work whether or not the number is going up or going down.  If the number has fallen, you’ll get a negative answer. If the number has risen, you’ll get a positive one. And it still comes out right if the increase is bigger than 100 percent.^[It's impossible for a number to fall more than 100 percent. That would mean it went below zero and then no formula works. There's no good way to show a percent change when a figure like annual company earnings goes from profit to loss.] 
+
+In practice, I use Method 1  when I'm working in spreadsheets because I can  look at the simple difference in one column and then use it in the formula for the percentage difference. I use Method 2 when I want to compare to percent changes to one another or when working with annual rates.
+
+<div class="outer-container container-fluid border border-light my-5">
+
+<div class="row bg-light"> <!-- row-->
+<div class="col-md">  <!-- col1 -->
+**Method 1: Subtract then divide**
+</div> <!-- col1 -->
+<div class="col-md"> <!--col2 -->
+**Method 2: Divide then subtract**
+</div> <!--col2 -->
+</div> <!-- row-->
+
+
+
+
+<div class="container-fluid"> <!--holding the row-->
+  <p class="text-center">**Figuring a percent change**</p>
+  
+  <div class="row">  <!-- row --> 
+  
+  <div class="col-6 border-right">  <!-- left -->
+    Step 1:	Get the simple difference between the numbers  by subtracting the older number from the newer number. It doesn’t matter which one is bigger!
+    
+  Step 2:	Divide the answer by the older number.
+    
+  Step 3:	Multiply by 100, or move the decimal point two places to the right.
+    
+  Step 4:	Round off and simplify.
+  </div>  <!-- left --> 
+    
+  <div class="col-6">  <!-- right -->
+  Step 1: Get the proportion of the new number compared to the old number. This is the same as the percent of total above, except the old number is the base. 
+    
+  Step 2: Subtract 1 from that ratio
+    
+  Step 3: Multiply by 100, or move the decimal point two places to the right.
+    
+  Step 4: Round off and simplify.
+  </div>  <!-- right -->
+    
+  </div> <!-- row -->
+
+</div> <!-- holding the row-->
+
+
+
+<div class="container-fluid"> <!-- hold the row -->
+<p class="text-center">**Formula**</p>
+  <div class="row">  <!-- the row --> 
+  <div class="col-6 border-right">  <!-- left-->
+  Step 1:	New – Old = Difference
+  
+  Step 2:	Difference / Old = Decimal answer
+  
+  Step 3:	Decimal x 100 = percentage difference
+  
+  Step 4:	Round off.
+  </div>  <!-- left --> 
+  <div class="col-6">   <!-- right -->
+  Step 1:	New / Old = Ratio
+  
+  Step 2:	Ratio - 1 = Decimal answer
+  
+  Step 3:	Decimal x 100 = percentage difference
+  
+  Step 4:	Round off.
+  </div>   <!-- right-->
+  
+  </div>  <!-- row -->
+
+</div>   <!-- row container -->
+
+<div class="container-fluid">
+<p class="text-center">**Example**</p>
+
+*An executive made $2.4 million last year. They made $2.9 million in this year.*
+
+  <div class="row">
+  <div class="col-6 border-right">
+  
+  Step 1:	Difference = 2.9 – 2.4 = 0.5 
+  
+  Step 2: Difference / Original number = <br> 0.5 / 2.4 = .208
+  
+  Step 3:	Move the decimal point = 20.8%
+  
+  Step 4:	Round off and simplify: <br> 21% = 21 / 100 = about 20 / 100 = or about one-fifth.
+  </div> <!-- left -->
+  
+  <div class="col-6">
+  Step 1: Ratio = 2.9/2.4 = 1.208
+  
+  Step 2: Decimal answer = 1.208 - 1 = .208
+  
+  Step 3:	Move the decimal point = 20.8%
+  
+  Step 4:	Round off and simplify: <br> 21% = 21 / 100 = about 20 / 100 = or about one-fifth.
+  </div> <!-- right -->
+  
+  *So the executive got a raise equivalent to one-fifth of their original salary.*
+  
+  </div> <!-- row-->
+
+</div> <!-- row container-->
+  
+
+</div> <!--outer container-->
+
+
+
+<div class="card bg-light my-3" >
+<div class="card-header font-weight-bold">Reversing or predicting a percent change</div>
+<div class="card-body">
+<div class="card-text">
+
+Remember that a number can grow many times, but it can only fall 100 percent to zero. This is a rough concept until you think it through. If you double a price of $20, increasing it by 100%, it's $40. If you triple it, it's $60.  But if you reduce the $40 back to $20, it's a 50 percent drop, to one-half the level, not a 100 percent decrease. In other words, percent changes can't be reversed.  
+
+This means that the ads claiming you'll use three times less detergent or a food contains three times less salt are wrong and impossible. What they probably mean is that it would be three times as much if you used the other brand or ate the other food, or the brand is one third as much. Here are two ways this makes a difference:
+
+You need two of three numbers to reverse or predict a percent change: 
+
+* Where the number started
+* Where it ended
+* What the percent change would (or will) be
+
+Any two of those will give you what you need. It's easiest if we use Method 2 above to get there.  The example above assumes you know where it started and where it ended. Here's how to do it if you you have either of the other two: 
+
+**Where it starts and the percent change**
+
+Example: You started with $100 and it grew by a total of 12%. Or, you started with $100 and it fell by a total of 12% (the percent change was -12%)
+
+Step 1: Convert the percent change to a ratio by moving the decimal place back : .12 (up) or -.12 (down) 
+
+Step 2: Add 1, resulting in 1.12 (up) or .88 (down)
+
+Step 3: Multiply the beginning number by that amount : $100 x 1.12 = $112 (up), or $100 x .88 = $88 (down)
+
+**Where it ends and the total percent change**
+
+For example, say your house is worth $330,000, and it had appreciated by a total of 15% over the past few years. Here's how to figure out where it started:
+
+Step 1: Convert the percent change to a decimal, as above: 0.15
+
+Step 2: Divide the current value by that amount = $330 / .15 = $287
+
+This isn't intuitive, but it differs because you're starting from a bigger base. 15 percent of 330 isn't the same as 15 percent of 287. 
+
+</div> <!-- card-text-->
+</div> <!-- card-body-->
+</div> <!-- card-->
+
+
+### Going further with percents and rates {-}
+
+There are three common problems in changes and rates you will  probably encounter that aren't part of this guide. You should get help or look it up when these situations come up: ^[They are part of the "Numbers in the Newsroom" book from which this guide is derived.]
+
+1. Relative risk: That's the technical term for dividing two percentages. If the mortgage denial rate for Black homeowners was 10 percent, and the denial rate of white homeowners was 5 percent, it means that Black homeowners are twice as likely to be denied a loan. This can be used with both rates and with changes.
+
+2. Annual rates: When you know that something has grown, say, 2 percent a year for 10 years, it's not the same thing as 20 percent. You have to annualize it. 
+
+3. Adjusting for inflation: Comparing values across two points in time -- especially today -- means putting them on the same footing. Generally, you want to convert old values to their buying power today. For example, it's hard to compare salaries for teachers today with those 50 years ago, because our money isn't worth as much today. 
+
+
+## Average and typical values
+
+Averages^[I'm using the term "average" freely here. Technically, a simple average and median are measures of central tendency, but I'll treat them as different types of averages for simplicity sake.] are just summaries. If a quote sums up an event, or an anecdote sums up a person using their actions instead of words, an average sums up a human condition of some kind – money, congestion, death or disease – in a single number. 
+
+Choosing your average carefully or deciding there may be another number or method to sum up a situation can mean the difference between accurately and inaccurately describing your story.
+
+Understanding different kinds of "measures of central tendency"  – what they tell us and what they don’t – is the first thing you learn in basic statistics classes. If an it doesn’t describe your data well, it’s not very productive to move forward into many other kinds of analysis. 
+
+Trying to compare populations over time is particularly tricky using averages because of giant demographic shifts. Between the Baby Boom and the Millennials came what some people call the Baby Bust. Getting average spending on education, for example, across these generations is really misleading -- it will boom, then bust, them boom again and no one number will describe that pattern.^[This is sort of an example of "Simpson's paradox" in that an average hides meaningful trends among sub-populations.]
+
+Two types of averages are reviewed here. Consult an introductory statistics book if your work depends on an average.
+
+
+
+### The average or mean
+
+A "mean" is what people mean when they say the word "average".  
+It’s most descriptive when it summarizes numbers that don’t vary too much at either the top or bottom ends. These averages will often be misleading when they refer to items measured in dollar amount like incomes, housing costs and the like. 
+
+::::: {.pl-4 .pt-1 .border .border-secondary}
+
+**Figuring a simple average or mean**
+
+Step 1:	Add up a list of numbers. 
+
+Step 2:	Divide the answer by the number of numbers you’ve added up.
+
+**Formula**
+
+Step 1:	Sum of numbers
+
+Step 2:	Sum / Count of numbers
+
+For spreadsheet users: =AVERAGE(list of numbers)
+
+**Example**
+
+Here are six home prices on a block:
+
+```
+$275,000		  $1,200,000
+$275,000		    $500,000
+$200,000		    $395,000
+
+```
+
+Step 1:	275 + 275 + 200 + 1,200 + 500 + 395 = 2,845  or $2,845,000
+
+Step 2:	 $2,845,000 / 5 = $569,000. 
+
+So the average home price is more than all but one on the list.
+
+::::: 
+
+
+
+### The median 
+
+Medians are often used to summarize the value of things measured in dollars, especially home prices and incomes. They are not sensitive to one or two unusually high or low values the way the average in the previous example is. 
+
+But it’s harder to get a median because you need a list of all values. For example, if you know the total income of a metropolitan area and the number of people in that area, you can compute the average – or per capita income – but not the median.
+
+One way to express the median is to call it the “typical” value.  Another way is to say that it’s the “middle” value.
+
+::::: {.pl-4 .py-1  .my-2 .border .border-secondary}
+
+**Figuring a median**: 
+
+Step 1: List all of your numbers in order, beginning with the lowest and ending with the highest. 
+
+Step 2: Count how many numbers you have and divide by two. 
+
+Step 3: Add 0.5. If that comes out to a whole number (like 13), count up the list that many values. 
+
+If it’s not (like 12.5), take the average of the two numbers surrounding the number.  ^[In statistical programs like R, there are various ways to specify how to deal with medians when there are ties like this. This is the most common way, but it may not be the way your program handles it.]
+
+In other words, this is the closest you can get to the middle of the list. This is a sorting and counting job, not a calculator job. 
+
+In a spreadsheet, use the =MEDIAN() function.
+
+**Example:**
+
+Step 1:
+
+The same list, but listed from lowest to highest, with an extra expensive home 
+
+```
+1.    $200,000
+2.    $275,000		
+3.    $275,000		
+4.    $395,000
+5.    $500,000
+6.  $1,200,000
+```
+
+Step 2: 6/2 = 3
+
+Step 3: 3 + .5 = 3.5 
+
+Step 4: Average the 3rd and 4th items on the list: (275 + 395) / 2 = $335,000
+
+:::::
+
+As a rule of thumb, the median will be more telling than the average when they're very different as in this example. But the word "median" sounds very technical to some readers and the average encompasses all of the values in a list, so we use it when they're not too different. 

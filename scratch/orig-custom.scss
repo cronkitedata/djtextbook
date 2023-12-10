@@ -1,0 +1,223 @@
+// @import url('https://fonts.googleapis.com/css?family=Mulish:400,400i,700,700i|Prata|Source+Code+Pro&display=swap');
+
+/*-- scss:defaults --*/
+
+/*-- scss:defaults --*/
+
+$primary: #637238 !default;
+$color-foot:  #096b72 !default;
+$heading-color: #2f5275;
+$color-code-color: #9753b8;
+$callout-color-note: $paleblue;
+
+/* copying from https://github.com/quarto-dev/quarto-cli/blob/main/src/resources/formats/html/bootstrap/themes/flatly.scss so I have the varibles
+
+$white:    #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #ecf0f1 !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #b4bcc2 !default;
+$gray-600: #95a5a6 !default;
+$gray-700: #7b8a8b !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black:    #000 !default;
+
+$blue:    #2c3e50 !default;
+$indigo:  #6610f2 !default;
+$purple:  #6f42c1 !default;
+$pink:    #e83e8c !default;
+$red:     #e74c3c !default;
+$orange:  #fd7e14 !default;
+$yellow:  #f39c12 !default;
+$green:   #18bc9c !default;
+$teal:    #20c997 !default;
+$cyan:    #3498db !default;
+
+$primary:       $blue !default;
+$secondary:     $gray-600 !default;
+$success:       $green !default;
+$info:          $cyan !default;
+$warning:       $yellow !default;
+$danger:        $red !default;
+$light:         $gray-200 !default;
+$dark:          $gray-700 !default;
+
+
+// Color system
+
+$paleblue:   #3f88ca  !default;
+$color-foot:  #096b72 !default;
+$heading-color: #2f5275;
+$color-code-background: #f8f8f9;
+$color-code-color: #9753b8;
+$callout-color-note: $paleblue;
+
+
+
+// fonts
+$font-family-sans-serif: "Mulish", Roboto, sans-serif !default;
+$font-family-serif: "Prata", Georgia, serif !default;
+$font-family-monospace: "Source Code Pro", SFMono-Regular, Menlo, Monaco;
+
+
+// colors
+$body-color: #5c5962;
+$link-color: $blue;
+
+
+*/
+
+/*-- scss:rules --*/
+
+
+// create a class for the instructions background, etc.
+// if we do alert alert-primary alert-dothis. then dothis will adjust what we alrady have.
+// Do it this way so I don't have to worry about all the things that might be embedded in alert styles.
+// this JUST changes the background color and the opacity.
+
+
+.standout {
+  color: $color-foot;
+}
+
+.alert-dothis {
+  background-color: $color-foot !important;
+  opacity: .8;
+}
+
+
+// Merge the maps
+/*
+$theme-colors:map-merge($theme-colors, (
+   "paleblue": $paleblue,
+   "color-foot" : $color-foot
+));*/
+
+body {
+  color: $body-color;
+}
+
+/* Not sure what this will do. I want serif for headings.*/
+
+h1, h4 {
+  font-family: "Mulish", "Roboto", Sans-Serif;
+  color: $heading-color;
+}
+
+
+h2, h3  {
+  font-family: 'Prata', serif;
+  color: $heading-color;
+}
+
+
+
+/*
+.alert-primary pre  {
+  color: var(--text-light);
+}
+
+
+*/
+
+
+.inline-code > pre > code {
+  color: $color-code-color;
+  background-color: $color-code-background;
+}
+
+
+.title {
+   font-family: "Mulish", "Roboto", Sans-Serif;
+  color: $heading-color;
+  font-size: 2.5rem !important;
+}
+
+.subtitle {
+  font-family: 'Prata', serif;
+  color: $heading-color !important;
+}
+
+p.caption {
+  color: $gray-700;
+  margin-top: 10px;
+}
+
+p code {
+  white-space: inherit;
+}
+
+pre {
+  word-break: normal;
+  word-wrap: normal;
+}
+
+/*
+.alert {
+  opacity:0.8 ;
+  color:
+}
+*/
+/* -- LOGO --- */
+
+.toc-logo {
+  width: 200px !important;
+  object-fit: contain;
+  margin: 0 auto;
+  display: block;
+}
+
+.toc-logo img {
+  max-width: 100%;
+  margin-bottom: 10px;
+}
+
+/* Changes for very wide screens
+   I'd like to find a way to make it use more of the screen but I don't know how.*/
+
+@media (min-width: 1200px) {
+  .container-fluid {
+    max-width: 95rem;
+  }
+  .container-fluid .row {
+    justify-content: space-evenly;
+  }
+  .container-fluid main {
+ /*   max-width: 45rem; */
+      margin: 0 1%;
+  }
+  .sidebar {
+    max-width: 15rem;
+  }
+
+  /* Increase font-size for very wide devices */
+  body {
+    font-size: 1.05rem;
+  }
+}
+.subtitle em {
+  font-style: normal !important;
+}
+
+blockquote {
+  border-left: 1rem solid #ecf0f1;
+  color:  #7b8a8b;
+  padding-left: 1.5rem;
+  margin-left: -0.5rem;
+  font-size: .9rem;
+  font-style: italic;
+  text-align: left;
+}
+
+
+blockquote > p:last-child {
+  text-align: right;
+}
+
+blockquote > p:first-child {
+  text-align: inherit;
+}
+
+

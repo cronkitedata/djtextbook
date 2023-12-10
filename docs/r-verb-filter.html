@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Data Reporting - 17&nbsp; Verbs in depth: Select, arrange, filter</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./r-verb-mutate.html" rel="next">
+<link href="./r-verbs.html" rel="prev">
+<link href="./assets/images/favicon.ico" rel="icon">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+</head>
+<body class="nav-sidebar floating">
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./r.html">R Study Guide</a></li><li class="breadcrumb-item"><a href="./r-verb-filter.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Verbs in depth: Select, arrange, filter</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./assets/images/favicon.ico" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Reporting</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/cronkitedata/djtextbook" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./start.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reporting with data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./start-story.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Learn a new way to read</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./start-math.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Newsroom math</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./start-data-def.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Defining “Data”</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./start-data-diary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Replication and the data diary</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./start-hunt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Finding the right data for your story</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./start-build-own.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Build your own database</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./xl.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Spreadsheets</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./xl-refresher.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">An Excel Refresher</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./xl-filter-sort.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Sorting and filtering to find stories</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./xl-pivot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Grouping with pivot tables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./xl-formulas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Formulas in Excel</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./xl-practice-noc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Practice exercise</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Study Guide</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-install.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Installing R and RStudio</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-start.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Getting started with R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Using Quarto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-data-import.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Getting and saving data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-verbs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">A quick tour of verbs</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-verb-filter.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Verbs in depth: Select, arrange, filter</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-verb-mutate.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Verbs in depth: New from old data with Mutate</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-verb-groupby.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Verbs in depth: Aggregating with groups</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-verb-join.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Verbs in depth: Matchmaking with joins</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-recipes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Recipes</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./vis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualization</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vis-reporting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Visualization as a reporting tool</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vis-tables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Report-making in R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vis-demo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Visualization demo</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vis-practice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Visualization exercise</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vis-maps-begin.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Mapping: An introduction</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vis-maps-firstmap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">The first map</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./advanced.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Special skills</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced-pdf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Working with PDF files</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced-regex.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Regular Expressions for pattern matching</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced-openrefine.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Open refine walkthrough</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced-scrape1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Scraping without programming</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced-scrape2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Introduction to scraping in R</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-math.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Newsroom numbers cheat sheet</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-program.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">A gentle intro to programming</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-ppp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Documentation for PPP data chapters</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+    <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#select-columns" id="toc-select-columns" class="nav-link active" data-scroll-target="#select-columns"><span class="header-section-number">17.1</span> <code>select</code> columns</a></li>
+  <li><a href="#arrange-rows" id="toc-arrange-rows" class="nav-link" data-scroll-target="#arrange-rows"><span class="header-section-number">17.2</span> <code>arrange</code> rows</a></li>
+  <li>
+<a href="#filter-rows" id="toc-filter-rows" class="nav-link" data-scroll-target="#filter-rows"><span class="header-section-number">17.3</span> <code>filter</code> rows</a>
+  <ul class="collapse">
+<li><a href="#a-few-examples" id="toc-a-few-examples" class="nav-link" data-scroll-target="#a-few-examples">A few examples</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#using-str_like-for-inexact-matches" id="toc-using-str_like-for-inexact-matches" class="nav-link" data-scroll-target="#using-str_like-for-inexact-matches"><span class="header-section-number">17.4</span> Using <code>str_like()</code> for inexact matches</a>
+  <ul class="collapse">
+<li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
+  </ul>
+</li>
+  <li><a href="#a-note-on-na-or-missing-data" id="toc-a-note-on-na-or-missing-data" class="nav-link" data-scroll-target="#a-note-on-na-or-missing-data"><span class="header-section-number">17.5</span> A note on <code>NA</code>, or missing data</a></li>
+  <li>
+<a href="#your-turn" id="toc-your-turn" class="nav-link" data-scroll-target="#your-turn"><span class="header-section-number">17.6</span> Your turn</a>
+  <ul class="collapse">
+<li><a href="#filtering-your-data" id="toc-filtering-your-data" class="nav-link" data-scroll-target="#filtering-your-data">Filtering your data</a></li>
+  <li><a href="#your-questions" id="toc-your-questions" class="nav-link" data-scroll-target="#your-questions">Your questions</a></li>
+  </ul>
+</li>
+  </ul></nav>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content column-page-right" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="r-verb-filter" class="quarto-section-identifier"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Verbs in depth: Select, arrange, filter</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><div class="alert alert-secondary">
+<div class="alert-heading font-weight-bolder fs-3">
+<p>In this chapter</p>
+</div>
+<ul>
+<li>
+<code>select</code> to pick out columns efficiently and rename them</li>
+<li>
+<code>arrange</code> to order the rows in your data frame</li>
+<li>
+<code>filter</code> using Boolean logic</li>
+<li>
+<code>str_like()</code> function for variations on a word or phrase</li>
+<li>Introducing the problem of missing values, or <code>NA</code>
+</li>
+</ul>
+</div>
+<p>This the next several chapters are based on Paycheck Protection Program, or PPP, loans in Arizona. Full documentation of the dataset is in the <a href="appendix-ppp.html">Appendix</a>. Make sure to review it carefully before going further.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Update your packages
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <code>str_like()</code> function in this chapter was added to the tidyverse in December 2022. If you installed packages before that, go to the “Packages” tab in the bottom right panel, find the <code>stringr</code> package, and press the “Update” button before continuing. Alternatively, in the console, run the command <code>update.packages(ask=FALSE)</code></p>
+</div>
+</div>
+<div class="alert alert-success alert-dothis">
+<p>To follow along, you should</p>
+<ol type="1">
+<li>Open or re-open your project</li>
+<li>Create a new Quarto document with the <a href="https://gist.github.com/sarahcnyt/e60ad2d7ccf65498fc88791f3bb683ae">standard front matter (YAML) and libraries</a>
+</li>
+<li>Load the PPP data into a new object called <code>ppp_orig</code>. It’s saved on the internet, which means using a <em>nested</em> function to tell R to go out in the world to find it rather than just looking in your project folder. That function is <code><a href="https://rdrr.io/r/base/connections.html">url()</a></code>:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ppp_orig</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span> <span class="op">(</span> </span>
+<span>               <span class="fu"><a href="https://rdrr.io/r/base/connections.html">url</a></span> <span class="op">(</span> </span>
+<span>                 <span class="st">"https://cronkitedata.s3.amazonaws.com/rdata/ppp_az_loans.RDS"</span></span>
+<span>                 <span class="op">)</span></span>
+<span>               <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<section id="select-columns" class="level2" data-number="17.1"><h2 data-number="17.1" class="anchored" data-anchor-id="select-columns">
+<span class="header-section-number">17.1</span> <code>select</code> columns</h2>
+<p>The <code>select</code> verb allows you to pick out columns by name or by their order in the data frame. Selecting columns is case-sensitive: a column called <code>amount</code> is completely different than a column named <code>Amount</code>. That’s one reason to use our style of always converting column names to lower case.</p>
+<p><code>select</code> is the easiest verb to understand it so it’s shown here first. But in practice, I usually include it as my last verb in a code chunk because some columns that I don’t care about in the end are needed for filtering or creating new columns.</p>
+<p>There a <a href="https://dplyr.tidyverse.org/reference/select.html">lot of ways</a> to pick out column names that are based on their name, their position, their type or other characteristics. Here are a few:</p>
+<ul>
+<li>
+<code>select (date_approved, borrower_name)</code> picks out those columns and rearranges them from left to right in the order you mention them.</li>
+<li>
+<code>select (1:10)</code> picks out the first 10 columns. Think of the colon as the word “through”</li>
+<li>
+<code>select ( 2, 4:6, business_type)</code> combines position and name so you can use whichever is easier.</li>
+</ul>
+<p>You can rename columns at the same time you select them by typing the new name, <strong>one</strong> equals sign and the old name, for example:</p>
+<pre><code>select ( given_date = date_approved, 
+        borrower = borrower_name)</code></pre>
+<div class="alert alert-success alert-dothis">
+<p>Try it now and create a new data frame you’ll use later in the filtering section with just a handful of columns that are easier to manage.</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ppp_small</span> <span class="op">&lt;-</span> </span>
+<span>   <span class="va">ppp_orig</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">select</span> <span class="op">(</span><span class="va">borrower_name</span>, <span class="va">borrower_address</span>, <span class="va">borrower_city</span>,</span>
+<span>          <span class="va">project_county</span>, <span class="va">date_approved</span>, <span class="va">amount</span>, </span>
+<span>          <span class="va">forgiveness_amount</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="fu">glimpse</span><span class="op">(</span><span class="va">ppp_small</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section><section id="arrange-rows" class="level2" data-number="17.2"><h2 data-number="17.2" class="anchored" data-anchor-id="arrange-rows">
+<span class="header-section-number">17.2</span> <code>arrange</code> rows</h2>
+<p>The <code>arrange</code> verb sorts your data in different ways depending on the type of column. They can be alphabetical (character columns), in numeric order ( number or double columns), or chronologically (date or date/time columns) . Reverse the order by using <code>desc()</code> :</p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ppp_small</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">arrange</span> <span class="op">(</span> <span class="va">date_approved</span>, <span class="fu">desc</span><span class="op">(</span><span class="va">amount</span><span class="op">)</span> <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="filter-rows" class="level2" data-number="17.3"><h2 data-number="17.3" class="anchored" data-anchor-id="filter-rows">
+<span class="header-section-number">17.3</span> <code>filter</code> rows</h2>
+<p><code>filter</code> uses Boolean logic to allow quite sophisticated and powerful conditions to pick out just the rows you want to see or to further examine.</p>
+<p>When you use a filter, you are telling R: “Give me back only the rows where the conditional formula I give you results in TRUE.”</p>
+<p>Try it yourself: In your Console, type your name in quotes, then <strong>two</strong> = signs, then “Barack Obama” in quotes. Note that the answer is FALSE – that condition fails.</p>
+<p>The conditions are case-sensitive and extremely picky about characteristics like upper and lower case, spacing and punctuation. For example, “PIZZA HUT OF ARIZONA, INC” is completely different than “PIZZA HUT” or “Pizza Hut of Arizona Inc” . A simple extra character will prevent a match.[^That’s why I’ve removed all of the punctuation from your the borrower names and addresses in your data file, and turned all of the names into upper case.]</p>
+<p>Here are the <em>operators</em> , or symbols, you’ll use to make the conditions you want to test. Your column name goes on the left, and the value you want to test is on the right:</p>
+<div class="small">
+<table class="table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 10%">
+<col style="width: 75%">
+</colgroup>
+<thead><tr class="header">
+<th>Operator</th>
+<th>Data types</th>
+<th>Meaning</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>==</code></td>
+<td>All</td>
+<td>Equals, exactly. Note the double-equals sign, which distinguishes it from an assignment operator, such as setting new column name.</td>
+</tr>
+<tr class="even">
+<td>
+<code>&gt;</code> , <code>&gt;=</code>
+</td>
+<td>date, numeric</td>
+<td>Greater than / greater than or equal to.</td>
+</tr>
+<tr class="odd">
+<td>
+<code>&lt;</code>, <code>&lt;=</code>
+</td>
+<td>date, numeric</td>
+<td>Less than / less than or equal to.</td>
+</tr>
+<tr class="even">
+<td><code>!=</code></td>
+<td>all</td>
+<td>Not equal to</td>
+</tr>
+<tr class="odd">
+<td><code>%in%</code></td>
+<td>all</td>
+<td>Is equal to any of the items in a list that you type out, such as <code>fruit %in% c("apple", "orange")</code>.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>In each of these cases, the column name goes on the left of the operator, and the condition goes on the right.</p>
+<p>You can combine them using the Boolean operators <code>and</code> and <code>or</code>, which are used in other contexts like advanced Google searches :</p>
+<ul>
+<li><p><code>&amp;</code> means “and”. which means that <strong>both</strong> conditions must be true. It <strong>narrows</strong> your search. (You can also separate the conditions with commas instead of ampersands) Think of it as a fish net, with smaller openings so only littler fish can geth through.</p></li>
+<li><p><code>|</code> (the verticle bar, near the Return key) means “or” , which means that <strong>either</strong> condition can be true. It <strong>widens</strong> your search. It is a fish net with bigger openings, so both big and little fish can get through.</p></li>
+<li><p><code>%in%</code> is the equivalent of an “or” condition and is used when you want to test a lot of items within one column but reduce the amount of repetitive typing.</p></li>
+</ul>
+<p>This is sometimes confusing because it’s the exact opposite of the way we describe it in English. If we want “apples and oranges”, we have to search for an apple OR an orange in each row: <code>fruit == 'apple' | fruit == 'orange'</code></p>
+<p>You often need to use parentheses to tell R what order you want to evaluate the conditions when you combine “AND” and “OR” conditions.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Matching parentheses can be tricky. To make it a little easier, you can set “rainbow parentheses” in the RStudio options, which will show you the matching opening or closing brackets and parentheses in different colors when your cursor is placed next to one of them. It’s under the Tools -&gt; Global Options -&gt; Code -&gt; at the bottom of the Display tab.</p>
+</div>
+</div>
+<section id="a-few-examples" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="a-few-examples">A few examples</h3>
+<p>In the PPP data, all borrower names are in upper case, and all cities and addresses are in proper case. In addition, all of the punctuation has been removed from those two columns, such as periods, commas, quotes and apostrophes.</p>
+<p>When you use a condition :</p>
+<ul>
+<li>Numbers are without quotes, commas, dollar signs or anything other than digits and decimal points. (1000000.24)</li>
+<li>Text is always in quotes.</li>
+<li>Dates are in the form “2022-01-22”.</li>
+</ul>
+<section id="a-list-of-borrowers-in-flagstaff-and-sedona" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="a-list-of-borrowers-in-flagstaff-and-sedona">A list of borrowers in Flagstaff and Sedona</h4>
+<p>Start with the borrowers just in Flagstaff.</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ppp_small</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span> <span class="op">(</span> <span class="va">borrower_city</span> <span class="op">==</span> <span class="st">"Flagstaff"</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now look for either “Flagstaff” OR “Sedona”:</p>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ppp_small</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span> <span class="op">(</span> <span class="va">borrower_city</span> <span class="op">==</span> <span class="st">"Flagstaff"</span> <span class="op">|</span> <span class="va">borrower_city</span> <span class="op">==</span> <span class="st">"Sedona"</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This could get old if you’re looking for, say 10 or 20 cities. Instead, you can put them in a list and look for them all at once, like in this query where we look for Flagstaff, Sedona and Bisbee</p>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ppp_small</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span> <span class="op">(</span> <span class="va">borrower_city</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> </span>
+<span>             <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Flagstaff"</span>, <span class="st">"Sedona"</span>, <span class="st">"Bisbee"</span><span class="op">)</span></span>
+<span>           <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="narrowed-to-under-100000" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="narrowed-to-under-100000">Narrowed to under $100,000</h4>
+<p>To narrow it just to loans under $100,000, you can use an “&amp;” condition, or add another filter. In practice, I will often try to separate my “AND” conditions into a new filter command — it’s sometimes easier to read than a lot of <code>(|&amp;,)</code> symbols.</p>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ppp_small</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span> <span class="op">(</span> <span class="va">borrower_city</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Flagstaff"</span>, <span class="st">"Sedona"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span> <span class="op">(</span> <span class="va">amount</span> <span class="op">&lt;</span> <span class="fl">100000</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">arrange</span> <span class="op">(</span><span class="va">date_approved</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="another-way-to-do-the-same-thing" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="another-way-to-do-the-same-thing">Another way to do the same thing</h4>
+<p>The query above is the equivalent of the last example to produce the same answer. This time it uses a combination of the <code>|</code> “or” operator with the <code>&amp;</code> “and” operator.</p>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ppp_small</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span> <span class="op">(</span> </span>
+<span>           <span class="op">(</span><span class="va">borrower_city</span> <span class="op">==</span> <span class="st">"Flagstaff"</span> <span class="op">|</span> <span class="va">borrower_city</span> <span class="op">==</span> <span class="st">"Sedona"</span><span class="op">)</span> <span class="op">&amp;</span></span>
+<span>            <span class="va">amount</span> <span class="op">&lt;</span> <span class="fl">10000</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">arrange</span> <span class="op">(</span><span class="va">date_approved</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>(You might note how I did the indentations above – it helps in reading the code to make clear what comes before what.)</p>
+</section><section id="projects-in-maricopa-county-that-are-not-in-phoenix-or-scottsdale" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="projects-in-maricopa-county-that-are-not-in-phoenix-or-scottsdale">Projects in Maricopa County that are NOT in Phoenix or Scottsdale</h4>
+<p>Here’s how to negate a filter - everything NOT in two cities. The <code>!</code> at the beginning of the condition means that it must evaluate to FALSE instead of TRUE to be kept in the data.</p>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ppp_small</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span> <span class="op">(</span> <span class="va">project_county</span> <span class="op">==</span> <span class="st">"MARICOPA"</span> <span class="op">&amp;</span></span>
+<span>             <span class="op">(</span><span class="op">!</span> <span class="va">borrower_city</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Scottsdale"</span>, <span class="st">"Phoenix"</span><span class="op">)</span><span class="op">)</span> </span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">arrange</span> <span class="op">(</span><span class="va">amount</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Be careful when using missing data or combining conditions when you negate. The answer is often very different than you intended. It often behaves opposite of what you intended.</p>
+</div>
+</div>
+</section></section></section><section id="using-str_like-for-inexact-matches" class="level2" data-number="17.4"><h2 data-number="17.4" class="anchored" data-anchor-id="using-str_like-for-inexact-matches">
+<span class="header-section-number">17.4</span> Using <code>str_like()</code> for inexact matches</h2>
+<p>The operators we’ve examined so far are pretty limited. You have to know exactly what’s in a character column, which can get pretty annoying when you are trying to nail down a story based on data entered by humans into computers.</p>
+<p>But you can also use the results of formulas, or <em>expressions</em> as a condition, as long as they result in a TRUE or FALSE answer. One of the most powerful is the function <code>str_like()</code>, which was added to the tidyverse in late 2022. It allows you to use wildcard characters to find words and phrases that begin with or contain some characters, and it’s not case-sensitive!</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>There is a whole set of these <a href="https://stringr.tidyverse.org/articles/stringr.html">“string” functions</a> available in the tidyverse through its <code>stringr</code> package. We’ll get to some of the more common ones later in the book, especially those related to a powerful pattern-matching method called “regular expressions” or “regex”.</p>
+</div>
+</div>
+<p>The difference in using functions is that you’ll structure your command a little differently. Instead of</p>
+<p><code>borrower_city == "Scottsdale"</code>, you’ll use a formula that looks like</p>
+<p><code>str_like(borrower_city, "scottsdale")</code>, where the function name comes first, then, inside parentheses, are the column you want to check and the value you want to look for.</p>
+<p><code>str_like()</code> uses wildcards to stand in for characters you’re not sure about. They are:</p>
+<ul>
+<li><p><code>_</code> for one missing character. Use it when you aren’t sure of spelling.<br>
+The condition <code>summari_e</code> would be TRUE if the word were “summarise” or “summarize”.</p></li>
+<li><p><code>%</code> for any number of unknown characters, or a missing character.<br>
+For example, <code>N% SCOTTSDALE R%</code> would match “North Scottsdale Road”, “N. Scottsdale Rd” or “North Scottsdale Rd.” but not “Scottsdale” or “N Scottsdale Ave”.</p></li>
+</ul>
+<p>Smart use of wildcards can often save you a lot of typing!</p>
+<section id="examples" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="examples">Examples</h3>
+<p>You might want to use str_like whenever you filter for words just because it doesn’t care about upper and lower case.</p>
+<p>This example would find borrowers who had addresses that were “CENTRAL AVE”, “Central Ave” or “central ave”. It excludes anyone with a street address, a suite number, or anyone on North Central Ave. because there is no wildcard:</p>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ppp_small</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span> <span class="op">(</span> <span class="fu">str_like</span> <span class="op">(</span> <span class="va">borrower_address</span>, <span class="st">"central ave"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>But this one finds all of the borrowers on Central Avenue:</p>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ppp_small</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span> <span class="op">(</span> <span class="fu">str_like</span> <span class="op">(</span> <span class="va">borrower_address</span>, <span class="st">"% central ave%"</span><span class="op">)</span> <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you examine some of the answers, you’ll see why having wildcards is so important — there’s really no way to guess how, exactly, a borrower might have entered their address. There’s no standardization on this or on many other columns in the data.</p>
+</section></section><section id="a-note-on-na-or-missing-data" class="level2" data-number="17.5"><h2 data-number="17.5" class="anchored" data-anchor-id="a-note-on-na-or-missing-data">
+<span class="header-section-number">17.5</span> A note on <code>NA</code>, or missing data</h2>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A filter will never return any rows that are missing, or <code>NA</code> in the column you test. This is true both when you are trying to include them, and when you’re trying to include everything except something else.</p>
+</div>
+</div>
+<p>In most data sets, there is at least a little missing data. In this case, the forgiveness amount never shows the value zero. Instead, it shows <code>NA</code>, or the R symbol for missing data.</p>
+<p>This isn’t the same as the letters “NA”. It’s a special type of value that means “nothing”. It’s not zero, it’s not higher or lower than any other value, it doesn’t ever equal anything and it doesn’t ever NOT equal anything! It stands for a value that is truly unknown. In fact, an <code>NA</code> never even matches another <code>NA</code>, because we don’t know anything about either one.</p>
+<p>This means you can’t filter for <code>NA</code> values directly and often have to take them into account.</p>
+<p>To filter for <code>NA</code> values, you’ll use a special function — <code><a href="https://rdrr.io/r/base/NA.html">is.na()</a></code> — designed to pick out these bad actors:</p>
+<div class="cell">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ppp_small</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span> <span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span> <span class="op">(</span> <span class="va">forgiveness_amount</span> <span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We’ll come back to this later, but for now just remember that missing data is a scourge on your analysis, and it will almost always be a problem you have to solve.</p>
+</section><section id="your-turn" class="level2" data-number="17.6"><h2 data-number="17.6" class="anchored" data-anchor-id="your-turn">
+<span class="header-section-number">17.6</span> Your turn</h2>
+<p>Create a new Quarto document in your project. Add a sub-heading that provides documentation and sourcing of the data. You can load the data at the same time using this code chunk:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>ppp_orig <span class="ot">&lt;-</span> <span class="fu">readRDS</span>( <span class="fu">url</span> ( <span class="st">"https://cronkitedata.s3.amazonaws.com/rdata/ppp_az_loans.RDS"</span>))</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Next, add a code chunk with the <code>glimpse(ppp_orig)</code> command to get a list of the columns in order.</p>
+<section id="filtering-your-data" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="filtering-your-data">Filtering your data</h3>
+<p>Create code chunks that will filter for the following values. You can select just the columns you want to see in whatever sort order makes sense for you to troubleshoot. You can rewrite the list below into plain English sentences to introduce the code chunks.</p>
+<p>Find the following sets of loans, and try to think about why these might make for interesting or possible story ideas.</p>
+<ol type="1">
+<li><p>At least $1 million</p></li>
+<li><p>Under $1,000</p></li>
+<li><p>Under $1,000 for projects in Maricopa County</p></li>
+<li><p>Loans that were paid in full but not forgiven. In other words, the borrower decided to pay it back rather than ask for taxpayers to cover it. (These loans are shown as missing, or <code>NA</code> in the forgiveness_amount column)</p></li>
+<li><p>Loans in Phoenix, Scottsdale and Tempe</p></li>
+<li><p>Loans in Arizona that were for projects out of state.</p></li>
+<li><p>McDonald’s franchises. (I removed the apostrophe.)</p></li>
+<li><p>Any loan to a Native American tribe or nation or reservation. Hint: It’s hard to do this because “NATION” could be part of the word “NATIONAL” and “TRIBE” could be part of the word “TRIBECA” and “RESERVATION” could be part of the word “PRESERVATION”. See how far you can get using your wildcards.</p></li>
+</ol></section><section id="your-questions" class="level3"><h3 class="anchored" data-anchor-id="your-questions">Your questions</h3>
+<p>Create a new section in your document, and list three additional filters that might yield something interesting. Before each attempt you make, write a sentence that describes, in plain English, what you are trying to find. Then after running your attempt, write a sentence summing up what you see in the result. Was it what you expected? Anything interesting?</p>
+
+
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation column-page-right"><div class="nav-page nav-page-previous">
+      <a href="./r-verbs.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">A quick tour of verbs</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./r-verb-mutate.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Verbs in depth: New from old data with Mutate</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">Data reporting for investigative journalism, Spring 2023 was written by Sarah Cohen</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">Produced with <a href="https://quarto.org">Quarto</a></div>
+  </div>
+</footer>
+
+
+</body></html>

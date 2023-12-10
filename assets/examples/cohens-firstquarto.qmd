@@ -1,0 +1,56 @@
+---
+title: "My first Quarto document"
+author: "Sarah Cohen"
+format: 
+  html:
+    theme: flatly
+    embed-resources: true
+    code-tools: true
+    toc: true
+---
+
+## About me
+
+Here are three things you might not know about me:
+
+-   I saw the **Talking Heads** playing *Pscho Killer* at CBGB's in New York. (The drinking age was 18 at the time)
+-   Before I came to Cronkite, I'd never lived further west than Western New York.
+-   I went to school at UNC but at taught at Duke. Which one has my loyalty?
+
+## My favorite animal
+
+Here is a picture of my favorite animal, downloaded from <https://unsplash.com>
+
+![A Moose by Shivam Kumar](shivam-kumar-unsplash.jpg){width="60%"}
+
+## Some R Code
+
+To add some code, we have to add a code chunk.
+
+```{r}
+
+my_cool_number <- 5 
+
+my_cool_number
+
+
+
+```
+
+```{r}
+
+my_name <- "Sarah"
+
+
+
+```
+
+This is a new code chunk
+
+```{r}
+
+our_names <- c("Sarah", "Mike", "Jacquee", "Maud")
+
+our_names
+
+```

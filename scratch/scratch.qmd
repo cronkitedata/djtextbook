@@ -1,0 +1,28 @@
+---
+title: "YOUR TITLE - CHANGE THIS"
+author: "YOUR NAME - CHANGE THIS"
+format:
+  html:
+    theme: cosmos
+    toc: true
+    code-tools: true
+    embed-resources: true
+    df-print: paged
+---
+
+```{r}
+#| label: setup
+#| include: false 
+#| message: false
+#| warning: false
+
+library(tidyverse)
+library(janitor)
+library(lubridate)
+
+
+```
+
+## Introduction
+
+Start your work here.
