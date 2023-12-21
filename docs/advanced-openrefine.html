@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data Reporting - 30&nbsp; Open refine walkthrough</title>
+<title>Data Reporting - 27&nbsp; Open refine walkthrough</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./advanced-scrape1.html" rel="next">
-<link href="./advanced-regex.html" rel="prev">
+<link href="./advanced-pdf.html" rel="prev">
 <link href="./assets/images/favicon.ico" rel="icon">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -110,7 +110,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./advanced.html">Special skills</a></li><li class="breadcrumb-item"><a href="./advanced-openrefine.html"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Open refine walkthrough</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./advanced.html">Special skills</a></li><li class="breadcrumb-item"><a href="./advanced-openrefine.html"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Open refine walkthrough</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -131,11 +131,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <a href="./">Data Reporting</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/cronkitedata/djtextbook" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
-  <div class="quarto-reader-toggle-btn">
-  <i class="bi"></i>
-  </div>
-</a>
 </div>
     </div>
       </div>
@@ -169,40 +164,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./start-math.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Newsroom math</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./start-data-def.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Defining “Data”</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Defining “Data”</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./start-data-diary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Replication and the data diary</span></span></a>
+  <a href="./start-data-document.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Documenting your work</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./start-hunt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Finding the right data for your story</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Finding the right data for your story</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./start-build-own.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Build your own database</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Build your own database</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./xl.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Spreadsheets</span></a>
+            <a href="./quickstart.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programming quick start</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -210,40 +199,46 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./xl-refresher.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">An Excel Refresher</span></span></a>
+  <a href="./r-install.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Installing R and RStudio</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./xl-filter-sort.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Sorting and filtering to find stories</span></span></a>
+  <a href="./appendix-program.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">A gentle intro to programming</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./xl-pivot.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Grouping with pivot tables</span></span></a>
+  <a href="./r-start.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Getting started with R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./xl-formulas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Formulas in Excel</span></span></a>
+  <a href="./r-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Using Quarto</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./xl-practice-noc.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Practice exercise</span></span></a>
+  <a href="./r-data-import.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Getting and saving data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-verbs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">A quick tour of verbs</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./r.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">R Study Guide</span></a>
+            <a href="./rdepth.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Verbs of the tidyverse</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -251,62 +246,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./r-install.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Installing R and RStudio</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./r-start.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Getting started with R</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./r-quarto.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Using Quarto</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./r-data-import.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Getting and saving data</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./r-verbs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">A quick tour of verbs</span></span></a>
+  <a href="./start-tidy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Tidy data principles</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-verb-filter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Verbs in depth: Select, arrange, filter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Verbs in depth: Select, arrange, filter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-verb-mutate.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Verbs in depth: New from old data with Mutate</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Verbs in depth: New from old data with Mutate</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-verb-groupby.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Verbs in depth: Aggregating with groups</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Verbs in depth: Aggregating with groups</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-verb-join.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Verbs in depth: Matchmaking with joins</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Verbs in depth: Matchmaking with joins</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced-regex.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Regular Expressions for pattern matching</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced-regex-r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Inexact matching and regular expressions in R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-recipes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Recipes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Recipes</span></span></a>
   </div>
 </li>
       </ul>
@@ -323,37 +306,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-reporting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Visualization as a reporting tool</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Visualization as a reporting tool</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-tables.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Report-making in R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Report-making in R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-demo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Visualization demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Visualization demo</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-practice.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Visualization exercise</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Visualization exercise</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-maps-begin.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Mapping: An introduction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Mapping: An introduction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-maps-firstmap.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">The first map</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">The first map</span></span></a>
   </div>
 </li>
       </ul>
@@ -370,31 +353,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./advanced-pdf.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Working with PDF files</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./advanced-regex.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Regular Expressions for pattern matching</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Working with PDF files</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./advanced-openrefine.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Open refine walkthrough</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Open refine walkthrough</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./advanced-scrape1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Scraping without programming</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Scraping without programming</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./advanced-scrape2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Introduction to scraping in R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Introduction to scraping in R</span></span></a>
   </div>
 </li>
       </ul>
@@ -416,8 +393,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix-program.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">A gentle intro to programming</span></span></a>
+  <a href="./appendix-filetypes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">File types in the wild</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -430,50 +407,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
     </ul>
     </div>
-    <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">In this chapter:</h2>
    
   <ul>
-  <li><a href="#installing-openrefine" id="toc-installing-openrefine" class="nav-link active" data-scroll-target="#installing-openrefine"><span class="header-section-number">30.1</span> Installing OpenRefine</a>
+  <li><a href="#installing-openrefine" id="toc-installing-openrefine" class="nav-link active" data-scroll-target="#installing-openrefine"><span class="header-section-number">27.1</span> Installing OpenRefine</a>
   <ul class="collapse">
   <li><a href="#mac-users-unidentified-developer" id="toc-mac-users-unidentified-developer" class="nav-link" data-scroll-target="#mac-users-unidentified-developer">Mac users: Unidentified developer</a></li>
   <li><a href="#windows-users" id="toc-windows-users" class="nav-link" data-scroll-target="#windows-users">Windows users</a></li>
   <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations">Limitations</a></li>
   <li><a href="#following-the-walkthrough" id="toc-following-the-walkthrough" class="nav-link" data-scroll-target="#following-the-walkthrough">Following the walkthrough</a></li>
   </ul></li>
-  <li><a href="#starting-openrefine" id="toc-starting-openrefine" class="nav-link" data-scroll-target="#starting-openrefine"><span class="header-section-number">30.2</span> Starting OpenRefine</a></li>
-  <li><a href="#importing-data" id="toc-importing-data" class="nav-link" data-scroll-target="#importing-data"><span class="header-section-number">30.3</span> Importing data</a>
+  <li><a href="#starting-openrefine" id="toc-starting-openrefine" class="nav-link" data-scroll-target="#starting-openrefine"><span class="header-section-number">27.2</span> Starting OpenRefine</a></li>
+  <li><a href="#importing-data" id="toc-importing-data" class="nav-link" data-scroll-target="#importing-data"><span class="header-section-number">27.3</span> Importing data</a>
   <ul class="collapse">
   <li><a href="#returning-to-your-project" id="toc-returning-to-your-project" class="nav-link" data-scroll-target="#returning-to-your-project">Returning to your project</a></li>
   <li><a href="#rename-or-copy-columns" id="toc-rename-or-copy-columns" class="nav-link" data-scroll-target="#rename-or-copy-columns">Rename or copy columns</a></li>
   </ul></li>
-  <li><a href="#facets" id="toc-facets" class="nav-link" data-scroll-target="#facets"><span class="header-section-number">30.4</span> Facets</a></li>
-  <li><a href="#clustering" id="toc-clustering" class="nav-link" data-scroll-target="#clustering"><span class="header-section-number">30.5</span> Clustering</a>
+  <li><a href="#facets" id="toc-facets" class="nav-link" data-scroll-target="#facets"><span class="header-section-number">27.4</span> Facets</a></li>
+  <li><a href="#clustering" id="toc-clustering" class="nav-link" data-scroll-target="#clustering"><span class="header-section-number">27.5</span> Clustering</a>
   <ul class="collapse">
   <li><a href="#clustering-details" id="toc-clustering-details" class="nav-link" data-scroll-target="#clustering-details">Clustering details</a></li>
   <li><a href="#facet-for-long-entries" id="toc-facet-for-long-entries" class="nav-link" data-scroll-target="#facet-for-long-entries">Facet for long entries</a></li>
   </ul></li>
-  <li><a href="#filtering" id="toc-filtering" class="nav-link" data-scroll-target="#filtering"><span class="header-section-number">30.6</span> Filtering</a>
+  <li><a href="#filtering" id="toc-filtering" class="nav-link" data-scroll-target="#filtering"><span class="header-section-number">27.6</span> Filtering</a>
   <ul class="collapse">
-  <li><a href="#simple-filter" id="toc-simple-filter" class="nav-link" data-scroll-target="#simple-filter"><span class="header-section-number">30.6.1</span> Simple filter</a></li>
+  <li><a href="#simple-filter" id="toc-simple-filter" class="nav-link" data-scroll-target="#simple-filter">Simple filter</a></li>
   <li><a href="#complex-filter" id="toc-complex-filter" class="nav-link" data-scroll-target="#complex-filter">Complex filter</a></li>
   <li><a href="#split-by-regex" id="toc-split-by-regex" class="nav-link" data-scroll-target="#split-by-regex">Split by regex</a></li>
   <li><a href="#split-using-openrefine-programming-language" id="toc-split-using-openrefine-programming-language" class="nav-link" data-scroll-target="#split-using-openrefine-programming-language">Split using OpenRefine programming language</a></li>
   </ul></li>
-  <li><a href="#finishing-up" id="toc-finishing-up" class="nav-link" data-scroll-target="#finishing-up"><span class="header-section-number">30.7</span> Finishing up</a></li>
+  <li><a href="#finishing-up" id="toc-finishing-up" class="nav-link" data-scroll-target="#finishing-up"><span class="header-section-number">27.7</span> Finishing up</a></li>
   </ul>
 </nav>
-</nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content column-page-right" id="quarto-document-content">
+<main class="content column-body" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="advanced-openrefine" class="quarto-section-identifier"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Open refine walkthrough</span></span></h1>
+<h1 class="title"><span id="advanced-openrefine" class="quarto-section-identifier"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Open refine walkthrough</span></span></h1>
 </div>
 
 
@@ -493,8 +470,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="alert alert-info">
 <p>Right-click to <a href="https://cronkitedata.s3.amazonaws.com/csv/ppp_az_openrefine_input.csv">download the data</a> for this walkthrough and save it into your projects folder</p>
 </div>
-<section id="installing-openrefine" class="level2" data-number="30.1">
-<h2 data-number="30.1" class="anchored" data-anchor-id="installing-openrefine"><span class="header-section-number">30.1</span> Installing OpenRefine</h2>
+<section id="installing-openrefine" class="level2" data-number="27.1">
+<h2 data-number="27.1" class="anchored" data-anchor-id="installing-openrefine"><span class="header-section-number">27.1</span> Installing OpenRefine</h2>
 <p>Download the latest version from the <a href="https://openrefine.org/download.html">OpenRefine website</a> and follow the instructions there to install.</p>
 <section id="mac-users-unidentified-developer" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="mac-users-unidentified-developer">Mac users: Unidentified developer</h3>
@@ -513,8 +490,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Steps that you should take are shown in bullet points. The rest is explanation.</p>
 </section>
 </section>
-<section id="starting-openrefine" class="level2" data-number="30.2">
-<h2 data-number="30.2" class="anchored" data-anchor-id="starting-openrefine"><span class="header-section-number">30.2</span> Starting OpenRefine</h2>
+<section id="starting-openrefine" class="level2" data-number="27.2">
+<h2 data-number="27.2" class="anchored" data-anchor-id="starting-openrefine"><span class="header-section-number">27.2</span> Starting OpenRefine</h2>
 <p>OpenRefine is a Java-based program that runs inside your browser, but lives on your computer instead of the internet. It runs much better in Chrome than in Safari.</p>
 <ul>
 <li><p>Find the OpenRefine app on your computer, and double-click. When you first start it up, it will open with your default browser.</p></li>
@@ -528,8 +505,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 </section>
-<section id="importing-data" class="level2" data-number="30.3">
-<h2 data-number="30.3" class="anchored" data-anchor-id="importing-data"><span class="header-section-number">30.3</span> Importing data</h2>
+<section id="importing-data" class="level2" data-number="27.3">
+<h2 data-number="27.3" class="anchored" data-anchor-id="importing-data"><span class="header-section-number">27.3</span> Importing data</h2>
 <p>OpenRefine works best on comma- or tab-delimited data. To create a dataset like that from R, use the function <code>write_csv("path-to-csv-file.csv")</code> , which can be used like any other verb after a continuation pipe.</p>
 <ul>
 <li><p>To follow along with this tutorial, <a href="https://cronkitedata.s3.amazonaws.com/csv/ppp_az_openrefine_input.csv">download the sample data file</a> and save it into your R project folder .</p></li>
@@ -563,8 +540,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>To make a copy, use the dropdown menu <em>Edit column-&gt;Add column based on this column</em> and give it a name.</p>
 </section>
 </section>
-<section id="facets" class="level2" data-number="30.4">
-<h2 data-number="30.4" class="anchored" data-anchor-id="facets"><span class="header-section-number">30.4</span> Facets</h2>
+<section id="facets" class="level2" data-number="27.4">
+<h2 data-number="27.4" class="anchored" data-anchor-id="facets"><span class="header-section-number">27.4</span> Facets</h2>
 <p>For many text columns, you can use facets to edit your data. Under your newly named <code>project_state_refined</code>, choose <em>Facet-&gt;Text facet</em> to get a menu on the left. It will then show you the values it found in that column, and the number of times each one appears, much like at <code>group_by</code> query.</p>
 <p>OpenRefine only acts on rows that are selected, which makes using facets and filtering so powerful. You never have to worry that you’re changing something that you don’t see.</p>
 <div class="quarto-figure quarto-figure-center">
@@ -583,8 +560,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>With the same selection on, change the county name to “OUT OF STATE” using the same method.</p></li>
 </ul>
 </section>
-<section id="clustering" class="level2" data-number="30.5">
-<h2 data-number="30.5" class="anchored" data-anchor-id="clustering"><span class="header-section-number">30.5</span> Clustering</h2>
+<section id="clustering" class="level2" data-number="27.5">
+<h2 data-number="27.5" class="anchored" data-anchor-id="clustering"><span class="header-section-number">27.5</span> Clustering</h2>
 <p>One reason a lot of reporters use OpenRefine is to take advantage of its fuzzy-matching to clean items like names and addresses. It provides about a dozen different algorithms that provide suggestions on ways to change unstandardized values in a column that often make a lot of sense.</p>
 <p>This walkthrough will work on the city name.</p>
 <div class="alert alert-warning">
@@ -645,11 +622,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The list isn’t perfect, but it’s much better than what we started with.</p>
 </section>
 </section>
-<section id="filtering" class="level2" data-number="30.6">
-<h2 data-number="30.6" class="anchored" data-anchor-id="filtering"><span class="header-section-number">30.6</span> Filtering</h2>
+<section id="filtering" class="level2" data-number="27.6">
+<h2 data-number="27.6" class="anchored" data-anchor-id="filtering"><span class="header-section-number">27.6</span> Filtering</h2>
 <p>Even after fixing all of the cities we can through clustering and faceting, there are usually some bad entries left over.</p>
-<section id="simple-filter" class="level3" data-number="30.6.1">
-<h3 data-number="30.6.1" class="anchored" data-anchor-id="simple-filter"><span class="header-section-number">30.6.1</span> Simple filter</h3>
+<section id="simple-filter" class="level3">
+<h3 class="anchored" data-anchor-id="simple-filter">Simple filter</h3>
 <ul>
 <li><p>Instead of a Text Facet, choose <em>Text filter</em> from the dropdown menu. Generally, I use regular expressions in this box so I can control where in the column my target word or letters falls.</p></li>
 <li><p>Try filtering for <code>^Phoe</code> after checking the “regular expression” box, and you’ll see a few stray entries for Phoenix that you can change in the facet window.</p></li>
@@ -694,8 +671,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 </section>
-<section id="finishing-up" class="level2" data-number="30.7">
-<h2 data-number="30.7" class="anchored" data-anchor-id="finishing-up"><span class="header-section-number">30.7</span> Finishing up</h2>
+<section id="finishing-up" class="level2" data-number="27.7">
+<h2 data-number="27.7" class="anchored" data-anchor-id="finishing-up"><span class="header-section-number">27.7</span> Finishing up</h2>
 <ul>
 <li>Try using the clustering and other transformation options to clean up the borrower names. Only change the ones you are sure should be combined.</li>
 </ul>
@@ -946,22 +923,22 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<nav class="page-navigation column-page-right">
+<nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
-      <a href="./advanced-regex.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Regular Expressions for pattern matching</span></span>
+      <a href="./advanced-pdf.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Working with PDF files</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./advanced-scrape1.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Scraping without programming</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Scraping without programming</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">Data reporting for investigative journalism, Spring 2023 was written by Sarah Cohen</div>   
+    <div class="nav-footer-left">Data reporting for investigative journalism, Spring 2024, written by Sarah Cohen</div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>

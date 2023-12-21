@@ -1,0 +1,28 @@
+# Programming quick start {#quickstart}
+
+##   
+
+
+This is probably your first introduction to coding. Don't be worried. With effort, much of what reporters do in coding can be learned in a few weeks. In "[Learning how to Learn](http://ds4ps.org/dp4ss-textbook/ch-032-learning_r.html)", Jesse Lesy says: 
+
+::: otro-blockquote
+
+If this is your first programming language, you will get frustrated at times. Take a step back and remember that after a semester of Spanish you can only operate at the level of a three-year old. You only know one verb tense, a few dozen verbs, and several hundred words. You have so many emotions that you can't express in your new language! 
+
+::: 
+
+When you get very frustrated -- and you WILL get very frustrated at times -- walk away from the computer for a little while. You may see a solution staring right back at you. But if you still can't imagine what to do next, get help. As Lecy says, your morale is a valuable commodity and it shouldn't be squandered.
+
+
+The good news for journalists is that you can accomplish most of what we need with the vocabulary of a three-year-old. Much of what we do in R is accomplished using six verbs: `filter`, `mutate`, `arrange`, `group by`, `summarize` and `join`. 
+
+
+This section goes in depth in a couple of areas that flummox some people: Installing and getting used to the screens in R and RStudio; and getting data into the program by importing. Then it shows off some of the things you'll be able to do in just a couple of weeks.
+
+Don't worry if you're just copying and pasting at this point. It's important to get used to the screens and the process without worrying about substance at first. That's why programming language tutorials often start with printing, "Hello, world!" -- it's something that every program does, but a does it a little differently.
+
+
+
+## Credits {-}
+
+Some of the material in these chapters relies on work done by [Andrew Heiss](https://evalf22.classes.andrewheiss.com/) and [Christian McDonald](https://utdata.github.io/rwdir/). 

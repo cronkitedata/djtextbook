@@ -1,0 +1,52 @@
+# File types in the wild
+
+Getting data into R (or any other program) is often among the more difficult parts of your project.  This postscript goes  over the common data formats you're likely to run across in your work with R. However, R is not limited to these. You'll often find arcane and specialized data file formats if you work with statisticians or experts in geographic analysis that can also be read in R. There is almost always a package available that will read it.
+
+### Tabular text data {.unnumbered}
+
+Every computer can read and write plain text. Those are the characters you can type on a typewriter, with no fancy formatting or other features that require special software to ingest it. Normally, you'll work with text data that already comes as columns and rows. They usually come in two flavors:
+
+-   **CSV** data is "comma-separated values" data, which means that a new column will be created whenever a comma is encountered. If there is a chance that there might be a comma inside a column, it will be enclosed by quote marks. This usually works OK, but there are some times when you have to be careful because there could be commas AND quotes inside a column. (A good example is a column of peoples' names -- they may be something like `Smith, Johnny "The Rat"`) To overcome this, some people use:
+
+-   **TSV** , or tab-separated data. In this case, the tab key determines the distinction between columns, which is much rarer to find in plain text files.
+
+Here's what a CSV might look like listing the last few presidents:
+
+```         
+  name, position, start_date, age_at_start_date
+  "Biden, Joe", President, 2021-01-20, 78
+  "Trump, Donald", President, 2017-01-20, 70
+  "Obama, Barack", President, 2009-01-20, 47
+```
+
+It looks like a mess to you, but it's a thing of beauty to a computer.
+
+Some government agencies just make up a delimiter instead of a comma or tab - I've seen them with vertical bars (`|`) and tildes `~`. 
+
+### Non-tabular text data {.unnumbered}
+
+Another common format you'll see passed around from computer to computer is called JSON. This stands for Javascript Object Notation, and is commonly used to pass data over the web , often to your phone or your browser.
+
+It looks even worse, but it's also a thing of beauty to a computer. The same data would look like this in JSON:
+
+```         
+ {"presidents": [
+    {"name": "Biden, Joe", "position": "President", "start_date": "2021-01-20", 
+       "age_at start_date": "78"},
+    {"name": "Trump, Donald", "position": "President", "start_date": "2017-01-20", 
+       "age_at start_date": "70"},
+    {"name": "Obama, Barack", "position": "President", "start_date": "2009-01-20", 
+       "age_at start_date": "47"}
+   ]
+  } 
+    
+```
+
+### Evil data - PDF
+
+Data supplied in a PDF file isn't data at all -- it's effectively pixels placed on a page, and is intended for printing and viewing, not analyzing. Government agencies often print Excel files into PDF's -- I have no idea why, but it's common, and it's often difficult to convince them to do anything else regardless of the local public records law. For now, just remember that this is one file format you want to avoid if at all possible -- it's the most error-prone and difficult data to manage, even if it looks pretty.
+
+### Proprietary data formats
+
+Excel is one proprietary data format; Google Sheets is another. You may run into many different kinds, ranging from maps to statistical systems like SAS.  R has two of its own propriety formats: .RData and .Rda, which we'll use later. R has a package that will read almost any data -- once you find it, it shouldn't be a problem.
+

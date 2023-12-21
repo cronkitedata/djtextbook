@@ -16,7 +16,7 @@ Other professors and universities are also trying to teach R in journalism and o
 
 * Matt Waite at the University of Nebraska has been teach R in the context of a sports journalism class and a data journalism. [His textbooks](http://mattwaite.github.io) are all freely available on Github. One minor difference that might trip you up: We're using R Markdown, and he's using R Notebooks. They're very similar, but the "knit" option isn't there when you use Notebooks -- only a "Preview". You'll know what that means when we get moving.
 
-* Christian McDonald at the University of Texas has also [created a textbook for his data reporting class](https://utdata.github.io/rwd-r-reporting-with-data/), which walks through the same data set all the way through. 
+* Christian McDonald at the University of Texas has also [created a textbook for his data reporting class](https://utdata.github.io/rwd-r-reporting-with-data/), which walks through the same dataset all the way through. 
 
 * Peter Aldhous's "[R for Data Journalism](https://paldhous.github.io/wcsj/2017/)". Peter uses an R script instead of a markdown document. To do that, you create a new R document instead of a markdown, and run code by pressing CTL-Enter next to the lines that you want to run. It won't be formatted, but it takes away one of the first sets of confusion . 
 

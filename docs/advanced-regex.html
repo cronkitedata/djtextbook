@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.3.450">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Data Reporting - 29&nbsp; Regular Expressions for pattern matching</title>
+
+
+<title>Data Reporting - 17&nbsp; Regular Expressions for pattern matching</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -53,6 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
+
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
@@ -60,8 +64,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./advanced-openrefine.html" rel="next">
-<link href="./advanced-pdf.html" rel="prev">
+<link href="./advanced-regex-r.html" rel="next">
+<link href="./r-verb-join.html" rel="prev">
 <link href="./assets/images/favicon.ico" rel="icon">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -71,7 +75,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -90,38 +95,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+}</script>
+
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
 <script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+
+
 </head>
+
 <body class="nav-sidebar floating">
 
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./advanced.html">Special skills</a></li><li class="breadcrumb-item"><a href="./advanced-regex.html"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Regular Expressions for pattern matching</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./rdepth.html">Verbs of the tidyverse</a></li><li class="breadcrumb-item"><a href="./advanced-regex.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Regular Expressions for pattern matching</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="./index.html" class="sidebar-logo-link">
-      <img src="./assets/images/favicon.ico" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
+      <img src="./assets/images/favicon.ico" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Data Reporting</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/cronkitedata/djtextbook" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
-  <div class="quarto-reader-toggle-btn">
-  <i class="bi"></i>
-  </div>
-</a>
 </div>
     </div>
       </div>
@@ -132,7 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-<li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
@@ -146,8 +158,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./start-story.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Learn a new way to read</span></span></a>
@@ -155,148 +167,136 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./start-math.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Newsroom math</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./start-data-def.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Defining “Data”</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Defining “Data”</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./start-data-diary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Replication and the data diary</span></span></a>
+  <a href="./start-data-document.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Documenting your work</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./start-hunt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Finding the right data for your story</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Finding the right data for your story</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./start-build-own.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Build your own database</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Build your own database</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./xl.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Spreadsheets</span></a>
+            <a href="./quickstart.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programming quick start</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">
-<li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./xl-refresher.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">An Excel Refresher</span></span></a>
-  </div>
-</li>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./xl-filter-sort.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Sorting and filtering to find stories</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./xl-pivot.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Grouping with pivot tables</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./xl-formulas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Formulas in Excel</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./xl-practice-noc.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Practice exercise</span></span></a>
-  </div>
-</li>
-      </ul>
-</li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a href="./r.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">R Study Guide</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">
-<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-install.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Installing R and RStudio</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Installing R and RStudio</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-program.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">A gentle intro to programming</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-start.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Getting started with R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Getting started with R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-quarto.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Using Quarto</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Using Quarto</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-data-import.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Getting and saving data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Getting and saving data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-verbs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">A quick tour of verbs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">A quick tour of verbs</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./rdepth.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Verbs of the tidyverse</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./start-tidy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Tidy data principles</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-verb-filter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Verbs in depth: Select, arrange, filter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Verbs in depth: Select, arrange, filter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-verb-mutate.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Verbs in depth: New from old data with Mutate</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Verbs in depth: New from old data with Mutate</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-verb-groupby.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Verbs in depth: Aggregating with groups</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Verbs in depth: Aggregating with groups</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-verb-join.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Verbs in depth: Matchmaking with joins</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Verbs in depth: Matchmaking with joins</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced-regex.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Regular Expressions for pattern matching</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced-regex-r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Inexact matching and regular expressions in R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-recipes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Recipes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Recipes</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./vis.html" class="sidebar-item-text sidebar-link">
@@ -305,86 +305,80 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-reporting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Visualization as a reporting tool</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Visualization as a reporting tool</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-tables.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Report-making in R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Report-making in R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-demo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Visualization demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Visualization demo</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-practice.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Visualization exercise</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Visualization exercise</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-maps-begin.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Mapping: An introduction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Mapping: An introduction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-maps-firstmap.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">The first map</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">The first map</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./advanced.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Special skills</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./advanced-pdf.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Working with PDF files</span></span></a>
-  </div>
-</li>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./advanced-regex.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Regular Expressions for pattern matching</span></span></a>
+  <a href="./advanced-pdf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Working with PDF files</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./advanced-openrefine.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Open refine walkthrough</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Open refine walkthrough</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./advanced-scrape1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Scraping without programming</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Scraping without programming</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./advanced-scrape2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Introduction to scraping in R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Introduction to scraping in R</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
@@ -393,8 +387,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./appendix-math.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Newsroom numbers cheat sheet</span></span></a>
@@ -402,8 +396,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix-program.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">A gentle intro to programming</span></span></a>
+  <a href="./appendix-filetypes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">File types in the wild</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -413,41 +407,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-</li>
+  </li>
     </ul>
-</div>
-    <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">In this chapter:</h2>
    
   <ul>
-<li>
-<a href="#types-of-regular-expression-patterns" id="toc-types-of-regular-expression-patterns" class="nav-link active" data-scroll-target="#types-of-regular-expression-patterns"><span class="header-section-number">29.1</span> Types of regular expression patterns</a>
+  <li><a href="#types-of-regular-expression-patterns" id="toc-types-of-regular-expression-patterns" class="nav-link active" data-scroll-target="#types-of-regular-expression-patterns"><span class="header-section-number">17.1</span> Types of regular expression patterns</a>
   <ul class="collapse">
-<li><a href="#literal-strings" id="toc-literal-strings" class="nav-link" data-scroll-target="#literal-strings"><span class="header-section-number">29.1.1</span> Literal strings</a></li>
-  <li><a href="#wild-cards" id="toc-wild-cards" class="nav-link" data-scroll-target="#wild-cards"><span class="header-section-number">29.1.2</span> Wild cards</a></li>
-  <li><a href="#character-classes" id="toc-character-classes" class="nav-link" data-scroll-target="#character-classes"><span class="header-section-number">29.1.3</span> Character classes</a></li>
-  <li><a href="#escaping" id="toc-escaping" class="nav-link" data-scroll-target="#escaping"><span class="header-section-number">29.1.4</span> Escaping</a></li>
-  <li><a href="#match-groups" id="toc-match-groups" class="nav-link" data-scroll-target="#match-groups"><span class="header-section-number">29.1.5</span> Match groups</a></li>
-  </ul>
-</li>
-  <li><a href="#sample-data" id="toc-sample-data" class="nav-link" data-scroll-target="#sample-data"><span class="header-section-number">29.2</span> Sample data</a></li>
-  <li>
-<a href="#testing-and-examining-patterns-with-regex101" id="toc-testing-and-examining-patterns-with-regex101" class="nav-link" data-scroll-target="#testing-and-examining-patterns-with-regex101"><span class="header-section-number">29.3</span> Testing and examining patterns with Regex101</a>
+  <li><a href="#literal-strings" id="toc-literal-strings" class="nav-link" data-scroll-target="#literal-strings">Literal strings</a></li>
+  <li><a href="#wild-cards" id="toc-wild-cards" class="nav-link" data-scroll-target="#wild-cards">Wild cards</a></li>
+  <li><a href="#character-classes" id="toc-character-classes" class="nav-link" data-scroll-target="#character-classes">Character classes</a></li>
+  <li><a href="#escaping" id="toc-escaping" class="nav-link" data-scroll-target="#escaping">Escaping</a></li>
+  <li><a href="#match-groups" id="toc-match-groups" class="nav-link" data-scroll-target="#match-groups">Match groups</a></li>
+  </ul></li>
+  <li><a href="#sample-data" id="toc-sample-data" class="nav-link" data-scroll-target="#sample-data"><span class="header-section-number">17.2</span> Sample data</a></li>
+  <li><a href="#testing-and-examining-patterns-with-regex101" id="toc-testing-and-examining-patterns-with-regex101" class="nav-link" data-scroll-target="#testing-and-examining-patterns-with-regex101"><span class="header-section-number">17.3</span> Testing and examining patterns with Regex101</a>
   <ul class="collapse">
-<li><a href="#looking-for-specific-words-or-characters" id="toc-looking-for-specific-words-or-characters" class="nav-link" data-scroll-target="#looking-for-specific-words-or-characters"><span class="header-section-number">29.3.1</span> Looking for specific words or characters</a></li>
+  <li><a href="#looking-for-specific-words-or-characters" id="toc-looking-for-specific-words-or-characters" class="nav-link" data-scroll-target="#looking-for-specific-words-or-characters">Looking for specific words or characters</a></li>
+  </ul></li>
+  <li><a href="#practice-1-extract-date-parts" id="toc-practice-1-extract-date-parts" class="nav-link" data-scroll-target="#practice-1-extract-date-parts"><span class="header-section-number">17.4</span> Practice #1: Extract date parts</a></li>
+  <li><a href="#practice-2-extract-pieces-of-phone-numbers" id="toc-practice-2-extract-pieces-of-phone-numbers" class="nav-link" data-scroll-target="#practice-2-extract-pieces-of-phone-numbers"><span class="header-section-number">17.5</span> Practice #2: Extract pieces of phone numbers</a></li>
+  <li><a href="#practice-3-extract-address-pieces" id="toc-practice-3-extract-address-pieces" class="nav-link" data-scroll-target="#practice-3-extract-address-pieces"><span class="header-section-number">17.6</span> Practice #3: Extract address pieces</a></li>
+  <li><a href="#on-your-own" id="toc-on-your-own" class="nav-link" data-scroll-target="#on-your-own"><span class="header-section-number">17.7</span> On your own</a></li>
   </ul>
-</li>
-  <li><a href="#practice-1-extract-date-parts" id="toc-practice-1-extract-date-parts" class="nav-link" data-scroll-target="#practice-1-extract-date-parts"><span class="header-section-number">29.4</span> Practice #1: Extract date parts</a></li>
-  <li><a href="#practice-2-extract-pieces-of-phone-numbers" id="toc-practice-2-extract-pieces-of-phone-numbers" class="nav-link" data-scroll-target="#practice-2-extract-pieces-of-phone-numbers"><span class="header-section-number">29.5</span> Practice #2: Extract pieces of phone numbers</a></li>
-  <li><a href="#practice-3-extract-address-pieces" id="toc-practice-3-extract-address-pieces" class="nav-link" data-scroll-target="#practice-3-extract-address-pieces"><span class="header-section-number">29.6</span> Practice #3: Extract address pieces</a></li>
-  <li><a href="#on-your-own" id="toc-on-your-own" class="nav-link" data-scroll-target="#on-your-own"><span class="header-section-number">29.7</span> On your own</a></li>
-  </ul></nav>
-</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</nav>
     </div>
 <!-- main -->
-<main class="content column-page-right" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title"><span id="advanced-regex" class="quarto-section-identifier"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Regular Expressions for pattern matching</span></span></h1>
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="advanced-regex" class="quarto-section-identifier"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Regular Expressions for pattern matching</span></span></h1>
 </div>
 
 
@@ -460,7 +456,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
-</header><p><em>Regular expressions</em> are used to find and replace text based on <em>patterns</em> rather than <em>characters</em>. They’re particularly useful when trying to pull apart and standardize variables in a database such as names, phone numbers and addresses to make grouping and joining more effective.</p>
+</header>
+
+<p><em>Regular expressions</em> are used to find and replace text based on <em>patterns</em> rather than <em>characters</em>. They’re particularly useful when trying to pull apart and standardize variables in a database such as names, phone numbers and addresses to make grouping and joining more effective.</p>
 <p>A human can easily discern that the name <em>John W. Smith, Jr.</em> and <em>Smith, John W Jr</em> are probably the same. A computer sees them as completely different – they don’t start with the same characters, they have commas in different places, etc. A regular expression can help you pull apart names based on their pieces and then put them back together in another form.</p>
 <p>There are two or or three parts to a regular expression:</p>
 <ol type="1">
@@ -471,7 +469,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In practice, you’ll usually save the pieces of each pattern you’ve found into a variable, then put them back together differently.</p>
 <p>Here are two other good tutorials on regular expressions:</p>
 <ul>
-<li><p><a href="https://cronkitedata.s3.amazonaws.com/docs/meyer_regex.pdf">From Justin Meyer</a> at a recent IRE conference that can serve as a guide.<br></p></li>
+<li><p><a href="https://cronkitedata.s3.amazonaws.com/docs/meyer_regex.pdf">From Justin Meyer</a> at a recent IRE conference that can serve as a guide.<br>
+</p></li>
 <li><p><a href="https://cronkitedata.s3.amazonaws.com/docs/regex_for_rest_of_us.pdf">From Prof.&nbsp;Christian McDonald of UT-Austin</a></p></li>
 <li><p>If you’re using R, you can use a regex using the <code>stringr</code> package (part of the tidyverse) using the functions <em>str_detect</em> , <em>str_extract</em> and their cousins. They look like this:</p></li>
 </ul>
@@ -479,16 +478,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>The <a href="https://stringr.tidyverse.org/">vignette on the <code>stringr</code> package</a> in the Tidyverse is reasonably helpful.</li>
 </ul>
-<section id="types-of-regular-expression-patterns" class="level2" data-number="29.1"><h2 data-number="29.1" class="anchored" data-anchor-id="types-of-regular-expression-patterns">
-<span class="header-section-number">29.1</span> Types of regular expression patterns</h2>
-<section id="literal-strings" class="level3" data-number="29.1.1"><h3 data-number="29.1.1" class="anchored" data-anchor-id="literal-strings">
-<span class="header-section-number">29.1.1</span> Literal strings</h3>
+<section id="types-of-regular-expression-patterns" class="level2" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="types-of-regular-expression-patterns"><span class="header-section-number">17.1</span> Types of regular expression patterns</h2>
+<section id="literal-strings" class="level3">
+<h3 class="anchored" data-anchor-id="literal-strings">Literal strings</h3>
 <p>These are just letters, like “abc” or “Mary”. They are case-sensitive and no different than using text in a filter.</p>
 <p>You can tell the regex that you want to find your pattern at the beginning or end of a line:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>  ^   = "Find only at the beginning of a line"</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  $   = "Find only at the end of a line"</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section><section id="wild-cards" class="level3" data-number="29.1.2"><h3 data-number="29.1.2" class="anchored" data-anchor-id="wild-cards">
-<span class="header-section-number">29.1.2</span> Wild cards</h3>
+</section>
+<section id="wild-cards" class="level3">
+<h3 class="anchored" data-anchor-id="wild-cards">Wild cards</h3>
 <p>A wild card is a character you use to indicate the word “anything”. Here are some ways to use wild cards in regex:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="in">    .      = "any single character of any type"</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="in">    .?     = "a possible single character of any type (but it might not exist)"</span></span>
@@ -502,41 +502,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="in">      \\b   = "Any word boundary" (period, comma, space, etc.)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>When you upper-case them, it’s the opposite:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="in">      \\D = "Anything but a digit"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section><section id="character-classes" class="level3" data-number="29.1.3"><h3 data-number="29.1.3" class="anchored" data-anchor-id="character-classes">
-<span class="header-section-number">29.1.3</span> Character classes</h3>
+</section>
+<section id="character-classes" class="level3">
+<h3 class="anchored" data-anchor-id="character-classes">Character classes</h3>
 <p>Sometimes you want to tell the regex what characters it is allowed to accept. For example, say you don’t know whether there is an alternative spelling for a name – you can tell the regex to either ignore a character, or take one of several.</p>
 <p>In R, we saw that there were alternative spellings for words like “summarize” – the British and the American spellings. You could, for example, use this pattern to pick up either spelling:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="in">        summari[sz]e</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The bracket tells the regex that it’s allowed to take either one of those characters. You can also use ranges:</p>
 <pre><code>  [a-zA-Z0-9]</code></pre>
 <p>means that any lower case, upper case or numeric character is allowed.</p>
-</section><section id="escaping" class="level3" data-number="29.1.4"><h3 data-number="29.1.4" class="anchored" data-anchor-id="escaping">
-<span class="header-section-number">29.1.4</span> Escaping</h3>
+</section>
+<section id="escaping" class="level3">
+<h3 class="anchored" data-anchor-id="escaping">Escaping</h3>
 <p>Because they’re already being used for special purposes, some characters have to be “escaped” before you can search for them. Notably, they are parentheses (), periods, backslashes, dollar signs, question marks, dashes and carets.</p>
 <p>This means that to find a period or question mark, you have to use the pattern</p>
 <pre><code>    \\. or
     \\?</code></pre>
 <p>In the Regex101, this is the biggest difference among the flavors of regex – Python generally requires the least amount of escaping.</p>
-</section><section id="match-groups" class="level3" data-number="29.1.5"><h3 data-number="29.1.5" class="anchored" data-anchor-id="match-groups">
-<span class="header-section-number">29.1.5</span> Match groups</h3>
+</section>
+<section id="match-groups" class="level3">
+<h3 class="anchored" data-anchor-id="match-groups">Match groups</h3>
 <p>Use parentheses within a pattern to pick out pieces, which you can then use over again. The end of this chapter shows how to do this in R, which is a little complicated because we haven’t done much with <code>lists</code>.</p>
-</section></section><section id="sample-data" class="level2" data-number="29.2"><h2 data-number="29.2" class="anchored" data-anchor-id="sample-data">
-<span class="header-section-number">29.2</span> Sample data</h2>
+</section>
+</section>
+<section id="sample-data" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="sample-data"><span class="header-section-number">17.2</span> Sample data</h2>
 <p>Here are three small text files that you can copy and paste from your browser into the <a href="https://regex101.com/">regex101.com</a> site. It’s a site that lets you test out regular expressions, while explaining to you what’s happening with them.</p>
 <ol type="1">
 <li>A <a href="https://cronkitedata.s3.amazonaws.com/csv/regex_phones.txt">list of phone numbers</a> in different formats</li>
 <li>A <a href="https://cronkitedata.s3.amazonaws.com/csv/regex_dates.txt">list of dates</a> that you need to convert into a different form.</li>
 <li>A <a href="https://cronkitedata.s3.amazonaws.com/csv/regex_addresses.txt">list of addresses</a> that are in multiple lines, and you need to pull out the pieces. (Courtesy of IRE)</li>
 <li>A <a href="https://cronkitedata.s3.amazonaws.com/csv/regex_h2bvisas.txt">small chunk of the H2B visa applications</a> from Arizona companies or worksites that has been kind of messed up for this demonstration, in tab-delimited format.</li>
-</ol></section><section id="testing-and-examining-patterns-with-regex101" class="level2" data-number="29.3"><h2 data-number="29.3" class="anchored" data-anchor-id="testing-and-examining-patterns-with-regex101">
-<span class="header-section-number">29.3</span> Testing and examining patterns with Regex101</h2>
+</ol>
+</section>
+<section id="testing-and-examining-patterns-with-regex101" class="level2" data-number="17.3">
+<h2 data-number="17.3" class="anchored" data-anchor-id="testing-and-examining-patterns-with-regex101"><span class="header-section-number">17.3</span> Testing and examining patterns with Regex101</h2>
 <p><a href="https://regex101.com">Regex 101</a> is a website that lets you copy part of your data into a box, then test different patterns to see how they get applied. Regular expressions are very difficult to write and to read, but Regex101 lets you do it a little piece at a time. Just remember that every time you use ‘' in regex101, you will need’\` in R.</p>
-<section id="looking-for-specific-words-or-characters" class="level3" data-number="29.3.1"><h3 data-number="29.3.1" class="anchored" data-anchor-id="looking-for-specific-words-or-characters">
-<span class="header-section-number">29.3.1</span> Looking for specific words or characters</h3>
+<section id="looking-for-specific-words-or-characters" class="level3">
+<h3 class="anchored" data-anchor-id="looking-for-specific-words-or-characters">Looking for specific words or characters</h3>
 <p>The easiest regex is one that has just the characters you’re looking for when you know that they are the right case. They’re called <em>literals</em> because you are literally looking for those letters or characters.</p>
 <p><img src="assets/images/advanced-regex1.png" class="img-fluid" style="width:100.0%"></p>
-</section></section><section id="practice-1-extract-date-parts" class="level2" data-number="29.4"><h2 data-number="29.4" class="anchored" data-anchor-id="practice-1-extract-date-parts">
-<span class="header-section-number">29.4</span> Practice #1: Extract date parts</h2>
+</section>
+</section>
+<section id="practice-1-extract-date-parts" class="level2" data-number="17.4">
+<h2 data-number="17.4" class="anchored" data-anchor-id="practice-1-extract-date-parts"><span class="header-section-number">17.4</span> Practice #1: Extract date parts</h2>
 <p>In Regex 101, change the “Flavor” to “Python” – otherwise, you have to escape more of the characters.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <p>We want to turn dates that look like this:</p>
 <pre><code>  1/24/2018</code></pre>
@@ -563,8 +572,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Now each piece has its section, numbered 0 for the whole match, and then 1-3 for the pieces.</p>
 <p><img src="assets/images/advanced-regex3.png" class="img-fluid" style="width:100.0%"></p>
-</section><section id="practice-2-extract-pieces-of-phone-numbers" class="level2" data-number="29.5"><h2 data-number="29.5" class="anchored" data-anchor-id="practice-2-extract-pieces-of-phone-numbers">
-<span class="header-section-number">29.5</span> Practice #2: Extract pieces of phone numbers</h2>
+</section>
+<section id="practice-2-extract-pieces-of-phone-numbers" class="level2" data-number="17.5">
+<h2 data-number="17.5" class="anchored" data-anchor-id="practice-2-extract-pieces-of-phone-numbers"><span class="header-section-number">17.5</span> Practice #2: Extract pieces of phone numbers</h2>
 <p>Here are some phone numbers in different formats:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="in">    623-374-1167</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="in">    760.352.5212</span></span>
@@ -579,8 +589,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb15"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="in">      (\d{3})[-.\)]+(\d{3})[-.]+(\d{4})</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>(This won’t work in the “substitute” area – it would be easier to create a new variable with the results than to replace the originals.)</p>
 <p>Anything within parentheses will be “captured” in a block.</p>
-</section><section id="practice-3-extract-address-pieces" class="level2" data-number="29.6"><h2 data-number="29.6" class="anchored" data-anchor-id="practice-3-extract-address-pieces">
-<span class="header-section-number">29.6</span> Practice #3: Extract address pieces</h2>
+</section>
+<section id="practice-3-extract-address-pieces" class="level2" data-number="17.6">
+<h2 data-number="17.6" class="anchored" data-anchor-id="practice-3-extract-address-pieces"><span class="header-section-number">17.6</span> Practice #3: Extract address pieces</h2>
 <p>Here are a few lines of the data from <a href="https://cronkitedata.s3.amazonaws.com/docs/regex_for_rest_of_us.pdf">Prof.&nbsp;McDonald’s tutorial</a>, which you can copy and paste to go his exercise. (He uses the Javascript version of regular expressions, but for our purposes in this exercise, it doesn’t matter which one you use. If you choose Python, you’ll have one extra step, of putting a slash () before the quotes. The colors work a little better if you leave it on the default PHP method.)</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="in">    "10111 N LAMAR BLVD</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="in">    AUSTIN, TX 78753</span></span>
@@ -627,8 +638,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a><span class="in">    "3003 BEE CAVES RD</span></span>
 <span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a><span class="in">    ROLLINGWOOD, TX 78746</span></span>
 <span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a><span class="in">    (30.271592738000436, -97.79583786499967)"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section><section id="on-your-own" class="level2" data-number="29.7"><h2 data-number="29.7" class="anchored" data-anchor-id="on-your-own">
-<span class="header-section-number">29.7</span> On your own</h2>
+</section>
+<section id="on-your-own" class="level2" data-number="17.7">
+<h2 data-number="17.7" class="anchored" data-anchor-id="on-your-own"><span class="header-section-number">17.7</span> On your own</h2>
 <p><a href="https://cronkitedata.s3.amazonaws.com/csv/regex_h2bvisas.txt">This is a small list of H2A visa applications</a>, which are requests for agricultural and seasonal workers, from companies or worksites in Arizona. Try importing it into Excel, then copying some of the cells to practice your regular expression skills.</p>
 <p>You might try:</p>
 <ul>
@@ -639,10 +651,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 
 
-</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
 <ol>
 <li id="fn1"><p>Each language implements regular expressions slightly differently – when you begin to learn more languages, this will be one of the first things you’ll need to look up.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -874,26 +892,30 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script><nav class="page-navigation column-page-right"><div class="nav-page nav-page-previous">
-      <a href="./advanced-pdf.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Working with PDF files</span></span>
+</script>
+<nav class="page-navigation column-body">
+  <div class="nav-page nav-page-previous">
+      <a href="./r-verb-join.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Verbs in depth: Matchmaking with joins</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./advanced-openrefine.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Open refine walkthrough</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./advanced-regex-r.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Inexact matching and regular expressions in R</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer">
-    <div class="nav-footer-left">Data reporting for investigative journalism, Spring 2023 was written by Sarah Cohen</div>   
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Data reporting for investigative journalism, Spring 2024, written by Sarah Cohen</div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>
     <div class="nav-footer-right">Produced with <a href="https://quarto.org">Quarto</a></div>
   </div>
 </footer>
+
 
 
 </body></html>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data Reporting - Appendix B — A gentle intro to programming</title>
+<title>Data Reporting - 7&nbsp; A gentle intro to programming</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./appendix-ppp.html" rel="next">
-<link href="./appendix-math.html" rel="prev">
+<link href="./r-start.html" rel="next">
+<link href="./r-install.html" rel="prev">
 <link href="./assets/images/favicon.ico" rel="icon">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -76,7 +76,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./appendix-math.html">Appendices</a></li><li class="breadcrumb-item"><a href="./appendix-program.html"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">A gentle intro to programming</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./quickstart.html">Programming quick start</a></li><li class="breadcrumb-item"><a href="./appendix-program.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">A gentle intro to programming</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -97,11 +97,6 @@ ul.task-list li input[type="checkbox"] {
       <a href="./">Data Reporting</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/cronkitedata/djtextbook" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
-  <div class="quarto-reader-toggle-btn">
-  <i class="bi"></i>
-  </div>
-</a>
 </div>
     </div>
       </div>
@@ -135,81 +130,81 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./start-math.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Newsroom math</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./start-data-def.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Defining “Data”</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Defining “Data”</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./start-data-diary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Replication and the data diary</span></span></a>
+  <a href="./start-data-document.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Documenting your work</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./start-hunt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Finding the right data for your story</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Finding the right data for your story</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./start-build-own.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Build your own database</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Build your own database</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./xl.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Spreadsheets</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <a href="./quickstart.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programming quick start</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./xl-refresher.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">An Excel Refresher</span></span></a>
+  <a href="./r-install.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Installing R and RStudio</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./xl-filter-sort.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Sorting and filtering to find stories</span></span></a>
+  <a href="./appendix-program.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">A gentle intro to programming</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./xl-pivot.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Grouping with pivot tables</span></span></a>
+  <a href="./r-start.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Getting started with R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./xl-formulas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Formulas in Excel</span></span></a>
+  <a href="./r-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Using Quarto</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./xl-practice-noc.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Practice exercise</span></span></a>
+  <a href="./r-data-import.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Getting and saving data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-verbs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">A quick tour of verbs</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./r.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">R Study Guide</span></a>
+            <a href="./rdepth.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Verbs of the tidyverse</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -217,62 +212,50 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./r-install.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Installing R and RStudio</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./r-start.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Getting started with R</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./r-quarto.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Using Quarto</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./r-data-import.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Getting and saving data</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./r-verbs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">A quick tour of verbs</span></span></a>
+  <a href="./start-tidy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Tidy data principles</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-verb-filter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Verbs in depth: Select, arrange, filter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Verbs in depth: Select, arrange, filter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-verb-mutate.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Verbs in depth: New from old data with Mutate</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Verbs in depth: New from old data with Mutate</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-verb-groupby.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Verbs in depth: Aggregating with groups</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Verbs in depth: Aggregating with groups</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-verb-join.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Verbs in depth: Matchmaking with joins</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Verbs in depth: Matchmaking with joins</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced-regex.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Regular Expressions for pattern matching</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced-regex-r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Inexact matching and regular expressions in R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-recipes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Recipes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Recipes</span></span></a>
   </div>
 </li>
       </ul>
@@ -289,37 +272,37 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-reporting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Visualization as a reporting tool</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Visualization as a reporting tool</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-tables.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Report-making in R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Report-making in R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-demo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Visualization demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Visualization demo</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-practice.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Visualization exercise</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Visualization exercise</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-maps-begin.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Mapping: An introduction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Mapping: An introduction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-maps-firstmap.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">The first map</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">The first map</span></span></a>
   </div>
 </li>
       </ul>
@@ -336,44 +319,38 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./advanced-pdf.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Working with PDF files</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./advanced-regex.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Regular Expressions for pattern matching</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Working with PDF files</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./advanced-openrefine.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Open refine walkthrough</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Open refine walkthrough</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./advanced-scrape1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Scraping without programming</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Scraping without programming</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./advanced-scrape2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Introduction to scraping in R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Introduction to scraping in R</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./appendix-math.html" class="sidebar-item-text sidebar-link">
@@ -382,8 +359,8 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix-program.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">A gentle intro to programming</span></span></a>
+  <a href="./appendix-filetypes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">File types in the wild</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -396,35 +373,35 @@ ul.task-list li input[type="checkbox"] {
   </li>
     </ul>
     </div>
-    <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">In this chapter:</h2>
    
   <ul>
-  <li><a href="#building-blocks" id="toc-building-blocks" class="nav-link active" data-scroll-target="#building-blocks"><span class="header-section-number">B.1</span> Building blocks</a>
+  <li><a href="#building-blocks" id="toc-building-blocks" class="nav-link active" data-scroll-target="#building-blocks"><span class="header-section-number">7.1</span> Building blocks</a>
   <ul class="collapse">
   <li><a href="#variables" id="toc-variables" class="nav-link" data-scroll-target="#variables">Variables</a></li>
   <li><a href="#operators-assignment" id="toc-operators-assignment" class="nav-link" data-scroll-target="#operators-assignment">Operators &amp; assignment</a></li>
   <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions">Functions</a></li>
   <li><a href="#loops" id="toc-loops" class="nav-link" data-scroll-target="#loops">Loops</a></li>
   </ul></li>
-  <li><a href="#an-algorithm-to-make-an-omelet" id="toc-an-algorithm-to-make-an-omelet" class="nav-link" data-scroll-target="#an-algorithm-to-make-an-omelet"><span class="header-section-number">B.2</span> An algorithm to make an omelet</a>
+  <li><a href="#an-algorithm-to-make-an-omelet" id="toc-an-algorithm-to-make-an-omelet" class="nav-link" data-scroll-target="#an-algorithm-to-make-an-omelet"><span class="header-section-number">7.2</span> An algorithm to make an omelet</a>
   <ul class="collapse">
   <li><a href="#open-a-restaurant-with-loops" id="toc-open-a-restaurant-with-loops" class="nav-link" data-scroll-target="#open-a-restaurant-with-loops">Open a restaurant with loops</a></li>
   </ul></li>
-  <li><a href="#more-resources" id="toc-more-resources" class="nav-link" data-scroll-target="#more-resources"><span class="header-section-number">B.3</span> More resources</a></li>
+  <li><a href="#more-resources" id="toc-more-resources" class="nav-link" data-scroll-target="#more-resources"><span class="header-section-number">7.3</span> More resources</a></li>
   </ul>
 </nav>
-</nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content column-page-right" id="quarto-document-content">
+<main class="content column-body" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="appendix-program" class="quarto-section-identifier">Appendix B — A gentle intro to programming</span></h1>
+<h1 class="title"><span id="appendix-program" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">A gentle intro to programming</span></span></h1>
 </div>
 
 
@@ -439,70 +416,108 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<div class="alert alert-secondary">
-<p class="alert-heading font-weight-bolder fs-3">
-In this chapter
-</p>
-<ul>
-<li>No one is born knowing how to code. It takes practice</li>
-<li>All programming languages have certain things in common: <em>variables</em>, <em>operators</em>, <em>functions</em> and <em>loops</em></li>
-<li>They also have ways to read data, or import, from files or the internet.</li>
-<li>An <em>algorithm</em> is just a set of instructions carried out in order.</li>
-</ul>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The examples here are shown using R syntax. Another language might look a little different.</p>
-</div>
-</div>
-<section id="building-blocks" class="level2" data-number="B.1">
-<h2 data-number="B.1" class="anchored" data-anchor-id="building-blocks"><span class="header-section-number">B.1</span> Building blocks</h2>
-<p>Once you learn to program in one language, learning others is much simpler. That’s because you have the basic concepts down: How to assign values to variables, how to loop through lists, or how to import data. This chapter walks through some of the more universal concepts in programming.</p>
+<p>No one is born knowing how to code. It takes practice, and the most effective motivator is need: You have a story that depends on it. That said, knowing a little vocabulary will help when you get started. Once you learn to program in one language, learning others is much simpler. That’s because you have the basic concepts down: How to assign values to variables, how to loop through lists, or how to import data. This chapter walks through some of the more universal concepts in programming.</p>
+<section id="building-blocks" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="building-blocks"><span class="header-section-number">7.1</span> Building blocks</h2>
 <section id="variables" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="variables">Variables</h3>
-<p>Variables are just containers with names. Variables an be simple, such as a variable that holds the value, “Sarah”. Or they can be quite complex, such as a multi-level data frame containing details from a Spotify playlist. Some people call them objects.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
-<ol>
-<li><p><strong>Literals</strong></p>
+<p>A variable is a container with a name. You pour things into the container Sometimes, those things are simple like your name. Sometimes they’re quite complex, such as the contents of a Spotify playlist. In R, many people use the terms <em>variable</em> and <em>object</em> interchangeably.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>The three most common structures of variables are:</p>
+<section id="literals" class="level4">
+<h4 class="anchored" data-anchor-id="literals">Literals</h4>
 <p>The most basic kind of object is a single variable that contains a single value of a specific type:</p>
-<pre><code> "Sarah"
- 1.0
- TRUE
- 2017-01-24</code></pre>
-<p>These are called “literals”, which usually include text, numeric, logical (usually true/false but sometimes yes/no or 1/0) and date or date/time. When you want to use the actual letters of some text, enclose them in quotes. When you want to use the named variable, don’t enclose it in quotes. <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p></li>
-<li><p><strong>Lists / arrays / vectors</strong></p>
-<p>Most languages have some concept of a list of items called an array, vector or dictionary. In R, you create a vector using the “c” operator, short for “combine”. Once you have your items in a list or a vector, you can apply the same function across all of them or work on them in order.</p>
-<pre><code>c(1, 2, 3, 4, 5) 
-  creates a vector of the values 1 through 5 in R</code></pre></li>
-<li><p><strong>Data frames or tables</strong></p>
-<p>A data frame is a special version of a list, and is equivalent to a spreadsheet: tabular, rectangular data with columns and rows. You don’t need to know much about this yet, but just understand that it will become an important part of your vocabulary.</p></li>
-</ol>
+<ul>
+<li><code>"Sarah"</code> (text)</li>
+<li><code>1.0</code> (number)</li>
+<li><code>true</code> (logical)</li>
+<li><code>2017-01-24</code>. (date)</li>
+</ul>
+<p>These are called “literals”. When you want to use the actual letters of some text, enclose them in quotes. When you want to use the named variable, don’t enclose it in quotes: <code>my_name &lt;- "Sarah"</code></p>
+</section>
+<section id="lists-or-vectors" class="level4">
+<h4 class="anchored" data-anchor-id="lists-or-vectors">Lists or vectors</h4>
+<p>Most languages have some concept of a list of items called an array, vector or dictionary. In R, you create a vector using the “c” operator, short for “combine”. Once you have your items in a list or a vector, you can apply the same function across all of them or work on them in order. :</p>
+<ul>
+<li><code>c(1, 17, 2, 120, 4)</code></li>
+<li><code>c("Sarah", "Richard", "Rachel")</code></li>
+</ul>
+</section>
+<section id="data-frames" class="level4">
+<h4 class="anchored" data-anchor-id="data-frames">Data frames</h4>
+<p>A data frame is the R equivalent of a spreadsheet page. It’s tabular, rectangular data with columns and rows. You don’t need to know much about this yet, but just understand that it will become an important part of your vocabulary.</p>
+</section>
 </section>
 <section id="operators-assignment" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="operators-assignment">Operators &amp; assignment</h3>
 <p>Operators are simple arithmetic or similar operations, like adding, subtracting, dividing and multiplying. Some common operators are:</p>
-<pre><code>   Arithmethic: add (+), subtract (-), multiply (*), or divide (/).
-
-   Comparison: Greater than (&gt;) , less than (&lt;), 
-                equal to (often == ),
-                not equal to (often !=).</code></pre>
-<p>“Assignment” means pushing a value into a variable name using “&lt;-”. It’s amazing how many different ways there are to think of this. Some might call “naming a value”, others might consider it “setting a variable”.</p>
-<pre><code>  my_name &lt;- "Sarah"
-  my_value &lt;- 1.0</code></pre>
+<table class="table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 90%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Operator</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&nbsp;</td>
+<td><strong>Arithmetic</strong></td>
+</tr>
+<tr class="even">
+<td><code>+</code></td>
+<td>Add</td>
+</tr>
+<tr class="odd">
+<td><code>-</code></td>
+<td>Subtract</td>
+</tr>
+<tr class="even">
+<td><code>*</code></td>
+<td>Multiply</td>
+</tr>
+<tr class="odd">
+<td><code>/</code></td>
+<td>Divide</td>
+</tr>
+<tr class="even">
+<td>&nbsp;</td>
+<td><strong>Comparison (in R)</strong></td>
+</tr>
+<tr class="odd">
+<td><code>==</code></td>
+<td>Equal - <strong>Notice the TWO equal signs</strong></td>
+</tr>
+<tr class="even">
+<td><code>&gt;</code></td>
+<td>Greater than (or <code>&gt;=</code> greater than or equal to)</td>
+</tr>
+<tr class="odd">
+<td><code>&lt;</code></td>
+<td>Less than (or <code>&lt;=</code> less than or equal to)</td>
+</tr>
+<tr class="even">
+<td><code>!=</code></td>
+<td>Not equal to</td>
+</tr>
+<tr class="odd">
+<td>&nbsp;</td>
+<td><strong>Assignment</strong></td>
+</tr>
+<tr class="even">
+<td><code>&lt;-</code> or <code>=</code></td>
+<td>Push a value in to a variable name. In R, most people assign a value to a variable using the <code>&lt;-</code> operator, and save <code>=</code> to provide information to functions. There are a lot of ways to think of this – Some might call it “naming a value”, and others might say it’s “setting a variable”. Visualizing the <code>&lt;-</code> arrow pushing something into a variable name can sometimes help.</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="functions" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="functions">Functions</h3>
-<p>A function is a set of instructions. To use a function, you use its name, followed by some parentheses. If it requires information from you, those <em>arguments</em> go inside the parentheses.</p>
-<p>If you think of it as a sentence, the function is the verb, and the arguments are the nouns. You used a function in Excel:</p>
-<pre><code>=SUM(A1:A15)</code></pre>
-<p>Functions are usually categorized by the type of data element that they act upon. An example in R is the function <em>tolower()</em>, which converts a text or character variable inside the parentheses to lower case.</p>
+<p>A function is a verb or a set of instructions wrapped up into a single word. Use its name, followed by some parentheses. If it requires information from you, those <em>arguments</em> go inside the parentheses.</p>
+<p>If you think of it as a sentence, the function is the verb, and the arguments are the nouns and adjectives. It genearally takes the form:</p>
+<p><code>function ( data, option_name="value")</code></p>
 <p>Many of the functions we use are already built into R, or are in <em>libraries</em> that we borrow – someone else has already written, tested and packaged them up for you.</p>
 <p>Examples include:</p>
 <ul>
@@ -511,89 +526,72 @@ Note
 <li>counting</li>
 <li>finding phrases within text</li>
 </ul>
+<p>Some functions work only with numbers; others work only with text or dates or some other data type.</p>
 </section>
 <section id="loops" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="loops">Loops</h3>
 <p>A loop is a way to repeat your instructions over and over without having to re-write them every time. They usually work by stepping through some kind of a list, like a directory of files, or by using a counter, such as every year between 2005 and 2018.</p>
-<p>Excel and Google Sheets don’t really have loops, unless you learn the more complicated programming language behind them. This is why many people move to a programming langugate – to get the power of loops.</p>
-<p>One type of loop commonly used in programs is a “for loop”, which says, “for every one of something, follow these instructions”:</p>
-<blockquote class="twitter-tweet blockquote">
-<p lang="en" dir="ltr">
-For loops aren't always scary monsters. <br><br>Conceptual intro (no, this code won't run…) to for loops. Thanks <a href="https://twitter.com/ChelseaParlett?ref_src=twsrc%5Etfw"><span class="citation" data-cites="ChelseaParlett">@ChelseaParlett</span></a> for brainstorming w/ me on this one! <a href="https://t.co/TySFHogG2d">pic.twitter.com/TySFHogG2d</a>
-</p>
-— Allison Horst (<span class="citation" data-cites="allison_horst">@allison_horst</span>) <a href="https://twitter.com/allison_horst/status/1290774616038809600?ref_src=twsrc%5Etfw">August 4, 2020</a>
-</blockquote>
-<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-<p>Common tasks that reporters do with loops include combining annual spreadsheets from a government website or downloading and importing many files at once; and scraping web pages that require clicking into each link one by one. We’ll get to this at the end of the semester.</p>
-<figure class="figure float-right col-6">
-<img src="assets/images/appendix-program-katie-smith-unsplash.jpg" width="100%" class="figure-img">
-<figcaption class="text-secondary small figure-caption">
-Ingredients by Katie Smith via Unsplash
-</figcaption>
+<p>Excel and Google Sheets don’t really have loops, unless you learn the more complicated programming language behind them. This is the motivation behind learning a programming language for a lot of people.</p>
+<p>One type of loop commonly used in programs is a <strong><em>for loop</em></strong>, which says, “for every one of something, follow these instructions”.</p>
+<p>See if you can follow the pseudocode of putting sunglasses or hats on monsters depending on their shape:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/images/appendix-program-monsters.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Alison Horst</figcaption>
 </figure>
+</div>
+<p>Common tasks that reporters do with loops include combining annual spreadsheets from a government website or downloading and importing many files at once; and scraping web pages that require clicking into each link one by one. We’ll get to this at the end of the semester.</p>
 </section>
 </section>
-<section id="an-algorithm-to-make-an-omelet" class="level2" data-number="B.2">
-<h2 data-number="B.2" class="anchored" data-anchor-id="an-algorithm-to-make-an-omelet"><span class="header-section-number">B.2</span> An algorithm to make an omelet</h2>
-<p>Algorithms are just instructions that get followed in order. If you brush your teeth the same way every morning, you can probably write out the steps as an algorithm.</p>
+<section id="an-algorithm-to-make-an-omelet" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="an-algorithm-to-make-an-omelet"><span class="header-section-number">7.2</span> An algorithm to make an omelet</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/images/appendix-program-katie-smith-unsplash.jpg" class="border-0 img-fluid figure-img" style="width:85.0%" alt="ingredients on a cutting board"></p>
+<figcaption class="figure-caption">Katie Smith via Unsplash</figcaption>
+</figure>
+</div>
+<p>An algorithm is a set of instructions that are carried out step by step. Brushing your teeth, making coffee or starting your car can all be expressed on algorithms if you do them the same way day after day.</p>
 <p>Suppose you want to make an omelet. Before you even start, you need to know at least two things: which ingredients you have on hand, and what kind of omelet you want to make.</p>
-<p>A function or algorithm that creates an omelet might look something like this. The first row creates a function called <code>make_omelet()</code>, which requires the two pieces of information as <em>arguments</em>. Once you’ve made the function, you can refer to that set of instruction by its name by giving it the arguments it needs.</p>
-<p>(All of these examples are called “pseudo-code”. They won’t actually work in any program, but they lay out the logic that has to be translated into the specific computer language you’re using.)</p>
-<pre><code>function make_omelet (ingredients_on_hand, what_kind) {
-
-     check for necessary ingredients (are all elements of what_kind in ingredients_on_hand?)
-         quit now if you don't have them all.
-         return the error message
-
-     prepare the ingredients for (what_kind)
-
-     whisk the eggs
-
-     melt some butter in a pan
-
-     pour in the eggs
-
-     add ingredients for what_kind
-
-     flip the omelet
-
-     remove from pan
-
-     give me the omelet 
-
-}</code></pre>
-<p>Now, when you want to make an omelet, you can just make your list of ingredients and the kind of omelet you want, and execute the function:</p>
-<p>Here are the ingredients I already have:</p>
-<pre><code>ingredients &lt;-
-        c("butter", "eggs", "cheese", "spinach", "tomatoes")</code></pre>
-<p>I want a spinach and cheese omelet:</p>
-<pre><code>kind &lt;-
-        c("spinach", "cheese")</code></pre>
-<p>Now, use the function we created to make it using those two lists as the required arguments:</p>
-<pre><code>make_omelet (ingredients, kind)</code></pre>
-<p>When you use a built-in function in R, it will show you the arguments that are both required and optional as you type.</p>
+<p>An algorithm that creates an omelet might look something like this:</p>
+<ul>
+<li>Decide what kind of omelet you want</li>
+<li>Check to make sure you have ingredients (and stop if you don’t)</li>
+<li>Prepare the fillings</li>
+<li>Whisk the eggs</li>
+<li>Melt some butter</li>
+<li>Pour in the eggs</li>
+<li>Add ingredients</li>
+<li>Flip the omelet</li>
+<li>Put it on a plate</li>
+</ul>
 <section id="open-a-restaurant-with-loops" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="open-a-restaurant-with-loops">Open a restaurant with loops</h3>
-<p>Now, you’d have to repeat this over and over if you had a restaurant. It might look like this:</p>
-<pre><code>  make_omelet (ingredients,kind)
-  ** make a new list of ingredients left and the kind**
-  make_omelet (ingredients2, kind2)
-  ** make a new list...**
-  make_omelet (ingredients3, kind3)
-  ... and so on.</code></pre>
+<p>Say you saved your steps into a function called <code>make_omelet()</code>.</p>
+<p>You’d have to repeat this over and over if you had a restaurant. It might look like this:</p>
+<ul>
+<li>make_omelet (ingredients,kind)</li>
+<li>Edit the list of ingredients left and the kind for the next diner</li>
+<li>make_omelet (ingredients2, kind2)</li>
+<li>Edit your lists again</li>
+<li>make_omelet (ingredients3, kind3)</li>
+<li>. and so on.</li>
+</ul>
 <p>You’d have a program hundreds of lines long – one for each customer. Instead, you could <em>loop</em> through the customers and do the same thing:</p>
-<pre><code>customers &lt;- c("Bob", "Jamal", "Christine", "Lauren")
+<pre><code>
+customers &lt;- c("Bob", "Jamal", "Christine", "Lauren")
 
 for each customer in the list of customers {
   request what kind they want
   make_omelet (ingredients_on_hand, kind_this_customer_wants)
   give omelet to customer
-  update your ingredients list if you ran out of something or went shopping
-}</code></pre>
+  update your ingredients list 
+  }
+  </code></pre>
 </section>
 </section>
-<section id="more-resources" class="level2" data-number="B.3">
-<h2 data-number="B.3" class="anchored" data-anchor-id="more-resources"><span class="header-section-number">B.3</span> More resources</h2>
+<section id="more-resources" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="more-resources"><span class="header-section-number">7.3</span> More resources</h2>
 <ul>
 <li>“<a href="https://youtu.be/7MUErafri48">Beyond Binary</a>, Lesson 1 from a Google engineer’s drag queen persona named Anna Lytical. This video gives you a good handle on what a computer program does.</li>
 </ul>
@@ -605,8 +603,7 @@ for each customer in the list of customers {
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>Technically, these are different things to the innards of the computer, but that difference isn’t important to us right now.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p> There are two special types that we’ll deal with later, but can cause a lot of headaches: <code>NA</code> values and factors. You don’t have to deal with them yet.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Statisticians usually refer to columns in a data set as “variables” – literally, something that varies. Other things in their programs are called “objects”. <a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -844,22 +841,22 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<nav class="page-navigation column-page-right">
+<nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
-      <a href="./appendix-math.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Newsroom numbers cheat sheet</span></span>
+      <a href="./r-install.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Installing R and RStudio</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./appendix-ppp.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Documentation for PPP data chapters</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./r-start.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Getting started with R</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">Data reporting for investigative journalism, Spring 2023 was written by Sarah Cohen</div>   
+    <div class="nav-footer-left">Data reporting for investigative journalism, Spring 2024, written by Sarah Cohen</div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>

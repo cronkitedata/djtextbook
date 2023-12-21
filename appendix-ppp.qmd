@@ -62,7 +62,7 @@ project_state | chr | 2-character postal abbreviation for the project city |
 project_cong_dist | chr | a 5-character congressional district indicator, such as "AZ-04". These are districts as of early 2020, and do not reflect redistricting done after that. |
 employees | num | The number of employees used to compute the loan. |
 business_type | chr | One of 24 categories of business, such as "501(c)3 - Non Profit" or "Corporation" or "Sole Proprietership" |
-naics_code | chr | A 6-digit code indicating the [North American Industry Classification](https://www.census.gov/naics/) code of the recipient or project. This will be translated into words using another data set. |
+naics_code | chr | A 6-digit code indicating the [North American Industry Classification](https://www.census.gov/naics/) code of the recipient or project. This will be translated into words using another dataset. |
 
 :  {tbl-colwidths="[15,10,75]"}
 
@@ -72,7 +72,7 @@ naics_code | chr | A 6-digit code indicating the [North American Industry Classi
 
 
 
-There were other columns in the original data set, but many of them were almost never filled in, or were shown to be inaccurate estimates. 
+There were other columns in the original dataset, but many of them were almost never filled in, or were shown to be inaccurate estimates. 
 
 For example, out of  nearly 170,000 loans, 120,000 of them had no information on race or ethnicity of the business owner. None were marked as veteran-owned or had an owner's gender filled out. Some other columns, such as the current lender (as opposed to the one that made the loan) added complexity without adding much for our purposes. 
 

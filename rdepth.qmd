@@ -1,0 +1,40 @@
+# Verbs of the tidyverse {.part #rdepth}
+
+
+## Practice data
+
+This section uses Paycheck Protection Program loans from 2020-2021 as its practice data.  It has some characteristics that make it a good candidate, despite its age: 
+
+* It was [well documented](appendix-ppp.qmd) -- the columns and rows aren't mysteries. 
+* It contains names, addresses, dates and numbers -- all elements that are important in data journalism. At the same time, it doesn't unnecessarily publicize details about individuals. 
+* It's old! That means we don't have to worry too much about it changing midstream. 
+* There were a lot of good stories done about the program, AND a lot of stories that were never done but could have been. 
+* Some of the columns are reasonably standardized and clean, and others are just a mess. 
+* The agency published some summary data about the program that we can try to replicate, which is one of the ways reporters check their data work. 
+
+By using the same data all the way through these exercises, you won't face the cognitive load of learning the details of a new dataset each time. Previous students have said that it doesn't matter to them what the data is, just that it is useful for their learning and that it has in the past been reasonably newsworthy.  I took them at their word.
+
+## Asking good questions
+
+You can and should seek help in the `#dj-sos` channel on Slack, but it takes some work to ask a good question. Here are the three parts of a good question: 
+
+1. Describe what you are attempting to accomplish. Example: "I want to pick out loans in Tempe". 
+2. Copy and paste or take a screen shot of the code you're using to try to do that. It's fine if it doesn't work, or if it's incomplete. But do try it yourself for a little while before reaching out. 
+3. Take a screen shot of the unexpected result or of the error message. Part of your learning is getting familiar with scary-sounding error messages, so try to read it before you freak out and post it. It might actually make sense.
+
+Often, the process of crafting a good question leads you to the answer yourself. But don't hesitate to ask. If we've already gone over it, I'll refer you to material that you might have forgotton. You're never expected to memorize code.  
+
+Most of your homework and projects can be accomplished using the material we will have already covered in class and in this book. But I don't expect you to memorize everything we do, so I will sometimes refer you to where in the book or in the homework you've already seen your problem or something very similar. Take it in the spirit it's offered -- it's help, not criticism or rebuke.
+
+:::{.callout-tip}
+## Using ChatGPT or other AI for help
+
+You can and often should use all of the avenues available to you for help. But the R language is vast and we're only looking at a tiny piece of it in this course. Googling and using AI can be frustrating because they will likely take a different approach than the simple one we're using. Whenever you look for help, be sure to: 
+
+* Include the word "tidyverse" in your query. If the answers don't look familiar, try again using a specific verb or function name. 
+* In ChatGPT, consider copying and pasting your code and asking what's wrong. It's better at that than starting from scratch.^[ChatGPT is a little out of date in R -- a lot changed just after its last cutoff. Consider using perplixity.ia or Github Copilot instead.]
+* In Google, be sure to look only at answer from the last few years. I usually set the date to the most recent year under "Tools". 
+
+:::
+
+You're responsible for both getting the "right" answers and accomplishing it using the methods taught in class. This stuff is hard enough to understand without trying to understand it done six different ways.

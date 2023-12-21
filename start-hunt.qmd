@@ -130,7 +130,7 @@ Vet these the same way you would Google results.
 
 *Journalists' sites**  You can often find individual journalists or journalism organizations in various sharing sites, including Github (which doesn't show up in default Google searches), data.world and other versioning. Look through their sites to see what they have collected -- it's there to share.  Fivethirtyeight,  [ProPublica](https://www.propublica.org/datastore/) and the [Los Angeles Times](https://github.com/datadesk) have particularly active data archives.
 
-*[Google data search](https://toolbox.google.com/datasetsearch)** is, well, the Google of data. In general, data search has limited sources and is more and more frequently logging data sets that are posted by state and local government sources.
+*[Google data search](https://toolbox.google.com/datasetsearch)** is, well, the Google of data. In general, data search has limited sources and is more and more frequently logging datasets that are posted by state and local government sources.
 
 It makes no attempt to curate the search, though, so be cautious when you find something.
 

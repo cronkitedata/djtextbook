@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data Reporting - 13&nbsp; Getting started with R</title>
+<title>Data Reporting - 8&nbsp; Getting started with R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -31,7 +65,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./r-quarto.html" rel="next">
-<link href="./r-install.html" rel="prev">
+<link href="./appendix-program.html" rel="prev">
 <link href="./assets/images/favicon.ico" rel="icon">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -42,6 +76,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/kbd/kbd.js"></script>
+<link href="site_libs/quarto-contrib/kbd/kbd.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -63,6 +99,9 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+
 
 </head>
 
@@ -76,7 +115,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./r.html">R Study Guide</a></li><li class="breadcrumb-item"><a href="./r-start.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Getting started with R</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./quickstart.html">Programming quick start</a></li><li class="breadcrumb-item"><a href="./r-start.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Getting started with R</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -97,11 +136,6 @@ ul.task-list li input[type="checkbox"] {
       <a href="./">Data Reporting</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/cronkitedata/djtextbook" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
-  <div class="quarto-reader-toggle-btn">
-  <i class="bi"></i>
-  </div>
-</a>
 </div>
     </div>
       </div>
@@ -135,144 +169,132 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./start-math.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Newsroom math</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./start-data-def.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Defining “Data”</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Defining “Data”</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./start-data-diary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Replication and the data diary</span></span></a>
+  <a href="./start-data-document.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Documenting your work</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./start-hunt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Finding the right data for your story</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Finding the right data for your story</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./start-build-own.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Build your own database</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Build your own database</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./xl.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Spreadsheets</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <a href="./quickstart.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programming quick start</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./xl-refresher.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">An Excel Refresher</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./xl-filter-sort.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Sorting and filtering to find stories</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./xl-pivot.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Grouping with pivot tables</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./xl-formulas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Formulas in Excel</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./xl-practice-noc.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Practice exercise</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a href="./r.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">R Study Guide</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-install.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Installing R and RStudio</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Installing R and RStudio</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-program.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">A gentle intro to programming</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-start.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Getting started with R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Getting started with R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-quarto.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Using Quarto</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Using Quarto</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-data-import.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Getting and saving data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Getting and saving data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-verbs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">A quick tour of verbs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">A quick tour of verbs</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./rdepth.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Verbs of the tidyverse</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./start-tidy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Tidy data principles</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-verb-filter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Verbs in depth: Select, arrange, filter</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Verbs in depth: Select, arrange, filter</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-verb-mutate.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Verbs in depth: New from old data with Mutate</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Verbs in depth: New from old data with Mutate</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-verb-groupby.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Verbs in depth: Aggregating with groups</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Verbs in depth: Aggregating with groups</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-verb-join.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Verbs in depth: Matchmaking with joins</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Verbs in depth: Matchmaking with joins</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced-regex.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Regular Expressions for pattern matching</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced-regex-r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Inexact matching and regular expressions in R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-recipes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Recipes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Recipes</span></span></a>
   </div>
 </li>
       </ul>
@@ -289,37 +311,37 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-reporting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Visualization as a reporting tool</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Visualization as a reporting tool</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-tables.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Report-making in R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Report-making in R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-demo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Visualization demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Visualization demo</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-practice.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Visualization exercise</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Visualization exercise</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-maps-begin.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Mapping: An introduction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Mapping: An introduction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-maps-firstmap.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">The first map</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">The first map</span></span></a>
   </div>
 </li>
       </ul>
@@ -336,31 +358,25 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./advanced-pdf.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Working with PDF files</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./advanced-regex.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Regular Expressions for pattern matching</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Working with PDF files</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./advanced-openrefine.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Open refine walkthrough</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Open refine walkthrough</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./advanced-scrape1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Scraping without programming</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Scraping without programming</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./advanced-scrape2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Introduction to scraping in R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Introduction to scraping in R</span></span></a>
   </div>
 </li>
       </ul>
@@ -382,8 +398,8 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix-program.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">A gentle intro to programming</span></span></a>
+  <a href="./appendix-filetypes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">File types in the wild</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -396,37 +412,36 @@ ul.task-list li input[type="checkbox"] {
   </li>
     </ul>
     </div>
-    <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">In this chapter:</h2>
    
   <ul>
-  <li><a href="#getting-to-know-the-rstudio-screen" id="toc-getting-to-know-the-rstudio-screen" class="nav-link active" data-scroll-target="#getting-to-know-the-rstudio-screen"><span class="header-section-number">13.1</span> Getting to know the RStudio screen</a>
+  <li><a href="#getting-to-know-the-rstudio-screen" id="toc-getting-to-know-the-rstudio-screen" class="nav-link active" data-scroll-target="#getting-to-know-the-rstudio-screen"><span class="header-section-number">8.1</span> Getting to know the RStudio screen</a>
   <ul class="collapse">
   <li><a href="#the-console" id="toc-the-console" class="nav-link" data-scroll-target="#the-console">The Console</a></li>
   <li><a href="#files-tab" id="toc-files-tab" class="nav-link" data-scroll-target="#files-tab">Files tab</a></li>
   <li><a href="#environment" id="toc-environment" class="nav-link" data-scroll-target="#environment">Environment</a></li>
   <li><a href="#typing-into-the-console" id="toc-typing-into-the-console" class="nav-link" data-scroll-target="#typing-into-the-console">Typing into the console</a></li>
   </ul></li>
-  <li><a href="#tutorials" id="toc-tutorials" class="nav-link" data-scroll-target="#tutorials"><span class="header-section-number">13.2</span> Take a tutorial</a></li>
-  <li><a href="#take-a-tour" id="toc-take-a-tour" class="nav-link" data-scroll-target="#take-a-tour"><span class="header-section-number">13.3</span> Take a tour</a></li>
-  <li><a href="#unlocking-packages-and-the-tidyverse" id="toc-unlocking-packages-and-the-tidyverse" class="nav-link" data-scroll-target="#unlocking-packages-and-the-tidyverse"><span class="header-section-number">13.4</span> Unlocking packages and the tidyverse</a>
+  <li><a href="#take-a-tour" id="toc-take-a-tour" class="nav-link" data-scroll-target="#take-a-tour"><span class="header-section-number">8.2</span> Take a tour</a></li>
+  <li><a href="#unlocking-packages-and-the-tidyverse" id="toc-unlocking-packages-and-the-tidyverse" class="nav-link" data-scroll-target="#unlocking-packages-and-the-tidyverse"><span class="header-section-number">8.3</span> Unlocking packages and the tidyverse</a>
   <ul class="collapse">
-  <li><a href="#installing-packages" id="toc-installing-packages" class="nav-link" data-scroll-target="#installing-packages"><span class="header-section-number">13.4.1</span> Installing packages</a></li>
+  <li><a href="#installing-packages-for-this-course" id="toc-installing-packages-for-this-course" class="nav-link" data-scroll-target="#installing-packages-for-this-course">Installing packages for this course</a></li>
   </ul></li>
-  <li><a href="#relax" id="toc-relax" class="nav-link" data-scroll-target="#relax"><span class="header-section-number">13.5</span> Relax!</a></li>
+  <li><a href="#relax" id="toc-relax" class="nav-link" data-scroll-target="#relax"><span class="header-section-number">8.4</span> Relax!</a></li>
   </ul>
 </nav>
-</nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content column-page-right" id="quarto-document-content">
+<main class="content page-columns page-full column-body" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Getting started with R</span></h1>
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Getting started with R</span></h1>
 </div>
 
 
@@ -441,29 +456,21 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<div class="alert alert-secondary">
-<div class="alert-heading font-weight-bolder fs-3">
-<p>In this chapter</p>
-</div>
-<ul>
-<li>Get to know the screens</li>
-<li>Issue a few commands to the Console</li>
-<li>Take a tutorial</li>
-<li>Relax!</li>
-</ul>
-</div>
-<section id="getting-to-know-the-rstudio-screen" class="level2" data-number="13.1">
-<h2 data-number="13.1" class="anchored" data-anchor-id="getting-to-know-the-rstudio-screen"><span class="header-section-number">13.1</span> Getting to know the RStudio screen</h2>
-<div class="alert alert-success alert-dothis">
-<p>Open the application called RStudio <img src="assets/images/r-start-rstudio-yes.png" class="img-fluid" alt="rstudio">, the fancy car.</p>
-<p>Do NOT open R <img src="assets/images/r-start-no-r.png" class="img-fluid" alt="not r">, the engine.</p>
+<p>This chapter helps get you acclimated to the screens of RStudio and the basic structure of R commands. You will always work in RStudio (the car), not R (the engine).</p>
+<section id="getting-to-know-the-rstudio-screen" class="level2 page-columns page-full" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="getting-to-know-the-rstudio-screen"><span class="header-section-number">8.1</span> Getting to know the RStudio screen</h2>
+<div class="callout-dothis">
+<p>Open the application called RStudio <img src="assets/images/r-start-rstudio-yes.png" class="img-fluid" alt="rstudio">,<br>
+NOT R <img src="assets/images/r-start-no-r.png" class="img-fluid" alt="not r">.</p>
 </div>
 <p>This is what your screen probably looks like:</p>
-<div class="quarto-figure quarto-figure-center">
+<div class="column-body-outset-right">
+<div class="quarto-figure quarto-figure-center" style="border: none;">
 <figure class="figure">
-<p><img src="assets/images/r-start-rstudio.png" class="img-fluid figure-img"></p>
+<p><img src="assets/images/r-start-rstudio.png" class="img-fluid figure-img" style="width:100.0%"></p>
 <figcaption class="figure-caption">console</figcaption>
 </figure>
+</div>
 </div>
 <section id="the-console" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="the-console">The Console</h3>
@@ -472,17 +479,17 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="files-tab" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="files-tab">Files tab</h3>
-<p>We won’t be using many of the tabs in the lower right, but the Files tab can help you if you’re having trouble navigating your work. Under the More button, you can choose “Go to working directory”, since that’s where R thinks you’ve parked all of your work. This can be confusing in R, which is why we’ll be working in “projects” that bundle up all of your work in one place.</p>
+<p>We won’t be using many of the tabs in the lower right, but the Files tab can help you if you’re having trouble navigating your work. Under the More button, you can choose “Go to working directory”, since that’s where R thinks you’ve parked all of your work. This can be confusing in R, which is why we’ll be working in “projects” that bundle up all of your work in one place. (I don’t find the Help sections in this area very helpful. Instead, I usually rely on written manuals elsehwere, such as <a href="https://www.tidyverse.org/">tidyverse</a> official site. )</p>
 </section>
-<section id="environment" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="environment">Environment</h3>
-<p>The upper right screen is the Environment, which is where your active <em>objects</em> live. An object, sometimes called a “variable” in R, is a named thing. It might be a word, a list of words or numbers, or a data frame (spreadsheet). It can even be a little program called a function that you write yourself. You will understand this better after you take the Posit “Programming basics” <a href="#tutorials">tutorial referenced below</a>.</p>
-<p>Anything that you want to use has to be loaded or created into that enivronment first. That might involve importing data from Excel or a text file, or creating data yourself in a program.</p>
+<section id="environment" class="level3">
+<h3 class="anchored" data-anchor-id="environment">Environment</h3>
+<p>The upper right screen is the Environment, which is where your active objects live. An object, sometimes called a “variable” in R, is a named thing. It might be a word, a list of words or numbers, or a data frame (spreadsheet). It can even be a little program called a function that you write yourself.</p>
+<p>Anything that you want to use has to be loaded or created into that environment first. That might involve importing data from Excel or a text file, or creating data yourself in a program.</p>
 </section>
 <section id="typing-into-the-console" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="typing-into-the-console">Typing into the console</h3>
-<p>When you type this: <code>5+5</code> after the &gt; prompt, you’ll get this back after you press Return/Enter: <code>[1] 10</code></p>
-<p>When you type this: <code>"Sarah"</code> (with quotes) after the &gt; prompt, you’ll get this back: <code>[1] "Sarah"</code></p>
+<p>When you type this: <code>5+5</code> after the &gt; prompt and press return, you’ll see: <code>[1] 10</code></p>
+<p>When you type this: <code>"Sarah"</code> , you’ll get this back: <code>[1] "Sarah"</code></p>
 <p>To create a new variable, you’ll use the <em>assignment</em> operator <code>&lt;-</code> (two characters : A less than sign and a hyphen). Here is how I would create the variable called <code>my_name</code> (lower case, no spaces). Notice how it appears in the Environment after being created. Then I can print it by typing the name of the variable instead of the letters of my name in quotes:</p>
 <p><img src="https://cronkitedata.s3.amazonaws.com/images/r-start-variable-assign.gif" class="img-fluid"></p>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -491,53 +498,28 @@ ul.task-list li input[type="checkbox"] {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Tip
+Pro tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Use the keyboard shortcut <code>OPT/ALT - minus sign</code> to create an assignment operator <code>&lt;-</code></p>
+<p>Use the keyboard shortcut <kbd data-mac="Option–" data-windows="Alt–"></kbd> to create the <code>&lt;-</code> assignment operator .</p>
 </div>
 </div>
-<p>The console remembers your commands, but you have to type them one at a time and it will forget them when you leave for the day. That’s why we’re going to work in programs called Quarto documents most of the time.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>The console remembers your commands, but you have to type them one at a time and you can’t save them for later, or start over without entering them all again. That’s why we’re going to work in programs called Quarto documents most of the time.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 </section>
 </section>
-<section id="tutorials" class="level2" data-number="13.2">
-<h2 data-number="13.2" class="anchored" data-anchor-id="tutorials"><span class="header-section-number">13.2</span> Take a tutorial</h2>
-<div class="alert alert-success alert-dothis">
-<p>Take the <a href="https://posit.cloud/learn/primers/1.2">“Programming basics” tutorial</a> from Posit, which is a series of 1- to 2-minute videos. Just watch the videos – you can skip the parts where you type in the code yourself, since it is code that we will rarely use in the future.</p>
-</div>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Ignore the math!
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Don’t worry that they are very number-centric. Instead, focus on the concepts of functions, arguments and objects. Think of functions as verbs, and arguments or objects as nouns.</p>
-</div>
-</div>
-<p>For a higher level view, consider reviewing the <a href="./appendix-program.html">Gentle Introduction to Programming</a> in the Appendix of this textbook.</p>
-<section id="optional-hands-on-tutorial" class="level4">
-<h4 class="anchored" data-anchor-id="optional-hands-on-tutorial">Optional hands-on tutorial:</h4>
-<p>One of the packages you installed earler was called <code>swirl</code>. It contains some interactive tutorials that get you used to typing commands into the Console.</p>
-<p>To take it, make sure your cursor is in the Console, and start it by typing <code>swirl::swirl()</code>. (Don’t worry too much what that means right now.) Just do the first chapter called <em>R Programming: The basics of programming in R</em>, and just the first section, called <em>Basic Building Blocks</em>.</p>
-</section>
-</section>
-<section id="take-a-tour" class="level2" data-number="13.3">
-<h2 data-number="13.3" class="anchored" data-anchor-id="take-a-tour"><span class="header-section-number">13.3</span> Take a tour</h2>
-<div class="alert alert-success alert-dothis">
+<section id="take-a-tour" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="take-a-tour"><span class="header-section-number">8.2</span> Take a tour</h2>
+<div class="callout-dothis">
 <p>Watch Andrew Heiss’s tour of RStudio.</p>
 </div>
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/cnQ-v1UUWyE" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
-<p>We will not be using the R scripts as he shows in the end of the video, but many other examples and resources do. Also, as we get into working with Quarto, the “code chunks” work the same way as a script.</p>
+<p>We will not be using the R scripts he shows in the end of the video, but many other examples and resources do. Also, as we get into working with Quarto, the “code chunks” work the same way as a script.</p>
 </section>
-<section id="unlocking-packages-and-the-tidyverse" class="level2" data-number="13.4">
-<h2 data-number="13.4" class="anchored" data-anchor-id="unlocking-packages-and-the-tidyverse"><span class="header-section-number">13.4</span> Unlocking packages and the tidyverse</h2>
-<p>The real power of R comes with packages. Packages are bundles of programs that others have found useful to extend the base R language. R is almost useless without them. There are more than 10,000 packages available for R, each doing a special job.</p>
-<p>If you followed along with the tutorial, the last thing you did was install a “package” called the <code>tidyverse</code>. Almost everything we do from now on depends on that step.</p>
+<section id="unlocking-packages-and-the-tidyverse" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="unlocking-packages-and-the-tidyverse"><span class="header-section-number">8.3</span> Unlocking packages and the tidyverse</h2>
+<p>The real power of R comes with packages. Packages are bundles of programs that others have found useful to extend the base R language. R is almost useless to a normal person without them. There are more than 10,000 packages available for R, each doing a special job.</p>
+<p>If you followed along with the tutorial in the last chapter, the final step was to install a package called the <code>tidyverse</code>. Almost everything we do from now on depends on that.</p>
 <p>The tidyverse is a system of packages, or libraries, that work together with similar grammar and syntax. It’s particularly useful for the kind of work reporters do – importing, cleaning and analyzing data that we get from others. For many reporters (myself included), R was too difficult to learn before the tidyverse came around. We’ll be working almost exclusively within the tidyverse in this course.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -545,55 +527,47 @@ Ignore the math!
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Better Googling
+Searching for help
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>When you Google for help, put the word “tidyverse” somewhere in your query. Otherwise, you may get answers that look inscrutable and unfamiliar. Another good practice is to limit your reponses to the last year or two. There have been a lot of changes in the tidyverse.</p>
+<p>When you search for help, be sure to put “tidyverse” somewhere in your query. If you don’t , you’re likely to get inscrutible answers.</p>
+<p><a href="https://perplexity.ai">perplexity.ai</a> and <a href="https://chat.openai.com">ChatGPT</a> are two artificial intelligence sites that can help you with your code. These AI sites are particularly good at troubleshooting code – describe your data, copy and paste your code, and ask it what’s wrong! I tend to use the Perplexity site. Some of the methods shown in this book are newer than the ChatGPT cutoff date.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>Either one is usually better than just Googling. If you do use Google, be sure to set a date cutoff – R has changed a LOT in the last five years.</p>
 </div>
 </div>
-<section id="installing-packages" class="level3" data-number="13.4.1">
-<h3 data-number="13.4.1" class="anchored" data-anchor-id="installing-packages"><span class="header-section-number">13.4.1</span> Installing packages</h3>
+<section id="installing-packages-for-this-course" class="level3">
+<h3 class="anchored" data-anchor-id="installing-packages-for-this-course">Installing packages for this course</h3>
 <p>We need to update your packages and install a few more for our work.</p>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
 <p>If this is the first time you’ve installed it, the tidyverse will take a while to install, and it will look like it’s just stopped. Be patient. It can take 5 minutes or more.</p>
-</div>
-</div>
+<p>You only have to install packages once on each machine you use. Later on, you’ll learn how to invoke them one by one.</p>
 <section id="option-1-use-the-console" class="level4">
 <h4 class="anchored" data-anchor-id="option-1-use-the-console">Option 1: Use the console</h4>
-<div class="alert alert-success alert-dothis">
-<p>Copy these commands into your Console. They ensure that your packages are up to date, and install a few extras that aren’t included in the Tidyverse. You only have to do this once.</p>
-<div class="inline-code">
-<pre><code>update.packages(ask=FALSE)
-install.packages(c("tidyverse", "janitor" , "lubridate", "quarto", rmarkdown", "swirl", "pacman"))
- </code></pre>
+<div class="callout-dothis">
+<p>Copy these commands into your Console. This list of packages contains all of the packages used in this book – I think! Don’t worry about what they all mean – we’ll use them later on.</p>
+<ul>
+<li>If it asks you if you want to restart, say “Yes”.</li>
+<li>If it asks you if you want to build from source, say “No”.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">update.packages</span>(<span class="at">ask=</span><span class="cn">FALSE</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"janitor"</span> , </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                <span class="st">"lubridate"</span>, <span class="st">"quarto"</span>, <span class="st">"swirl"</span>, <span class="st">"pacman"</span>, </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                <span class="st">"DT"</span>, <span class="st">"reactable"</span>, <span class="st">"gt"</span>, </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                <span class="st">"leaflet"</span>, <span class="st">"sf"</span>, <span class="st">"tmap"</span>, </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                <span class="st">"gapminder"</span>, <span class="st">"plotly"</span>, </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                <span class="st">"gtsummary"</span>, <span class="st">"tigris"</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
 <section id="option-2-use-rstudio-packages-tab" class="level4">
 <h4 class="anchored" data-anchor-id="option-2-use-rstudio-packages-tab">Option 2: Use RStudio “Packages” tab</h4>
+<div class="callout-dothis">
 <p>Under the Packages tab in the lower right panel:</p>
 <ul>
 <li>Start by updating all of the packages you might already have installed by pressing the “Update” button.</li>
-<li>Under the Install tab, search for and include the following packages:
-<ul>
-<li>tidyverse</li>
-<li>janitor</li>
-<li>lubridate</li>
-<li>quarto</li>
-<li>rmarkdown</li>
-<li>pacman</li>
-<li>swirl</li>
-</ul></li>
+<li>Under the Install tab, search for the packages listed in the <code>install.packages()</code> code above.</li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -601,15 +575,24 @@ install.packages(c("tidyverse", "janitor" , "lubridate", "quarto", rmarkdown", "
 <figcaption class="figure-caption">packages</figcaption>
 </figure>
 </div>
+</div>
+</section>
+<section id="optional-hands-on-tutorial" class="level4">
+<h4 class="anchored" data-anchor-id="optional-hands-on-tutorial">Optional hands-on tutorial:</h4>
+<p>One of the packages you just installed is called <code>swirl</code>, which has some interactive tutorials. The first one might be useful.</p>
+<div class="callout-dothis">
+<p>Make sure your cursor is in the Console and type <code>swirl::swirl()</code>.</p>
+<p>Select the first chapter called <em>R Programming: The basics of programming in R</em>, and just the first section, called <em>Basic Building Blocks</em>.</p>
+</div>
 </section>
 </section>
 </section>
-<section id="relax" class="level2" data-number="13.5">
-<h2 data-number="13.5" class="anchored" data-anchor-id="relax"><span class="header-section-number">13.5</span> Relax!</h2>
+<section id="relax" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="relax"><span class="header-section-number">8.4</span> Relax!</h2>
 <div id="fig-relax" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="assets/images/r-start-sylwia-bartyzel.jpeg" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;13.1: Relax by Silwia Bartyzel via Unsplash</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;8.1: Relax by Silwia Bartyzel via Unsplash</figcaption>
 </figure>
 </div>
 <p>You’re all set up and we’re ready to start programming. Congratulate yourself - everything is new, nothing is intuitive and the screen is intimidating. You’ve come a long way.</p>
@@ -620,6 +603,7 @@ install.packages(c("tidyverse", "janitor" , "lubridate", "quarto", rmarkdown", "
 <hr>
 <ol>
 <li id="fn1"><p>These used to be “R Markdown”. Quarto is the newer implementaiton of it, but you’ll often see R Markdown referenced in other places.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>If you have a Github account, you might be able to use Github Copilot in RStudio. I’ve found it to be more annoying than helpful.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -857,22 +841,22 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<nav class="page-navigation column-page-right">
+<nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
-      <a href="./r-install.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Installing R and RStudio</span></span>
+      <a href="./appendix-program.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">A gentle intro to programming</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./r-quarto.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Using Quarto</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Using Quarto</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">Data reporting for investigative journalism, Spring 2023 was written by Sarah Cohen</div>   
+    <div class="nav-footer-left">Data reporting for investigative journalism, Spring 2024, written by Sarah Cohen</div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>

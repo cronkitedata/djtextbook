@@ -6,7 +6,7 @@ This section contains the vocabulary you need and strategies to avoid scraping a
 
 The next chapter reviews how t    o pick apart a page using the R library `rvest`, which is used to parse web pages. 
 
-The last chapter shows you how to programmatically walk through a lot of pages to recompile a more detailed or larger dataset. That chapter will also introduce you to the concept of `looping`, which we briefly mentioned inth [introduction to programming](docs/appendix-program.html). 
+The last chapter shows you how to programmatically walk through a lot of pages to recompile a more detailed or larger dataset. 
 
 
 ## Where reporters get data

@@ -1,49 +1,25 @@
----
-format: 
-  html: 
-    df-print: paged
----
-
 # A quick tour of verbs {#r-verbs}
 
-::: {.alert .alert-secondary}
-<p class="alert-heading font-weight-bolder fs-3">
+We've described the Tidyverse as a set of packages linked together using common syntax and grammar. Much of its power comes from its basic **verbs** ^[Technically, these are in a library called `dplyr`, but it's always included with the tidyverse] . Mastering just a handful of them will equip you to do most of what a data journalist does, and will prepare you for more complicated endeavors.
 
-In this chapter
+This walkthrough gives you a little taste of what the key verbs do. More details are coming in subsequent chapters.
 
-</p>
+It depends on you continuing from the previous chapter. [You can download a copy](https://cronkitedata.s3.amazonaws.com/rdata/hit100.RDS) of the data that was saved into your project if you need it. 
 
-You only need a handful of key verbs of the tidyverse to get a lot done:
+## Starting a new Quarto document
 
--   `select`: Pick out and arrange columns
--   `arrange` : Display rows in a certain order
--   `mutate` : Create new columns using functions and formulas
--   `filter`: Pick out rows based on a condition
--   `summarize` : Compute summary statistics such as sum, count or median
--   `group_by` : Collapse your data into categories based on a column, as in pivot tables
-
-You have done all of these in Excel already.
-:::
-
-We saw in the first R chapter that the tidyverse is a whole set of packages linked together using common syntax and grammar. One of the key concepts of the tidyverse is its **verbs** . Mastering just a handful of them will equip you to do most of what a data journalist does, and will prepare you for more complicated endeavors.
-
-This walkthrough gives you a little taste of what most of the verbs do. More details are coming in subsequent chapters.
-
-It depends on you continuing from the previous chapter. [You can download a copy](https://cronkitedata.s3.amazonaws.com/rdata/hit100.RDS) of the data that was saved into your project if you need it. \## A new markdown program
-
-::: {.alert .alert-success .alert-dothis}
+::: callout-dothis
 -   Open or re-open the project you created in previous chapters. This starts you with a clean slate in the correct location.
 
 -   Create a new Quarto document. Using the program you wrote in the last chapter, copy everything in through the setup chunk and delete anything else. Edit the YAML section to create a new title , and save it as `top100-02-analysis.qmd`.
 
--   Re-load the data you saved in the last chapter by adding a code chunk with this function:
+-   Instead of importing from a text file, this time you'll read in the R file you saved in the last lesson using the `readRDS()` function.
 
 ::: inline-code
           top100 <- readRDS("hit100.RDS")
           
 :::
 
-[Assuming that's what you saved it as in the last chapter]{.small}
 :::
 
 ```{r}
@@ -92,7 +68,7 @@ top100 |>
 
 ```
 
-So Taylor Swift has songs on the Billboard Hot 100 list more than 1,000 times since 2008.
+So Taylor Swift has songs on the Billboard Hot 100 list more than 1,300 times since 2008. Note that the output only shows you the first 100 pages of your data frame, even if it would go on much longer. Clicking on the 100th page show you it only gets you to 2021.
 
 Here's how you'd list only her appearances at the top of the list -- No. 1 is the lowest possible value for `this_week`, indicating the rank , then pick out just a few columns to list in order:
 
@@ -102,80 +78,89 @@ Here's how you'd list only her appearances at the top of the list -- No. 1 is th
 top100 |>
   filter (performer=="Taylor Swift" & this_week == 1) |>
   arrange ( chart_date)  |>
-  select ( this_week, song, chart_date, last_week)
+  select ( this_week, title, chart_date)
 
 ```
 :::
 
-Her first No. 1 hit was in 2012, and her most recent was in November 2021.
+Her first No. 1 hit was in 2012, and her most recent was in  November 2023
 
 ## Summary statistics in R
 
-Summary statistics are similar to those you saw in pivot tables. They include
+Listing each item that meets a condition might show you how many match your criteria, but it doesn't help you aggregate your data. For that, you need the `summarize()` verbm with statistical functions identified within it:. 
 
--   `n()` -- instead of "count"
+-   `n()` -- the number of rows.
 -   `sum()`
--   `mean()` -- instead of "average"
+-   `mean()` 
 -   `median()`
 -   `min()` and `max()`
 
-To count the total number of songs in this database, you would use the summary function `n()`, which is how statisticians think of the concept of "how many?"
+`summarize()` answers the questions, "How many?" and "How much?", or "Smallest" and "Largest".
 
-In this case, because we've done nothing else, it will match the number of rows in the data frame. This code also creates two other summary statistics: The first (earliest) entry in the entire list, and the last one.
+This code chunk will show the summary for all 341,000 rows:
 
-::: callout-caution
-## Single vs. double "="
-
--   Use a **single** equals sign when you are naming a new column
--   Use a **double** equals sign to see if one thing is the same as another
--   Don't ever name the new column the same thing as another column.
-:::
-
-```{r top100-sums, echo=TRUE, eval=knitr::is_html_output()}
+```{r}
+#| label: top100-sums
+#| echo: true
 
 top100 |>
-  summarize ( number_of_entries = n() , 
-              first_entry = min(chart_date), 
-              last_entry= max(chart_date)
+  summarize ( number_of_entries = n() ,                    #<1>
+              first_entry = min(chart_date),               #<1>
+              last_entry= max(chart_date)                  #<1>
               )
 
 
 ```
 
+1. Each row defines a made-up descriptive name for the new columns created from summary functions. 
+
+
+::: callout-note
+### Single vs. double "="
+
+-   Use a **single** equals sign when you are naming a new column
+-   Use a **double** equals sign to see if one thing is the same as another
+-   Don't ever name the new column the same thing as an existing column.
+:::
+
+
 ## Grouping with summary statistics (aggregating)
 
-Your questions will often be around the idea of "the most" or "the biggest" something. Like in Excel, you could do this by guessing and filtering one thing after another. Or you could make a list of the items, then count them up all at once.
+Your questions will often be around the idea of "the most" or "the biggest" something. The `group_by()` verb creates separate analyses, or piles, for each unique item in the column. You then create a summary for those groups.  We'll go into this in a lot more detail in future chapters. 
 
-To get the performer with the most appearances on the list, you combine `group_by` with `summarize` to count within each group. We'll go into this in a lot more detail in future chapters.
 
-```{r top100-performer, echo=TRUE, eval=knitr::is_html_output()}
+```{r}
+#| label: top100-performer
+#| echo: true
 
-top100 |>
-  group_by ( performer) |>
-  summarize ( times_on_list = n() ) |>
-  arrange (desc ( times_on_list ))  |>
+
+
+top100 |>                                         
+  group_by ( performer) |>                        #<1>
+  summarize ( times_on_list = n() ) |>            #<2>
+  arrange (desc ( times_on_list ))  |>            #<3>
   head (10)
 
 
 
 ```
+1. Collapse the data into one row for each performer.
+2. And fill it with the number of times that performer was on the list
+3. Sort it with the most popular performer first.
 
-(You may notice that the number next to Taylor Swift's name on this list is the same number of rows that were found during the filter.)
 
-That code chunk:
+Adding the song title to the `group_by()` creates a more detailed list of tracks, but still collapses the weeks: 
 
--   Began with the `top100` data frame that was loaded earlier from the saved version, and then
--   Made one row for each performer using `group_by`, and then
--   Counted the number of times each one appeared using `summarize` and `n()` and named the new column `times_on_list`, and then
--   Sorted, or `arrange` the list in descending order by that new column created during the summarize step, and then
--   Printed off the first 10 rows.
-
-In Excel, we had trouble sorting a pivot table with city and state as rows. Here, that's not a problem:
-
-```{r top100-sortmore, warning=FALSE, message=FALSE, results="hide", echo=TRUE, eval=knitr::is_html_output()}
+```{r} 
+#| label: top100-sortmore
+#| warning: false
+#| message: false
+#| output: false
+#| echo: true
+#| eval: false
 
 top100 |>
-  group_by ( song, performer)  |>
+  group_by ( title, performer)  |>
   summarize ( times_on_list = n() , 
               last_time_on_list = max(chart_date),
               highest_position = min(this_week)
@@ -186,36 +171,32 @@ top100 |>
 
 ```
 
-So some of the songs that were on the list the longest never made it to #1. (You'll learn later on how to make tables that are more easily navigated.)
 
-```{r top100-print25, echo=FALSE, eval=knitr::is_html_output()}
-#| label: top100-print25
+::: {.content-visible when-format="html"}
+
+So some of the titles that were on the list the longest never made it to #1. (You'll learn later on how to make tables that are more easily navigated.)
+
+```{r ref.label="top100-sortmore"} 
 #| echo: false
-#| eval: true
+#| output: true
 #| column: page-right
-
-top100 |>
-  group_by ( song, performer)  |>
-  summarize ( times_on_list = n() , 
-              last_time_on_list = max(chart_date),
-              highest_position = min(this_week)
-            ) |>
-  arrange ( desc ( times_on_list) ) |>
-  head(25)  
-
 
 
 ```
 
+::: 
+
+
+
+
 ## Make a chart!
 
-One motivator in learning R is its very sophisticated graphics. Here, you can just copy and paste this code to see how it might work, without worrying about exactly what it does. We'll learn how to make this interactive in a future lesson.
+One motivator in learning R is its very sophisticated graphics. We'll come back to this later in the semester, but you can just copy and paste this code to see how it might work. 
 
-I've made a dataset for you that contains the 21 No.1 songs that stayed on the Hot 100 for at least a year in this century. (Songs released after late 2020 will be missing, since the data is a little old and there has to have been at least a year since the release.) You can just copy and paste this code chunk and then render your page, just to prove that --- even if you don't understand it yet --- it's not a lot of work to make a reasonable-looking chart.
+I've made a dataset for you that contains the 26 No.1 songs that stayed on the Hot 100 for at least 52 weeks in this century. (Songs released for the first time 2023 aren't eligible for the list) 
 
 ```{r}
-#| label: hot-100-top-10-list
-#| echo: fenced
+#| label: hot-100-num1list
 #| column: screen-inset-right
 
 
@@ -233,7 +214,6 @@ readRDS(
   theme_minimal( ) +
   theme(axis.title.x = element_blank(),
           axis.title.y = element_blank(), 
-#         panel.grid.major=element_blank(), 
         legend.position= "bottom") 
 
 
@@ -244,8 +224,9 @@ readRDS(
 
 You've now seen most of the key verbs of the tidyverse, and how they can be put together. They are:
 
--   `mutate` , which you saw in the last chapter, to create new columns.
--   `select`, to pick out columns in the order you want to see them
+-   `mutate` , which you saw in the last chapter, to create new columns. 
+-   `select`, to pick out columns in the order you want to see them 
+-    `arrange`, to sort a data frame
 -   `filter`, to pick out rows based on a condition
 -   `summarize` to compute summary statistics like "how many?" and "how much? or"smallest" and "largest"
 -   `group_by` to create a single row for each unique item in a list.

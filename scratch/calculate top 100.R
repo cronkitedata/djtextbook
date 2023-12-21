@@ -1,6 +1,6 @@
 no_1_songs <-
   top100 |>
-  group_by ( performer, song) |>
+  group_by ( performer,title) |>
   summarize  ( best_position = min(this_week),
                weeks = n(),
                first_chart_date = min(chart_date) ,
@@ -11,7 +11,7 @@ no_1_songs <-
              paste
              (
                str_trunc(performer, 25, "right"),
-               str_trunc(song, 25, "right"),
+               str_trunc(title, 25, "right"),
                sep=": "
              ),
              desc( first_chart_date))
@@ -19,5 +19,8 @@ no_1_songs <-
 
 top_songs <-
   no_1_songs |>
-  inner_join ( top100 , by=c("song", "performer")) |>
+  inner_join ( top100 , by=c("title", "performer")) |>
   select ( hit, this_week, chart_date)
+
+
+saveRDS(top_songs , "scratch/top_songs.RDS")

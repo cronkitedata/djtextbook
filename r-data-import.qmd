@@ -1,63 +1,28 @@
 # Getting and saving data {#r-data-import}
 
-```{r}
-#| label: setup
-#| include: false
-
-
-library(tidyverse)
-library(janitor)
-library(lubridate)
-
-
-```
-
-::: {.alert .alert-secondary}
-::: {.alert-heading .font-weight-bolder .fs-3}
-In this chapter
-:::
-
--   Invoking standard packages using the `library()` function
--   Reading data from from Excel or from a text file using `read_csv()`.
--   Looking at your data using `head()`, `tail()`, `glimpse()`
--   Introducing the "pipe" `|>`
--   A postscript on file formats (don't skip this)
-:::
-
-But before we start:
+Before you start trying to program, remember that you're not alone when you encounter errors. Here, an accomplished data scientist, illustrates her own frustration. Watch the clock on this cartoon and on your own work: If you're getting nowhere after about 20 minutes, take a break. If you're still not getting anywhere, get an extra set of eyes. It's often as simple as a spelling or punctuation error.
 
 ![](assets/images/r-dataframe-take-a-break.jpg){width="80%"}
 
-## The data frame
+## Billboard Hot 100
 
-A data frame is an R object[^r-data-import-1] and can be used and re-used like any other. The difference is that it contains columns and rows, just like a spreadsheet. These follow the rules we've seen about good, tidy Excel files:
+Christian McDonald, a data journalism professor at the University of Texas, has compiled a list of Billboard's Hot 100 hits back to the 1950s, and made it available in his Github account. We'll be using the data on McDonald's Github repository at <https://raw.githubusercontent.com/utdata/rwd-billboard-data/main/data-out/hot100_assignment.csv>
 
-[^r-data-import-1]: An object in R is just a name of something. We'll try to distinguish it from a column in a dataset, which statisticans call "variables". But the terms are sometimes used interchangeably.
-
--   Each column contains one *kind* of information -- race, sex, address, etc. Data scientists call these "fields" or "variables" or "attributes".
--   Each row contains one example of each of those columns, all at the same unit of analysis. In other words, they each refer to the same noun. Data scientists call these "observations" or "cases" or "records".
-
-Before you can use a data frame, you will have to `import` some data from a file on your hard drive or the web, or `load` some data that is saved in one of several R-specific formats. Your data will often arrive in the form of a comma-separated text file (.csv), or in an Excel format (.xlsx)[^r-data-import-2]. As you work on it, you'll save it as an R data file that you've checked for mistakes and proper treatment of columns.
-
-[^r-data-import-2]: See the [postcript on file formats](#file-formats)
-
-### Example data
-
-Christian McDonald, a data journalism professor at the University of Texas, has compiled a list of Billboard's Hot 100 hits back to the 1950s, and made it available in his Github account. We'll be using the data on McDonald's Github repository at <https://github.com/utdata/rwdir/blob/main/data-raw/hot100_assignment.csv?raw=true>
-
-Here is how he describes it:
+Here is how he has described it:
 
 > The Billboard [Hot 100](https://www.billboard.com/charts/hot-100/) singles chart has been the music industry's standard record chart since its inception on 8/2/1958. The rankings, published by Billboard Media, are currently based on sales (physical and digital), radio play, and online streaming. The methods and policies of the chart have changed over time.
 
 > The data we will use here is a combination of data collected by Kaggle user [Dhruvil Dave](https://www.kaggle.com/dhruvildave/billboard-the-hot-100-songs), along with some scraping and merging by Prof. McDonald. It is stored on the code sharing website Github for safe keeping.
 
-#### The data dictionary
+### The data dictionary
 
-Here is a *data dictionary* , sometimes called a *record layout* to go along with the data. You should look for, or create, something like this for every data source you use.
+As of December 2023, this version of runs from its inception in August 1958 through mid-June 2023, before most of Taylor Swift's Eras tour sent her Hot 100 numbers even higher.
+
+Here is a *data dictionary* , sometimes called a *record layout* to go along with the data.
 
 | variable name | type      | description                                                                         |
-|----------------|----------------|----------------------------------------|
-| CHART WEEK    | date      | The release date of the chart                                                       |
+|-----------------|-----------------|--------------------------------------|
+| CHART WEEK    | date      | The release date of the chart in the form "m/d/yyyy"                                |
 | THIS WEEK     | number    | The rank (1 through 100) of the song that week                                      |
 | TITLE         | character | Song title                                                                          |
 | PERFORMER     | character | Performer, as published in the chart. There could be different spellings over time. |
@@ -65,100 +30,102 @@ Here is a *data dictionary* , sometimes called a *record layout* to go along wit
 | PEAK POS.     | number    | Highest ranking ever on the Top 100 chart                                           |
 | WKS ON CHART  | number    | Number of weeks it has appeared on the chart, not necessarily consecutive.          |
 
-It's a good example for us, since there are no nuances to the data, and it contains a mix of words, numbers and dates. You won't have to spend a lot of time studying it to understand what it is.
+Here are some things to note about it:
 
-::: callout-warning
-Notice the upper-casing, the spaces and the period in the column names. R is a `case-sensitive` language, meaning a "T" is an entirely different character than a "t". Column names with spaces and special characters must be treated differently than those with just letters, underscores and periods.
-:::
+-   The names of columns are in upper case and contain spaces and punctuation. That makes our life a little more complicated, and we'll want to fix it.
+-   It provides the type of data -- number, date or text -- that should be contained in each column. 
+-   Dates are shown in a way we normally read them in the U.S., such as "12/3/2023" 
+-   Each row represents a song in the designated week. This means that there will be lots of rows for each week, and a row for each song every time it was on the hot 100.
 
-## Starting a new Quarto program
 
-::: {.alert .alert-success .alert-dothis}
--   Open the R project created in the last lesson called "rlessons-01".
+## Set up your Quarto program
 
--   Create a new Quarto document. If you want, copy and paste the top section from the last lesson and replace the default options with that.
+You'll do this every time you start a new document or project in R.
 
--   Delete the boilerplate below the front matter (after the three dashes)
+::: callout-dothis
 
--   Copy and paste this first code chunk into your document and press the "Play" button to run the code.
+1.  Create an R project in your `maij-working` folder called `hot-100` .
 
--   Run the code chunk by pressing the Play button
+2.  Create a new Quarto document and delete everything. 
 
--   Save your document as `top100-01.qmd` . I'm using the "01" suffix so that when I come back to this six months down the road, I know that this program has to be run first!
+3. If you're not already there, switch to the Source view.
 
-[This assumes you have installed the packages in the previous chapters. Go back and do that now if you skipped it. That step has to be done only once on each computer you use.]{.small}
-:::
+4. [Copy and paste the top section from the Quarto lesson](r-quart.qmd#frontmatter) delete everything else. Try rendering it to check for errors before you go any further -- this part is really picky. 
 
-``` {{r}}
-#| label: setup
+5.  Copy and paste the code chunk below  into your document and press the "Play" button to run the code.
 
-library(tidyverse)
-library(janitor)
-library(lubridate)
+::: 
+
+[This assumes you  have installed the packages from the [Starting R](r-start.qmd#installing-packages-for-this-course) chapter. Go back and do that now if you skipped it. That step has to be done only once on each computer you use.]{.small}
+
+
+```{r}
+#| echo: fenced
+#| label: setup        
+#| message: false         
+
+library(tidyverse)              
+library(janitor)                
+library(lubridate)   
+
+
 ```
 
-(The `#|` part of the code chunk is an instruction for this code chunk. This one provides a name for it. You'll see others later on.)
+This is a common first code chunk. The first option at the top names it "setup", which tells it to run this code chunk before it does anything else. The second option suppresses some very annoying messages.
 
-The `library` function invokes the packages that you installed earlier. They're not available to your program by default. That's because everyone uses a different set of them for different jobs, and they don't want to gunk up your enviornment with a lot of things you'll never use.
+This code chunk activates three packages using the `library()` function. You have to invoke packages you want to use in each document, even though you only have to install them on your computer once.
 
-Although they only need to be installed one time on your computer, packages must be invoked using the `library` function in every document. Almost every program you write will begin with these same lines, though you'll often see additional packages added.
+Here's what your page might look like after playing the first code chunk (visual mode):
 
-::: callout-caution
-Every time you start a new program, you must [^r-data-import-3] start with a code chunk that invokes the packages you plan to use later on. This is done in a `setup` chunk through that includes the function `library()` for each package you want to use.
-:::
+::: column-page-right
+![after running first chunk](assets/images/r-import-firstchunkrun.png){width="90%"}
+::: 
 
-[^r-data-import-3]: Well, sort of. You can also invoke packages in a program by fully specifying its name, with the package name followed by two colons and the function, like this: `readr::read_csv()`. You'll often see that in examples -- it's deliberately done to show you which package the function is coming from.
+Don't worry about any messages that came out after you ran the first chunk -- they simply show you some information about what is in the libraries you just loaded. They might even be [red]{style="color: red;"}!
 
-Here's what your page might look like (probably with different colors) if you are in Visual mode:
+## Import the Hot 100 data file
 
-![after running first chunk](assets/images/r-import-firstchunkrun.png){width="80%"}
+To "import" data means to pour outside data into an R data frame, which is an R object that contains columns and rows, just like a spreadsheet. 
 
-Don't worry about all of the messages that came out after you ran the first chunk -- they simply show you some information about what is in the libraries you just loaded. They might even be [red]{style="color: red;"}!
+Some people call this "reading" or "loading" data. This file is a CSV file, which stands for "comma-separated values". Some other forms are shown in [Appendix C: File Types in the Wild](appendix-filetypes.qmd)
 
-::: callout-tip
-There are ways to control what gets printed out by using other options at the top of the code chunk. The full list is on the [Quarto website](https://quarto.org/docs/computations/execution-options.html) --- you can set the default in the top metadata, or do them one chunk at a time with additional lines beginning with `#|` at the top of the code chunk.
-:::
-
-## Importing the Hot 100 data file
-
-The Hot 100 data is stored in a "comma-separated" text file, with the extension `.csv`. When you import that file, R will guess what each column is -- text (words, "character" variables), numbers ("double" precision or "integer"), and date or date/time ("date" or "POSIX" in R).
-
-Data frames are most easily managed by keeping a few style rules in mind:
-
--   Column names should be all lower-case, and have no special characters or spaces in them. They may not start with a number. Separate words in a column name with an underscore, not a space, and avoid any punctuation.
--   Any column containing numerals that you don't plan to use in a math computation should be stored as a character type, not a number.[^r-data-import-4]
-
-[^r-data-import-4]: More advanced users create a special type of variable called a `factor` to work with categories - we're skipping that for now.
-
-We often have to tweak the data import to make sure of these things, or have to convert data types once they 've been imported. If you then save your data as an R data frame, you never have to do that again. The `read_csv` function has a lot of optional arguments -- or specifications -- that can help overcome problems in the underlying dataset, but it often guesses quite well on its own.
+When you import the file, R will guess what each column is -- text ("chr"), numbers ("num" "), and date or date/time ("date" or "POSIX" in R).
 
 (From now on, you'll just see the R code that goes inside a code chunk you create, not the part with the backticks and brackets.)
 
-::: {.alert .alert-success .alert-dothis}
-Create a new code chunk to read the top 100 dataset and copy the following line into the body of the chunk:
+::: callout-dothis
+1.  Create a new code chunk using the Insert Chunk button ![](assets/images/r-start-insert-chunk-button.png) at the top right of your document, or using the keyboard shortcut {{< kbd mac=command-option-I win=Control-Alt-I >}}.
+
+2.  Use the clipboard icon below to copy the code and paste into your code chunk. You might not be able to see the full name of the web address, but it's there.
+
+3.  Press the Play button or use the keyboard shortcut {{< kbd control-shift-Return  >}} to run the code chunk.
 :::
+
+
+
+Click on the numbers underneath the code chunk to highlight each row with an explanation of what it does:
+
 
 ```{r import-top100}
 #| eval: false
 
 
-top100 <- 
-  read_csv("https://github.com/utdata/rwdir/blob/main/data-raw/hot100_assignment.csv?raw=true")
+top100 <-    #<1>
+  read_csv(   #<2>
+    "https://raw.githubusercontent.com/utdata/rwd-billboard-data/main/data-out/hot100_assignment.csv"  #<3>
+    )         #<4>
 
 
 ```
 
-Here's what that code does:
+1.  Create a new object in R called `top100` using the assignment operator `<-`
+2.  Start the function `read_csv()`...
+3.  to access a comma-separated data file stored in Prof.McDonald's Github site. Use just the name of the file, in quotes, if it's already saved in your projects folder.
+4.  Don't forget to close your parentheses.
 
-1.  Creates a new object called `top100`, to pour the data into.
-2.  Uses a function of the tidyverse[^r-data-import-5] called `read_csv`, to
-3.  Access comma-separated text data held in McDonald's github repository.
 
-[^r-data-import-5]: Actually, a package within the tidyverse called `readr`
+After running the code chunk, you should see something like this:
 
-When you run the chunk by pressing the green arrow within the code chunk, or press Shift-CMD-Enter , the output should say this:
-
-::: alert-light
 ```{r}
 #| label: showimport-top100
 #| echo: false
@@ -166,49 +133,54 @@ When you run the chunk by pressing the green arrow within the code chunk, or pre
 #| eval: true 
 
 
-
-top100 <- 
-  read_csv("https://github.com/utdata/rwdir/blob/main/data-raw/hot100_archive.csv?raw=true")
-
+ 
+top100 <-   
+  read_csv(    
+    "https://raw.githubusercontent.com/utdata/rwd-billboard-data/main/data-out/hot100_assignment.csv" 
+    )      
+  
 
 ```
-:::
 
 So R found:
 
--   330,800 rows (or records, or observations).
+-   341,100 rows (or records, or observations).
 -   7 columns ,
 -   3 of which it thinks are character types, and 4 that it thinks should be numbers.
 -   It named the columns using the first row of the file.
 
+This method of reading a file accepts the default options for importing. You may need to override some of them at times, especially when R guesses your data types incorrectly.
+
 ::: standout
-Stop a minute and think about what you just did in one second -- you imported a dataset with MORE THAN a quarter of a MILLION rows without any complaint! You could. never get Excel or Google sheets to be so complacent about this middling size database.
+Stop a minute and think about what you just did in one second -- you imported a dataset with MORE THAN a quarter of a MILLION rows without any complaint!
 :::
 
-The message also tells you how to get more information.[^r-data-import-6]
+There is now a new object in your Enviornment tab, under "Data", called `top100`, with "341,100 obs. of 7 variables".
 
-[^r-data-import-6]: Sometimes, this will say "Use `problems()` ...", meaning that something could have gone wrong and you should check it. We'll see how to fix the column types at the same time as your import later on in the course.
+### Import tips {.unlisted}
 
-There is now a new object in your Enviornment tab, under "Data", called `top100`, with 330,800 obs. of 7 variables.
+::: callout-tip
+### Posit cheat sheets
 
-### Some details
-
-::: callout-note
-If you want to import an Excel file, you have to use a slightly different library. You will have to load the `readxl` library in the setup chunk, then use the `read_excel()` function to access the data. It works similarly, but it's a slightly different method.
+The ["Data import with the Tidyverse" cheat sheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-import.pdf) goes through the details of importing data. You may need some help deciphering it until you get used reading reference instructions.
 :::
 
 ::: callout-tip
-### Default to character columns\*\*
+### Spreadsheets
+
+You have to use different functions to import spreadsheet files.
+
+For Excel, you would use the `readxl` library, which you have to activate at the top of the program.
+
+For Google Sheets, you'd use the `googlesheets4` library, which is a little harder to use because of Google Drive permissions. For the time being, consider downloading your Google Sheet to a csv in your project folder.
+:::
+
+::: callout-tip
+### Default to character columns
 
 If you're not sure about the data types of each column, use an option to import them all as text, or `character`, columns. Then you can fix them one by one. Text will (almost) never be a problem. The option looks like this:
 
 `read_csv( "your file name or URL", col_types=c(.default="c") )`
-:::
-
-::: callout-tip
-### Naming your code chunks
-
-Best practice in R is to provide a label for each code chunk, as we did with the setup chunk. It allows you to refer to it later on, provides a better method for errors to be located, and allows quicker navigation. Do that by adding a line at the top of the code chunk like this: `#| label: your-label` Don't use special characters or spaces in the label.
 :::
 
 ## Look at the data you imported
@@ -223,9 +195,9 @@ There's now an object listed in your Environment tab with a blue arrow. Expand i
 
 ### Click on it to scroll, filter and sort
 
-An easy way to get a little preview of your data is to view it like a spreadsheet. Just remember that any filters or sorts that you do here won't last -- they're just on while you're glancing at the data. But this is useful just to get a little preview of what columns look like and to search for things you know should be there. For instance, if I wanted to see whether Taylor Swift was named something else, I might search here. This search is NOT case-sensitive, which is helpful when you want to get a handle on what's in your data.
-
 To browse the data, click on its name in the environment panel.
+
+Any filters or sorts that you do here won't last -- they're just on while you're glancing at the data. But this is useful just to get a little preview of what columns look like and to search for things you know should be there. This search is NOT case-sensitive, which is helpful when you want to get a handle on what's in your data.
 
 ::: {.content-visible when-format="html"}
 ![](https://cronkitedata.s3.amazonaws.com/images/r-import-scrolldata.gif)
@@ -235,37 +207,23 @@ To browse the data, click on its name in the environment panel.
 
 But these methods are no better (and really a little worse) than just viewing your data and clicking around in Excel or Google sheets. To share your view of the data and describe it to others, you must use R code.
 
-There are a few standard ways to get a quick view of what's in your data using functions. First, you can look at the top and bottom of it using the `head()` and `tail()` functions:
+There are a few standard ways to get a quick view of what's in your data using functions. First, you can look at the top and bottom of it using the `head()` and `tail()` functions. Try to guess what these mean:
 
 ```{r}
-#| results: hold
+#| column: body-outset-right
 
-# use head() to show the first six rows
+head(top100)               #<1>
 
-head(top100)
-
-
-# use tail() to show the last six rows. 
-#change the number of rows as an an optional argument,
-# obtained by searching "Help" for the function "tail"
-
-tail(top100, n=10)
-
-
-
-
+tail(top100, n=10)         #<2>
 
 ```
 
+
 Use the little arrow at the top right of the listing to look at columns that don't fit on the page.
 
+This list isn't in chronological order-- it's just showing happened to be on the top and bottom of the original file.
 
-
-::: callout-note
-This is where Visual Mode can become tiresome -- often, your output is so smushed that it is unreadable. Switch to Source mode and you'll be able to see more.
-::: 
-
-Or, you can look at a list of columns along with their types and a few examples from the top of the file using the `glimpse()` function, in this case listing the name of the data frame you want it to look at within the parentheses. 
+Or, you can look at a list of columns along with their types and a few examples from the top of the file using the `glimpse()` function.
 
 ```{r}
 
@@ -278,88 +236,89 @@ Here, you might notice that the names of some of the columns have back-ticks aro
 
 ## Introducing the pipe
 
-You'll be seeing a lot of R code that has this format:
+You'll often use code in this format: 
 
-      data_set_name |>
-         verb ( nouns ) |>
-         verb ( nouns ) |>
-         etc...
+```         
+  data_set_name |>
+     verb (  ) |>
+     verb (  ) |>
+     etc...
+```
 
-That little symbol, `|>` is called the "pipe". It means "Take what is on this line, and use it to do the next thing" It matches the way you think about algorithms from [the programming appendix](appendix-program.html) in this book. You can use the shortcut keys CTL/CMD-SHift-M instead of typing it out. (If yours comes out as `%>%` instead of `|>` as shown in this Tweet, don't worry about it. There are technical differences, but for now they'll do the same thing. )
-
-::: {.border .border-secondary .mb-3 .px-2}
-![pipenewbies](assets/images/r-firstprog-pipenewbies.png){width="60%"} ![rladies](assets/images/r-firstprog-rladies.png){width="80%"}
-:::
+That little symbol, `|>` is called the "pipe". It means "Take what is on this line, and use it to do the next thing"  You can use the shortcut keys {{< kbd Command-Shift-M >}} instead of typing it out.
 
 
-We're going to use two of the other libraries that we loaded at the top --- `lubridate` and `janitor` --- to fix the two problems with this data, while showing you what the pipe does.
+::: {.border .border-primary}
+![](assets/images/r-firstprog-pipenewbies.png){width="60%"} ![](assets/images/r-firstprog-rladies.png){width="80%"}
+::: 
 
-::: {.alert .alert-success .alert-dothis}
-Add a code chunk that you'll edit to clean the column names and fix the dates the data.
-:::
+[(The pipe character changed a little in recent years;  `%>%` is largely the same as `|>` )]{.small}
 
-Using a pipe can help make your code easier to read and write by separating each step into its own command. For example, `glimpse(top100)` does the same thing as `top100 |> glimpse()`. The second version tells R, "Start with the top100 data frame **and then** glimpse it. Using small-ish datasets like this, I try to separate as much as is reasonable into steps because I can then troubleshoot problems one line at a time.
 
-::: callout-warning
-Don't confuse the pipe (`|>`) with the assignment operator (`<-`). The pipe says, "keep going". The assignment operator says, "save this for later" .
+Using a pipe can help make your code easier to read and write by separating each step into its own command. 
+
+For example, `glimpse(top100)` does the same thing as `top100 |> glimpse()`. The second version tells R, "Start with the top100 data frame **and then** glimpse it.  I try to separate as much as is reasonable into steps because I can then troubleshoot problems one line at a time.
+
+::: callout-dothis
+1. Add a code chunk that you'll edit to clean the column names and fix the dates the data.
+2. Copy and paste the code below
+
 ::: 
 
 ```{r name_clean, echo=TRUE}
 
-top100 |>
-  clean_names()  |>
-  glimpse()
+top100 |>                 #<1>
+  clean_names()  |>       #<2>
+  glimpse()               #<3>
 
 
 ```
 
-This shows us that the function `clean_names()` converts the column names into our preferred style. Notice that we didn't pour that answer into a new object --- there is no assignment operator `<-` -- so it just prints the answer to the screen.
+1. Start with the `top100` data frame that we saved earlier, and then
+2. Use a function called `clean_names()` to convert them to computer-friendly names that won't require special handling, and then
+3. Take a look at it!
 
-Once this works as expected, we can finish cleaning up the data.
+::: callout-warning
+###  `|>` not `<-` 
+Don't confuse the pipe (`|>`) with the assignment operator (`<-`). The pipe says, "keep going". The assignment operator says, "save this for later" .
+:::
 
+## Cleaning up and save for later
 
-::: callout-caution
-Don't try to save the output of something you "glimpse" into a new object -- it won't be the data itself, just the thing that got printed out!
+This section gives you a little taste of the key verbs you'll be using throughout this class: 
+
+-   `select`, which picks and rearranges columns  
+-   `mutate`, which lets you create new columns out of old ones.  
+
+The code chunk also uses function called `mdy()`, which stands for "month-day-year", which in turn tells R that the character `chart_week` column starts out in that format, as opposed to year-month-day or something else.
+
+::: callout-dothis
+
+Try typing this code chunk into your document instead of copying and pasting. You won't see anything come out of this when you run it. Instead, it's saved as new object in your Environment tab. 
+
 ::: 
 
 
-### Introducing verbs of the tidyverse
-
-This process uses the pipe to tack on new statements after each one is complete, and introduces **the verbs of the tidyverse**, which you'll see in action in the next chapter.
-
-
-
-These are two of the most important verbs you'll use:
-
--   `select`, which picks and rearranges columns (kind of like filtering vertically)
--   `mutate`, which lets you create new columns out of old ones. (like inserting a column in Excel and entering a formula)
-
-The code chunk also uses function called `mdy()`, which stands for "month-day-year", which in turn tells R that the character `chart_week` column starts out in that format, as opposed to year-month-day or something else.[^r-data-import-8]
-
-[^r-data-import-8]: This function is part of the library called `lubridate` that we also loaded in the setup chunk.
-
-::: {.alert .alert-success .alert-dothis}
-Your final code chunk should look like this. Try to avoid copying and pasting, and instead build it one step at a time, running the chunk each time you add a phrase.
-:::
-
-(I usually add the object name at the top last to save the data result for later use, after I'm sure everything has worked by printing it to the screen.)
 
 ```{r echo=TRUE}
 
-top100_clean <- 
+top100_clean <-                                                #<1> 
   top100 |>
-  clean_names () |>
-  mutate ( chart_date = mdy(chart_week)) |>
-  select ( chart_date, title, performer, this_week, last_week,
-           wks_on_chart, peak_pos)
-  
-
+  clean_names () |>  
+  mutate ( chart_date = mdy(chart_week)) |>                    #<2> 
+  select ( chart_date, title, performer, this_week, last_week, #<3>
+           wks_on_chart, peak_pos)                             #<3>
 
 ```
+1. Create a new data frame using the assignment operator out of what follows. Leave off this row until you know the rest works.
+2. Use the function `mdy`, which converts text in the form of month-day-year into true dates, to transform the chart week into a date variable called `chart_date`.
+3. Pick out the columns to save in the order you want to see them.
+
 
 ## Check your work and save
 
-Now check your data by "glimpsing" it: 
+::: callout-dothis
+1. Check your data by "glimpsing" it:
 
 ```{r}
 
@@ -368,12 +327,11 @@ top100_clean |>
 
 
 ```
-Note the new data type for the chart_date, and the order of the columns along with the clean names. 
 
+Note the new data type for the chart_date, and the order of the columns along with the clean names.
 
-::: {.alert .alert-success .alert-dothis}
-Now save your data as an R data file (called an "RDS" file) like this:
-:::
+2. Now save your data as an R data file (called an "RDS" file) like this: 
+
 
 ```{r}
 #| eval: false
@@ -381,6 +339,14 @@ Now save your data as an R data file (called an "RDS" file) like this:
 saveRDS(top100_clean, file="hit100.RDS")
 
 ```
+
+
+3. Try to process your Quarto document into a self-contained HTML page by pressing the Render button at the top of the document.  You might get some errors -- that's ok for now. You've already done a lot.
+
+::: 
+
+You'll see how to load data that starts as an R data file in the next chapter.
+
 
 ## What we did
 
@@ -392,75 +358,19 @@ saveRDS(top100_clean, file="hit100.RDS")
 
 ### What you should do next {.unnumbered}
 
-If you've followed along, you should create text surrounding your code chunks that result in a clean, readable document that is easy to navigate, has full sentences fully describing your work, and makes sense from top to bottom when rendered. 
+Before you put away your Quarto file, remember the principles of scripted data and documentation. Take a few minutes to clean up and document your work by narrating each step, including: 
 
--   Documentation of the source of your file.
 -   Sub-headings for each of the steps
 -   Introductory text describing what you are about to do
--   Maybe: Some text after the chunks that describe meaningful output or things you notice about the result. 
+-   Maybe: Some text after the chunks that describe meaningful output or things you notice about the result.
 
 If you're stuck, you can [use the template I created](https://cronkitedata.s3.amazonaws.com/markdown_templates/01-top100.Rmd) as a starting point.
 
-Render it early and often to make sure your program isn't broken and that the output looks the way you expect.
 
-### And breathe {.unnumbered}
 
-You've now created a full, working R program in Quarto format that can serve as a model for everything you do in the future. Congratulate yourself and take a break!
+## And breathe {.unnumbered}
+
+You've now created a full, working R program in Quarto format that can serve as a model for everything you do in the future.  Congratulate yourself and take a break!
 
 ![Max van den Oetelaar via Unsplash](assets/images/r-firstprog-breathe.jpg){width="80%"}
 
-## Postscript: Understanding file types {#file-formats}
-
-So far in this book, you've been saved from having to understand the format of data as it is traded among people and computers. Now you'll have to start understanding that there are different forms of data files, one of which is the simple Excel file that we've dealt with so far.
-
-But Excel is a propriety format -- it's made by Microsoft and isn't very easy to use without a program that can import it. As we've seen, it can also corrupt data by misunderstanding data types like dates and numbers, and there isn't much control over its assumptions.
-
-This section will go over the common data formats you're likey to run across in your work with R. However, R is not limited to these. You'll often find arcane and specialized data file formats if you work with statisticians or experts in geographic analysis that can also be read in R. There is almost always a package available that will import it.
-
-### Tabular text data {.unnumbered}
-
-In Excel and Google Sheets, each page of a workbook is *tabular*, meaning it is approximately a rectangle. It might be a narrow and tall rectangle, or a short and wide rectangle, but it's still a rectangle. Each column is an *attribute* or a *variable*, and each row is an *observation* or a *record* .
-
-Every computer can read and write plain text. Those are the characters you can type on a typewriter, with no fancy formatting or other features that require special software to ingest it. We'll normally be dealing with these. They usually come in two flavors:
-
--   **CSV** data is "comma-separated values" data, which means that a new column will be created whenver a comma is encountered. If there is a chance that there might be a comma inside a column, it will be enclosed by quote marks. This usually works OK, but there are some times when you have to be careful because there could be commas AND quotes inside a column. (A good example is a column of peoples' names -- they may be something like `Smith, Johnny "The Rat"`) To overcome this, some people use:
-
--   **TSV** , or tab-separated data. In this case, the tab key determines the distinction between columns, which is much rarer to find in plain text files.
-
-Here's what a CSV might look like listing the last few presidents:
-
-      name, position, start_date, age_at_start_date
-      "Biden, Joe", President, 2021-01-20, 78
-      "Trump, Donald", President, 2017-01-20, 70
-      "Obama, Barack", President, 2009-01-20, 47
-
-It looks like a mess to you, but it's a thing of beauty to a computer.
-
-Some government agencies just make up a delimiter instead of a comma or tab - I've seen them with vertical bars (`|`) and tildes `~`. You would use the function `read_delim()` to import a text file delimited by something other than a comma.
-
-### Non-tabular text data {.unnumbered}
-
-Another common format you'll see passed around from computer to computer is called JSON. This stands for Javascript Object Notation, and is commonly used to pass data over the web , often to your phone or your browser.
-
-It looks even worse, but it's also a thing of beauty to a computer. The same data would look like this in JSON:
-
-     {"presidents": [
-        {"name": "Biden, Joe", "position": "President", "start_date": "2021-01-20", 
-           "age_at start_date": "78"},
-        {"name": "Trump, Donald", "position": "President", "start_date": "2017-01-20", 
-           "age_at start_date": "70"},
-        {"name": "Obama, Barack", "position": "President", "start_date": "2009-01-20", 
-           "age_at start_date": "47"}
-       ]
-      } 
-        
-
-### Evil data - PDF
-
-We'll look at this later, but just know that data supplied in a PDF file isn't data at all -- it's effectively pixels placed on a page, and is intended for printing and viewing, not analyzing. Government agencies often print Excel files into PDF's -- I have no idea why, but it's common, and it's often difficult to convince them to do anything else regardless of the local public records law. For now, just remember that this is one file format you want to avoid if at all possible -- it's the most error-prone and difficult data to manage, even if it looks pretty.
-
-### Proprietary data formats
-
-Excel is one proprietary data format; Google Sheets is another. You may run into many different kinds, ranging from maps to statistical systems like SAS. R has a package that will read almost any of these -- once you find it, it shouldn't be a problem.
-
-The more common packages you may need to read them are `readxl` , which is part of the tidyverse, and `googlesheets4`.

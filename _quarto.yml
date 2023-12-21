@@ -13,24 +13,13 @@ book:
     collapse-level: 1
     background: 'light'
   title: "Data Reporting"
-  subtitle: "Cronkite School MAIJ Program, Spring 2023"
+  subtitle: "Cronkite School MAIJ Program, Spring 2024"
   page-navigation: true
-  reader-mode: true
-#  downloads: [pdf, epub]
-#   navbar:
-#     background: secondary
-#     search: true
-#     right:
-#       - icon: github
-#         href: https://github.com/cronkitedata/djtextbook/
-# #        aria-label: github
-# #    title: false
-
 
   page-footer:
      background: "#096b72"
      left: |
-       Data reporting for investigative journalism, Spring 2023 was written by Sarah Cohen
+       Data reporting for investigative journalism, Spring 2024,  written by Sarah Cohen
      right: |
        Produced with <a href="https://quarto.org">Quarto</a>
 
@@ -44,31 +33,29 @@ book:
     - part: start.qmd
       chapters:
         - start-story.qmd
-        - start-math.qmd
         - start-data-def.qmd
-        - start-data-diary.qmd
+        - start-data-document.qmd
         - start-hunt.qmd
         - start-build-own.qmd
 
-    - part: xl.qmd
+    - part: quickstart.qmd
       chapters:
-        - xl-refresher.qmd
-        - xl-filter-sort.qmd
-        - xl-pivot.qmd
-        - xl-formulas.qmd
-        - xl-practice-noc.qmd
+        - r-install.qmd
+        - appendix-program.qmd
+        - r-start.qmd
+        - r-quarto.qmd
+        - r-data-import.qmd
+        - r-verbs.qmd
 
-    - part: r.qmd
+    - part: rdepth.qmd
       chapters:
-         - r-install.qmd
-         - r-start.qmd
-         - r-quarto.qmd
-         - r-data-import.qmd
-         - r-verbs.qmd
+         - start-tidy.qmd
          - r-verb-filter.qmd
          - r-verb-mutate.qmd
          - r-verb-groupby.qmd
          - r-verb-join.qmd
+         - advanced-regex.qmd
+         - advanced-regex-r.qmd
          - r-recipes.qmd
 
     - part: vis.qmd
@@ -83,40 +70,35 @@ book:
     - part: advanced.qmd
       chapters:
          - advanced-pdf.qmd
-         - advanced-regex.qmd
-    #     - advanced-regex-r.qmd
          - advanced-openrefine.qmd
          - advanced-scrape1.qmd
          - advanced-scrape2.qmd
 #
   appendices:
    - appendix-math.qmd
-   - appendix-program.qmd
+   - appendix-filetypes.qmd
    - appendix-ppp.qmd
-#     - appendix-glossary.qmd
-#     - appendix-resources.qmd
 #
 format:
   html:
     theme:
       - cosmo
       - custom.scss
-    code-link: true
+    highlight-style: printing
+    code-overflow: wrap
+    code-block-bg: true
+    code-block-border-left: true
     code-copy: true
-    number-depth: 3
-#    fontsize: 1em
+    number-depth: 2
     default-image-extension: png
     df-print: paged
     page-layout: full
-    toc-location: left
-
-# The default image extension means that you can resize for pdf output.
-# complex images come out too big, but the smaller ones are ok.
-# to use the default extension, just use the link without the extension
-# in an image markdown.
-
-#  pdf:
-#.   default-image-extension: pdf
+    toc: true
+    toc-location: right
+    toc-title: "In this chapter:"
+    grid:
+      margin-width: 10%;
+      sidebar-width: 20%;
 
 
 execute:

@@ -41,7 +41,7 @@ This the next several chapters are based on Paycheck Protection Program, or PPP,
 The `str_like()` function in this chapter was added to the tidyverse in December 2022. If you installed packages before that, go to the "Packages" tab in the bottom right panel, find the `stringr` package, and press the "Update" button before continuing. Alternatively, in the console, run the command `update.packages(ask=FALSE)`
 :::
 
-::: {.alert .alert-success .alert-dothis}
+::: callout-dothis
 To follow along, you should
 
 1.  Open or re-open your project
@@ -79,7 +79,7 @@ You can rename columns at the same time you select them by typing the new name, 
     select ( given_date = date_approved, 
             borrower = borrower_name)
 
-::: {.alert .alert-success .alert-dothis}
+::: callout-dothis
 Try it now and create a new data frame you'll use later in the filtering section with just a handful of columns that are easier to manage.
 
 ```{r}
@@ -320,7 +320,7 @@ If you examine some of the answers, you'll see why having wildcards is so import
 A filter will never return any rows that are missing, or `NA` in the column you test. This is true both when you are trying to include them, and when you're trying to include everything except something else.
 :::
 
-In most data sets, there is at least a little missing data. In this case, the forgiveness amount never shows the value zero. Instead, it shows `NA`, or the R symbol for missing data.
+In most datasets, there is at least a little missing data. In this case, the forgiveness amount never shows the value zero. Instead, it shows `NA`, or the R symbol for missing data.
 
 This isn't the same as the letters "NA". It's a special type of value that means "nothing". It's not zero, it's not higher or lower than any other value, it doesn't ever equal anything and it doesn't ever NOT equal anything! It stands for a value that is truly unknown. In fact, an `NA` never even matches another `NA`, because we don't know anything about either one.
 

@@ -437,7 +437,7 @@ execute:
 
 ### Tidy data and "long" vs. "wide" use in groups
 
-::: {.blockquote .mt-3}
+::: {.otro-blockquote .mt-3}
 Like families, tidy datasets are all alike but every messy dataset is messy in its own way.
 
 -- Hadley Wickham, with apologies to Leo Tolstoy

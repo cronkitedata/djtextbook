@@ -108,7 +108,7 @@ The previous examples all result in lists of potential story people or places. I
 
 ### "Enterprise" joins {.unnumbered}
 
-Investigative reporters often use joins in ways unintended by the data creators. In the 1990s, they dubbed these "enterprise" joins, referring to the enterprising reporters who thought of them. In these instances, reporters combine data sets in ways that find needles in haystacks, such as: 
+Investigative reporters often use joins in ways unintended by the data creators. In the 1990s, they dubbed these "enterprise" joins, referring to the enterprising reporters who thought of them. In these instances, reporters combine datasets in ways that find needles in haystacks, such as: 
 
 * School bus drivers who have had tickets for driving while intoxicated.
 * Day care center operators who are listed on the sex offender registry.
@@ -145,7 +145,7 @@ The PPP data has a code called the `naics_code`, which is an industry coding sys
 
 We'll use a table that contains the list of industries and match it to the PPP data. (The lookup table was derived from the `concordance` package in R, but is fully explained at the [Census website](https://www.census.gov/naics/?58967?yearbck=2017).)
 
-::: {.alert .alert-success .alert-dothis}
+::: callout-dothis
 Once you load these data frames, be sure to explore them a little to make sure you understand what they contain.
 :::
 
@@ -243,6 +243,6 @@ Congratulations! This is the last key verb that you need to understand to addres
 
 ## Resources
 
--   The "[Relational data](https://r4ds.had.co.nz/relational-data.html)" chapter in the R for Data Science textbook has details on exactly how a complex data set might fit together.
+-   The "[Relational data](https://r4ds.had.co.nz/relational-data.html)" chapter in the R for Data Science textbook has details on exactly how a complex dataset might fit together.
 
 -   [An example using a superheroes dataset](https://stat545.com/join-cheatsheet.html#left_joinsuperheroes-publishers), from Stat 545 at the University of British Columbia

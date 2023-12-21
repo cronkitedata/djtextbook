@@ -1,71 +1,94 @@
+## Preface {.unnumbered}
 
-## Preface {-}
+This book serves as a compilation of of handouts, websites and tutorials that I have created in my data reporting class at ASU's [Cronkite School of Journalism and Mass Communication](cronkite.asu.edu), IRE and NICAR conferences, and as an adjunct at the Columbia University Graduate School of Journalism. Some of the material will be useful in other courses or for self-study, but it is primarily aimed at the investigative journalism masters' students at Cronkite.
 
-This book serves as a compilation of  of handouts, websites and tutorials that I have created in my data reporting class at ASU's [Cronkite School of Journalism and Mass Communication](cronkite.asu.edu), IRE and NICAR conferences, and as an adjunct at the Columbia University Graduate School of Journalism. Some of the material will be useful in other courses or for self-study, but it is primarily aimed at the investigative journalism masters' students at Cronkite.
+It covers:
 
-It covers: 
+-   Reporting and replication in data journalism
+-   Analyzing data for stories using R and R Markdown
+-   Finding and creating data for stories
 
-- Reporting and replication in data journalism
-- Table stakes: Spreadsheets in the newsroom
-- Analyzing data for stories using R and R Markdown
+It doesn't cover:
 
-
-It doesn't cover: 
-
-- Data visualization for publication
-- Working with non-tabular data such as images, sound or document collections
-- Creating news applications
-- Freedom of Information and public records techniques
-- Data science. This is a journalism book, not a programming or statistics book. 
-
-A note on language: I'll use the words "read" and "write" in a generic sense. I intend them to cover the range of journalistic media, including listening, watching, and news applications or graphics.  
-
-### Navigation
-
-Each major section on the left can be expanded to see the chapters included. There is a table of contents for the current page at underneath that index. 
-
-### Conventions used in this book {.unnumbered}
-
-This book is written using a Mac desktop keyboard, meaning there may be key combinations you don't have. I'll try to keep them to a minimum. I'll try to use the convention `CMD/CTL` and `OPT/ALT` , with the part before the / for Mac users and part after the / for Windows users. 
+-   Data visualization for publication
+-   Working with non-tabular data such as images, sound or document collections
+-   Creating news applications
+-   Freedom of Information and public records techniques
+-   Data science. This is a journalism book, not a programming or statistics book.
 
 
-#### Conventions in the R Study Guide chapters {-}
+### Navigation {.unnumbered}
 
-::: callout-tip
-Pro tips! 
-::: 
+Each major section on the left can be expanded to see the chapters included.  The search box above the navigation index is best used to find sections and headings rather than phrases.  Skip to sections of the current chapter using the menu on the right. 
 
+### R or Python? {.unnumbered}
+
+If you ask a data scientist or technologist which language you should learn first, you'll start a heated debate between advocates of R, Python, Javascript , SQL, Julia and others. Ask the same question of a data journalist and the answer will be: "Choose one that is free and that your colleagues use so you can get help." For our purposes, it really doesn't matter -- any of the standard languages will do.
+
+My only rule is that you stick to your first language for a little while before trying a new one. It would be like trying to learn Portuguese and Spanish at the same time, when you know neither one to begin with. They're related, but very different.
+
+Most employers won't care which programming language you know because it's relatively easy to learn another once you're comfortable with the concepts and good data journalism habits. In a few cases, such as the Associated Press, R is preferred. In others, like the Los Angeles Times, it's a little easier to work with the team if you work in Python. Visualization teams work primarily in Javascript. But they'll mainly just be happy that you are reasonably self-sufficient in any language.
+
+I chose R because I find it a little easier to use when trying to puzzle something out step by step, and it is particularly good at working with the weird and varied forms of data thrown at us, but it's really just a matter of taste and comfort.
+
+That said, this book is oriented toward the "tidyverse", which comprises a whole host of methods that are designed to work together using common syntax and concepts. There are many other ways to do almost everything presented in this book, which we won't cover. 
+
+
+## Conventions used in this book {.unnumbered}
+
+### Keyboard translations
+
+This book is written using a Mac desktop keyboard, meaning there may be key combinations you don't have.
+
+Generally, when Windows users see the key `cmd` or {{< kbd CMD >}}, they should use `ctl` or `^` instead; when you see {{< kbd OPT >}}, use {{< kbd ALT >}} instead.
+
+Keyboard combinations are generally shown like this: `CMD + SHIFT + i` , where the + indicates the keys at once, such as {{< kbd cmd-Shift-i >}} or {{< kbd Control-Shift-i >}} 
+
+### Conventions used in tutorials {.unnumbered}
+
+#### Example code
+
+Here is what some code looks like in the book. There are sometimes explanatory notes to go along with specific lines of code. Clicking on the explanation will highlight the matching line of code.
+
+```{r}
+#| label: example-code
+#| eval: false
+
+library (tidyverse )   #<1>
+
+
+```
+
+1.  Load the tidyverse library
+
+You can copy the code chunk whenever you see the clipboard in it, but I implore you to try it yourself for 10 minutes. It will pay off handsomely if you have to piece together what the code is doing and if you have to learn to read the error messages.
+
+### Changes from previous years
+
+Previously, the conceptual and story examples were scattered throughout tutorials. This made it hard for students to know what they had to do -- read the concepts or go through the tutorials? They tended to skip the more journalistic portions of the text. This year, I've split them out and interleaved those chapters where they made sense (at least to me).
+
+"In this chapter:" sections were removed. No one seemed to pay attention to it, and the section just made each chapter that much longer.  Instead, I've moved the "On this page" section to the right, making each page a little narrower but making in-chapter navigation easier. 
+
+
+
+## Colophon {.unnumbered}
+
+I'm grateful to all of the trainers, experts and collaborators who have made their training materials open to the world, and they are linked prominently throughout this book. Any errors or omissions are my own.
+
+This year's book was reorganized to remove much of the conceptual work from spreadsheets to more generic chapters as needed, such as "Filtering and sorting to find stories". I've also removed the math chapter, under the idea that anyone taking this class understands the need for basic arithmetic and statistics. Both of these sections are still available in the appendices.
+
+Some chapters were updated with new, useful versions of functions, but others were left using the more traditional methods. These changes were and were not made for purposes of teaching -- I chose which one to use based on ease of use vs. understanding code you will find in the wild.
 
 ::: callout-note
-An aside. 
-::: 
+### A note on language
 
-::: callout-warning
-Something you should be careful about - you might have trouble running the code or get very unexpected results if you ignore it.
-::: 
+I'll use the words "read" and "write" in a generic sense. I intend them to cover the range of journalistic media, including listening, watching, and news applications or graphics.
+:::
 
+This book was written using Quarto version 1.3 in RStudio with version 4.3 of R. . The complete source is [available on Github](https://github.com/cronkitedata/djtextbook). Previous editions are saved as branches in the github repo, and also saved as static releases.
 
-::: {.alert .alert-success .alert-dothis}
-This background is used for instructions for anyone trying to follow along. 
+::: {style="text-align:center"}
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="Creative Commons License" style="border-width:0"/></a>
+:::
 
-::: 
-
-
-
-
-
-## Credits {-}
-
-I'm grateful to all of the trainers, experts and collaborators who have made their training materials open to the world, and they are linked prominently throughout this book. Any errors or omissions are my own. 
-
-This book was written in `quarto` version 1.2 using RStudio and version 4.2 or R. . The complete source is [available on Github](https://github.com/cronkitedata/djtextbook). 
-
-
-<div style="text-align:center">
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"></a>
-</div>
-
-
--- Sarah Cohen, Winter 2022-23 [sarah.h.cohen@asu.edu](mailto:sarah.h.cohen@asu.edu)
-
-
+-- Sarah Cohen, Winter 2023-24 [sarah.h.cohen\@asu.edu](mailto:sarah.h.cohen@asu.edu)
