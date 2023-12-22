@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data Reporting - 1&nbsp; Learn a new way to read</title>
+<title>Data Reporting - 13&nbsp; Sorting and filtering to find stories</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./start-data-def.html" rel="next">
-<link href="./start.html" rel="prev">
+<link href="./r-verb-filter.html" rel="next">
+<link href="./start-tidy.html" rel="prev">
 <link href="./assets/images/favicon.ico" rel="icon">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -76,7 +76,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./start.html">Reporting with data</a></li><li class="breadcrumb-item"><a href="./start-story.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Learn a new way to read</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./rdepth.html">Verbs of the tidyverse</a></li><li class="breadcrumb-item"><a href="./start-filter-sort-story.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Sorting and filtering to find stories</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -117,14 +117,14 @@ ul.task-list li input[type="checkbox"] {
       <div class="sidebar-item-container"> 
             <a href="./start.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Reporting with data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./start-story.html" class="sidebar-item-text sidebar-link active">
+  <a href="./start-story.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Learn a new way to read</span></span></a>
   </div>
 </li>
@@ -205,11 +205,11 @@ ul.task-list li input[type="checkbox"] {
       <div class="sidebar-item-container"> 
             <a href="./rdepth.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Verbs of the tidyverse</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./start-tidy.html" class="sidebar-item-text sidebar-link">
@@ -218,7 +218,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./start-filter-sort-story.html" class="sidebar-item-text sidebar-link">
+  <a href="./start-filter-sort-story.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Sorting and filtering to find stories</span></span></a>
   </div>
 </li>
@@ -387,14 +387,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">In this chapter:</h2>
    
   <ul>
-  <li><a href="#story-development" id="toc-story-development" class="nav-link active" data-scroll-target="#story-development"><span class="header-section-number">1.1</span> Story development</a>
-  <ul class="collapse">
-  <li><a href="#compared-to-what" id="toc-compared-to-what" class="nav-link" data-scroll-target="#compared-to-what">Compared to what?</a></li>
-  </ul></li>
-  <li><a href="#go-beyond-the-numbers" id="toc-go-beyond-the-numbers" class="nav-link" data-scroll-target="#go-beyond-the-numbers"><span class="header-section-number">1.2</span> Go beyond the numbers</a></li>
-  <li><a href="#reading-tips" id="toc-reading-tips" class="nav-link" data-scroll-target="#reading-tips"><span class="header-section-number">1.3</span> Reading tips</a></li>
-  <li><a href="#analyze-data-for-story-not-study" id="toc-analyze-data-for-story-not-study" class="nav-link" data-scroll-target="#analyze-data-for-story-not-study"><span class="header-section-number">1.4</span> Analyze data for story, not study</a></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">1.5</span> Exercises</a></li>
+  <li><a href="#a-sorting-miracle" id="toc-a-sorting-miracle" class="nav-link active" data-scroll-target="#a-sorting-miracle"><span class="header-section-number">13.1</span> A sorting miracle</a></li>
+  <li><a href="#sorting-and-filtering-as-a-reporting-tool" id="toc-sorting-and-filtering-as-a-reporting-tool" class="nav-link" data-scroll-target="#sorting-and-filtering-as-a-reporting-tool"><span class="header-section-number">13.2</span> Sorting and filtering as a reporting tool</a></li>
   </ul>
 </nav>
     </div>
@@ -403,7 +397,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="start-story" class="quarto-section-identifier"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Learn a new way to read</span></span></h1>
+<h1 class="title"><span id="start-filter-sort" class="quarto-section-identifier"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Sorting and filtering to find stories</span></span></h1>
 </div>
 
 
@@ -418,79 +412,30 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Getting started in data journalism often feels as if you’ve left the newsroom and entered the land of statistics, computer programming and data science. This chapter will help you start seeing data reporting in a new way, by learning how to study great works of the craft as a writer rather than a reader.</p>
-<p><img src="assets/images/start-story-cobb.png" class="float-md-end img-fluid m-3 img-fluid" style="width:50.0%" data-alt-text="Cobb tweet"></p>
-<p>Jeloni Cobb once tweeted, “an engineer doesn’t look at a bridge the same way pedestrians or drivers do.” They see it as a “language of angles and load bearing structures.” We just see a bridge. While he was referring to long-form writing, reporting with data can also be learned by example.</p>
-<p>Try to approach data or empirical reporting as a reporter first and a consumer second. Your goal should be to triangulate how the story was discovered, reported and constructed. You’ll want to think about why <em>this</em> story, told this way, at this time, was considered newsworthy enough to publish when another approach on the same topic might not have been.</p>
-<section id="story-development" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="story-development"><span class="header-section-number">1.1</span> Story development</h2>
-<p>In data journalism, we often start with a tip, or a hypothesis. Sometimes it’s a simple question. Walt Bogdanich of The New York Times is renowned for seeing stories around every corner. Bogdanich has said that the prize-winning story “<a href="https://www.nytimes.com/2008/09/21/nyregion/21lirr.html">A Disability Epidemic Among a Railroad’s Retirees</a>” came from a simple question he had when railway workers went on strike over pension benefits – how much were they worth? The story led to an FBI investigation and arrests, along with pension reform at the largest commuter rail in the country.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
-<p>Sometimes, the hypothesis might be more formal.</p>
-<p><img src="assets/images/start-story-littlevictims.png" class="float-md-end img-fluid m-3 img-fluid" style="width:70.0%" alt="Little victims"></p>
-<p>In 2021, the Howard Center for Investigative Journalism at ASU published “<a href="https://cronkitenews.azpbs.org/littlevictims/little-victims-everywhere/chapter-1.html">Little victims everywhere</a>”, a set of stories on the lack of justice for survivors of child sexual assault on Native American reservations.</p>
-<p>That story came after previous reporters for the center analyzed data from the Justice Department showing that the FBI dropped most of the cases it investigated, and the Justice Department then only prosecuted about half of the matters referred to it by investigators. The hypothesis was that they were rarely pursued because federal prosecutors – usually focused on immigration, white collar crime and drugs – weren’t as prepared to pursue violent crime in Indian Country.</p>
-<p>When studying a data-driven investigation, try to imagine what the reporters were trying to prove or disprove, and what they used to do it. In journalism, we rely on a mixture of quantitative and qualitative methods. It’s not enough to prove the “numbers” or have the statistical evidence. That is just the beginning of the story. We are supposed to ground-truth them with the stories of actual people and places.</p>
-<section id="compared-to-what" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="compared-to-what">Compared to what?</h3>
-<p>Investigative stories are based on the idea that something is happening that shouldn’t. This suggests that the journalists can tell the difference between a “good” and “bad” outcome. You should look for that comparison in stories.</p>
-<p>These reporters often look for a legal or regulatory standard, such as the number of violations allowed before shutting down a restaurant, to define their comparisons. Sometimes it’s a standard that lawmakers make for themselves by promising results from a program or law. Sometimes they can find industry standards, such as licensing rules for professionals. But you might end up comparing your area to others, or today versus yesterday.</p>
-<p>At the New York Times, in a story on the problem of <a href="https://www.nytimes.com/projects/2013/two-gunshots/index.html">police-involved domestic violence</a>, we struggled to find the right “compared to what?” Statistics wouldn’t help, since they might have come from police departments ignoring the problem. Instead, we found procedures recommended by a police chiefs’ association that defined best practices, and used them to compare the behavior of the largest departments in the U.S. We also compared disciplinary actions for domestic violence against other violations, such as testing positive for marijuana or stealing from the precinct.</p>
-<p>When you read an investigative story, be sure to watch for any comparisons. There’s no point in publishing an investigation if it didn’t find something newsworthy. No trend or number is newsworthy on its own – only in context or in comparison with something else.</p>
+<section id="a-sorting-miracle" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="a-sorting-miracle"><span class="header-section-number">13.1</span> A sorting miracle</h2>
+<p>After Ferguson, Mo., <a href="https://en.wikipedia.org/wiki/Shooting_of_Michael_Brown">police killed Michael Brown in 2014</a>, advocates and journalists began examining the racial and ethnic gap between police departments and the communities they served. The New York Times found a 7-year-old survey conducted by the Justice Department that allowed it to <a href="https://www.nytimes.com/interactive/2014/09/03/us/the-race-gap-in-americas-police-departments.html">compare the data for major cities in a standalone graphic</a> that it published later that year.</p>
+<p>When newer data reflecting departments’ makeup in 2012 was released a year later, Matt Apuzzo and I hoped it would show some differences. It didn’t. So we were left trying to find news in the data that was clearly of public interest.</p>
+<p>After matching up the demographics of police departments with their cities, I started sorting, filtering and Googling. Could there be news in the outliers on the list? Which departments most closely represented their communities? Which ones had unusually large gaps?</p>
+<div class="float-md-end">
+<p><img src="assets/images/xl-filter-sort-riley.png" class="img-fluid img-fluid" style="width:60.0%"></p>
+<p><span class="quarto-float-caption">Chief William T. Riley III. Credit: Laura McDermott for The New York Times</span></p>
+</div>
+<p>I quickly stumbled on telling anecdote to frame the story: Inkster, Mich. had one of the least representative departments in the country, and had recently hired a new police chief to help mend the department’s fraught relationship with its largely African-American community. Where had he come from? Selma, Ala., one of the most representative police departments in the nation. Interviews with the chief, William T. Riley III, suggested one reason for some cities’ disparities: there was no state or federal money to pay for training new police officers.</p>
+<p>The story, “<a href="https://www.nytimes.com/2015/11/08/us/politics/police-chiefs-looking-to-diversify-forces-face-structural-hurdles.html?unlocked_article_code=AAAAAAAAAAAAAAAACEIPuonUktbcrohlSVUbCybIRp8_qRmHmfnE2_skgXv_JyXQQjZDwuoORoyH_ETMY6Ume9x20zWFScVaMbE-AfJ11ORSJAljQgKl54CYgokOPzgvoIb2Xn4s05bARvY47TruJCGfGdtI-Yee7ViAISTiRrqMkjB6dlMyv8ZiJ137i3wM2qjERbNq3tUt2eMqD816WWxRNymOv_HoDhl_a86ULU2JsnlAUO5aXD7Zn9-Y-uhAJF0UUQSaOSs5tWUs69pcOMcUP7L_KHMieMn8g7YRAw94PdvjRs1xF8WPyeIc4fOaogeMycG22_w1CKxf2brHuW-7P10kI6iEmzxp800cWiwLurLqbSiQJw&amp;smid=url-share">Police Chiefs, Looking to Diversity Forces, Face Structural Hurdles</a>” helped explain the persistent gap between the makeup of police in some areas and the communities they served.</p>
 </section>
-</section>
-<section id="go-beyond-the-numbers" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="go-beyond-the-numbers"><span class="header-section-number">1.2</span> Go beyond the numbers</h2>
-<p>It’s easy to focus on the numbers or statistics that make up the key findings, or the reason for the story. Some reporters make the mistake of thinking all of the numbers came from the same place – a rarity in most long-form investigations. Instead, the sources have been woven together and are a mix of original research and research done by others. Try to pay attention to any sourcing done in the piece. Sometimes, it will tell you that the analysis was original. Other times it’s more subtle.</p>
-<p>But don’t just look at the statistics being reported in the story. In many (most?) investigations, some of the key people, places or time elements come directly from a database.</p>
-<p>When I was analyzing some housing court data for The New York Times, one fact hit me as I was looking at a timeline of eviction cases: The most cases ever filed in one of the city’s courts happened during a Thanksgiving week one year. It was the kind of detail that could have been compelling in a story if it had been more recent. But other anecdotes led directly to lines of reporting in <a href="https://nyti.ms/3caPTmm">the story</a>. One was the profile of a process server who filed court papers claiming to have delivered six eviction notices in 12 minutes, seemingly acquiring “some of the salient skills of a mountain goat”.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
-<p>Often, the place that a reporter visits is determined by examples found in data. In <a href="assets/pdfs/rural_development.pdf">this story on rural development</a> funds, all of the examples came from an analysis of the database. Once the data gave us a good lead, we examined press releases and other easy-to-get sources before calling and visiting the recipients or towns.</p>
-</section>
-<section id="reading-tips" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="reading-tips"><span class="header-section-number">1.3</span> Reading tips</h2>
-<p>You’ll get better at reading investigations and data-driven work over time. For now, try to answer these questions about an investigative story as you read it.</p>
+<section id="sorting-and-filtering-as-a-reporting-tool" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="sorting-and-filtering-as-a-reporting-tool"><span class="header-section-number">13.2</span> Sorting and filtering as a reporting tool</h2>
+<p>“Sorting” is the process of re-arranging the rows of your data from low to high, or high to low. “Filtering” is the process of picking out items from your data using specific criteria.</p>
+<p>Sorting and filtering can:</p>
 <ul>
-<li><p>Where might the reporters have found their key examples, and what made them good characters or illustrations of the larger issue? Could they have come from the data?</p></li>
-<li><p>What do you think came first – a narrative single example that was broadened by data , or a big idea that was illustrated with characters ?</p></li>
-<li><p>What records were used? Were they public records, leaks, or proprietary data?</p></li>
-<li><p>What methods did they use? Did they do their own testing, use statistical analysis, or geographic methods? You won’t always know, but look for a methodology section or a description alongside each story.</p></li>
-<li><p>What is their comparison? Nothing is newsworthy unless it’s compared to something that isn’t. What’s that something?</p></li>
-<li><p>How might you localize or adapt these methods to find your own stories?</p></li>
-<li><p>Pick out the key findings (usually in the nut graf or in a series of bullets after the opening chapter): are they controvesial? How might they have been derived? What might have been the investigative hypothesis?</p></li>
-<li><p>Did the story give critics their due and how did reporters try to falsify their own work?</p></li>
-<li><p>How effective is the writing and presentation of the story? What makes it compelling journalism rather than a dry study? How might you have done it differently? Is a video story better told in text, or would a text story have made a good documentary? Are the visual elements well integrated? Does the writing draw you in and keep you reading? Think about structure, story length, entry points and graphics all working together.</p></li>
-<li><p>Are you convinced? Are there holes or questions that didn’t get addressed?</p></li>
+<li>Narrow your focus to specific items that you want to examine in your story.</li>
+<li>Show you rows containing the highest and lowest values of any column. That can be news or it can be errors or other problems with the data.</li>
+<li>Let you answer quick “how many?” questions, with a count of the rows that match your criteria. (In the next lesson, you’ll see that counting this way isn’t always the most efficient way to answer your “how many?” questions.)</li>
 </ul>
-</section>
-<section id="analyze-data-for-story-not-study" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="analyze-data-for-story-not-study"><span class="header-section-number">1.4</span> Analyze data for story, not study</h2>
-<p><img src="assets/images/start-story-heist.png" class="float-md-end img-fluid mw-50 m-3 img-fluid" style="width:40.0%" alt=""></p>
-<p>As journalists we’ll often be using data, social science methods and even interviewing differently than true experts. We’re seeking stories, not studies. Recognizing news in data is one of the hardest skills for less experienced reporters new to data journalism. This list of potential newsworthy data points is adapted from Paul Bradshaw’s “<a href="https://leanpub.com/DataJournalismHeist">Data Journalism Heist</a>”.</p>
-<ul>
-<li>Compare the claims of powerful people and institutions against facts – the classic investigative approach.</li>
-<li>Report on <em>unexpected</em> highs and lows (of change, or of some other characteristic)</li>
-<li>Look for outliers – individual values that buck a trend seen in the rest</li>
-<li>Verify or bust some myths</li>
-<li>Find signs of distress, happiness or dishonesty or any other emotion.</li>
-<li>Uncover <em>new</em> or <em>under-reported</em> long-term trends.</li>
-<li>Find data suggesting your area is <em>the same</em> or <em>different</em> than most others of its kind.</li>
-</ul>
-<p>Bradshaw also did a recent study of data journalism pieces: “<a href="https://onlinejournalismblog.com/2020/08/11/here-are-the-7-types-of-stories-most-often-found-in-data/">Here are the angles journalists use most often to tell the stories in data</a>”, in Online Journalism Blog. I’m not sure I agree, only because he’s looking mainly at visualizations rather than stories, but they’re worth considering.</p>
-</section>
-<section id="exercises" class="level2" data-number="1.5">
-<h2 data-number="1.5" class="anchored" data-anchor-id="exercises"><span class="header-section-number">1.5</span> Exercises</h2>
-<ul>
-<li><p>If you’re a member of Investigative Reporters and Editors, go to the site and find a recent prize-winning entry (usually text rather than broadcast). Get a copy of the IRE contest entry from the Resources page. Try to match up what the reporters said they did and how they did it with key portions of the story.</p></li>
-<li><p>The next time you find a good data source, try to find a story that references it. If your data is local, you might look for a story that used similar data elsewhere, such as 911 response times or overdose deaths. But many stories use federal datasets that can easily be localized. Look at a description of the dataset and then the story to see how the data might have been used.</p></li>
-</ul>
+<p>Don’t underestimate the power of a simple filter and sort to help you hone in on anecdotes that will make your story come alive, by finding the oldest or youngest, the nearest or farthest, or the smallest or largest examples from your data.</p>
 
 
-</section>
-<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn1"><p>Note to self: check this with Walt. It’s how I remember it, but I’m not positive.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>“On March 24, 2017, Mr.&nbsp;Moise reported, he delivered notices to six Dunbar tenants in 12 minutes.<br>The Dunbar has 44 stairwells and 536 apartments. Each stairwell has its own front door. There are no elevators. <br>Yet Mr.&nbsp;Moise claimed that, in those 12 minutes, he raced from the third floor of one stairwell to the fourth floor of another stairwell, to the sixth floor of a third stairwell, to the third floor of a fourth stairwell, to the third floor of a fifth stairwell and finally back to the fifth floor of the fourth stairwell. Each time, he needed to ring a doorbell and be let inside the building.”<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
 </section>
 
 </main> <!-- /main -->
@@ -729,13 +674,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
-      <a href="./start.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Reporting with data</span>
+      <a href="./start-tidy.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Tidy data principles</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./start-data-def.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Defining “Data”</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./r-verb-filter.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Verbs in depth: Select, arrange, filter</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

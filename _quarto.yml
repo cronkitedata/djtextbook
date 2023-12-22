@@ -50,6 +50,7 @@ book:
     - part: rdepth.qmd
       chapters:
          - start-tidy.qmd
+         - start-filter-sort-story.qmd
          - r-verb-filter.qmd
          - r-verb-mutate.qmd
          - r-verb-groupby.qmd
