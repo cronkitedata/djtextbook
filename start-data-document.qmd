@@ -1,15 +1,16 @@
 # Documenting your work { #start-data-document }
 
->“In every project you have at least one other collaborator: future-you. You don’t want future-you to curse past-you”
->
-> -- Hadley Wickham via Roel M. Hogervorst
+::: otro-blockquote
+“In every project you have at least one other collaborator: future-you. You don’t want future-you to curse past-you”
 
+ -- Hadley Wickham via Roel M. Hogervorst
+::: 
 
 There are many reasons to fully document all of your data reporting, from the time you start seeking FOIAs to the time you publish your story and beyond. But future-you will be most grateful if you get in the habit of documenting your work as you go along. 
 
 Most projects happen in fits and starts. Sometimes you abandon a dataset just to come back to it later. Other times news gets in the way. No matter the reason, you will probably forget all of the details of your work -- even where you stored it! -- after just a few days. The good habits you get into now will save you hours and days of work later.
 
-No matter what, *your analysis and the way it's characterized in publication must be demonstrably accurate.** That means knowing exactly what you did, why, where it all is and how it should be communicated to a general audience.  If you can't describe your methods, the story simply can't be be published.  
+No matter what, **your analysis and the way it's characterized in publication must be demonstrably accurate.** That means knowing exactly what you did, why, where you've put it, and how it should be communicated to a general audience.  If you can't describe your methods, the story simply can't be be published. I have seen instances in which weeks of work had to be repeated or discarded because the reporter couldn't identify the source or how they worked with it.
 
 As Hadley Wickham said, you don't want your future self to curse your current self -- write good documentation that you can read and follow after you've long forgotten what you did today.
 
@@ -22,9 +23,9 @@ As Hadley Wickham said, you don't want your future self to curse your current se
 
 Christian McDonald at the University of Texas has described "scripted journalism" as data reporting that is "repeatable, transparent and annotated". 
 
-We will be accomplishing those goals through the use of Quarto documents, which combine writing with analysis and results. The next chapter gets you started in Quarto. But by the end of this book, you will know how to produce a site like [McDonald's Major League Soccer analysis](https://christianmcdonald.quarto.pub/mls-salaries/) on your own as a way to document your work. 
+We will be accomplishing those goals through the use of Quarto documents, which combine writing with analysis and results. By the end of this book, you will know how to produce a site like [McDonald's Major League Soccer analysis](https://christianmcdonald.quarto.pub/mls-salaries/) on your own as a way to document your work. 
 
-Some news organizations and editors talk instead about the "data diary". It's the same idea, but often done a little less formally. Sometimes you'll do work that doesn't fit into the scripted journalism idea, such as a quick spreadsheet sort or some hand-cleaning of data. When you do that, be sure to keep a running list of all of the steps you took. Unlike programming languages, there's no reminder of your mouse clicks.  
+Some news organizations and editors talk instead about the "data diary". It's the same idea, but accomplished by keeping the journalism equivalent of the lab notebooks common in the sciences. Sometimes you'll do work that doesn't fit into the scripted journalism idea, such as a quick spreadsheet sort or some hand-cleaning of data. When you do that, be sure to keep a running list of all of the steps you took. Unlike programming languages, there's no reminder of your mouse clicks.  
 
 I generally work on two levels: For stories, I have a Google or other document that lists all of the datasets I've attempted to use to answer my questions, where I tried to get them, and what experts I interview say about them. I also  list stories and studies that used the data in these documents. But I almost exclusively work in programming languages to test, clean and analyze data.  And to the extent possible, I try to share any results using Quarto documents so that I always know everyone is working from the same version. 
 
@@ -32,13 +33,15 @@ Think of the data work the same way you think about interview notes or transcrip
 
 ## Elements of your documentation
 
+You may not document all of these for smaller stories, but try to keep track of as many of these elements as possible.
+
 ### Data sourcing {-}
 
-Make sure to write a document that details where you got your data, and any material you reviewed about it.  This would include:
+Make sure to write out, in detail, where you got your data and any material you reviewed about it.  This includes:
 
-* The source of YOUR data, and how you know it's authentic. Be specific. And don't pretend you got it from the original source when you found it elsewhere, such as in this textbook or in a Github repository. 
+* The source of YOUR data, and how you know it's authentic. Be specific. Don't pretend you got it from the original source when you found it elsewhere, such as in this textbook or in a Github repository. 
 
-* Describe the original source of the data  and how it is collected and released.^[If you want to see a project with a lot of data sources and how they might be documented in your notes, take a look at the [New York City housing data sources](https://docs.google.com/document/d/1NqnPTUWhlJkg7JdBShSTWzSDncE91kBi/edit?usp=sharing&ouid=100970402851917703844&rtpof=true&sd=true) we considered for a project in 2016.]
+* Describe the ORIGINAL source of the data  and how it is collected and released.^[If you want to see a project with a lot of data sources and how they might be documented in your notes, take a look at the [New York City housing data sources](https://docs.google.com/document/d/1NqnPTUWhlJkg7JdBShSTWzSDncE91kBi/edit?usp=sharing&ouid=100970402851917703844&rtpof=true&sd=true) we considered for a project in 2016.]
 
 * Take notes on other stories and studies that use this or similar data. Include interview notes, advice, warnings and findings along with stories that have already been done.  
 
@@ -68,7 +71,7 @@ Some projects require many steps to get to a dataset that can be analyzed. You m
 
 * Geocoding (affixing geographic coordinates to addresses). Note how many were correct, how many missing, and what you did about it.
 
-* A description of how you got messy data into a tabular form or a form suitable for analysis. For example, you may have had to strip headings or flip a spreadsheet on its head. Make sure to write down how you did that.
+* A description of how you got messy data into a tabular form or a form suitable for analysis. For example, you may have had to strip headings or flip a spreadsheet on its head. Make sure to write down how you did that if it's not in a program that can be easily replicated.
 
 ### The good part: Your analysis {-}
 

@@ -12,22 +12,6 @@ execute:
 Be sure to update your packages in by pressing the Update button in the lower right panel under "Packages". This version of joining was introduced in February 2023 -- you'll get errors if the packages are out of date.
 :::: 
 
-
-
-::: {.alert .alert-secondary}
-::: {.alert-heading .font-weight-bolder .fs-3}
-In this chapter
-:::
-
--   A `join` combines two or more data frames when columns contain matching values 
--  Lookup tables use joins to translate codes into words in traditional database systems. Be sure to ask for them in any public records request for data.^[I ask for "code sheets, lookup tables, or any other material needed to interpret the data."] 
-- Relational databases implement "tidy data" principles by storing different types of units in different tables, linked by ID codes stored in each table. Be sure to ask for unique identifiers for each table when you request public records, or you won't be able to put them together.
--   Reporters don't always stick to matchmaking the way the database designers intended. "Enterprise" joins are those that let you find needles in a haystack, such as bus drivers with a history of DUIs.
--   Matching one data frame against an entirely different one will always produce mistakes, even if your code runs perfectly. You can minimize the *kind* of error you fear most -- false positives or false negatives -- but you likely will have to report out your findings on the ground.
-:::
-
-
-
 ## Join basics and relational databases
 
 Here is a great explainer on joins made by a previous MAIJ student, Andy Blye. Be sure to watch it:
@@ -57,13 +41,9 @@ Examples of relational databases include:
 * Inspection records, such as those for restaurants, hospitals, housing code violations and workplace safety, which typically have at least *three* tables: The establishment (like a restaurant or a workplace), an inspection (an event on a date), and a violation (something that they found). Each table has its own ID, which is used whenever they are linked together.
 *  A court docket data system, which usually has many types of rows: A master case table links to information on charges, defendants, lawyers, sentences and court hearings.
 
-This conforms to the **tidy data** principles that you examined in the last chapter. 
+This is similar to, but stricter than, the **tidy data** principles of separating different kinds of information into separate data frames.
 
-Usually, you will have what is known as a "1-to-many" join. That is, there are many instances of a value in one table's column, but just one instance of it in the lookup or related table. The superheroes example above is one of those instances: There are many entries for DC comics in the superhero table, but just one in the publisher table. 
-
-If this isn't true, you will have what is known as "many-to-many" joins, which is, in layman's terms, a bowl of tangled spaghetti. Each match will be duplicated the number of times it is in the related table. Experts call this a cartesian join, and it's usually bad. 
-
-### join syntax
+## join syntax
 
 ::: callout-tip
 There are actually pretty good explanations of the [concept of joining](https://dtplyr.tidyverse.org/reference/left_join.dtplyr_step.html) and the [variations of it in R](https://dplyr.tidyverse.org/reference/join_by.html) in the documentation.
@@ -86,19 +66,15 @@ Try to piece together what this is saying, similar to the filter conditions: If 
 * A `left_join` or `right_join` keeps everything from one table, and only the information that matches from the other. Those columns will contain NA wherever the match fails. 
 * A `full_join` puts together both tables no  matter whether there is any match. It's pretty rare to use this.
 
-::: callout-tip
-The new version of the join verb has a lot of new capabilities, including "fuzzy joins", which let you get answers when they are almost the same. For now, we're sticking with the standard way joins work across programming languages, but will come back to fuzzy matching later.
-::: 
-
-
-
 ## Matchmaking with joins
-
-
 
 ### Attaching characteristics to a dataset {.unnumbered}
 
-You'll often want to learn more about a geographic area's demographics, voting habits or other characteristics, and match it to other data. Sometimes it's simple: Find the demographics of counties that switched from Trump to Biden as a way to isolate places you might want to visit. Another example from voting might be to find the precinct that has the highest percentage of Latino citizens in the county, then match that precinct against the voter registration rolls to get a list of people you might want to interview on election day. In these instances, the `join` is used as a filter, but it comes from a different table. .
+You'll often want to learn more about a geographic area's demographics, voting habits or other characteristics, and match it to other data. 
+
+Sometimes it's simple: Find the demographics (Census data frame) of counties that switched from Trump to Biden (voting results) as a way to isolate places you might want to visit. 
+
+Another example from voting might be to find the precinct that has the highest percentage of Latino citizens in the county, then match that precinct against the voter registration rolls to get a list of people you might want to interview on election day. In these instances, the `join` is used as a filter, but it comes from a different table. .
 
 This is also common when you have data by zip code or some other geography, and you want to find clusters of interesting potential stories, such as PPP loans in minority neighborhoods.
 
@@ -132,6 +108,8 @@ You'll see stories of this kind write around the lack of precision -- they'll of
 
 ## Using lookup tables: PPP industry codes
 
+A lookup table is a list of unique items that translates codes to words. One example is the industry code in the PPP data. The data itself only has the NAICS code -- a standard government scheme that categorizes every business into one of about a thousand possible industries. But you don't know what those codes mean. You need an index, or lookup table, to tell you that.
+
 ```{r}
 #| label: setup
 #| include: false
@@ -141,7 +119,6 @@ library(lubridate)
 
 ```
 
-The PPP data has a code called the `naics_code`, which is an industry coding system created by the Census to categorize all economic activity. 
 
 We'll use a table that contains the list of industries and match it to the PPP data. (The lookup table was derived from the `concordance` package in R, but is fully explained at the [Census website](https://www.census.gov/naics/?58967?yearbck=2017).)
 
@@ -189,7 +166,7 @@ There are lots of risks in joining tables that you created yourself, or that wer
 
 ### Double counting with joins
 
-We won't go into this in depth, but just be aware it's easy to double-count rows when you join. Here's a made-up example, in which a zip code is on the border and is in two counties:
+We won't go into this in depth, but just be aware it's easy to double-count rows when you join. Here's a made-up example, in which a zip code is in two counties.
 
 Say you want to use some data on zip codes :
 

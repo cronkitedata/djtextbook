@@ -1,36 +1,40 @@
----
-title: "YOUR TITLE - CHANGE THIS"
-author: "YOUR NAME - CHANGE THIS"
-format:
-  html:
-    theme: 
-       - cosmo
-       - custom.scss
-    toc: true
-    code-tools: true
-    embed-resources: true
-    df-print: paged
-    
-execute: 
-   echo: true
-   eval: false
----
+# Summarizing detail into totals {#start-groupby}
 
-```{r}
-#| label: setup
-#| include: false 
-#| message: false
-#| warning: false
-#| eval: true
+In the wake of a police shooting in 2016, reporter Mitch Smith obtained a [list of traffic stops](https://cronkitedata.s3.amazonaws.com/xlfiles/saintanthony_police.xlsx) from the St. Anthony Police Department in Minnesota. He was writing a story on Philandro Castile's death and was running out of time. He wanted to answer a simple question: Were minority motorists more likely to be stopped in St. Anthony than whites?
 
-library(tidyverse)
-library(janitor)
-library(lubridate)
-library(readxl)
+Rob Gebeloff made a quick pivot table to answer the question. That night, [Smith wrote](https://www.nytimes.com/2016/07/13/us/philando-castile-minnesota-police-shooting.html):
 
-```
+> In each of the three small suburbs patrolled by the St. Anthony police, less than 10 percent of the population is black. But data released by the city on Tuesday showed that a far higher percentage of the people ticketed or arrested by St. Anthony officers were African-American.
+>
+> Last year, around 19 percent of those cited by St. Anthony police were black, as were roughly 41 percent of people arrested by the department, a review of the city's data showed. Those percentages do not include the large number of defendants whose race was unknown.
 
-## Introduction
+## Summarizing with groups
+
+Summarizing a list of items in R is done using the verbs `group_by` and `summarize`. Think of grouping as answering the questions, "How many?" and "How much?". They are particularly powerful when your question also has the words "the most" or the "the least" or "of each". Some examples:
+
+-   Which *Zip Code* had *the most* crimes?
+-   What *month* had *the least* total rainfall?
+-   *How much* did *each candidate* raise last quarter?
+-   In playing cards, *how many* of *each suit* do I have in my hand?
+-   On average, are *Cronkite students* *taller or shorter* than in other schools?
+
+### Confusing grouping with sorting or arranging 
+
+Many reporters confuse this summarization with "sorting". One reason is that this is how we express the concept in plain language: "I want to sort Skittles by color".
+
+But in data analysis, sorting and and grouping are very different things. *Sorting*, which is done in R via the `arrange()` verb, involves shuffling a data frame's rows into some order based on the values in a column.  *Grouping* is a way to aggregate and compute summary statistics such as a count (the number of items), sum (how much they add up to), or average for category. It means "make piles and compute statistics for each one." 
+
+### When to use filter vs. summary 
+
+Something that trips up beginners is a desire to see details and totals at the same time, which is more difficult than it sounds.
+
+A filter is used to *display* your selected items as a list. You'll get to see all of the detail and every column. As a convenience, R shows you how many items are in that filtered list (usually). That's great when you want to just look at them, or get more information about them. For instance, if you had a list of crimes by ZIP code, you might just want to see the list in your neighborhood -- where, exactly, were they? When did they happen? Was it at night or the morning? What crimes happened on which blocks?
+
+Aggregates are used when you *just want to see summaries* -- does my ZIP code have more crime than others? Are robberies more common than car theft in my Zip code, and how does that compare to others?
+
+In practice, you'll go back and forth between summary and detail. They're both important, just different.
+
+## Motivational exercise
 
 This exercise helps you internalize the differences between filtering and aggregating (or grouping). It uses a list of fatal police shootings logged by the Washington Post, downloaded in late 2022. The column names are pretty self-explanatory, and we'll only be looking at the `ethnicity` column. (Scroll to the right if you can't see it.)
 
@@ -42,8 +46,14 @@ This exercise helps you internalize the differences between filtering and aggreg
 
 ::: 
 
+
 ```{r}
-#| eval: true
+#| echo: false
+library(tidyverse)
+```
+
+
+```{r}
 
 waposhootings <- 
   readRDS ( 
@@ -64,7 +74,7 @@ Examine the data:
 #| eval: true
 
 waposhootings |> 
-  sample_n (100)
+  sample_n (50)
 
 
 ```
@@ -88,6 +98,7 @@ Copy and paste this code to list all fatal shootings of Black, non-Hispanic vict
 
 
 ```{r}
+#| eval: false
 
 waposhootings |> 
   filter ( ethnicity == "Black, non-Hispanic")
@@ -104,6 +115,7 @@ Run this code to get the number of White, non-Hispanic victims and write the ans
 
 
 ```{r}
+#| eval: false
 
 waposhootings |> 
   filter ( ethnicity == "White, non-Hispanic")
@@ -118,6 +130,7 @@ Run this filter to get the number of Hispanic victims, and write the answer down
 ::: 
 
 ```{r}
+#| eval: false
 
 waposhootings |> 
   filter ( ethnicity == "Hispanic")
@@ -160,6 +173,7 @@ Copy this code, one chunk at a time, into your Quarto document and run them to s
 1. Get the totals
 
 ```{r}
+#| eval: false
 
 waposhootings |> 
   summarize ( num_shootings = n() ) 
@@ -172,6 +186,7 @@ waposhootings |>
 2. Add a "group" to summarize by ethnicity
 
 ```{r}
+#| eval: false
 
 waposhootings |> 
   group_by (ethnicity) |> 
@@ -184,6 +199,7 @@ waposhootings |>
 3. Arrange to get the highest number at the top
 
 ```{r}
+#| eval: false
 
 waposhootings |> 
   group_by ( ethnicity) |> 
@@ -201,7 +217,6 @@ waposhootings |>
     This is one of the most common patterns you'll use in data reporting, and we can get much more sophisticated with it. Don't expect to understand it fully right away, but you should recognize the idea: If you find yourself filtering in order to count something, consider using grouping instead. 
 
 ```{r}
-#| eval: true
 
 waposhootings |> 
   group_by ( ethnicity) |> 
@@ -230,4 +245,3 @@ Typically, you'll go back and forth between aggregating and filtering, using eac
 On your Quarto document, try to write out, in plain English, what you just did. See if you can articulate what the difference between filtering and aggregating is, in your own words. 
 
 ::: 
-

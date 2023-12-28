@@ -53,6 +53,7 @@ book:
          - start-filter-sort-story.qmd
          - r-verb-filter.qmd
          - r-verb-mutate.qmd
+         - start-groupby.qmd
          - r-verb-groupby.qmd
          - r-verb-join.qmd
          - advanced-regex.qmd
@@ -93,6 +94,9 @@ format:
     number-depth: 2
     default-image-extension: png
     df-print: paged
+    knitr:
+      opts_chunk:
+        max.print: 50
     page-layout: full
     toc: true
     toc-location: right

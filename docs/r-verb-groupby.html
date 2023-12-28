@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data Reporting - 16&nbsp; Verbs in depth: Aggregating with groups</title>
+<title>Data Reporting - 17&nbsp; Verbs in depth: Aggregating with groups</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./r-verb-join.html" rel="next">
-<link href="./r-verb-mutate.html" rel="prev">
+<link href="./start-groupby.html" rel="prev">
 <link href="./assets/images/favicon.ico" rel="icon">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -113,7 +113,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./rdepth.html">Verbs of the tidyverse</a></li><li class="breadcrumb-item"><a href="./r-verb-groupby.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Verbs in depth: Aggregating with groups</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./rdepth.html">Verbs of the tidyverse</a></li><li class="breadcrumb-item"><a href="./r-verb-groupby.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Verbs in depth: Aggregating with groups</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -273,32 +273,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./start-groupby.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Summarizing detail into totals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./r-verb-groupby.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Verbs in depth: Aggregating with groups</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Verbs in depth: Aggregating with groups</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-verb-join.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Verbs in depth: Matchmaking with joins</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Verbs in depth: Matchmaking with joins</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./advanced-regex.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Regular Expressions for pattern matching</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regular Expressions for pattern matching</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./advanced-regex-r.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Inexact matching and regular expressions in R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Inexact matching and regular expressions in R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-recipes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Recipes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Recipes</span></span></a>
   </div>
 </li>
       </ul>
@@ -315,37 +321,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-reporting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Visualization as a reporting tool</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Visualization as a reporting tool</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-tables.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Report-making in R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Report-making in R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-demo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Visualization demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Visualization demo</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-practice.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Visualization exercise</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Visualization exercise</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-maps-begin.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Mapping: An introduction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Mapping: An introduction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-maps-firstmap.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">The first map</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">The first map</span></span></a>
   </div>
 </li>
       </ul>
@@ -362,25 +368,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./advanced-pdf.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Working with PDF files</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Working with PDF files</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./advanced-openrefine.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Open refine walkthrough</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Open refine walkthrough</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./advanced-scrape1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Scraping without programming</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Scraping without programming</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./advanced-scrape2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Introduction to scraping in R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Introduction to scraping in R</span></span></a>
   </div>
 </li>
       </ul>
@@ -424,22 +430,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">In this chapter:</h2>
    
   <ul>
-  <li><a href="#summarize-and-group_by-basics" id="toc-summarize-and-group_by-basics" class="nav-link active" data-scroll-target="#summarize-and-group_by-basics"><span class="header-section-number">16.1</span> <code>summarize</code> and <code>group_by</code> basics</a>
+  <li><a href="#summarize-for-statistics" id="toc-summarize-for-statistics" class="nav-link active" data-scroll-target="#summarize-for-statistics"><span class="header-section-number">17.1</span> <code>summarize</code> for statistics</a>
   <ul class="collapse">
-  <li><a href="#summarize" id="toc-summarize" class="nav-link" data-scroll-target="#summarize"><code>summarize</code></a></li>
+  <li><a href="#the-dreaded-na" id="toc-the-dreaded-na" class="nav-link" data-scroll-target="#the-dreaded-na">The dreaded <code>NA</code></a></li>
   <li><a href="#summary-functions" id="toc-summary-functions" class="nav-link" data-scroll-target="#summary-functions">Summary functions</a></li>
-  <li><a href="#grouping" id="toc-grouping" class="nav-link" data-scroll-target="#grouping">Grouping</a></li>
+  </ul></li>
+  <li><a href="#grouping-for-lists" id="toc-grouping-for-lists" class="nav-link" data-scroll-target="#grouping-for-lists"><span class="header-section-number">17.2</span> Grouping for lists</a>
+  <ul class="collapse">
+  <li><a href="#grouping-by-one-column" id="toc-grouping-by-one-column" class="nav-link" data-scroll-target="#grouping-by-one-column">Grouping by one column</a></li>
+  <li><a href="#grouping-by-more-than-one-column" id="toc-grouping-by-more-than-one-column" class="nav-link" data-scroll-target="#grouping-by-more-than-one-column">Grouping by more than one column</a></li>
   <li><a href="#a-shortcut-count" id="toc-a-shortcut-count" class="nav-link" data-scroll-target="#a-shortcut-count">A shortcut : <code>count()</code></a></li>
   </ul></li>
-  <li><a href="#using-and-converting-groups" id="toc-using-and-converting-groups" class="nav-link" data-scroll-target="#using-and-converting-groups"><span class="header-section-number">16.2</span> Using and converting groups</a>
+  <li><a href="#using-and-converting-groups" id="toc-using-and-converting-groups" class="nav-link" data-scroll-target="#using-and-converting-groups"><span class="header-section-number">17.3</span> Using and converting groups</a>
   <ul class="collapse">
   <li><a href="#converting-from-long-to-wide-data" id="toc-converting-from-long-to-wide-data" class="nav-link" data-scroll-target="#converting-from-long-to-wide-data">Converting from long to wide data</a></li>
   <li><a href="#totals-and-subtotals" id="toc-totals-and-subtotals" class="nav-link" data-scroll-target="#totals-and-subtotals">Totals and subtotals</a></li>
   </ul></li>
-  <li><a href="#practice" id="toc-practice" class="nav-link" data-scroll-target="#practice"><span class="header-section-number">16.3</span> Practice</a></li>
-  <li><a href="#understanding-grouped-data" id="toc-understanding-grouped-data" class="nav-link" data-scroll-target="#understanding-grouped-data"><span class="header-section-number">16.4</span> Understanding grouped data</a>
+  <li><a href="#practice" id="toc-practice" class="nav-link" data-scroll-target="#practice"><span class="header-section-number">17.4</span> Practice</a></li>
+  <li><a href="#understanding-grouped-data" id="toc-understanding-grouped-data" class="nav-link" data-scroll-target="#understanding-grouped-data"><span class="header-section-number">17.5</span> Postscript: Understanding grouped data</a>
   <ul class="collapse">
-  <li><a href="#tidy-data-and-long-vs.-wide-use-in-groups" id="toc-tidy-data-and-long-vs.-wide-use-in-groups" class="nav-link" data-scroll-target="#tidy-data-and-long-vs.-wide-use-in-groups">Tidy data and “long” vs.&nbsp;“wide” use in groups</a></li>
+  <li><a href="#what-does-tidy-data-have-to-do-with-groupings" id="toc-what-does-tidy-data-have-to-do-with-groupings" class="nav-link" data-scroll-target="#what-does-tidy-data-have-to-do-with-groupings">What does “tidy” data have to do with groupings?</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -449,7 +459,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="r-verb-groupby" class="quarto-section-identifier"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Verbs in depth: Aggregating with groups</span></span></h1>
+<h1 class="title"><span id="r-verb-groupby" class="quarto-section-identifier"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Verbs in depth: Aggregating with groups</span></span></h1>
 </div>
 
 
@@ -464,42 +474,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Editor’s note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>I have tried and tried to write this chapter so it makes sense. I can’t do it. Think of it instead as three mini-chapters. You might want to skip the third section for now and come back to it when you are more comfortable.</p>
-<ul>
-<li><a href="#summarize-and-group_by-basics">Section 1</a>: Basic counting and summing with <code>group_by</code> and <code>summarize</code></li>
-<li><a href="#using-and-converting-groups">Section 2</a>: Using and converting groups into spreadsheet (wide) format and percentages.</li>
-<li><a href="#understanding-grouped-data">Section 3</a>: Understanding tidy data and how it makes grouping so powerful. You’ll find that things you expect to do for “wide” data is more efficiently done with groups. It’s counterintuitive.</li>
-</ul>
-</div>
-</div>
-<div class="alert alert-secondary">
-<div class="alert-heading font-weight-bolder fs-3">
-<p>In this chapter:</p>
-</div>
-<ul>
-<li><code>group_by</code> and <code>summarize</code> are the tidyverse’s version of Excel pivot tables, with many more possibilities.</li>
-<li>R is picky and will create different rows for the tiniest difference between values, such as “Lettuce” vs.&nbsp;“lettuce”.</li>
-<li><code>group_by</code> and <code>summarize</code> often go together. <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
-<li>You will often have to accommodate missing data, or the dreaded “NA” values.</li>
-<li>Compute percent of total using grouped data</li>
-<li>Go from “long” database format to “wide” spreadsheet format and back using <code>pivot_</code> functions.</li>
-<li>An easy shortcut: <code>count()</code></li>
-<li>Understanding grouped data as a “tidy” data structure with magical powers</li>
-</ul>
-</div>
 <p>This chapter continues with the Paycheck Protection Program, or PPP, loans in Arizona. Full documentation of the dataset is in the <a href="appendix-ppp.html">Appendix</a>. If you haven’t already, look through that documentation before you start.</p>
-<div class="alert-success alert-dothis">
-<p>As you have in the last several chapters, open your R project and create a new Quarto document with the <a href="https://gist.github.com/sarahcnyt/e60ad2d7ccf65498fc88791f3bb683ae">front matter and libraries</a>.</p>
+<div class="callout-dothis">
+<p>To follow along, open your R project and create a new Quarto document with the <a href="https://gist.github.com/sarahcnyt/e60ad2d7ccf65498fc88791f3bb683ae">front matter and libraries</a>.</p>
 <p>Then load the saved PPP data with this code chunk:</p>
 </div>
 <div class="cell">
@@ -509,14 +486,12 @@ Editor’s note
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                 )</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>               )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="summarize-and-group_by-basics" class="level2" data-number="16.1">
-<h2 data-number="16.1" class="anchored" data-anchor-id="summarize-and-group_by-basics"><span class="header-section-number">16.1</span> <code>summarize</code> and <code>group_by</code> basics</h2>
-<section id="summarize" class="level3">
-<h3 class="anchored" data-anchor-id="summarize"><code>summarize</code></h3>
-<p><code>summarize</code><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> computes summary statistics such as the number of rows in a data frame or the sum of dollar values. It removes the original columns completely, and only produces the summary statistics you compute within that statement. <strong>Using <code>summarize</code> alone produces a data frame with one row.</strong> It’s the equivalent of putting nothing in your pivot table in Excel other than the “Values” area.</p>
+<section id="summarize-for-statistics" class="level2" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="summarize-for-statistics"><span class="header-section-number">17.1</span> <code>summarize</code> for statistics</h2>
+<p><code>summarize</code> computes summary statistics such as the number of rows in a data frame or the sum of dollar values. It removes the original columns completely, and only produces the summary statistics you compute within that statement. <strong>Using <code>summarize</code> alone produces a data frame with one row.</strong> It’s the equivalent of putting nothing in your pivot table in Excel other than the “Values” area.</p>
 <p>Another way to think of <code>summarize</code> is that it collapses your list of items (loans, in our example) into a statistical report.</p>
-<section id="the-dreaded-na" class="level4">
-<h4 class="anchored" data-anchor-id="the-dreaded-na">The dreaded <code>NA</code></h4>
+<section id="the-dreaded-na" class="level3">
+<h3 class="anchored" data-anchor-id="the-dreaded-na">The dreaded <code>NA</code></h3>
 <p>You saw in the <code>mutate</code> section that missing values are always a problem. Because they’re unknown, they can’t match anything else, they can’t be considered 0, and they can warp any answers you get. But there’s usually nothing you can do about missing data, so you have to tell the program exactly what to do about them.</p>
 <p>There are two choices:</p>
 <ul>
@@ -524,21 +499,32 @@ Editor’s note
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ppp_orig <span class="sc">|&gt;</span> </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span> ( <span class="fu">sum</span>(forgiveness_amount))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span> ( <span class="at">total =</span> <span class="fu">sum</span>(forgiveness_amount))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["sum(forgiveness_amount)"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"NA"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["total"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"NA"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
 </div>
 <ul>
-<li>Ignore them in a computation completely, effectively removing that value from your calculation. Be careful with this - it means that two summary statistics (say,<code>n()</code> and <code>sum()</code>) could be using a different set of rows!</li>
+<li>Ignore them in a computation completely, effectively removing that value from your calculation.</li>
 </ul>
 <p>There’s no right answer, and it depends on what you’re doing. In some cases, you know that they stand for the value <code>0</code>, and in others you don’t. We will usually ignore them by adding an <em>argument</em> to every summary function that could be infected by them : <code>na.rm = TRUE</code> , which means, “remove NA’s before you do anything.”.</p>
-</section>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ppp_orig <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span> ( <span class="at">total =</span> <span class="fu">sum</span> (forgiveness_amount, <span class="at">na.rm=</span><span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["total"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"11751650990"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
 </section>
 <section id="summary-functions" class="level3">
 <h3 class="anchored" data-anchor-id="summary-functions">Summary functions</h3>
@@ -554,15 +540,15 @@ Editor’s note
 </ul>
 <p>When used on the whole data frame, it’s customary to just glimpse the output, since there’s only one row:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ppp_orig <span class="sc">|&gt;</span> </span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span> ( <span class="fu">n</span>(), </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mean</span> (amount, <span class="at">na.rm=</span>T), </span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mean</span> (forgiveness_amount, <span class="at">na.rm=</span>T), </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>              <span class="fu">min</span> (date_approved, <span class="at">na.rm=</span>T), </span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>              <span class="fu">max</span> (date_approved, <span class="at">na.rm=</span> T), </span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>              <span class="fu">n_distinct</span> ( business_type)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ppp_orig <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span> ( <span class="fu">n</span>(), </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mean</span> (amount, <span class="at">na.rm=</span>T), </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mean</span> (forgiveness_amount, <span class="at">na.rm=</span>T), </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>              <span class="fu">min</span> (date_approved, <span class="at">na.rm=</span>T), </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>              <span class="fu">max</span> (date_approved, <span class="at">na.rm=</span> T), </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>              <span class="fu">n_distinct</span> ( business_type)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 1
 Columns: 6
@@ -576,16 +562,16 @@ $ `n_distinct(business_type)`           &lt;int&gt; 24</code></pre>
 </div>
 <p>This produced a data frame with 1 row and 5 columns. The column names are the same as the formulas that created them, which is difficult to work with. Create new column names using the name (in back-ticks if it’s got spaces or special characters) and assign them the values of the summaries using the <code>=</code> sign:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ppp_orig <span class="sc">|&gt;</span> </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span> ( <span class="at">number_of_rows =</span>  <span class="fu">n</span>(), </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">mean_amount =</span> <span class="fu">mean</span> (amount, <span class="at">na.rm=</span>T),    </span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">median_amount =</span> <span class="fu">median</span> (amount, <span class="at">na.rm=</span>T),</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">mean_forgiven =</span> <span class="fu">mean</span> (forgiveness_amount, <span class="at">na.rm=</span>T),   <span class="co"># doesn't count the missing as zero!</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">first_loan =</span> <span class="fu">min</span> (date_approved, <span class="at">na.rm=</span>T),   </span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">last_loan =</span> <span class="fu">max</span> (date_approved, <span class="at">na.rm=</span> T), </span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">business_type_count =</span> <span class="fu">n_distinct</span>(business_type)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ppp_orig <span class="sc">|&gt;</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span> ( <span class="at">number_of_rows =</span>  <span class="fu">n</span>(), </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">mean_amount =</span> <span class="fu">mean</span> (amount, <span class="at">na.rm=</span>T),    </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">median_amount =</span> <span class="fu">median</span> (amount, <span class="at">na.rm=</span>T),</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">mean_forgiven =</span> <span class="fu">mean</span> (forgiveness_amount, <span class="at">na.rm=</span>T),   </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">first_loan =</span> <span class="fu">min</span> (date_approved, <span class="at">na.rm=</span>T),   </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">last_loan =</span> <span class="fu">max</span> (date_approved, <span class="at">na.rm=</span> T), </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">business_type_count =</span> <span class="fu">n_distinct</span>(business_type)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 1
 Columns: 7
@@ -598,23 +584,25 @@ $ last_loan           &lt;date&gt; 2021-06-29
 $ business_type_count &lt;int&gt; 24</code></pre>
 </div>
 </div>
+<p>Note that the mean forgiven removes those with missing values for the forgiven amount, which is wrong! We need to turn them into zeroes first.</p>
 </section>
-<section id="grouping" class="level3">
-<h3 class="anchored" data-anchor-id="grouping">Grouping</h3>
-<p>Now that you know how to summarize the whole data frame, you’ll want to start getting totals by category. This is the same thing as a pivot table – the column names that create the “groups” are the equivalent of the Rows area a spreadsheet pivot table:</p>
+</section>
+<section id="grouping-for-lists" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="grouping-for-lists"><span class="header-section-number">17.2</span> Grouping for lists</h2>
+<p>Now that you know how to summarize the whole data frame, you’ll want to start getting totals by category. This is the same thing as a pivot table in spreadsheets: the column names that create the “groups” are the equivalent of the Rows area a spreadsheet pivot table:</p>
 <p><img src="assets/images/r-verb-group-pivotcompare.png" class="img-fluid" style="width:100.0%"></p>
-<section id="grouping-by-one-column" class="level4">
-<h4 class="anchored" data-anchor-id="grouping-by-one-column">Grouping by one column</h4>
-<p>In the PPP data, the “draw” refers to which of the two programs was involved - the original one, or the one passed by Congress in late 2020.</p>
+<section id="grouping-by-one-column" class="level3">
+<h3 class="anchored" data-anchor-id="grouping-by-one-column">Grouping by one column</h3>
+<p>In the PPP data, the “draw” refers to which of the two programs was involved - the original one created in April 2020, or the one with stricter criteria passed by Congress that December.</p>
 <p>Here’s how we’d get some key statistics by draw:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ppp_orig <span class="sc">|&gt;</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span> ( draw ) <span class="sc">|&gt;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span> ( <span class="at">first_loan =</span> <span class="fu">min</span> ( date_approved ), </span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">total_amount =</span> <span class="fu">sum</span> (amount), </span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">total_forgiven =</span> <span class="fu">sum</span> (forgiveness_amount, <span class="at">na.rm=</span>T), </span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>              <span class="st">`</span><span class="at"># of loans</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">n</span>() </span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ppp_orig <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span> ( draw ) <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span> ( <span class="at">first_loan =</span> <span class="fu">min</span> ( date_approved ), </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">total_amount =</span> <span class="fu">sum</span> (amount), </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">total_forgiven =</span> <span class="fu">sum</span> (forgiveness_amount, <span class="at">na.rm=</span>T), </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>              <span class="st">`</span><span class="at"># of loans</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">n</span>() </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
@@ -626,8 +614,7 @@ $ business_type_count &lt;int&gt; 24</code></pre>
 </div>
 <p>Here are a couple of things to note about grouped output:</p>
 <ul>
-<li>The only columns saved are the ones that are shown in either the <code>group_by</code> or <code>summarize</code> rows. All of the other original columns have been eliminated. You no longer have them to work with .<br>
-</li>
+<li>The only columns saved are the ones that are shown in either the <code>group_by</code> or <code>summarize</code> rows. All of the other original columns have been eliminated. You no longer have them to work with .</li>
 <li>The names of the columns for the summary statistics are the ones defined before the “=” sign in the summarize statement.</li>
 <li>TRAP! Don’t ever name your summary columns the same thing as a group_by column. It will override those names, and your output will be unintelligible.</li>
 </ul>
@@ -644,38 +631,18 @@ Naming your columns
 <p>Note that the name of the columns doesn’t always follow our standard. In this case, <code># of loans</code> has a special character and spaces. In order to create or use it, you must enclose them in back-tics (`) or you’ll get an error.</p>
 </div>
 </div>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Expand your table to a new window
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<div class="grid">
-<div class="g-col-4 pt-2">
-<p>If you’re using visual mode, the table that gets produced can be really squished. To see more of it, pop it out into its own window using the leftmost button. <a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
-</div>
-<div class="g-col-8 d-flex justify-content-end mx-4">
-<p><img src="assets/images/r-groupby-squished.png" class="img-fluid" style="width:100.0%"></p>
-</div>
-</div>
-</div>
-</div>
 </section>
-<section id="grouping-by-more-than-one-column" class="level4">
-<h4 class="anchored" data-anchor-id="grouping-by-more-than-one-column">Grouping by more than one column</h4>
+<section id="grouping-by-more-than-one-column" class="level3">
+<h3 class="anchored" data-anchor-id="grouping-by-more-than-one-column">Grouping by more than one column</h3>
 <p>If you wanted to know the numbers outstanding and forgiven by draw, you could add another column to the group by:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ppp_orig <span class="sc">|&gt;</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span> ( loan_status, draw ) <span class="sc">|&gt;</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span> ( <span class="at">first_loan =</span> <span class="fu">min</span> ( date_approved ), </span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">total_amount =</span> <span class="fu">sum</span> (amount), </span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">total_forgiven =</span> <span class="fu">sum</span> (forgiveness_amount, <span class="at">na.rm=</span>T), </span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">loan_ct =</span> <span class="fu">n</span>() </span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ppp_orig <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span> ( loan_status, draw ) <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span> ( <span class="at">first_loan =</span> <span class="fu">min</span> ( date_approved ), </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">total_amount =</span> <span class="fu">sum</span> (amount), </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">total_forgiven =</span> <span class="fu">sum</span> (forgiveness_amount, <span class="at">na.rm=</span>T), </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">loan_ct =</span> <span class="fu">n</span>() </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
@@ -685,33 +652,45 @@ Expand your table to a new window
 </div>
 </div>
 </div>
-<p>The <code>summarize</code> verb here has created a data frame that has only the variables you identified in the <code>group_by</code> and <code>summarize</code> commands - everything else has been removed, since it’s a <em>summary</em> of your data.</p>
-</section>
 </section>
 <section id="a-shortcut-count" class="level3">
 <h3 class="anchored" data-anchor-id="a-shortcut-count">A shortcut : <code>count()</code></h3>
 <p>If all you want to do is count or add by group, you can use the <code>count()</code> function as a shortcut. It does the exact same thing as a combination of <code>group_by()</code> and <code>summarize( n() )</code> and <code>arrange()</code>` to get the number of items in each category, sorted by the most frequent to least:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ppp_orig <span class="sc">|&gt;</span> </span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span> ( loan_status, draw, </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">sort=</span><span class="cn">TRUE</span>,</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">name =</span> <span class="st">"loans"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ppp_orig <span class="sc">|&gt;</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span> ( loan_status, draw, </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">sort=</span><span class="cn">TRUE</span>,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">name =</span> <span class="st">"loan_ct"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["loan_status"],"name":[1],"type":["chr"],"align":["left"]},{"label":["draw"],"name":[2],"type":["chr"],"align":["left"]},{"label":["loans"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"Paid in Full","2":"First","3":"115139"},{"1":"Paid in Full","2":"Second","3":"36646"},{"1":"Exemption 4","2":"First","3":"13573"},{"1":"Exemption 4","2":"Second","3":"3898"},{"1":"Active Un-Disbursed","2":"First","3":"3"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["loan_status"],"name":[1],"type":["chr"],"align":["left"]},{"label":["draw"],"name":[2],"type":["chr"],"align":["left"]},{"label":["loan_ct"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"Paid in Full","2":"First","3":"115139"},{"1":"Paid in Full","2":"Second","3":"36646"},{"1":"Exemption 4","2":"First","3":"13573"},{"1":"Exemption 4","2":"Second","3":"3898"},{"1":"Active Un-Disbursed","2":"First","3":"3"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
 </div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+New ways to summarize
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A new version of the tidyverse, in 2023, has changed some of the options for the <code>summarize()</code> verb that make grouping unnecessary much of the time, but it’s confusing. I’m skipping it for now.</p>
+</div>
+</div>
 </section>
 </section>
-<section id="using-and-converting-groups" class="level2" data-number="16.2">
-<h2 data-number="16.2" class="anchored" data-anchor-id="using-and-converting-groups"><span class="header-section-number">16.2</span> Using and converting groups</h2>
+<section id="using-and-converting-groups" class="level2" data-number="17.3">
+<h2 data-number="17.3" class="anchored" data-anchor-id="using-and-converting-groups"><span class="header-section-number">17.3</span> Using and converting groups</h2>
 <section id="converting-from-long-to-wide-data" class="level3">
 <h3 class="anchored" data-anchor-id="converting-from-long-to-wide-data">Converting from long to wide data</h3>
-<p>Typically, if you want to just look at your data, you’d want to see one of the columns down the side (rows in pivot tables), and another across the top (columns in pivot tables). Helpfully, a new verb called <code>pivot_wider()</code> does just that – pivots your data from long to wide.</p>
+<p>You’ve looked at different ways to think about data, but when we talk about “granular” data, “database” thinking or “tidy” data, we generally mean we’re working with what some people call “long” rather than “wide” data. That is, there are many rows but few columns.</p>
+<p>But your instinct is to want to look at a rectangle of wide data, with the values of one column down the side and another across the top. Helpfully, a function called <code>pivot_wider()</code> does just that – pivots your data from long to wide.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <p>Start with a simple query with two grouping columns (note that I’ve called the number of loans <code>loan_ct</code>, so it’s easier to work with later on.</p>
 <div class="cell quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
@@ -727,16 +706,15 @@ Expand your table to a new window
 </div>
 <p>This is really hard to read. Turn it on its head with <code>pivot_wider()</code>:</p>
 <p><img src="assets/images/r-groupby-pivotwider.png" class="img-fluid"></p>
-<p>Normally, you’ll only want to have one summary statistic shown in a rectangle, with one column spread across the top and another column shown in rows. In R, this is done by “pivoting” your tables. There are a lot of advanced options in pivot functions that let you show more than one statistic at a time, and tell R how to name them. There will be a chapter later on that addresses a lot of the problems you have in reading tables, so we’ll put that off for now.</p>
+<p>Normally, you’ll only want to have one summary statistic shown in a rectangle, with one column spread across the top and another column shown in rows. There are a lot of advanced options in pivot functions that let you show more than one statistic at a time, and tell R how to name them. There will be a chapter later on that addresses a lot of the problems you have in reading tables, so we’ll put that off for now.</p>
 <p>Here’s an explanation of what the command looks like.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>pivot_wider ( id_cols = *list of columns to keep down the side* , </span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                names_from = *the name of the column supplying the headings across the top*, </span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                values_from = *the values you want to show in each cell* , </span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                values_fill = *what you want to show if it's empty, usually 0 *</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pivot_wider</span> ( <span class="at">id_cols =</span>  column that you want to see as is down the side,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">names_from =</span>  column with the words you want to see across the top, </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> column with the numbers you want <span class="cf">in</span> the middle</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>              ) </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -747,22 +725,23 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Your instinct will often be that you want to see your data in this form, but you can and should actually do most of your work without it. This is a core concept of the tidyverse, which is detailed in this chapter’s last section. But even if you don’t look at that part, remember that pivoting to a “wide” format is usually your last step, not one of your first.</p>
+<p>Your instinct will be to turn your data into one of these wider tables right from the start, but try to overcome it. The tidyverse expects to do most of its work in “long” format, saving the “wide” format just for printing.</p>
 </div>
 </div>
 </section>
 <section id="totals-and-subtotals" class="level3">
 <h3 class="anchored" data-anchor-id="totals-and-subtotals">Totals and subtotals</h3>
 <p>You noticed that when you created the summaries, there was no option to create a “percent of total” such as the percent of loans in each draw, or the percent of money that had been forgiven.</p>
-<p>You can use summary functions outside a summarize statement! This means that you can compute the percent of total, the same way you used an option in pivot tables. This took me a long time to understand, so try to slow down, and just try it a few times! When you look carefully at your output, you’ll start to understand it better.</p>
+<p>You can use summary functions outside a summarize statement!</p>
+<p>This means that you can compute the percent of total, the same way you used an option in pivot tables. This took me a long time to understand, so try to slow down, and just try it a few times! When you look carefully at your output, you’ll start to understand it better.</p>
 <p>The trick is to summarize, then use <code>mutate</code> to add a column with the percentages made out of totals:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>ppp_orig <span class="sc">|&gt;</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span> ( draw) <span class="sc">|&gt;</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span> ( <span class="at">loan_count =</span> <span class="fu">n</span>() ) <span class="sc">|&gt;</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span> ( <span class="at">all_loans =</span> <span class="fu">sum</span> (loan_count), </span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">pct_of_total =</span> loan_count <span class="sc">/</span> all_loans <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>           )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ppp_orig <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span> ( draw) <span class="sc">|&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span> ( <span class="at">loan_count =</span> <span class="fu">n</span>() ) <span class="sc">|&gt;</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span> ( <span class="at">all_loans =</span> <span class="fu">sum</span> (loan_count), </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">pct_of_total =</span> loan_count <span class="sc">/</span> all_loans <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>           )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
@@ -776,11 +755,11 @@ Tip
 <h4 class="anchored" data-anchor-id="what-happens-if-you-have-more-than-one-group">What happens if you have more than one group?</h4>
 <p>This is where the idea of grouped data gets a little confusing. It depends on exactly how you did your summarize statement. But if you use the default mechanism, the “all_loans” is the subtotal. The default behavior is that the “groups” are kept for all but the last column listed in the group_by statement, meaning any summaries you do off of the data will refer to the subtotal.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ppp_orig <span class="sc">|&gt;</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span> ( draw, loan_status) <span class="sc">|&gt;</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span> ( <span class="at">loan_count =</span> <span class="fu">n</span>() ) <span class="sc">|&gt;</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span> ( <span class="at">loans_in_draw =</span> <span class="fu">sum</span> (loan_count),</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">pct_of_draw =</span> loan_count <span class="sc">/</span> loans_in_draw <span class="sc">*</span> <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>ppp_orig <span class="sc">|&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span> ( draw, loan_status) <span class="sc">|&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span> ( <span class="at">loan_count =</span> <span class="fu">n</span>() ) <span class="sc">|&gt;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span> ( <span class="at">loans_in_draw =</span> <span class="fu">sum</span> (loan_count),</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">pct_of_draw =</span> loan_count <span class="sc">/</span> loans_in_draw <span class="sc">*</span> <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
@@ -792,16 +771,20 @@ Tip
 </div>
 <p>Here’s a pretty typical way to do this: Create a subtotal, use it for your percentages, then pivot the percentages:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>ppp_orig <span class="sc">|&gt;</span> </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span> ( draw, loan_status) <span class="sc">|&gt;</span> </span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span> ( <span class="at">loan_count =</span> <span class="fu">n</span>() ) <span class="sc">|&gt;</span> </span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span> ( <span class="at">loans_in_draw =</span> <span class="fu">sum</span>(loan_count), </span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">pct_of_draw =</span> loan_count <span class="sc">/</span> loans_in_draw <span class="sc">*</span> <span class="dv">100</span> ) <span class="sc">|&gt;</span> </span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span> ( </span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">id_cols =</span> <span class="fu">c</span>(draw, loans_in_draw), </span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> loan_status, </span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> pct_of_draw,</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_fill =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ppp_orig <span class="sc">|&gt;</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span> ( draw, loan_status) <span class="sc">|&gt;</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span> ( <span class="at">loan_count =</span> <span class="fu">n</span>() ) <span class="sc">|&gt;</span> </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span> ( <span class="at">loans_in_draw =</span> <span class="fu">sum</span>(loan_count), </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">pct_of_draw =</span> loan_count <span class="sc">/</span> loans_in_draw <span class="sc">*</span> <span class="dv">100</span> ) <span class="sc">|&gt;</span> </span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span> ( </span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">id_cols =</span> <span class="fu">c</span>(draw, loans_in_draw), </span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> loan_status, </span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> pct_of_draw,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_fill =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'draw'. You can override using the
+`.groups` argument.</code></pre>
+</div>
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
@@ -816,8 +799,8 @@ Tip
 </section>
 </section>
 </section>
-<section id="practice" class="level2" data-number="16.3">
-<h2 data-number="16.3" class="anchored" data-anchor-id="practice"><span class="header-section-number">16.3</span> Practice</h2>
+<section id="practice" class="level2" data-number="17.4">
+<h2 data-number="17.4" class="anchored" data-anchor-id="practice"><span class="header-section-number">17.4</span> Practice</h2>
 <p>Putting together the grouping and summarizing, along with the commands you learned last chapter to <code>filter</code>, <code>arrange</code> and display the <code>head()</code> and <code>tail()</code> of a dataset should equip you to write the code for these questions:</p>
 <ol type="1">
 <li>Which lenders provided the most loans?</li>
@@ -827,12 +810,12 @@ Tip
 <li>Try to compute the percent of loans that went to projects in each county in Arizona. This will require first filtering, then grouping.</li>
 </ol>
 </section>
-<section id="understanding-grouped-data" class="level2" data-number="16.4">
-<h2 data-number="16.4" class="anchored" data-anchor-id="understanding-grouped-data"><span class="header-section-number">16.4</span> Understanding grouped data</h2>
+<section id="understanding-grouped-data" class="level2" data-number="17.5">
+<h2 data-number="17.5" class="anchored" data-anchor-id="understanding-grouped-data"><span class="header-section-number">17.5</span> Postscript: Understanding grouped data</h2>
 <p>You may have noticed an odd warning after you run the code with multiple grouping columns, for example:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="in">`summarise()`</span> has grouped output by 'loan_status'. You can override using the <span class="in">`.groups`</span> argument." </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="in">`summarise()`</span> has grouped output by 'draw'. You can override using the <span class="in">`.groups`</span> argument." </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="what-does-that-mean" class="level4">
 <h4 class="anchored" data-anchor-id="what-does-that-mean">What does that mean?</h4>
@@ -842,9 +825,9 @@ Tip
 <p>The <a href="https://dplyr.tidyverse.org/articles/grouping.html">documentation of grouped data</a> provides details of how each of the tidyverse’s verbs handle grouped data.</p>
 <p>Here’s what a “glimpse()” looks like for a data frame that has retained some groups:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>ppp_orig <span class="sc">|&gt;</span> </span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span> ( loan_status, date_approved<span class="sc">:</span>amount) <span class="sc">|&gt;</span> </span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span> ( loan_status) <span class="sc">|&gt;</span> <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>ppp_orig <span class="sc">|&gt;</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span> ( loan_status, date_approved<span class="sc">:</span>amount) <span class="sc">|&gt;</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span> ( loan_status) <span class="sc">|&gt;</span> <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 169,259
 Columns: 11
@@ -866,16 +849,16 @@ $ amount           &lt;dbl&gt; 10000000, 10000000, 10000000, 10000000, 10000000,
 </section>
 <section id="getting-rid-of-the-message" class="level4">
 <h4 class="anchored" data-anchor-id="getting-rid-of-the-message">Getting rid of the message</h4>
-<p>You can do three things to get rid of the message. I suggest the first of these, since it makes you explicitly decide what to do each time, depending on your goal:</p>
+<p>You can do two things to get rid of the message. I suggest the first of these, since it makes you explicitly decide what to do each time, depending on your goal:</p>
 <ol type="1">
 <li>Add a <code>.groups=...</code> argument that looks like this at the end of the <code>summarize</code> statement. This example tells R to do what it does by default, with no warning:</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>ppp_orig <span class="sc">|&gt;</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span> ( loan_status, draw ) <span class="sc">|&gt;</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span> ( <span class="st">`</span><span class="at"># of loans</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">n</span>() , </span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">.groups =</span> <span class="st">"drop_last"</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>ppp_orig <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span> ( loan_status, draw ) <span class="sc">|&gt;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span> ( <span class="st">`</span><span class="at"># of loans</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">n</span>() , </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">.groups =</span> <span class="st">"drop_last"</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
@@ -887,56 +870,15 @@ $ amount           &lt;dbl&gt; 10000000, 10000000, 10000000, 10000000, 10000000,
 </div>
 <p>The other possibilities are : <code>.groups="drop"</code> and <code>".groups="keep"</code> (Note the period before the word “groups”. I have no idea why, but sometimes options are indicated this way.)</p>
 <ol start="2" type="1">
-<li>Suppress all messages either for the whole document or for the code chunk. Here’s what your YAML would look like if you added <code>message: false</code> to it. (This has the benefit of suppressing a lot of other annoying messages that you might not care about as well):</li>
-</ol>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"YOUR TITLE - CHANGE THIS"</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"YOUR NAME - CHANGE THIS"</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">code-tools</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">embed-resources</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">df-print</span><span class="kw">:</span><span class="at"> paged</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">page-layout</span><span class="kw">:</span><span class="at"> full</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="fu">execute</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">message</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<ol start="3" type="1">
 <li><p>Add a line to your setup chunk, changing the default behavior through the systemwide options:</p>
 <p><code>options(dplyr.summarise.inform = FALSE)</code></p></li>
 </ol>
 </section>
-<section id="tidy-data-and-long-vs.-wide-use-in-groups" class="level3">
-<h3 class="anchored" data-anchor-id="tidy-data-and-long-vs.-wide-use-in-groups">Tidy data and “long” vs.&nbsp;“wide” use in groups</h3>
-<div class="otro-blockquote mt-3">
-<p>Like families, tidy datasets are all alike but every messy dataset is messy in its own way.</p>
-<p>– Hadley Wickham, with apologies to Leo Tolstoy</p>
-</div>
-<p>The concept of tidy data was outlined by Hadley Wickham in a <a href="https://vita.had.co.nz/papers/tidy-data.pdf">seminal paper</a> nearly a decade ago, which defined a specific way of organizing data values within a dataset. .Wickham argues that by following the principle, you know how you would LIKE your data to be organized, and don’t have to figure it out every time you encounter a new dataset. But a lot of people have trouble internalizing the concepts of tidy data. Once you do, everything else we’re doing in this book makes more sense.</p>
-<ul>
-<li>Each column is a “variable”, in that it defines a single attribute, such as height, weight, or zip code.</li>
-<li>Each row an “observation”, which contains all values of the variables measured on the same unit (say, person)</li>
-<li>Each “value” (usually number, text or date) belongs to a variable and an observation – it lies in the intersection of the two, and is seen in a cell.</li>
-<li>Each dataset, or spreadsheet, or data frame, refers to a different type of unit. There would be one for people, another for traffic tickets and a third for vehicles. These are the nouns that we’ve talked so much about.</li>
-</ul>
-<p>Our PPP data starts in tidy form, but we converted it to un-tidy data by pivoting it.</p>
-<section id="real-world-non-tidy-data" class="level4">
-<h4 class="anchored" data-anchor-id="real-world-non-tidy-data">Real world non-tidy data</h4>
-<p>Wickham laid out several ways that we see data when it’s not tidy. The three most common are:</p>
-<ol type="1">
-<li><p>Column headings are values, not variables. When a column heading shows each year, it is showing the value of the year variable, not something separate. This happens most of the time when you obtain data that is intended for publication, not analysis.</p></li>
-<li><p>Multiple variables are stored in one column. This can be taken too far, but you have to decide what the important level of detail is: Full name, or first name and last name? It can also come in data like the Census Bureau, where a value might represent both an age and a gender. (Male, 25-54 years old )</p></li>
-<li><p>Rows might contain different levels of detail. This also comes from getting printouts rather than original datasets, where subtotals and totals are shown in rows, not in a separate table. We have talked about the noun represented by each row – it should always be the same, so students and schools shouldn’t be in the same table; schools and school districts should be separated.</p></li>
-</ol>
-</section>
-<section id="what-does-this-have-to-do-with-grouped-data" class="level4">
-<h4 class="anchored" data-anchor-id="what-does-this-have-to-do-with-grouped-data">What does this have to do with grouped data?</h4>
-<p>Grouped data effectively breaks out values of categories and treats them independently, which is the equivalent of temporarily treating them as their own column.</p>
-<p>It’s somewhat difficult in the tidyverse to summarize across columns – it really wants to summarize rows. In a spreadsheet, it’s just as easy to write an <code>=sum(B1:J1)</code> as it is <code>=sum(B1:B12)</code>. But the tidyverse is only expecting you do to the second version (rows B1:b12), not the first. The reason is that it would make no sense to sum truly different variables (like adding up income and house price)!</p>
-<p>It means that in our R journey so far, grouped data is the first place you would have encountered situations in which your instinct is to wreck a perfectly good dataset.</p>
-<p>We’ll come back to all of that, but just remember that it’s possible to do all kinds of computations within a group that you’d normally think you want to do across columns. One example is, say, the change in COVID cases by county. Computing monthly percent changes would look something like this using the <code>lag()</code> function to get the previous row. This assumes the “tidy” data looks something like this:</p>
+<section id="what-does-tidy-data-have-to-do-with-groupings" class="level3">
+<h3 class="anchored" data-anchor-id="what-does-tidy-data-have-to-do-with-groupings">What does “tidy” data have to do with groupings?</h3>
+<p>Grouped data effectively breaks out values of categories and treats them independently, which is the equivalent of temporarily treating them as their own data frame.</p>
+<p>It’s somewhat difficult in the tidyverse to summarize across columns – it really wants to summarize rows. In a spreadsheet, it’s just as easy to write an <code>=sum(B1:J1)</code> as it is <code>=sum(B1:B12)</code>. That’s not true in R journey so far. This is probably the first time your instinct would be to wreck a perfectly good dataset.</p>
+<p>We’ll come back to all of that, but just remember that it’s possible to do all kinds of computations within a group that you’d normally think you want to do across columns. One example is, say, percent change over time. Instead of trying to compute them one by one, you can use groups and the lag() function to do math that depends on a previous row.</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -973,19 +915,15 @@ $ amount           &lt;dbl&gt; 10000000, 10000000, 10000000, 10000000, 10000000,
   mutate ( change = cases - lag(cases) , 
            pct_change = change / lag(cases) * 100 ) </code></pre>
 <p>This method will start over for each county, so it will be <code>NA</code> for the first month within each county.</p>
-<p>(Your instinct may have been to pivot the data to show each month in its own column, then compute the percent change on each of those columns – something that could get really old really quickly. )</p>
 <p>This is just one example of how grouped data is quite powerful when used correctly. There are many others, such as extracting the most recent event in a court history by case. Try to think about how one group would be computed, and then don’t worry how the rest will work – R will do that thinking for you.</p>
 
 
 </section>
 </section>
-</section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>Beginning in February 2023, there is a new version of <code>summarize</code> that eliminates the need to group the data first. We’re not using that version, and I don’t want to confuse you, so I’m ignoring it. Future versions of this chapter will <em>try</em> to explain it.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>A synonym for the British spelling <code>summarise</code>, which you’ll see in a lot of examples<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>This only works if you have <code>df-print: paged</code> in your front matter (YAML between three dashes at the top<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Yes, there is something called <code>pivot_longer()</code>, which lets you turn rectangular data into the tidy form.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -1225,13 +1163,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
-      <a href="./r-verb-mutate.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Verbs in depth: New from old data with Mutate</span></span>
+      <a href="./start-groupby.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Summarizing detail into totals</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./r-verb-join.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Verbs in depth: Matchmaking with joins</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Verbs in depth: Matchmaking with joins</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

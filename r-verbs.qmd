@@ -1,3 +1,9 @@
+---
+knitr: 
+  opts_chunk: 
+    max.print: 10000
+---
+
 # A quick tour of verbs {#r-verbs}
 
 We've described the Tidyverse as a set of packages linked together using common syntax and grammar. Much of its power comes from its basic **verbs** ^[Technically, these are in a library called `dplyr`, but it's always included with the tidyverse] . Mastering just a handful of them will equip you to do most of what a data journalist does, and will prepare you for more complicated endeavors.
@@ -68,7 +74,12 @@ top100 |>
 
 ```
 
-So Taylor Swift has songs on the Billboard Hot 100 list more than 1,300 times since 2008. Note that the output only shows you the first 100 pages of your data frame, even if it would go on much longer. Clicking on the 100th page show you it only gets you to 2021.
+So Taylor Swift has songs on the Billboard Hot 100 list more than 1,300 times since 2008. 
+
+::: callout-important
+### Don't count on filtering to count items!
+Depending on your output formats, there are hard-coded limits to the number of rows that R will show you. With "paged" output like this, it will only show you the first 10,000 and won't tell you how many more there are. We'll come back to this.
+::: 
 
 Here's how you'd list only her appearances at the top of the list -- No. 1 is the lowest possible value for `this_week`, indicating the rank , then pick out just a few columns to list in order:
 
@@ -87,7 +98,7 @@ Her first No. 1 hit was in 2012, and her most recent was in  November 2023
 
 ## Summary statistics in R
 
-Listing each item that meets a condition might show you how many match your criteria, but it doesn't help you aggregate your data. For that, you need the `summarize()` verbm with statistical functions identified within it:. 
+Listing each item that meets a condition **might** show you how many match your criteria, but it doesn't help you aggregate your data. For that, you need the `summarize()` verb, calling specific summary functions:  
 
 -   `n()` -- the number of rows.
 -   `sum()`
@@ -172,7 +183,10 @@ top100 |>
 ```
 
 
+
 ::: {.content-visible when-format="html"}
+
+<!-- Ugh I keep forgetting. This prints out the result of the top100-sortmore chunk, so make sure to leave it here! -->
 
 So some of the titles that were on the list the longest never made it to #1. (You'll learn later on how to make tables that are more easily navigated.)
 
@@ -186,7 +200,7 @@ So some of the titles that were on the list the longest never made it to #1. (Yo
 
 ::: 
 
-
+We'll go over how to make better-looking, more readable results in a few weeks. It's more complicated than it should be.
 
 
 ## Make a chart!

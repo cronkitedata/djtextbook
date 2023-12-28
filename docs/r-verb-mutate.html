@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./r-verb-groupby.html" rel="next">
+<link href="./start-groupby.html" rel="next">
 <link href="./r-verb-filter.html" rel="prev">
 <link href="./assets/images/favicon.ico" rel="icon">
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -97,6 +97,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+<script src="site_libs/core-js-2.5.3/shim.min.js"></script>
+<script src="site_libs/react-18.2.0/react.min.js"></script>
+<script src="site_libs/react-18.2.0/react-dom.min.js"></script>
+<script src="site_libs/reactwidget-1.0.0/react-tools.js"></script>
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="site_libs/reactable-0.4.4/reactable.css" rel="stylesheet">
+<script src="site_libs/reactable-binding-0.4.4/reactable.js"></script>
 <link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
 <script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
 
@@ -273,32 +280,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./start-groupby.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Summarizing detail into totals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./r-verb-groupby.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Verbs in depth: Aggregating with groups</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Verbs in depth: Aggregating with groups</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-verb-join.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Verbs in depth: Matchmaking with joins</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Verbs in depth: Matchmaking with joins</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./advanced-regex.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Regular Expressions for pattern matching</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regular Expressions for pattern matching</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./advanced-regex-r.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Inexact matching and regular expressions in R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Inexact matching and regular expressions in R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-recipes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Recipes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Recipes</span></span></a>
   </div>
 </li>
       </ul>
@@ -315,37 +328,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-reporting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Visualization as a reporting tool</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Visualization as a reporting tool</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-tables.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Report-making in R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Report-making in R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-demo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Visualization demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Visualization demo</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-practice.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Visualization exercise</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Visualization exercise</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-maps-begin.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Mapping: An introduction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Mapping: An introduction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-maps-firstmap.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">The first map</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">The first map</span></span></a>
   </div>
 </li>
       </ul>
@@ -362,25 +375,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./advanced-pdf.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Working with PDF files</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Working with PDF files</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./advanced-openrefine.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Open refine walkthrough</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Open refine walkthrough</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./advanced-scrape1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Scraping without programming</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Scraping without programming</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./advanced-scrape2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Introduction to scraping in R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Introduction to scraping in R</span></span></a>
   </div>
 </li>
       </ul>
@@ -424,19 +437,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">In this chapter:</h2>
    
   <ul>
-  <li><a href="#mutate-to-create-new-columns" id="toc-mutate-to-create-new-columns" class="nav-link active" data-scroll-target="#mutate-to-create-new-columns"><span class="header-section-number">15.1</span> <code>mutate</code> to create new columns</a>
+  <li><a href="#mutate-to-create-new-columns" id="toc-mutate-to-create-new-columns" class="nav-link active" data-scroll-target="#mutate-to-create-new-columns"><span class="header-section-number">15.1</span> <code>mutate</code> to create new columns</a></li>
+  <li><a href="#math-on-columns" id="toc-math-on-columns" class="nav-link" data-scroll-target="#math-on-columns"><span class="header-section-number">15.2</span> Math on columns</a>
   <ul class="collapse">
-  <li><a href="#math-on-columns-compute-difference-and-percent-difference" id="toc-math-on-columns-compute-difference-and-percent-difference" class="nav-link" data-scroll-target="#math-on-columns-compute-difference-and-percent-difference">Math on columns: compute difference and percent difference</a></li>
   <li><a href="#converting-na-to-0" id="toc-converting-na-to-0" class="nav-link" data-scroll-target="#converting-na-to-0">Converting NA to 0</a></li>
   <li><a href="#detail-and-total-with-summary-statistics" id="toc-detail-and-total-with-summary-statistics" class="nav-link" data-scroll-target="#detail-and-total-with-summary-statistics">Detail and total with summary statistics</a></li>
   </ul></li>
-  <li><a href="#categorizing-text-using-conditional-statements" id="toc-categorizing-text-using-conditional-statements" class="nav-link" data-scroll-target="#categorizing-text-using-conditional-statements"><span class="header-section-number">15.2</span> Categorizing text using conditional statements</a>
+  <li><a href="#creating-categories-for-easier-analysis" id="toc-creating-categories-for-easier-analysis" class="nav-link" data-scroll-target="#creating-categories-for-easier-analysis"><span class="header-section-number">15.3</span> Creating categories for easier analysis</a>
   <ul class="collapse">
-  <li><a href="#two-categories-using-if_else" id="toc-two-categories-using-if_else" class="nav-link" data-scroll-target="#two-categories-using-if_else">Two categories using <code>if_else</code></a></li>
-  <li><a href="#two-categories-using-fuzzy-matching" id="toc-two-categories-using-fuzzy-matching" class="nav-link" data-scroll-target="#two-categories-using-fuzzy-matching">Two categories using fuzzy matching</a></li>
+  <li><a href="#yes-no-categories-using-if_else" id="toc-yes-no-categories-using-if_else" class="nav-link" data-scroll-target="#yes-no-categories-using-if_else">Yes-No categories using <code>if_else()</code></a></li>
   <li><a href="#more-than-two-categories-using-case_when" id="toc-more-than-two-categories-using-case_when" class="nav-link" data-scroll-target="#more-than-two-categories-using-case_when">More than two categories using <code>case_when()</code></a></li>
   </ul></li>
-  <li><a href="#putting-it-all-together" id="toc-putting-it-all-together" class="nav-link" data-scroll-target="#putting-it-all-together"><span class="header-section-number">15.3</span> Putting it all together</a>
+  <li><a href="#putting-it-all-together" id="toc-putting-it-all-together" class="nav-link" data-scroll-target="#putting-it-all-together"><span class="header-section-number">15.4</span> Putting it all together</a>
   <ul class="collapse">
   <li><a href="#save-it-for-use-in-another-program" id="toc-save-it-for-use-in-another-program" class="nav-link" data-scroll-target="#save-it-for-use-in-another-program">Save it for use in another program</a></li>
   </ul></li>
@@ -463,21 +475,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<div class="alert alert-secondary">
-<div class="alert-heading font-weight-bolder fs-3">
-<p>In this chapter</p>
-</div>
-<ul>
-<li>Creating new columns with <code>mutate()</code></li>
-<li>Combine summary and detail into one data frame</li>
-<li>Replacing <code>NA</code> values</li>
-<li>Using conditional commands <code>if_else()</code> and <code>case_when()</code> to create categories</li>
-</ul>
-</div>
 <p>This continues the work using Arizona Paycheck Protection Program loans. Full documentation of the dataset is in the <a href="appendix-ppp.html">Appendix</a>.</p>
-<div class="alert-success alert-dothis p-3">
-<p>To follow along, open your PPP project and create a new markdown the usual way, including the usual setup chunk.</p>
-<p>Add this command <code>options(scipen=999)</code> to the bottom of your setup chunk to avoid looking at scientific notation for large and small numbers.</p>
+<div class="callout-dothis">
+<p>To follow along, open your PPP project and create a new Quarto document with <a href="https://gist.github.com/sarahcnyt/e60ad2d7ccf65498fc88791f3bb683ae">the usual front matter and setup chunk</a>.</p>
 <p>Load the data into your environment using this code chunk:</p>
 </div>
 <div class="cell">
@@ -493,7 +493,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Use the verb <code>mutate</code> whenever you want to create or change existing columns in your data.</p>
 <p>Examples of this include:</p>
 <ul>
-<li>Computing difference or percent difference</li>
+<li>Computing difference between numbers in two columns</li>
 <li>Replacing <code>NA</code> values with “Unknown” or zero.</li>
 <li>Collapsing or creating categories for more meaningful analysis</li>
 </ul>
@@ -514,40 +514,77 @@ Warning
 <p><code>mutate</code> uses the syntax:</p>
 <pre><code>    mutate ( new_column_name = function (arguments))</code></pre>
 <p>That’s pretty abstract, so we’ll do this using examples.</p>
-<section id="math-on-columns-compute-difference-and-percent-difference" class="level3">
-<h3 class="anchored" data-anchor-id="math-on-columns-compute-difference-and-percent-difference">Math on columns: compute difference and percent difference</h3>
-<p>Here’s an example of computing the difference and percent difference between the amount received and the amount forgiven. Before you run this, try to think of why a reporter might be interested in this list.</p>
+</section>
+<section id="math-on-columns" class="level2" data-number="15.2">
+<h2 data-number="15.2" class="anchored" data-anchor-id="math-on-columns"><span class="header-section-number">15.2</span> Math on columns</h2>
+<p>Here’s an example of computing the portion of the original amount that was forgiven.</p>
 <p>Use the single “=” sign to provide a name for the new column and create more than one new column using a comma between them:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ppp_orig <span class="sc">|&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span> ( <span class="at">amt_diff =</span>  forgiveness_amount<span class="sc">-</span>amount, </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">amt_pct_diff =</span> amt_diff <span class="sc">/</span> amount  <span class="sc">*</span> <span class="dv">100</span> ) <span class="sc">|&gt;</span>                   <span class="co"># compute new columns</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span> ( borrower_name, borrower_city, amount, forgiveness_amount) <span class="sc">|&gt;</span>   <span class="co"># pick out a few columns</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>).                                                                <span class="co"># show the first five rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-3"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-3-1"><a href="#annotated-cell-3-1" aria-hidden="true" tabindex="-1"></a>ppp_orig <span class="sc">|&gt;</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-3-2" class="code-annotation-target"><a href="#annotated-cell-3-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span> ( borrower_name, borrower_city, amount, forgiveness_amount) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-3-3"><a href="#annotated-cell-3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span> ( <span class="at">forgiven_pct =</span> </span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-3-4" class="code-annotation-target"><a href="#annotated-cell-3-4" aria-hidden="true" tabindex="-1"></a>               ( forgiveness_amount  <span class="sc">/</span>  amount )  <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="annotated-cell-3-5"><a href="#annotated-cell-3-5" aria-hidden="true" tabindex="-1"></a>            )   <span class="sc">|&gt;</span>                   </span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-3-6" class="code-annotation-target"><a href="#annotated-cell-3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_n</span> (<span class="dv">50</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-lines="2" data-code-cell="annotated-cell-3" data-code-annotation="1">Pick out a few columns to work with</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-lines="4" data-code-cell="annotated-cell-3" data-code-annotation="2">Compute a new column using math</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-lines="6" data-code-cell="annotated-cell-3" data-code-annotation="3">Print out a random sample of 50 rows</span>
+</dd>
+</dl>
 </div>
-<p>If you look hard enough, you’ll realize that there are a lot of rows with <code>NA</code> instead of a value. That’s because whenever you do anything with a missing value, the result is missing. Missing values infect everything they touch. You often have to deal with them before you can do anything else.</p>
-</section>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A value over 100 means that the government also waived fees and interest; a value under 100 means that less than all of the loan was forgiven.</p>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+
+<div class="reactable html-widget html-fill-item" id="htmlwidget-0706d2f34ec79048f543" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-0706d2f34ec79048f543">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"borrower_name":["SKMC LLC","DOWNTOWN TEMPE AUTHORITY INC","SU VINO WINERY SCOTTSDALE INC","KAREN KAMM","DCS CONCRETE LLC","QUINCY DAVIS","EAST VALLEY PHYSICIANS GROUP PLLC DBA S OUTHWEST CHIROMED","FERNANDO BECERRA","DYNAMIC DIESEL REPAIR INC","RAINFALL ENTERPRISES LLC","KAREN L CLEM","ALYCIA STARK","MADDEN INDUSTRIES INC","YULIET ELIZAGARAY GELABERT","YEN THI PHAN","FORESIGHT PICTURES LLC","IAN DEGRASSE","RESTORATION MEDICINE LLC","MENDOZA MENDOZA LTD","LUMENTECH WINDOW DOOR SYSTEMS LTD","ZAYTUNI LLC","MARK W LISCHWE PC","SEVILLE CLEANERS INCORPORATED","GENTLE DENTAL ARTS LLC","AZ ICE PEORIA LLC","AUDIO VIDEO NETWORKS","ERWIS BRITO CORDERO","AESTHETIC FAMILY DENTAL CARE PLC","BM COMPUTERTYPEWRITER INC","STOR STARK FILMWORKS INC","RENCO LLC","STAY OFF THE ROOF PHOENIX LLC","STACEY GAST","DONALD HUNSAKER","EDWIN HUDSON","JOSHUA MURANY","VERNON JOHNSON","JACOB NAVARRO","ISABEL BELLOT MD PEDIATRICTION","RYDER REFRIGERATION SERVICES LLC","ROCHELLE ROMERO","RANDOLPH TURNER","CREATIVE IMPACT INC","LIDIA POLLATO HERNANDEZ","MINGS PAGODA","DYNAMITE TOY HAULERS DBA DUNE SPORT","DEVON NGUYEN","JOHN ZACHER","DUNG TA","INTERWEALTH MANAGEMENT"],"borrower_city":["Benson","Tempe","Scottsdale","Mesa","Chandler","Phoenix","Mesa","Tucson","Phoenix","Phoenix","Willcox","Gilbert","Anthem","Glendale","Surprise","Glendale","Gilbert","Phoenix","Phoenix","Phoenix","Phoenix","Mesa","Scottsdale","Phoenix","Peoria","Phoenix","Phoenix","Mesa","Tempe","Scottsdale","Phoenix","Phoenix","Mesa","Phoenix","Gold Canyon","Sahuarita","Stanfield","Phoenix","Yuma","San Tan Valley","Gilbert","Phoenix","Phoenix","Phoenix","Phoenix","Mesa","Chandler","Lakeside","Phoenix","Scottsdale"],"amount":[188345,317193,15620,10855,156000,20416,150000,20832,182675,62500,8436,20407,9500,20344,5652,777,2695.21,14250,46152,20602,218300,8619,132900,50437,142700,18979,11100,185500,3657,20700,1015376,35100,11462,4405,1825,3834.68,20833,7708,32800,21893.99,1513,20207,96238.85,20388,17291.9,101267,7926.23,6800,17317,47082],"forgiveness_amount":[189496,318549.88,15784.01,10881.23,157248,20484.8,151625.17,21000.37,183811.64,"NA",8493.18,20496.46,9581.21,20399.95,5719.67,779.68,2713.52,"NA",46526.34,20767.38,220331.4,8674.31,133941.94,50932.66,144004.12,18942.12,11135.58,187344.84,"NA",21042.7,1023193,35354.47,11515.81,4440,1842.75,3862.73,20940.3,7737.35,28964.8,"NA",1531.45,"NA",97364.71,"NA",17472.98,102038.29,7953.16,6892.41,17426.12,47711.07],"forgiven_pct":[1.00611112585946,1.00427777409968,1.0105,1.00241639797328,1.008,1.00336990595611,1.01083446666667,1.00808227726574,1.00622219789243,"NA",1.00677809388336,1.00438378987602,1.00854842105263,1.00275019661817,1.01197275300778,1.00344916344916,1.00679353371351,"NA",1.00811102444098,1.00802737598291,1.00930554283097,1.00641721777468,1.00784003009782,1.00982730931657,1.00913889278206,0.998056799620633,1.00320540540541,1.00994522911051,"NA",1.01655555555556,1.00769862592774,1.00724985754986,1.00469464316873,1.00794551645857,1.00972602739726,1.00731482157572,1.00515048240772,1.00380773222626,0.883073170731707,"NA",1.01219431592862,"NA",1.01169860196792,"NA",1.01047195507723,1.00761640020935,1.00339757993397,1.01358970588235,1.00630132239995,1.01336115713011]},"columns":[{"id":"borrower_name","name":"borrower_name","type":"character","format":{"cell":{"digits":0,"separators":true,"currency":"USD"},"aggregated":{"digits":0,"separators":true,"currency":"USD"}},"na":"NA"},{"id":"borrower_city","name":"borrower_city","type":"character","format":{"cell":{"digits":0,"separators":true,"currency":"USD"},"aggregated":{"digits":0,"separators":true,"currency":"USD"}},"na":"NA"},{"id":"amount","name":"amount","type":"numeric","format":{"cell":{"digits":0,"separators":true,"currency":"USD"},"aggregated":{"digits":0,"separators":true,"currency":"USD"}},"na":"NA"},{"id":"forgiveness_amount","name":"forgiveness_amount","type":"numeric","format":{"cell":{"digits":0,"separators":true,"currency":"USD"},"aggregated":{"digits":0,"separators":true,"currency":"USD"}},"na":"NA"},{"id":"forgiven_pct","name":"forgiven_pct","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"na":"NA"}],"defaultPageSize":5,"dataKey":"6f25ed08a22cd361830f9ca2f7bb7b9e"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>(I did some fancy formatting so you could read the results more clearly. We’ll come back to that in a later lesson.)</p>
 <section id="converting-na-to-0" class="level3">
 <h3 class="anchored" data-anchor-id="converting-na-to-0">Converting NA to 0</h3>
+<p>If you look through the pages, you’ll realize that there are a lot of rows with <code>NA</code> instead of a value. That’s because whenever you do anything with a missing value, the result is missing. Missing values infect everything they touch. You often have to deal with them before you can do anything else.</p>
 <p>We would like to convert the forgiven amount from a missing value to zero, under the idea that if they have not filled it out, nothing has (yet) been forgiven. Of course, we’d have to check that with the SBA before publication.</p>
 <p>There is a specific function used for that: <code>replace_na()</code>, with two arguments: The column you want to check for missing values, and the value you want to use instead. This isn’t limited to numbers – you can do the same thing with words, often replacing NA with “Unknown”.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ppp_forgiven_fixed <span class="ot">&lt;-</span> </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  ppp_orig <span class="sc">|&gt;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span> (<span class="at">amount_forgiven =</span> <span class="fu">replace_na</span>(forgiveness_amount, <span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ppp_forgiven_fixed <span class="ot">&lt;-</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  ppp_orig <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span> (<span class="at">amount_forgiven =</span> <span class="fu">replace_na</span>(forgiveness_amount, <span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>(Note that nothing came out in this code chunk because the result was saved into a new data frame variable.)</p>
+<p>(Note that nothing came out in this code chunk because the result was saved into a new data frame)</p>
 </section>
 <section id="detail-and-total-with-summary-statistics" class="level3">
 <h3 class="anchored" data-anchor-id="detail-and-total-with-summary-statistics">Detail and total with summary statistics</h3>
-<p>You can use <code>mutate</code> to put summary statistics next to your values so you can see whether or not they are similar to the average or median. (If you skipped converting the <code>NA</code> values above, the answers will always come out as <code>NA</code>, because they infect everything they touch. )</p>
-<p>ˆ</p>
+<p>You can use <code>mutate</code> to put summary statistics next to your values so you can see whether or not they are similar to the average or median.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ppp_forgiven_fixed <span class="sc">|&gt;</span> </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span> ( <span class="at">avg_forgiven =</span> <span class="fu">mean</span>(amount_forgiven), </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">median_forgiven =</span> <span class="fu">median</span>(amount_forgiven)) <span class="sc">|&gt;</span> </span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span> (borrower_name, amount_forgiven, avg_forgiven, median_forgiven ) <span class="sc">|&gt;</span> </span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ppp_forgiven_fixed <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span> ( <span class="at">avg_forgiven =</span> <span class="fu">mean</span>(amount_forgiven), </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">median_forgiven =</span> <span class="fu">median</span>(amount_forgiven)) <span class="sc">|&gt;</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span> (borrower_name, amount_forgiven, avg_forgiven, median_forgiven ) <span class="sc">|&gt;</span> </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
@@ -559,16 +596,10 @@ Warning
 </div>
 </section>
 </section>
-<section id="categorizing-text-using-conditional-statements" class="level2" data-number="15.2">
-<h2 data-number="15.2" class="anchored" data-anchor-id="categorizing-text-using-conditional-statements"><span class="header-section-number">15.2</span> Categorizing text using conditional statements</h2>
+<section id="creating-categories-for-easier-analysis" class="level2" data-number="15.3">
+<h2 data-number="15.3" class="anchored" data-anchor-id="creating-categories-for-easier-analysis"><span class="header-section-number">15.3</span> Creating categories for easier analysis</h2>
 <p>Very often, you’ll want to categorize entries in a database in order to make it simpler to count and sum the values in a meaningful way. For example, the <code>business_type</code> column has 24 different values, including <code>NA</code> . Here’s a list with the number of loans in each category:</p>
 <div class="cell" data-rows.print="25">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: print-forgiven</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: true</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false </span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>ppp_forgiven_fixed  <span class="sc">|&gt;</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>   <span class="fu">count</span> ( business_type, <span class="at">sort=</span><span class="cn">TRUE</span>, <span class="at">name=</span><span class="st">"# of rows"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
@@ -578,134 +609,139 @@ Warning
 </div>
 </div>
 </div>
+<section id="yes-no-categories-using-if_else" class="level3">
+<h3 class="anchored" data-anchor-id="yes-no-categories-using-if_else">Yes-No categories using <code>if_else()</code></h3>
 <p>One way to work with these is to create new columns with yes-no indicators for certain types of businesses like non-profits or individuals vs.&nbsp;companies.</p>
-<section id="two-categories-using-if_else" class="level3">
-<h3 class="anchored" data-anchor-id="two-categories-using-if_else">Two categories using <code>if_else</code></h3>
 <p>The function to do this is <code>if_else()</code> , which tests a condition exactly the same way <code>filter</code> did, but then assigns a value based on whether it’s met or not. You list the condition first, then a comma , then what should happen if the condition is true, and then what should happen if it’s false.</p>
 <p>The condition is done the same way you did it in a filter, but instead of picking out the rows that match, <code>mutate</code> acts on them separately from the rows that don’t match.</p>
 <p>There’s no “maybe”, except for NA’s in the original value. Here’s the general form of what it looks like:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>new_column_name = if_else ( test the old column for something as in a a filter,</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                         give it a value if it's true,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                         give it another value if it's not true)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>new_column_name = if_else ( test the old column for something as in a a filter,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                         give it a value if it's true,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                         give it another value if it's not true)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>So here is a way to do this with the business_type using the same %in% operator you used in the <code>filter</code> lesson, saving it to new data frame in your Environment, then displaying the first 10 types of businesses using <code>count()</code></p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>This code chunk uses a verb called <code>count()</code> to count up the number of rows in each category. We’ll get into this in much more detail in the next chapter, but it’s helpful to use it now to show you the results of creating new categories from old data.</p>
-</div>
-</div>
+<section id="example-1-two-categories-using-exact-conditions" class="level4">
+<h4 class="anchored" data-anchor-id="example-1-two-categories-using-exact-conditions">Example 1: Two categories using exact conditions</h4>
 <div class="cell" data-rows.print="10">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: m-category-indiv </span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: true </span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>ppp_category_indiv <span class="ot">&lt;-</span> </span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  ppp_forgiven_fixed <span class="sc">|&gt;</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span> ( <span class="at">is_individual =</span> </span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>              <span class="fu">if_else</span> ( business_type <span class="sc">%in%</span> </span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">c</span>(<span class="st">"Independent Contractors"</span>, </span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"Sole Proprietorship"</span>, </span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"Self-Employed Individuals"</span>, </span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"Single Member LLC"</span>), </span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"Individual"</span>, </span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"Organization"</span>)</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  )  </span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>ppp_category_indiv <span class="sc">|&gt;</span> </span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span> (is_individual, business_type) <span class="sc">|&gt;</span> </span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ppp_category_indiv <span class="ot">&lt;-</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  ppp_forgiven_fixed <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span> ( <span class="at">is_individual =</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>              <span class="fu">if_else</span> ( business_type <span class="sc">%in%</span> </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">c</span>(<span class="st">"Independent Contractors"</span>, </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"Sole Proprietorship"</span>, </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"Self-Employed Individuals"</span>, </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"Single Member LLC"</span>), </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"Individual"</span>, </span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"Organization"</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  )  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now print off a sampling of a some of the rows to take a look:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ppp_category_indiv <span class="sc">|&gt;</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span> ( is_individual, business_type) <span class="sc">|&gt;</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_n</span> (<span class="dv">50</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["is_individual"],"name":[1],"type":["chr"],"align":["left"]},{"label":["business_type"],"name":[2],"type":["chr"],"align":["left"]},{"label":["n"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"Individual","2":"Independent Contractors","3":"13504"},{"1":"Individual","2":"Self-Employed Individuals","3":"10364"},{"1":"Individual","2":"Single Member LLC","3":"1300"},{"1":"Individual","2":"Sole Proprietorship","3":"38726"},{"1":"Organization","2":"501(c)19 – Non Profit Veterans","3":"1"},{"1":"Organization","2":"501(c)3 – Non Profit","3":"155"},{"1":"Organization","2":"501(c)6 – Non Profit Membership","3":"62"},{"1":"Organization","2":"Cooperative","3":"35"},{"1":"Organization","2":"Corporation","3":"27871"},{"1":"Organization","2":"Employee Stock Ownership Plan(ESOP)","3":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["is_individual"],"name":[1],"type":["chr"],"align":["left"]},{"label":["business_type"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"Individual","2":"Independent Contractors"},{"1":"Organization","2":"Limited  Liability Company(LLC)"},{"1":"Organization","2":"Corporation"},{"1":"Organization","2":"Limited  Liability Company(LLC)"},{"1":"Organization","2":"Limited  Liability Company(LLC)"},{"1":"Organization","2":"Non-Profit Organization"},{"1":"Individual","2":"Sole Proprietorship"},{"1":"Organization","2":"Limited  Liability Company(LLC)"},{"1":"Organization","2":"Corporation"},{"1":"Individual","2":"Sole Proprietorship"},{"1":"Organization","2":"Limited  Liability Company(LLC)"},{"1":"Individual","2":"Sole Proprietorship"},{"1":"Organization","2":"Corporation"},{"1":"Organization","2":"Limited  Liability Company(LLC)"},{"1":"Organization","2":"Limited  Liability Company(LLC)"},{"1":"Organization","2":"Limited Liability Partnership"},{"1":"Individual","2":"Single Member LLC"},{"1":"Organization","2":"Corporation"},{"1":"Individual","2":"Independent Contractors"},{"1":"Individual","2":"Sole Proprietorship"},{"1":"Individual","2":"Sole Proprietorship"},{"1":"Individual","2":"Sole Proprietorship"},{"1":"Organization","2":"Limited  Liability Company(LLC)"},{"1":"Organization","2":"Corporation"},{"1":"Individual","2":"Sole Proprietorship"},{"1":"Individual","2":"Sole Proprietorship"},{"1":"Organization","2":"Corporation"},{"1":"Organization","2":"Corporation"},{"1":"Organization","2":"Limited  Liability Company(LLC)"},{"1":"Organization","2":"Limited  Liability Company(LLC)"},{"1":"Organization","2":"Subchapter S Corporation"},{"1":"Individual","2":"Sole Proprietorship"},{"1":"Organization","2":"Limited  Liability Company(LLC)"},{"1":"Individual","2":"Independent Contractors"},{"1":"Individual","2":"Independent Contractors"},{"1":"Organization","2":"Limited  Liability Company(LLC)"},{"1":"Organization","2":"Limited  Liability Company(LLC)"},{"1":"Individual","2":"Sole Proprietorship"},{"1":"Individual","2":"Sole Proprietorship"},{"1":"Organization","2":"Corporation"},{"1":"Organization","2":"Subchapter S Corporation"},{"1":"Organization","2":"Limited  Liability Company(LLC)"},{"1":"Organization","2":"Limited  Liability Company(LLC)"},{"1":"Organization","2":"Corporation"},{"1":"Organization","2":"Limited  Liability Company(LLC)"},{"1":"Individual","2":"Sole Proprietorship"},{"1":"Individual","2":"Sole Proprietorship"},{"1":"Organization","2":"Limited  Liability Company(LLC)"},{"1":"Organization","2":"Limited  Liability Company(LLC)"},{"1":"Individual","2":"Sole Proprietorship"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
 </div>
 </section>
-<section id="two-categories-using-fuzzy-matching" class="level3">
-<h3 class="anchored" data-anchor-id="two-categories-using-fuzzy-matching">Two categories using fuzzy matching</h3>
+<section id="example-2-two-categories-using-wildcards" class="level4">
+<h4 class="anchored" data-anchor-id="example-2-two-categories-using-wildcards">Example 2: Two categories using wildcards</h4>
 <p>You can also use the same <code>str_like()</code> function you used in filtering. Here, it sets whether or not the borrower was a non-profit. Remember, a <code>%</code> means “anything or nothing, and a <code>_</code> means”any single character but it must be present”. In our case, the word is shown as “Non Profit” and “Non-Profit”. Once. you’ve set it to your new words, you can just filter on the new value:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ppp_category_nonprofit <span class="ot">&lt;-</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  ppp_category_indiv <span class="sc">|&gt;</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span> ( <span class="at">is_nonprofit =</span> </span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>             <span class="fu">if_else</span> ( <span class="fu">str_like</span>(business_type, <span class="st">"%Non_Profit%"</span>) , </span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"Is nonprofit"</span>, </span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"Not nonprofit"</span>))  </span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>ppp_category_nonprofit <span class="sc">|&gt;</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span> ( business_type, is_nonprofit) <span class="sc">|&gt;</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span> ( is_nonprofit <span class="sc">==</span> <span class="st">"Is nonprofit"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ppp_category_nonprofit <span class="ot">&lt;-</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  ppp_forgiven_fixed <span class="sc">|&gt;</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span> ( <span class="at">is_nonprofit =</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>             <span class="fu">if_else</span> ( <span class="fu">str_like</span>(business_type, <span class="st">"%Non_Profit%"</span>) , </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"Is nonprofit"</span>, </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"Not nonprofit"</span>))  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can check it using a new verb, <code>count()</code>, to check the number of items by category:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ppp_category_nonprofit <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span> ( is_nonprofit <span class="sc">==</span> <span class="st">"Is nonprofit"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span> ( is_nonprofit, business_type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["business_type"],"name":[1],"type":["chr"],"align":["left"]},{"label":["is_nonprofit"],"name":[2],"type":["chr"],"align":["left"]},{"label":["n"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"501(c)19 – Non Profit Veterans","2":"Is nonprofit","3":"1"},{"1":"501(c)3 – Non Profit","2":"Is nonprofit","3":"155"},{"1":"501(c)6 – Non Profit Membership","2":"Is nonprofit","3":"62"},{"1":"Non-Profit Childcare Center","2":"Is nonprofit","3":"29"},{"1":"Non-Profit Organization","2":"Is nonprofit","3":"2673"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["is_nonprofit"],"name":[1],"type":["chr"],"align":["left"]},{"label":["business_type"],"name":[2],"type":["chr"],"align":["left"]},{"label":["n"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"Is nonprofit","2":"501(c)19 – Non Profit Veterans","3":"1"},{"1":"Is nonprofit","2":"501(c)3 – Non Profit","3":"155"},{"1":"Is nonprofit","2":"501(c)6 – Non Profit Membership","3":"62"},{"1":"Is nonprofit","2":"Non-Profit Childcare Center","3":"29"},{"1":"Is nonprofit","2":"Non-Profit Organization","3":"2673"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
 </div>
-<p>(The profit categorization is unclear for some of these types, such as professional associations , tribal concerns and cooperatives.)</p>
+<p>(The profit categorization is unclear for some of the original types, such as professional associations , tribal concerns and cooperatives.)</p>
+</section>
 </section>
 <section id="more-than-two-categories-using-case_when" class="level3">
 <h3 class="anchored" data-anchor-id="more-than-two-categories-using-case_when">More than two categories using <code>case_when()</code></h3>
-<p>Sometimes you will want more than one outcome, such as setting a value for “High”, “Medium” and “Low”. Instead of <code>if_then</code>, use the function <code>case_when</code>, which lets you string along conditions and their outcomes. The tilde (<code>~</code>) is used to show what happens if it’s true, and a TRUE at the end lets you say “everthing else”<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>Sometimes you will want more than one outcome, such as setting a value for “High”, “Medium” and “Low”. Instead of <code>if_then</code>, use the function <code>case_when</code>, which lets you string along conditions and their outcomes. The tilde (<code>~</code>) is used to show what happens if it’s true. At the end, you can add an argument <code>.default="Other"</code> to say “everything else”.</p>
 <div class="small">
 <pre><code>original data |&gt; 
   case_when ( first condition ~ what if it's true,
               second condition ~ what if  it's true, 
               third condition  ~ what if it's true, 
-              TRUE ~ what to do with everything that's left
+              .default =  what to do with everything that's left
               )</code></pre>
 </div>
 </section>
 </section>
-<section id="putting-it-all-together" class="level2" data-number="15.3">
-<h2 data-number="15.3" class="anchored" data-anchor-id="putting-it-all-together"><span class="header-section-number">15.3</span> Putting it all together</h2>
+<section id="putting-it-all-together" class="level2" data-number="15.4">
+<h2 data-number="15.4" class="anchored" data-anchor-id="putting-it-all-together"><span class="header-section-number">15.4</span> Putting it all together</h2>
 <p>Here is how you could set a column to with five types of borrowers instead of three. Once you put it together, you have a much more manageable list of five instead of 25 categories:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>ppp_business_categories <span class="ot">&lt;-</span> </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  ppp_category_nonprofit <span class="sc">|&gt;</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span> (  <span class="at">new_business_type =</span> </span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                <span class="fu">case_when</span> (  <span class="fu">str_like</span>(business_type, <span class="st">"%non_profit%"</span>) <span class="sc">~</span> <span class="st">"Non-profit"</span>,    <span class="co">#1st category</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>                             business_type <span class="sc">%in%</span> </span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">c</span>(<span class="st">"Independent Contractors"</span>, </span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Sole Proprietorship"</span>, </span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Self-Employed Individuals"</span>, </span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">"Single Member LLC"</span>)              <span class="sc">~</span> <span class="st">"Individual"</span>,    <span class="co"># 2nd category</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>                             </span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>                             business_type <span class="sc">==</span> <span class="st">"Tribal Concerns"</span>     <span class="sc">~</span> <span class="st">"Tribal concerns"</span>,    <span class="co">#3rd category</span></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>                             </span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">str_detect</span> (business_type, <span class="st">"LLC|Company|Corporation|Partnership"</span>) <span class="sc">~</span> <span class="st">"Companies"</span>,  <span class="co">#4th category</span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>                             </span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>                             <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Other"</span>)         <span class="co">#catchall 5th category</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>            )</span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Now take a look at what you got</span></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>ppp_business_categories <span class="sc">|&gt;</span></span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span> ( new_business_type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-
-<div data-pagedtable="false">
-  <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["new_business_type"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"Companies","2":"101657"},{"1":"Individual","2":"63894"},{"1":"Non-profit","2":"2920"},{"1":"Other","2":"773"},{"1":"Tribal concerns","2":"15"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
+<div class="sourceCode cell-code" id="annotated-cell-10"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-10-1"><a href="#annotated-cell-10-1" aria-hidden="true" tabindex="-1"></a>ppp_business_categories <span class="ot">&lt;-</span> </span>
+<span id="annotated-cell-10-2"><a href="#annotated-cell-10-2" aria-hidden="true" tabindex="-1"></a>  ppp_forgiven_fixed <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-10-3"><a href="#annotated-cell-10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span> (  <span class="at">new_business_type =</span> </span>
+<span id="annotated-cell-10-4"><a href="#annotated-cell-10-4" aria-hidden="true" tabindex="-1"></a>              </span>
+<span id="annotated-cell-10-5"><a href="#annotated-cell-10-5" aria-hidden="true" tabindex="-1"></a>          <span class="fu">case_when</span> (  <span class="fu">str_like</span>(business_type, <span class="st">"%non_profit%"</span>) </span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-10-6" class="code-annotation-target"><a href="#annotated-cell-10-6" aria-hidden="true" tabindex="-1"></a>                         <span class="sc">~</span> <span class="st">"Non-profit"</span>,</span>
+<span id="annotated-cell-10-7"><a href="#annotated-cell-10-7" aria-hidden="true" tabindex="-1"></a>                       </span>
+<span id="annotated-cell-10-8"><a href="#annotated-cell-10-8" aria-hidden="true" tabindex="-1"></a>                      business_type <span class="sc">%in%</span> </span>
+<span id="annotated-cell-10-9"><a href="#annotated-cell-10-9" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">c</span>(<span class="st">"Independent Contractors"</span>, </span>
+<span id="annotated-cell-10-10"><a href="#annotated-cell-10-10" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"Sole Proprietorship"</span>, </span>
+<span id="annotated-cell-10-11"><a href="#annotated-cell-10-11" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"Self-Employed Individuals"</span>, </span>
+<span id="annotated-cell-10-12"><a href="#annotated-cell-10-12" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"Single Member LLC"</span>)  </span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-10-13" class="code-annotation-target"><a href="#annotated-cell-10-13" aria-hidden="true" tabindex="-1"></a>                        <span class="sc">~</span> <span class="st">"Individual"</span>,</span>
+<span id="annotated-cell-10-14"><a href="#annotated-cell-10-14" aria-hidden="true" tabindex="-1"></a>                      </span>
+<span id="annotated-cell-10-15"><a href="#annotated-cell-10-15" aria-hidden="true" tabindex="-1"></a>                       business_type <span class="sc">==</span> <span class="st">"Tribal Concerns"</span> </span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-10-16" class="code-annotation-target"><a href="#annotated-cell-10-16" aria-hidden="true" tabindex="-1"></a>                        <span class="sc">~</span> <span class="st">"Tribal concerns"</span>,</span>
+<span id="annotated-cell-10-17"><a href="#annotated-cell-10-17" aria-hidden="true" tabindex="-1"></a>                      </span>
+<span id="annotated-cell-10-18"><a href="#annotated-cell-10-18" aria-hidden="true" tabindex="-1"></a>                       <span class="fu">str_detect</span> (business_type, </span>
+<span id="annotated-cell-10-19"><a href="#annotated-cell-10-19" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"LLC|Company|Corporation|Partnership"</span>) </span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-10-20" class="code-annotation-target"><a href="#annotated-cell-10-20" aria-hidden="true" tabindex="-1"></a>                         <span class="sc">~</span> <span class="st">"Companies"</span>,</span>
+<span id="annotated-cell-10-21"><a href="#annotated-cell-10-21" aria-hidden="true" tabindex="-1"></a>                      </span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-10-22" class="code-annotation-target"><a href="#annotated-cell-10-22" aria-hidden="true" tabindex="-1"></a>                       <span class="at">.default =</span> <span class="st">"Other"</span></span>
+<span id="annotated-cell-10-23"><a href="#annotated-cell-10-23" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="annotated-cell-10-24"><a href="#annotated-cell-10-24" aria-hidden="true" tabindex="-1"></a>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-10" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-lines="6" data-code-cell="annotated-cell-10" data-code-annotation="1">The same code you used for non-profits, but with a ~ instead of a comma.</span>
+</dd>
+<dt data-target-cell="annotated-cell-10" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-lines="13" data-code-cell="annotated-cell-10" data-code-annotation="2">The same code you used for individuals</span>
+</dd>
+<dt data-target-cell="annotated-cell-10" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-lines="16" data-code-cell="annotated-cell-10" data-code-annotation="3">A new type, for Tribal concerns,</span>
+</dd>
+<dt data-target-cell="annotated-cell-10" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-lines="20" data-code-cell="annotated-cell-10" data-code-annotation="4">and another new type for traditional companies, and</span>
+</dd>
+<dt data-target-cell="annotated-cell-10" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-lines="22" data-code-cell="annotated-cell-10" data-code-annotation="5">finally, what you want it to say when none of the conditions are true.</span>
+</dd>
+</dl>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -721,11 +757,24 @@ Tip
 <p>This code chunk uses a function you haven’t seen yet, called <code>str_detect()</code>, which is a powerful way to streamline the conditions. Instead of using <code>str_like()</code>, with its limited wildcards, this is based on <a href="./advanced-regex.html">regular expressions</a>, which we’ll look at later. But the way it’s used here is to separate words that might be in the description with “|”, for “OR”.</p>
 </div>
 </div>
+<p>Take a look at how the categories are distributed now:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-11"><pre class="sourceCode r code-annotation-code code-with-copy"><code class="sourceCode r"><span id="annotated-cell-11-1"><a href="#annotated-cell-11-1" aria-hidden="true" tabindex="-1"></a>ppp_business_categories <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-11-2"><a href="#annotated-cell-11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span> ( new_business_type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["new_business_type"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"Companies","2":"101657"},{"1":"Individual","2":"63894"},{"1":"Non-profit","2":"2920"},{"1":"Other","2":"773"},{"1":"Tribal concerns","2":"15"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
 <section id="save-it-for-use-in-another-program" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="save-it-for-use-in-another-program">Save it for use in another program</h3>
 <p>Saving this for future use means you don’t have to worry anymore about some of the missing values, and you can filter and group by the simpler new business type instead of the original. This saves a data file called <code>ppp_edited.RDS</code> in your project folder.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(ppp_business_categories, <span class="at">file=</span><span class="st">"ppp_edited.RDS"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(ppp_business_categories, <span class="at">file=</span><span class="st">"ppp_edited.RDS"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
@@ -734,7 +783,7 @@ Tip
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>This will change in future versions, which have a much more intuitive “Other” alternative.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>If you skipped converting the <code>NA</code> values above, the answers will always come out as <code>NA</code>. <a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -979,8 +1028,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./r-verb-groupby.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Verbs in depth: Aggregating with groups</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./start-groupby.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Summarizing detail into totals</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

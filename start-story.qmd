@@ -4,7 +4,7 @@ Getting started in data journalism often feels as if you've left the newsroom an
 
 ![](assets/images/start-story-cobb.png){.float-md-end .img-fluid .m-3 width="50%" alt-text="Cobb tweet"}
 
-Jeloni Cobb once tweeted, "an engineer doesn't look at a bridge the same way pedestrians or drivers do." They see it as a "language of angles and load bearing structures." We just see a bridge. While he was referring to long-form writing, reporting with data can also be learned by example.
+Jelani Cobb once tweeted, "an engineer doesn't look at a bridge the same way pedestrians or drivers do." We see a bridge as a way to get across some water. They see it as a "language of angles and load bearing structures. Writers should read books in that same way" While he was referring to long-form writing, reporting with data can also be learned by example.
 
 Try to approach data or empirical reporting as a reporter first and a consumer second. Your goal should be to triangulate how the story was discovered, reported and constructed. You'll want to think about why *this* story, told this way, at this time, was considered newsworthy enough to publish when another approach on the same topic might not have been.
 
