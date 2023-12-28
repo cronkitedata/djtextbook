@@ -11,7 +11,7 @@
 
 In "[The Art of Access](https://www.amazon.com/Art-Access-Strategies-Acquiring-Records/dp/1604265507)", David Cuillier  and Charles N. Davis describe a process of tracking down the life and times of a dataset. Their purpose is to make sure they know how to request it from a government agency. The same idea applies to using data that we acquire elsewhere. 
 
-As reporters, we usually deal with data that was created in the process of doing something else -- conducting an inspection or paying a parking ticket. These adminsitrative datasets are created in government as part of carrying out their work. They form the basis of much investigative reporting and they are often the subject of public records and FOIA requests. They were born as part of the government doing its job, without any thought given to how it might be used in another way. In the sciences, those are often called "administrative records". 
+As reporters, we usually deal with data that was created in the process of doing something else such as conducting an inspection or paying a parking ticket. These datasets are created in government as part of carrying out their work. They form the basis of much investigative reporting and they are often the subject of public records and FOIA requests. They were born as part of the government doing its job, without any thought given to how it might be used in another way. These are often called "administrative records". 
 
 Another type of data might be considered "digital trace" data, which often refers to social media posts, online publications and other items that are born in electronic form and posted publicly for anyone to view and use. 
 
@@ -35,13 +35,10 @@ When someone dies in the US, a standard death certificate is filled out by a ser
 A good reporter could imagine many stories coming out of these little boxes. Limiting yourself to just to COVID-19-related stories: You could profile the local doctor who signed the most COVID-19-related death certificates in their city, or  examine the number of deaths that had COVID as a contributing, but not underlying or immediate, cause of death. Or maybe you would want to map the deaths to find the block in your town most devastated by the virus. 
 
 
+Early in the pandemic, Coulter Jones and Jon Kamp of the Wall Street Journal examined the records from one of the few states that makes them public, and concluded that "[Coronavirus Deaths were Likely Missed in Michigan, Death Certificates Suggest](https://www.wsj.com/articles/coronavirus-deaths-were-likely-missed-in-michigan-death-certificates-suggest-11590073280] ^[Wall Street Journal, May 21, 2020)"
 
 
 ![](assets/images/start-data-def-01.png){.float-md-end .img-fluid  .m-3 width="60%"}
-
-
-Early in the pandemic, Coulter Jones and Jon Kamp of the Wall Street Journal examined the records from one of the few states that makes them public, and concluded that "[Coronavirus Deaths were Likely Missed in Michigan, Death Certificates Suggest](https://www.wsj.com/articles/coronavirus-deaths-were-likely-missed-in-michigan-death-certificates-suggest-11590073280] ^[Wall Street Journal, May 21, 2020)"
-
 
 But you probably can't do that. The reason is that, in most states, death certificates are not public records and are treated as secrets. ^[See "[Secrecy in Death Records: A call to action](https://www.researchgate.net/publication/348322257_Secrecy_in_Death_Records_A_Call_to_Action)", by Megain Craig and Madeleine Davison, Journal of Civic Information, December 2020]. Instead, state and local governments provide limited statistics related to the deaths, usually by county, with no detail.  
 
@@ -64,11 +61,11 @@ We often have to consider the trade-offs. Granular data with the detail we need 
 
 For our purposes, it's important to remember that we can always create aggregated numbers like the ones shown in the Arizona COVID page out of individual items, but you can never de-aggregate statistics into more granular data like the boxes filled out in death certificates.
 
-## Nouns 
+## Unit of analysis: Know your nouns 
 
 That brings us to one of the most important things you must find out about any data you begin to analyze: What **noun** describes each row?  In statistics, these rows might be called *observations* or *cases*.  In data science, they're usually called *records*. Either way, every row must represent the same thing -- a person, a place, a year, a water sample or a school. And you can't really do anything with it until you figure out what that noun is. 
 
-Sometimes the only noun you can obtain is problematic. In 2015, we did a story at The New York Times called ["More Deportation Follow Minor Crimes, Records Show"](https://www.nytimes.com/2014/04/07/us/more-deportations-follow-minor-crimes-data-shows.html) . The government had claimed it was only removing hardened criminals from the country, but our analysis of the data suggested that many of them were for minor infractions. 
+Sometimes the only level you can obtain creates problems. In 2015, we did a story at The New York Times called ["More Deportation Follow Minor Crimes, Records Show"](https://www.nytimes.com/2014/04/07/us/more-deportations-follow-minor-crimes-data-shows.html) . The government had claimed it was only removing hardened criminals from the country, but our analysis of the data suggested that many of them were for minor infractions. 
 
 In writing the piece, we had to work around a problem in our data: the agency refused to provide us anything that would help us distinguish one individual from another.  All we knew was that each row represented one deportation, not a person. Without a column that uniquely identified people -- say, name and date of birth, or some scrambled version of an their DHS number --  we had no way to even estimate how often people were deported multiple times. If you read the story, you'll see the very careful wording, except when we had reported out and spoken to people on the ground. 
 
