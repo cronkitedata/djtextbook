@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data Reporting - 3&nbsp; Documenting your work</title>
+<title>Data Reporting - 7&nbsp; A gentle intro to programming</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./start-hunt.html" rel="next">
-<link href="./start-data-def.html" rel="prev">
+<link href="./quickstart-startup.html" rel="next">
+<link href="./quickstart-install.html" rel="prev">
 <link href="./assets/images/favicon.ico" rel="icon">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -75,7 +75,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./start.html">Reporting with data</a></li><li class="breadcrumb-item"><a href="./start-data-document.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Documenting your work</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./quickstart.html">Programming quick start</a></li><li class="breadcrumb-item"><a href="./quickstart-program.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">A gentle intro to programming</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -116,11 +116,11 @@ ul.task-list li input[type="checkbox"] {
       <div class="sidebar-item-container"> 
             <a href="./start.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Reporting with data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./start-story.html" class="sidebar-item-text sidebar-link">
@@ -135,7 +135,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./start-data-document.html" class="sidebar-item-text sidebar-link active">
+  <a href="./start-data-document.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Documenting your work</span></span></a>
   </div>
 </li>
@@ -157,11 +157,11 @@ ul.task-list li input[type="checkbox"] {
       <div class="sidebar-item-container"> 
             <a href="./quickstart.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Programming quick start</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./quickstart-install.html" class="sidebar-item-text sidebar-link">
@@ -170,7 +170,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./quickstart-program.html" class="sidebar-item-text sidebar-link">
+  <a href="./quickstart-program.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">A gentle intro to programming</span></span></a>
   </div>
 </li>
@@ -292,15 +292,18 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">In this chapter:</h2>
    
   <ul>
-  <li><a href="#scripted-journalism" id="toc-scripted-journalism" class="nav-link active" data-scroll-target="#scripted-journalism"><span class="header-section-number">3.1</span> Scripted journalism</a></li>
-  <li><a href="#elements-of-your-documentation" id="toc-elements-of-your-documentation" class="nav-link" data-scroll-target="#elements-of-your-documentation"><span class="header-section-number">3.2</span> Elements of your documentation</a>
+  <li><a href="#building-blocks" id="toc-building-blocks" class="nav-link active" data-scroll-target="#building-blocks"><span class="header-section-number">7.1</span> Building blocks</a>
   <ul class="collapse">
-  <li><a href="#data-sourcing" id="toc-data-sourcing" class="nav-link" data-scroll-target="#data-sourcing">Data sourcing</a></li>
-  <li><a href="#data-documentation-and-flaws" id="toc-data-documentation-and-flaws" class="nav-link" data-scroll-target="#data-documentation-and-flaws">Data documentation and flaws</a></li>
-  <li><a href="#processing-notes" id="toc-processing-notes" class="nav-link" data-scroll-target="#processing-notes">Processing notes</a></li>
-  <li><a href="#the-good-part-your-analysis" id="toc-the-good-part-your-analysis" class="nav-link" data-scroll-target="#the-good-part-your-analysis">The good part: Your analysis</a></li>
+  <li><a href="#variables" id="toc-variables" class="nav-link" data-scroll-target="#variables">Variables</a></li>
+  <li><a href="#operators-assignment" id="toc-operators-assignment" class="nav-link" data-scroll-target="#operators-assignment">Operators &amp; assignment</a></li>
+  <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions">Functions</a></li>
+  <li><a href="#loops" id="toc-loops" class="nav-link" data-scroll-target="#loops">Loops</a></li>
   </ul></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">3.3</span> Further reading</a></li>
+  <li><a href="#an-algorithm-to-make-an-omelet" id="toc-an-algorithm-to-make-an-omelet" class="nav-link" data-scroll-target="#an-algorithm-to-make-an-omelet"><span class="header-section-number">7.2</span> An algorithm to make an omelet</a>
+  <ul class="collapse">
+  <li><a href="#open-a-restaurant-with-loops" id="toc-open-a-restaurant-with-loops" class="nav-link" data-scroll-target="#open-a-restaurant-with-loops">Open a restaurant with loops</a></li>
+  </ul></li>
+  <li><a href="#more-resources" id="toc-more-resources" class="nav-link" data-scroll-target="#more-resources"><span class="header-section-number">7.3</span> More resources</a></li>
   </ul>
 </nav>
     </div>
@@ -309,7 +312,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="start-data-document" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Documenting your work</span></span></h1>
+<h1 class="title"><span id="quickstart-program" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">A gentle intro to programming</span></span></h1>
 </div>
 
 
@@ -324,77 +327,194 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<div class="otro-blockquote">
-<p>“In every project you have at least one other collaborator: future-you. You don’t want future-you to curse past-you”</p>
-<p>– Hadley Wickham via Roel M. Hogervorst</p>
+<p>No one is born knowing how to code. It takes practice, and the most effective motivator is need: You have a story that depends on it. That said, knowing a little vocabulary will help when you get started. Once you learn to program in one language, learning others is much simpler. That’s because you have the basic concepts down: How to assign values to variables, how to loop through lists, or how to import data. This chapter walks through some of the more universal concepts in programming.</p>
+<section id="building-blocks" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="building-blocks"><span class="header-section-number">7.1</span> Building blocks</h2>
+<section id="variables" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="variables">Variables</h3>
+<p>A variable is a container with a name. You pour things into the container Sometimes, those things are simple like your name. Sometimes they’re quite complex, such as the contents of a Spotify playlist. In R, many people use the terms <em>variable</em> and <em>object</em> interchangeably.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>The three most common structures of variables are:</p>
+<section id="literals" class="level4">
+<h4 class="anchored" data-anchor-id="literals">Literals</h4>
+<p>The most basic kind of object is a single variable that contains a single value of a specific type:</p>
+<ul>
+<li><code>"Sarah"</code> (text)</li>
+<li><code>1.0</code> (number)</li>
+<li><code>true</code> (logical)</li>
+<li><code>2017-01-24</code>. (date)</li>
+</ul>
+<p>These are called “literals”. When you want to use the actual letters of some text, enclose them in quotes. When you want to use the named variable, don’t enclose it in quotes: <code>my_name &lt;- "Sarah"</code></p>
+</section>
+<section id="lists-or-vectors" class="level4">
+<h4 class="anchored" data-anchor-id="lists-or-vectors">Lists or vectors</h4>
+<p>Most languages have some concept of a list of items called an array, vector or dictionary. In R, you create a vector using the “c” operator, short for “combine”. Once you have your items in a list or a vector, you can apply the same function across all of them or work on them in order. :</p>
+<ul>
+<li><code>c(1, 17, 2, 120, 4)</code></li>
+<li><code>c("Sarah", "Richard", "Rachel")</code></li>
+</ul>
+</section>
+<section id="data-frames" class="level4">
+<h4 class="anchored" data-anchor-id="data-frames">Data frames</h4>
+<p>A data frame is the R equivalent of a spreadsheet page. It’s tabular, rectangular data with columns and rows. You don’t need to know much about this yet, but just understand that it will become an important part of your vocabulary.</p>
+</section>
+</section>
+<section id="operators-assignment" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="operators-assignment">Operators &amp; assignment</h3>
+<p>Operators are simple arithmetic or similar operations, like adding, subtracting, dividing and multiplying. Some common operators are:</p>
+<table class="table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 90%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Operator</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&nbsp;</td>
+<td><strong>Arithmetic</strong></td>
+</tr>
+<tr class="even">
+<td><code>+</code></td>
+<td>Add</td>
+</tr>
+<tr class="odd">
+<td><code>-</code></td>
+<td>Subtract</td>
+</tr>
+<tr class="even">
+<td><code>*</code></td>
+<td>Multiply</td>
+</tr>
+<tr class="odd">
+<td><code>/</code></td>
+<td>Divide</td>
+</tr>
+<tr class="even">
+<td>&nbsp;</td>
+<td><strong>Comparison (in R)</strong></td>
+</tr>
+<tr class="odd">
+<td><code>==</code></td>
+<td>Equal - <strong>Notice the TWO equal signs</strong></td>
+</tr>
+<tr class="even">
+<td><code>&gt;</code></td>
+<td>Greater than (or <code>&gt;=</code> greater than or equal to)</td>
+</tr>
+<tr class="odd">
+<td><code>&lt;</code></td>
+<td>Less than (or <code>&lt;=</code> less than or equal to)</td>
+</tr>
+<tr class="even">
+<td><code>!=</code></td>
+<td>Not equal to</td>
+</tr>
+<tr class="odd">
+<td>&nbsp;</td>
+<td><strong>Assignment</strong></td>
+</tr>
+<tr class="even">
+<td><code>&lt;-</code> or <code>=</code></td>
+<td>Push a value in to a variable name. In R, most people assign a value to a variable using the <code>&lt;-</code> operator, and save <code>=</code> to provide information to functions. There are a lot of ways to think of this – Some might call it “naming a value”, and others might say it’s “setting a variable”. Visualizing the <code>&lt;-</code> arrow pushing something into a variable name can sometimes help.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="functions">Functions</h3>
+<p>A function is a verb or a set of instructions wrapped up into a single word. Use its name, followed by some parentheses. If it requires information from you, those <em>arguments</em> go inside the parentheses.</p>
+<p>If you think of it as a sentence, the function is the verb, and the arguments are the nouns and adjectives. It genearally takes the form:</p>
+<p><code>function ( data, option_name="value")</code></p>
+<p>Many of the functions we use are already built into R, or are in <em>libraries</em> that we borrow – someone else has already written, tested and packaged them up for you.</p>
+<p>Examples include:</p>
+<ul>
+<li>importing text or Excel data</li>
+<li>calculating the average or sum</li>
+<li>counting</li>
+<li>finding phrases within text</li>
+</ul>
+<p>Some functions work only with numbers; others work only with text or dates or some other data type.</p>
+</section>
+<section id="loops" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="loops">Loops</h3>
+<p>A loop is a way to repeat your instructions over and over without having to re-write them every time. They usually work by stepping through some kind of a list, like a directory of files, or by using a counter, such as every year between 2005 and 2018.</p>
+<p>Excel and Google Sheets don’t really have loops, unless you learn the more complicated programming language behind them. This is the motivation behind learning a programming language for a lot of people.</p>
+<p>One type of loop commonly used in programs is a <strong><em>for loop</em></strong>, which says, “for every one of something, follow these instructions”.</p>
+<p>See if you can follow the pseudocode of putting sunglasses or hats on monsters depending on their shape:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/images/appendix-program-monsters.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Alison Horst</figcaption>
+</figure>
 </div>
-<p>There are many reasons to fully document all of your data reporting, from the time you start seeking FOIAs to the time you publish your story and beyond. But future-you will be most grateful if you get in the habit of documenting your work as you go along.</p>
-<p>Most projects happen in fits and starts. Sometimes you abandon a dataset just to come back to it later. Other times news gets in the way. No matter the reason, you will probably forget all of the details of your work – even where you stored it! – after just a few days. The good habits you get into now will save you hours and days of work later.</p>
-<p>No matter what, <strong>your analysis and the way it’s characterized in publication must be demonstrably accurate.</strong> That means knowing exactly what you did, why, where you’ve put it, and how it should be communicated to a general audience. If you can’t describe your methods, the story simply can’t be be published. I have seen instances in which weeks of work had to be repeated or discarded because the reporter couldn’t identify the source or how they worked with it.</p>
-<p>As Hadley Wickham said, you don’t want your future self to curse your current self – write good documentation that you can read and follow after you’ve long forgotten what you did today.</p>
-<section id="scripted-journalism" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="scripted-journalism"><span class="header-section-number">3.1</span> Scripted journalism</h2>
-<p><img src="assets/images/start-data-document-mcdonald.png" class="float-md-end img-fluid m-3 border border-note img-fluid" style="width:70.0%" data-fig-caption="MLS site" alt=""> <!-- I can't get the caption to go to the bottom after a floating image. This is an image, not a figure, so it doesn't have fig-caption. I'll leave it for now.--></p>
-<p>Christian McDonald at the University of Texas has described “scripted journalism” as data reporting that is “repeatable, transparent and annotated”.</p>
-<p>We will be accomplishing those goals through the use of Quarto documents, which combine writing with analysis and results. By the end of this book, you will know how to produce a site like <a href="https://christianmcdonald.quarto.pub/mls-salaries/">McDonald’s Major League Soccer analysis</a> on your own as a way to document your work.</p>
-<p>Some news organizations and editors talk instead about the “data diary”. It’s the same idea, but accomplished by keeping the journalism equivalent of the lab notebooks common in the sciences. Sometimes you’ll do work that doesn’t fit into the scripted journalism idea, such as a quick spreadsheet sort or some hand-cleaning of data. When you do that, be sure to keep a running list of all of the steps you took. Unlike programming languages, there’s no reminder of your mouse clicks.</p>
-<p>I generally work on two levels: For stories, I have a Google or other document that lists all of the datasets I’ve attempted to use to answer my questions, where I tried to get them, and what experts I interview say about them. I also list stories and studies that used the data in these documents. But I almost exclusively work in programming languages to test, clean and analyze data. And to the extent possible, I try to share any results using Quarto documents so that I always know everyone is working from the same version.</p>
-<p>Think of the data work the same way you think about interview notes or transcripts and any other research for a story. You wouldn’t quote a court case without reading it and probably talking to some of the participants. You’d make sure you know where to find the documents and what people say about them. You will consult those documents during your fact-checking. All data work – even the most short-lived – should be documented in at least the same detail. Ideally, someone reading through your notes would be able to repeat your work and understand what it means.</p>
+<p>Common tasks that reporters do with loops include combining annual spreadsheets from a government website or downloading and importing many files at once; and scraping web pages that require clicking into each link one by one. We’ll get to this at the end of the semester.</p>
 </section>
-<section id="elements-of-your-documentation" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="elements-of-your-documentation"><span class="header-section-number">3.2</span> Elements of your documentation</h2>
-<p>You may not document all of these for smaller stories, but try to keep track of as many of these elements as possible.</p>
-<section id="data-sourcing" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="data-sourcing">Data sourcing</h3>
-<p>Make sure to write out, in detail, where you got your data and any material you reviewed about it. This includes:</p>
+</section>
+<section id="an-algorithm-to-make-an-omelet" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="an-algorithm-to-make-an-omelet"><span class="header-section-number">7.2</span> An algorithm to make an omelet</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/images/appendix-program-katie-smith-unsplash.jpg" class="border-0 img-fluid figure-img" style="width:85.0%" alt="ingredients on a cutting board"></p>
+<figcaption class="figure-caption">Katie Smith via Unsplash</figcaption>
+</figure>
+</div>
+<p>An algorithm is a set of instructions that are carried out step by step. Brushing your teeth, making coffee or starting your car can all be expressed on algorithms if you do them the same way day after day.</p>
+<p>Suppose you want to make an omelet. Before you even start, you need to know at least two things: which ingredients you have on hand, and what kind of omelet you want to make.</p>
+<p>An algorithm that creates an omelet might look something like this:</p>
 <ul>
-<li><p>The source of YOUR data, and how you know it’s authentic. Be specific. Don’t pretend you got it from the original source when you found it elsewhere, such as in this textbook or in a Github repository.</p></li>
-<li><p>Describe the ORIGINAL source of the data and how it is collected and released.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p></li>
-<li><p>Take notes on other stories and studies that use this or similar data. Include interview notes, advice, warnings and findings along with stories that have already been done.</p></li>
-<li><p>Identify alternative sources for this and similar or related datasets or documents.</p></li>
-<li><p>Specifically write down where you have stored all of this and how you have organized your work. You want to make sure you can get back to the latest version easily, and that you have all of the supporting documents you need to check it.</p></li>
+<li>Decide what kind of omelet you want</li>
+<li>Check to make sure you have ingredients (and stop if you don’t)</li>
+<li>Prepare the fillings</li>
+<li>Whisk the eggs</li>
+<li>Melt some butter</li>
+<li>Pour in the eggs</li>
+<li>Add ingredients</li>
+<li>Flip the omelet</li>
+<li>Put it on a plate</li>
 </ul>
-</section>
-<section id="data-documentation-and-flaws" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="data-documentation-and-flaws">Data documentation and flaws</h3>
-<p>I usually put the details of data documentation in a data cleaning Quarto document, which includes the code and the links to my files in one place. But no matter where you do it:</p>
+<section id="open-a-restaurant-with-loops" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="open-a-restaurant-with-loops">Open a restaurant with loops</h3>
+<p>Say you saved your steps into a function called <code>make_omelet()</code>.</p>
+<p>You’d have to repeat this over and over if you had a restaurant. It might look like this:</p>
 <ul>
-<li><p>Include links or copies of any original documentation such as a record layout, data dictionary<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> or manual. If there isn’t one, consider making a data dictionary with what you’ve learned.</p></li>
-<li><p>Document the ways you checked the integrity of the data. There are many ways it might be inaccurate. Try to reconcile the number of rows and any totals you can produce to match other reports created by the source, or other reports that have used it. On longer stories, you’ll also check for impossible combinations (10-year-olds with DUIs), missing data and invalid data such as corrupted date columns.</p></li>
-<li><p>Record any questions (and answers as you get them) about the meaning of fields or the scope of the data.</p></li>
-<li><p>Document decisions you’ve made about the scope or method of your analysis. For example, if you want to look at “serious” crimes, describe how and why you categorized each crime as “serious” or “not serious.” Some of these should be vetted by experts or should be verified by documenting industry standards. You might note whether you’ve agreed as a team on these decisions, and when.</p></li>
-<li><p>Include a list of interviews conducted / questions asked of officials and what they said.</p></li>
+<li>make_omelet (ingredients,kind)</li>
+<li>Edit the list of ingredients left and the kind for the next diner</li>
+<li>make_omelet (ingredients2, kind2)</li>
+<li>Edit your lists again</li>
+<li>make_omelet (ingredients3, kind3)</li>
+<li>. and so on.</li>
 </ul>
+<p>You’d have a program hundreds of lines long – one for each customer. Instead, you could <em>loop</em> through the customers and do the same thing:</p>
+<pre><code>
+customers &lt;- c("Bob", "Jamal", "Christine", "Lauren")
+
+for each customer in the list of customers {
+  request what kind they want
+  make_omelet (ingredients_on_hand, kind_this_customer_wants)
+  give omelet to customer
+  update your ingredients list 
+  }
+  </code></pre>
 </section>
-<section id="processing-notes" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="processing-notes">Processing notes</h3>
-<p>Some projects require many steps to get to a dataset that can be analyzed. You may have had to scrape the data, combine it with other sources or fix some entries. Some common elements you should document:</p>
+</section>
+<section id="more-resources" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="more-resources"><span class="header-section-number">7.3</span> More resources</h2>
 <ul>
-<li><p>Hand-made corrections. Try to list every one, but it’s ok if you describe HOW you did it, such as clustering and hand-entering using OpenRefine. Link to any spreadsheet, document or program you used. Just be sure to always work on a copy of the data.</p></li>
-<li><p>Geocoding (affixing geographic coordinates to addresses). Note how many were correct, how many missing, and what you did about it.</p></li>
-<li><p>A description of how you got messy data into a tabular form or a form suitable for analysis. For example, you may have had to strip headings or flip a spreadsheet on its head. Make sure to write down how you did that if it’s not in a program that can be easily replicated.</p></li>
+<li>“<a href="https://youtu.be/7MUErafri48">Beyond Binary</a>, Lesson 1 from a Google engineer’s drag queen persona named Anna Lytical. This video gives you a good handle on what a computer program does.</li>
 </ul>
-</section>
-<section id="the-good-part-your-analysis" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="the-good-part-your-analysis">The good part: Your analysis</h3>
-<ul>
-<li><p>Each question you asked of your data, and the steps you took to answer it. If you use programming notebooks, write it out in plain language before or after the query or statements.</p></li>
-<li><p>Vetting of your answers: who has looked them over, commented on them</p></li>
-<li><p>Why they might be wrong!</p></li>
-</ul>
-</section>
-</section>
-<section id="further-reading" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">3.3</span> Further reading</h2>
-<p>Data cleaning will come up a lot in the future, but it’s closely intertwined with documenting your work. Here’s <a href="https://cronkitedata.s3.amazonaws.com/docs/bulletproof-email.pdf">an email exchange between me and Craig Silverman</a>, now at ProPublica, about the process I used at The New York Times in reporting and fact-checking. This isn’t the same as a process for replication, but it discusses the kinds of things that should be in it.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/7MUErafri48" style="align:center;" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
+</iframe>
 
 
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>If you want to see a project with a lot of data sources and how they might be documented in your notes, take a look at the <a href="https://docs.google.com/document/d/1NqnPTUWhlJkg7JdBShSTWzSDncE91kBi/edit?usp=sharing&amp;ouid=100970402851917703844&amp;rtpof=true&amp;sd=true">New York City housing data sources</a> we considered for a project in 2016.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>A data dictionary lists every table and column in the database, along with definitions. It may be very straightfoward but can become quite complex.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Statisticians usually refer to columns in a data set as “variables” – literally, something that varies. Other things in their programs are called “objects”. <a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -634,13 +754,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
-      <a href="./start-data-def.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Defining “Data”</span></span>
+      <a href="./quickstart-install.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Installing R and RStudio</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./start-hunt.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Finding the right data for your story</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./quickstart-startup.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Getting started with R</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data Reporting</title>
+<title>Data Reporting - 9&nbsp; Using Quarto</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,7 +64,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./start.html" rel="next">
+<link href="./quickstart-data-import.html" rel="next">
+<link href="./quickstart-startup.html" rel="prev">
 <link href="./assets/images/favicon.ico" rel="icon">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -113,7 +114,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Preface</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./quickstart.html">Programming quick start</a></li><li class="breadcrumb-item"><a href="./quickstart-quarto.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Using Quarto</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -146,7 +147,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
   </div>
 </li>
@@ -195,11 +196,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./quickstart.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Programming quick start</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./quickstart-install.html" class="sidebar-item-text sidebar-link">
@@ -220,7 +221,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./quickstart-quarto.html" class="sidebar-item-text sidebar-link">
+  <a href="./quickstart-quarto.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Using Quarto</span></span></a>
   </div>
 </li>
@@ -330,28 +331,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">In this chapter:</h2>
    
   <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a>
+  <li><a href="#quarto-documents" id="toc-quarto-documents" class="nav-link active" data-scroll-target="#quarto-documents"><span class="header-section-number">9.1</span> Quarto documents</a>
   <ul class="collapse">
-  <li><a href="#navigation" id="toc-navigation" class="nav-link" data-scroll-target="#navigation">Navigation</a></li>
-  <li><a href="#r-or-python" id="toc-r-or-python" class="nav-link" data-scroll-target="#r-or-python">R or Python?</a></li>
+  <li><a href="#the-structure-of-a-quarto-document" id="toc-the-structure-of-a-quarto-document" class="nav-link" data-scroll-target="#the-structure-of-a-quarto-document">The structure of a Quarto document</a></li>
+  <li><a href="#markdown-an-editing-language" id="toc-markdown-an-editing-language" class="nav-link" data-scroll-target="#markdown-an-editing-language">Markdown, an editing language</a></li>
+  <li><a href="#frontmatter" id="toc-frontmatter" class="nav-link" data-scroll-target="#frontmatter">Front matter / YAML at the top</a></li>
+  <li><a href="#including-r-code-and-its-results" id="toc-including-r-code-and-its-results" class="nav-link" data-scroll-target="#including-r-code-and-its-results">Including R code and its results</a></li>
+  <li><a href="#rendering-a-document" id="toc-rendering-a-document" class="nav-link" data-scroll-target="#rendering-a-document">Rendering a document</a></li>
+  <li><a href="#switch-to-source-mode" id="toc-switch-to-source-mode" class="nav-link" data-scroll-target="#switch-to-source-mode">Switch to Source mode</a></li>
   </ul></li>
-  <li><a href="#conventions-used-in-this-book" id="toc-conventions-used-in-this-book" class="nav-link" data-scroll-target="#conventions-used-in-this-book">Conventions used in this book</a>
+  <li><a href="#your-first-project" id="toc-your-first-project" class="nav-link" data-scroll-target="#your-first-project"><span class="header-section-number">9.2</span> Your first project</a></li>
+  <li><a href="#your-first-document" id="toc-your-first-document" class="nav-link" data-scroll-target="#your-first-document"><span class="header-section-number">9.3</span> Your first document</a>
   <ul class="collapse">
-  <li><a href="#keyboard-translations" id="toc-keyboard-translations" class="nav-link" data-scroll-target="#keyboard-translations">Keyboard translations</a></li>
-  <li><a href="#conventions-used-in-tutorials" id="toc-conventions-used-in-tutorials" class="nav-link" data-scroll-target="#conventions-used-in-tutorials">Conventions used in tutorials</a></li>
-  <li><a href="#changes-from-previous-years" id="toc-changes-from-previous-years" class="nav-link" data-scroll-target="#changes-from-previous-years">Changes from previous years</a></li>
+  <li><a href="#example-document" id="toc-example-document" class="nav-link" data-scroll-target="#example-document">Example document</a></li>
   </ul></li>
-  <li><a href="#colophon" id="toc-colophon" class="nav-link" data-scroll-target="#colophon">Colophon</a></li>
+  <li><a href="#quarto-resources" id="toc-quarto-resources" class="nav-link" data-scroll-target="#quarto-resources"><span class="header-section-number">9.4</span> Other resources</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content column-body" id="quarto-document-content">
+<main class="content page-columns page-full column-body" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Data Reporting</h1>
-<p class="subtitle lead">Cronkite School MAIJ Program, Spring 2024</p>
+<h1 class="title"><span id="quickstart-quarto" class="quarto-section-identifier"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Using Quarto</span></span></h1>
 </div>
 
 
@@ -366,94 +369,217 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="preface" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="preface">Preface</h2>
-<p>This book serves as a compilation of of handouts, websites and tutorials that I have created in my data reporting class at ASU’s <a href="cronkite.asu.edu">Cronkite School of Journalism and Mass Communication</a>, IRE and NICAR conferences, and as an adjunct at the Columbia University Graduate School of Journalism. Some of the material will be useful in other courses or for self-study, but it is primarily aimed at the investigative journalism masters’ students at Cronkite.</p>
-<p>It covers:</p>
-<ul>
-<li>Reporting and replication in data journalism</li>
-<li>Analyzing data for stories using R and R Markdown</li>
-<li>Finding and creating data for stories</li>
-</ul>
-<p>It doesn’t cover:</p>
-<ul>
-<li>Data visualization for publication</li>
-<li>Working with non-tabular data such as images, sound or document collections</li>
-<li>Creating news applications</li>
-<li>Freedom of Information and public records techniques</li>
-<li>Data science. This is a journalism book, not a programming or statistics book.</li>
-</ul>
-<section id="navigation" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="navigation">Navigation</h3>
-<p>Each major section on the left can be expanded to see the chapters included. The search box above the navigation index is best used to find sections and headings rather than phrases. Skip to sections of the current chapter using the menu on the right.</p>
-</section>
-<section id="r-or-python" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="r-or-python">R or Python?</h3>
-<p>If you ask a data scientist or technologist which language you should learn first, you’ll start a heated debate between advocates of R, Python, Javascript , SQL, Julia and others. Ask the same question of a data journalist and the answer will be: “Choose one that is free and that your colleagues use so you can get help.” For our purposes, it really doesn’t matter – any of the standard languages will do.</p>
-<p>My only rule is that you stick to your first language for a little while before trying a new one. It would be like trying to learn Portuguese and Spanish at the same time, when you know neither one to begin with. They’re related, but very different.</p>
-<p>Most employers won’t care which programming language you know because it’s relatively easy to learn another once you’re comfortable with the concepts and good data journalism habits. In a few cases, such as the Associated Press, R is preferred. In others, like the Los Angeles Times, it’s a little easier to work with the team if you work in Python. Visualization teams work primarily in Javascript. But they’ll mainly just be happy that you are reasonably self-sufficient in any language.</p>
-<p>I chose R because I find it a little easier to use when trying to puzzle something out step by step, and it is particularly good at working with the weird and varied forms of data thrown at us, but it’s really just a matter of taste and comfort.</p>
-<p>That said, this book is oriented toward the “tidyverse”, which comprises a whole host of methods that are designed to work together using common syntax and concepts. There are many other ways to do almost everything presented in this book, which we won’t cover.</p>
-</section>
-</section>
-<section id="conventions-used-in-this-book" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="conventions-used-in-this-book">Conventions used in this book</h2>
-<section id="keyboard-translations" class="level3">
-<h3 class="anchored" data-anchor-id="keyboard-translations">Keyboard translations</h3>
-<p>This book is written using a Mac desktop keyboard, meaning there may be key combinations you don’t have.</p>
-<p>Generally, when Windows users see the key <code>cmd</code> or <kbd>CMD</kbd>, they should use <code>ctl</code> or <code>^</code> instead; when you see <kbd>OPT</kbd>, use <kbd>ALT</kbd> instead.</p>
-<p>Keyboard combinations are generally shown like this: <code>CMD + SHIFT + i</code> , where the + indicates the keys at once, such as <kbd>cmd-Shift-i</kbd> or <kbd>Control-Shift-i</kbd></p>
-</section>
-<section id="conventions-used-in-tutorials" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="conventions-used-in-tutorials">Conventions used in tutorials</h3>
-<section id="example-code" class="level4">
-<h4 class="anchored" data-anchor-id="example-code">Example code</h4>
-<p>Here is what some code looks like in the book. There are sometimes explanatory notes to go along with specific lines of code. Clicking on the explanation will highlight the matching line of code.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-1"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-1-1" class="code-annotation-target"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span> (tidyverse )</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-annotation">
-<dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
-<dd>
-<span data-code-annotation="1" data-code-cell="annotated-cell-1" data-code-lines="1">Load the tidyverse library</span>
-</dd>
-</dl>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Pro tip
 </div>
 </div>
-<p>You can copy the code chunk whenever you see the clipboard in it, but I implore you to try it yourself for 10 minutes. It will pay off handsomely if you have to piece together what the code is doing and if you have to learn to read the error messages.</p>
-</section>
-</section>
-<section id="changes-from-previous-years" class="level3">
-<h3 class="anchored" data-anchor-id="changes-from-previous-years">Changes from previous years</h3>
-<p>Previously, the conceptual and story examples were scattered throughout tutorials. This made it hard for students to know what they had to do – read the concepts or go through the tutorials? They tended to skip the more journalistic portions of the text. This year, I’ve split them out and interleaved those chapters where they made sense (at least to me).</p>
-<p>“In this chapter:” sections were removed. No one seemed to pay attention to it, and the section just made each chapter that much longer. Instead, I’ve moved the “On this page” section to the right, making each page a little narrower but making in-chapter navigation easier.</p>
-</section>
-</section>
-<section id="colophon" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="colophon">Colophon</h2>
-<p>I’m grateful to all of the trainers, experts and collaborators who have made their training materials open to the world, and they are linked prominently throughout this book. Any errors or omissions are my own.</p>
-<p>This year’s book was reorganized to remove much of the conceptual work from spreadsheets to more generic chapters as needed, such as “Filtering and sorting to find stories”. I’ve also removed the math chapter, under the idea that anyone taking this class understands the need for basic arithmetic and statistics. Both of these sections are still available in the appendices.</p>
-<p>Some chapters were updated with new, useful versions of functions, but others were left using the more traditional methods. These changes were and were not made for purposes of teaching – I chose which one to use based on ease of use vs.&nbsp;understanding code you will find in the wild.</p>
+<div class="callout-body-container callout-body">
+<p>Start collecting code examples that you can save in a document with a description of what they mean in your own words. This reference document can be anywhere – a Google Doc, a Quarto doc, or anywhere else. You won’t be running that code, but you’ll have something you can copy and paste that exemplifies how you think of it.</p>
+</div>
+</div>
+<section id="quarto-documents" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="quarto-documents"><span class="header-section-number">9.1</span> Quarto documents</h2>
+<p>Quarto is a document format that lets you combine your writing, images, computer code and its results into complete documents. We’ll only be using Quarto for R using RStudio, but it also works in other languages such as Python and Javascript. Some news organizations do much of their internal work using Quarto and its predecessor, RMarkdown.</p>
+<p>This entire book is written as a series of Quarto documents!</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-A note on language
+Quarto is modern RMarkdown
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>I’ll use the words “read” and “write” in a generic sense. I intend them to cover the range of journalistic media, including listening, watching, and news applications or graphics.</p>
+<p>Many help pages and tutorials in R use the format called <em>RMarkdown</em> (.Rmd) instead of <em>Quarto</em> (.qmd), which was introduced in mid-2022. There are very few substantive differences.</p>
 </div>
 </div>
-<p>This book was written using Quarto version 1.3 in RStudio with version 4.3 of R. . The complete source is <a href="https://github.com/cronkitedata/djtextbook">available on Github</a>. Previous editions are saved as branches in the github repo, and also saved as static releases.</p>
-<div style="text-align:center">
-<p><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="Creative Commons License" style="border-width:0"></a></p>
+<section id="the-structure-of-a-quarto-document" class="level3">
+<h3 class="anchored" data-anchor-id="the-structure-of-a-quarto-document">The structure of a Quarto document</h3>
+<p>There are four parts to a Quarto document:</p>
+<ol type="1">
+<li><p>Narrative and document features, including headlines, subheads, images and other elements that you’d normally put in any document.</p></li>
+<li><p>The “front matter”, or YAML<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, instructions for the entire document, such as a title or the output format. You will often copy and paste this part rather than trying to get it right freehand.</p></li>
+<li><p>Little portions of your R programs in code chunks, similar to the lines you entered in the Console in the last chapter.</p></li>
+<li><p>The results of code chunks - what you get back when you execute the code, including charts, graphs, tables and maps.</p></li>
+</ol>
+</section>
+<section id="markdown-an-editing-language" class="level3">
+<h3 class="anchored" data-anchor-id="markdown-an-editing-language">Markdown, an editing language</h3>
+<p>In Quarto, your narration is written using Markdown, which was invented as an easy way for early Wikepedia editors to write simple documents that would automatically be rendered into the more complicated HTML of the web. Once you get used to Markdown, you may never go back to Google Docs or Word.</p>
+<div class="callout-dothis">
+<p>Review the first five sections of the <a href="https://quarto.org/docs/authoring/markdown-basics.html">markdown basics</a> instructions from Quarto, paying attention to:</p>
+<ul>
+<li><a href="https://quarto.org/docs/authoring/markdown-basics.html#text-formatting">Text formatting</a>, like bold and italic</li>
+<li><a href="https://quarto.org/docs/authoring/markdown-basics.html#links-images">Links</a></li>
+<li><a href="https://quarto.org/docs/authoring/markdown-basics.html#headings">Headings</a></li>
+<li><a href="https://quarto.org/docs/authoring/markdown-basics.html#lists">Lists</a> (ordered and unordered)</li>
+<li>Optional: <a href="https://quarto.org/docs/authoring/markdown-basics.html#tables">Tables</a></li>
+</ul>
+<p>We probably won’t use anything below the Tables section in this class.</p>
 </div>
-<p>– Sarah Cohen, Winter 2023-24 <a href="mailto:sarah.h.cohen@asu.edu">sarah.h.cohen@asu.edu</a></p>
+</section>
+<section id="frontmatter" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="frontmatter">Front matter / YAML at the top</h3>
+<p>The way the R knows how to process the page is by reading the very top of the file and looking at the section between three dashes. This is called “front matter”, and it’s extremely picky about indentations and the exact words you use.</p>
+<p>The default setup is very basic. For this class, I’ll ask you to use the following options, and edit them to correct the title and author each day. This will already be filled out for you in some of the early assignments.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"A title for your page"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"Your name"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> cosmos</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">embed-resources</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">code-tools</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">page-layout</span><span class="kw">:</span><span class="at"> full</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">df-print</span><span class="kw">:</span><span class="at"> paged</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="including-r-code-and-its-results" class="level3">
+<h3 class="anchored" data-anchor-id="including-r-code-and-its-results">Including R code and its results</h3>
+<p>So far, nothing is different from a simple Google doc or Word document – there is no computer code or data involved. But the value of Quarto is that it allows you to mix your analysis with your writing in one place.</p>
+<p>You’ll do that through <code>code chunks</code> – little snippets of working code that you insert within your narrative which, when processed, will also include the results. Each code chunk has a Play button in its upper-right corner. Once you’re done typing, you’ll press that button to run just that code chunk.</p>
+<p>To insert a code chunk:</p>
+<ul>
+<li>Use the +C button on the top right of your screen. ( <img src="assets/images/r-quarto-insertchunk.png" width="25" height="16">)</li>
+<li>Use the keyboard shortcut <kbd data-windows="Control-Alt-i" data-mac="Command-option-i"></kbd> (Cmd-Opt-i)</li>
+</ul>
+<p><img src="https://cronkitedata.s3.amazonaws.com/images/r-quarto-insertcode.gif" class="img-fluid"></p>
+<p>The following code chunk creates a new variable called <code>my_variable</code>, another called <code>my_name</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Anything between ```{r} at the beginning and ``` at the end is the code chunk.   </span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># A hashtag within an R program or code chunk means the line is a "comment". </span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># R will ignore it.</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>my_variable <span class="ot">&lt;-</span> <span class="dv">13</span>   <span class="co">#&lt;1&gt; </span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>my_name <span class="ot">&lt;-</span> <span class="st">"Sarah"</span>  <span class="co">#&lt;2&gt;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>When you press the Play button, nothing comes out. That’s because you saved your variables. Once they’re saved, you can print them by just typing their names:</p>
+<div class="cell" data-code-copy="false">
+<div class="sourceCode cell-code" id="annotated-cell-3"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-3-1" class="code-annotation-target"><a href="#annotated-cell-3-1" aria-hidden="true" tabindex="-1"></a>my_name</span>
+<span id="annotated-cell-3-2"><a href="#annotated-cell-3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-3-3"><a href="#annotated-cell-3-3" aria-hidden="true" tabindex="-1"></a>my_variable</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-lines="1,3" data-code-annotation="1" data-code-cell="annotated-cell-3">Print the value that’s stored in the variable called <code>my_name</code>, then print the value that’s stored in <code>my_variable</code></span>
+</dd>
+</dl>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Sarah"
+[1] 13</code></pre>
+</div>
+</div>
+<p>This might not seem like much, but think about how it helps you do your analysis. You can write all of your notes right where you do the work. You don’t have to copy and paste information from one place to another, or share out-of-date spreadsheets with your teammates.</p>
+</section>
+<section id="rendering-a-document" class="level3">
+<h3 class="anchored" data-anchor-id="rendering-a-document">Rendering a document</h3>
+<p><img src="assets/images/r-quarto-firstquarto.png" class="float-sm-end img-fluid m3 img-fluid" style="width:3in"> The document remains in markdown format until you process it by pressing the “Render” button at the top of the page.Quarto converts your document to a web page and saves it into your project.</p>
+</section>
+<section id="switch-to-source-mode" class="level3">
+<h3 class="anchored" data-anchor-id="switch-to-source-mode">Switch to Source mode</h3>
+<p>RStudio usually creates a Quarto document in “Visual” mode, which hides the underlying coding from you and allows you to use point-and-click menus to structure your document.</p>
+<p>This tutorial will have you switch to “Source” mode so that you can see the underlying structure.</p>
+<p><img src="assets/images/r-quarto-source-visual.png" class="img-fluid"></p>
+<p>In practice, visual mode makes data tables look all squished and difficult to navigate until you’ve rendered them. You can set up RStudio to default to source mode by changing the global options under Tools -&gt; Global Options , then look for R Markdown, and the Visual tab.</p>
+</section>
+</section>
+<section id="your-first-project" class="level2 page-columns page-full" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="your-first-project"><span class="header-section-number">9.2</span> Your first project</h2>
+<p>One of the things that trips up new users of R is that it’s hard to tell the program where to find things on your computer. In RStudio, projects are used to isolate all of your work to one folder in your computer.</p>
+<p>We’ll be working entirely in projects in this course. This means you will <strong>never double-click on your Quarto document to open RStudio</strong>. Instead, you’ll open RStudio and then choose or create a project.</p>
+<div class="callout-dothis">
+<ol type="1">
+<li><p>Create a new project by hitting the second green + sign at the top left of your screen, or choose <code>File</code> &gt; <code>New Project</code>.</p></li>
+<li><p>When prompted, create a project in a New Directory. Make sure that you save it WITHIN your <code>maij-working</code> folder. Name it <code>rlessons-01</code>. This creates a file with the extension <code>.RProj</code> in a folder with the name of your project.</p></li>
+<li><p>Once you’ve created it, shut down RStudio.</p></li>
+</ol>
+</div>
+<div class="column-screen-right pe-5">
+<p><img src="https://cronkitedata.s3.amazonaws.com/images/r-start-newproject.gif" class="img-fluid" style="width:100.0%"></p>
+</div>
+</section>
+<section id="your-first-document" class="level2 page-columns page-full" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="your-first-document"><span class="header-section-number">9.3</span> Your first document</h2>
+<div class="callout-dothis">
+<ol type="1">
+<li><p>Open the RStudio project you just created by first opening the app, then choosing the project from the drop-down menu at the top right. Get in the habit of opening your projects this way.</p></li>
+<li><p>Create a new document (File -&gt; New -&gt; Quarto document) with three things about yourself in a list, a picture of an animal you love or some other image you like, and a code chunk.</p></li>
+</ol>
+</div>
+<section id="step-by-step" class="level4">
+<h4 class="anchored" data-anchor-id="step-by-step">Step by step</h4>
+<ul>
+<li>Find an image of your favorite animal or another image you like, and save it in the project folder that you created above.</li>
+<li>Open RStudio first, then open the project using the drop-down at the top right of your screen (or through the File -&gt; Open project menu item).</li>
+<li>Create a new Quarto document.</li>
+<li>Switch to Source mode from Visual mode .</li>
+<li>Delete the entire default entry, including the stuff at the very top.</li>
+<li>Copy the <a href="#frontmatter">code above</a> to the very top of the page. Don’t leave any blank lines above it.</li>
+<li>Change your name and the title in that top section.</li>
+<li>Save the new Quarto document using the name <code>yourlastname-firstquarto</code></li>
+<li>The area below the three dashes is your document. In it, create:
+<ul>
+<li>A subhed introducing a subtopic, called “About me”</li>
+<li>Within that heading, a list of three things about yourself or about a topic you love, in an unordered (bulleted) list.</li>
+<li>Another subhed , called “An image I love”, with some text below it describing why you love it</li>
+<li>The image that you saved into your project folder</li>
+<li>Another subhed called “Some R code”</li>
+<li>A code chunk, in which you create a variable , assign it a value, and then print it out.</li>
+</ul></li>
+<li>Save your work</li>
+<li>Render the document to a final html file. (Rendering automatically saves, but it’s good practice to do it yourself.)</li>
+</ul>
+</section>
+<section id="common-problems" class="level4">
+<h4 class="anchored" data-anchor-id="common-problems">Common problems</h4>
+<ul>
+<li>You haven’t saved the document yet.</li>
+<li>There is an error in that top YAML section. Copy the code above and try again. It’s really picky.</li>
+<li>There is an error in your R code. Look for a visual hint that shows you what’s wrong.</li>
+<li>You deleted the ending back-ticks at the end of the code chunk. Your whole screen turned gray and there’s no Play button. Add three back-ticks after your code to get back on track.</li>
+<li>Everything’s too smushed together. The subheds, for example, have to have a space after the hashtag, and the lists have to have a blank line above them. Give your document room to breathe by inserting blank lines between elements. If you’re having trouble, switch back to visual mode and fix it there, then look at it again in Source mode.</li>
+</ul>
+</section>
+<section id="example-document" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="example-document">Example document</h3>
+<p>You can look at the <a href="https://cronkitedata.s3.amazonaws.com/markdown_templates/cohens-firstquarto.qmd">original Quarto code</a> and the <a href="https://cronkitedata.s3.amazonaws.com/markdown_templates/cohens-firstquarto.html">rendered document</a>, but remember that if you were doing this yourself, you’d have to have the image saved in the same folder as your project. I changed the theme so you could see some of the variations.</p>
+<div class="column-screen-right pe-5">
+<p><img src="assets/images/r-quarto-first-moose.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</section>
+</section>
+<section id="quarto-resources" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="quarto-resources"><span class="header-section-number">9.4</span> Other resources</h2>
+<ul>
+<li><a href="https://quarto.org/docs/get-started/hello/rstudio.html">Quarto’s Getting Started guide</a></li>
+<li><a href="https://youtu.be/fT5xI1cmE2c">Heiss’s video on R Markdown</a>, which is very similar to Quarto. (13 minutes). It’s great about showing you the glitches you might run into. The differences between Quarto and RMarkdown are :
+<ul>
+<li>The <code>output: html_document</code> line should be <code>format: html</code></li>
+<li>The name of the file ends with .qmd, not .Rmd</li>
+<li>The “knit” button is really a “render” button.</li>
+</ul></li>
+</ul>
 
 
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Literally, “Yet Another Markup Language”. Sigh<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Three key things it does: Make better-looking printouts; allow me to download all of your code; and keep any data or images embedded into the document so you don’t have to send me all of the supporting files.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
 </section>
 
 </main> <!-- /main -->
@@ -692,10 +818,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
+      <a href="./quickstart-startup.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Getting started with R</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./start.html" class="pagination-link">
-        <span class="nav-page-text">Reporting with data</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./quickstart-data-import.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Getting and saving data</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

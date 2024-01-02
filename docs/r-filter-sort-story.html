@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data Reporting - 3&nbsp; Documenting your work</title>
+<title>Data Reporting - 13&nbsp; Sorting and filtering to find stories</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./start-hunt.html" rel="next">
-<link href="./start-data-def.html" rel="prev">
+<link href="./r-verb-filter.html" rel="next">
+<link href="./r-tidy.html" rel="prev">
 <link href="./assets/images/favicon.ico" rel="icon">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -75,7 +75,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./start.html">Reporting with data</a></li><li class="breadcrumb-item"><a href="./start-data-document.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Documenting your work</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./rdepth.html">Verbs of the tidyverse</a></li><li class="breadcrumb-item"><a href="./r-filter-sort-story.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Sorting and filtering to find stories</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -116,11 +116,11 @@ ul.task-list li input[type="checkbox"] {
       <div class="sidebar-item-container"> 
             <a href="./start.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Reporting with data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./start-story.html" class="sidebar-item-text sidebar-link">
@@ -135,7 +135,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./start-data-document.html" class="sidebar-item-text sidebar-link active">
+  <a href="./start-data-document.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Documenting your work</span></span></a>
   </div>
 </li>
@@ -204,11 +204,11 @@ ul.task-list li input[type="checkbox"] {
       <div class="sidebar-item-container"> 
             <a href="./rdepth.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Verbs of the tidyverse</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-tidy.html" class="sidebar-item-text sidebar-link">
@@ -217,7 +217,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./r-filter-sort-story.html" class="sidebar-item-text sidebar-link">
+  <a href="./r-filter-sort-story.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Sorting and filtering to find stories</span></span></a>
   </div>
 </li>
@@ -292,15 +292,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">In this chapter:</h2>
    
   <ul>
-  <li><a href="#scripted-journalism" id="toc-scripted-journalism" class="nav-link active" data-scroll-target="#scripted-journalism"><span class="header-section-number">3.1</span> Scripted journalism</a></li>
-  <li><a href="#elements-of-your-documentation" id="toc-elements-of-your-documentation" class="nav-link" data-scroll-target="#elements-of-your-documentation"><span class="header-section-number">3.2</span> Elements of your documentation</a>
-  <ul class="collapse">
-  <li><a href="#data-sourcing" id="toc-data-sourcing" class="nav-link" data-scroll-target="#data-sourcing">Data sourcing</a></li>
-  <li><a href="#data-documentation-and-flaws" id="toc-data-documentation-and-flaws" class="nav-link" data-scroll-target="#data-documentation-and-flaws">Data documentation and flaws</a></li>
-  <li><a href="#processing-notes" id="toc-processing-notes" class="nav-link" data-scroll-target="#processing-notes">Processing notes</a></li>
-  <li><a href="#the-good-part-your-analysis" id="toc-the-good-part-your-analysis" class="nav-link" data-scroll-target="#the-good-part-your-analysis">The good part: Your analysis</a></li>
-  </ul></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">3.3</span> Further reading</a></li>
+  <li><a href="#a-sorting-miracle" id="toc-a-sorting-miracle" class="nav-link active" data-scroll-target="#a-sorting-miracle"><span class="header-section-number">13.1</span> A sorting miracle</a></li>
+  <li><a href="#sorting-and-filtering-as-a-reporting-tool" id="toc-sorting-and-filtering-as-a-reporting-tool" class="nav-link" data-scroll-target="#sorting-and-filtering-as-a-reporting-tool"><span class="header-section-number">13.2</span> Sorting and filtering as a reporting tool</a></li>
   </ul>
 </nav>
     </div>
@@ -309,7 +302,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="start-data-document" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Documenting your work</span></span></h1>
+<h1 class="title"><span id="r-filter-sort-story" class="quarto-section-identifier"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Sorting and filtering to find stories</span></span></h1>
 </div>
 
 
@@ -324,78 +317,30 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<div class="otro-blockquote">
-<p>“In every project you have at least one other collaborator: future-you. You don’t want future-you to curse past-you”</p>
-<p>– Hadley Wickham via Roel M. Hogervorst</p>
+<section id="a-sorting-miracle" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="a-sorting-miracle"><span class="header-section-number">13.1</span> A sorting miracle</h2>
+<p>After Ferguson, Mo., <a href="https://en.wikipedia.org/wiki/Shooting_of_Michael_Brown">police killed Michael Brown in 2014</a>, advocates and journalists began examining the racial and ethnic gap between police departments and the communities they served. The New York Times found a 7-year-old survey conducted by the Justice Department that allowed it to <a href="https://www.nytimes.com/interactive/2014/09/03/us/the-race-gap-in-americas-police-departments.html">compare the data for major cities in a standalone graphic</a> that it published later that year.</p>
+<p>When newer data reflecting departments’ makeup in 2012 was released a year later, Matt Apuzzo and I hoped it would show some differences. It didn’t. So we were left trying to find news in the data that was clearly of public interest.</p>
+<p>After matching up the demographics of police departments with their cities, I started sorting, filtering and Googling. Could there be news in the outliers on the list? Which departments most closely represented their communities? Which ones had unusually large gaps?</p>
+<div class="float-md-end">
+<p><img src="assets/images/xl-filter-sort-riley.png" class="img-fluid img-fluid" style="width:60.0%"></p>
+<p><span class="quarto-float-caption">Chief William T. Riley III. Credit: Laura McDermott for The New York Times</span></p>
 </div>
-<p>There are many reasons to fully document all of your data reporting, from the time you start seeking FOIAs to the time you publish your story and beyond. But future-you will be most grateful if you get in the habit of documenting your work as you go along.</p>
-<p>Most projects happen in fits and starts. Sometimes you abandon a dataset just to come back to it later. Other times news gets in the way. No matter the reason, you will probably forget all of the details of your work – even where you stored it! – after just a few days. The good habits you get into now will save you hours and days of work later.</p>
-<p>No matter what, <strong>your analysis and the way it’s characterized in publication must be demonstrably accurate.</strong> That means knowing exactly what you did, why, where you’ve put it, and how it should be communicated to a general audience. If you can’t describe your methods, the story simply can’t be be published. I have seen instances in which weeks of work had to be repeated or discarded because the reporter couldn’t identify the source or how they worked with it.</p>
-<p>As Hadley Wickham said, you don’t want your future self to curse your current self – write good documentation that you can read and follow after you’ve long forgotten what you did today.</p>
-<section id="scripted-journalism" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="scripted-journalism"><span class="header-section-number">3.1</span> Scripted journalism</h2>
-<p><img src="assets/images/start-data-document-mcdonald.png" class="float-md-end img-fluid m-3 border border-note img-fluid" style="width:70.0%" data-fig-caption="MLS site" alt=""> <!-- I can't get the caption to go to the bottom after a floating image. This is an image, not a figure, so it doesn't have fig-caption. I'll leave it for now.--></p>
-<p>Christian McDonald at the University of Texas has described “scripted journalism” as data reporting that is “repeatable, transparent and annotated”.</p>
-<p>We will be accomplishing those goals through the use of Quarto documents, which combine writing with analysis and results. By the end of this book, you will know how to produce a site like <a href="https://christianmcdonald.quarto.pub/mls-salaries/">McDonald’s Major League Soccer analysis</a> on your own as a way to document your work.</p>
-<p>Some news organizations and editors talk instead about the “data diary”. It’s the same idea, but accomplished by keeping the journalism equivalent of the lab notebooks common in the sciences. Sometimes you’ll do work that doesn’t fit into the scripted journalism idea, such as a quick spreadsheet sort or some hand-cleaning of data. When you do that, be sure to keep a running list of all of the steps you took. Unlike programming languages, there’s no reminder of your mouse clicks.</p>
-<p>I generally work on two levels: For stories, I have a Google or other document that lists all of the datasets I’ve attempted to use to answer my questions, where I tried to get them, and what experts I interview say about them. I also list stories and studies that used the data in these documents. But I almost exclusively work in programming languages to test, clean and analyze data. And to the extent possible, I try to share any results using Quarto documents so that I always know everyone is working from the same version.</p>
-<p>Think of the data work the same way you think about interview notes or transcripts and any other research for a story. You wouldn’t quote a court case without reading it and probably talking to some of the participants. You’d make sure you know where to find the documents and what people say about them. You will consult those documents during your fact-checking. All data work – even the most short-lived – should be documented in at least the same detail. Ideally, someone reading through your notes would be able to repeat your work and understand what it means.</p>
+<p>I quickly stumbled on telling anecdote to frame the story: Inkster, Mich. had one of the least representative departments in the country, and had recently hired a new police chief to help mend the department’s fraught relationship with its largely African-American community. Where had he come from? Selma, Ala., one of the most representative police departments in the nation. Interviews with the chief, William T. Riley III, suggested one reason for some cities’ disparities: there was no state or federal money to pay for training new police officers.</p>
+<p>The story, “<a href="https://www.nytimes.com/2015/11/08/us/politics/police-chiefs-looking-to-diversify-forces-face-structural-hurdles.html?unlocked_article_code=AAAAAAAAAAAAAAAACEIPuonUktbcrohlSVUbCybIRp8_qRmHmfnE2_skgXv_JyXQQjZDwuoORoyH_ETMY6Ume9x20zWFScVaMbE-AfJ11ORSJAljQgKl54CYgokOPzgvoIb2Xn4s05bARvY47TruJCGfGdtI-Yee7ViAISTiRrqMkjB6dlMyv8ZiJ137i3wM2qjERbNq3tUt2eMqD816WWxRNymOv_HoDhl_a86ULU2JsnlAUO5aXD7Zn9-Y-uhAJF0UUQSaOSs5tWUs69pcOMcUP7L_KHMieMn8g7YRAw94PdvjRs1xF8WPyeIc4fOaogeMycG22_w1CKxf2brHuW-7P10kI6iEmzxp800cWiwLurLqbSiQJw&amp;smid=url-share">Police Chiefs, Looking to Diversity Forces, Face Structural Hurdles</a>” helped explain the persistent gap between the makeup of police in some areas and the communities they served.</p>
 </section>
-<section id="elements-of-your-documentation" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="elements-of-your-documentation"><span class="header-section-number">3.2</span> Elements of your documentation</h2>
-<p>You may not document all of these for smaller stories, but try to keep track of as many of these elements as possible.</p>
-<section id="data-sourcing" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="data-sourcing">Data sourcing</h3>
-<p>Make sure to write out, in detail, where you got your data and any material you reviewed about it. This includes:</p>
+<section id="sorting-and-filtering-as-a-reporting-tool" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="sorting-and-filtering-as-a-reporting-tool"><span class="header-section-number">13.2</span> Sorting and filtering as a reporting tool</h2>
+<p>“Sorting” is the process of re-arranging the rows of your data from low to high, or high to low. “Filtering” is the process of picking out items from your data using specific criteria.</p>
+<p>Sorting and filtering can:</p>
 <ul>
-<li><p>The source of YOUR data, and how you know it’s authentic. Be specific. Don’t pretend you got it from the original source when you found it elsewhere, such as in this textbook or in a Github repository.</p></li>
-<li><p>Describe the ORIGINAL source of the data and how it is collected and released.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p></li>
-<li><p>Take notes on other stories and studies that use this or similar data. Include interview notes, advice, warnings and findings along with stories that have already been done.</p></li>
-<li><p>Identify alternative sources for this and similar or related datasets or documents.</p></li>
-<li><p>Specifically write down where you have stored all of this and how you have organized your work. You want to make sure you can get back to the latest version easily, and that you have all of the supporting documents you need to check it.</p></li>
+<li>Narrow your focus to specific items that you want to examine in your story.</li>
+<li>Show you rows containing the highest and lowest values of any column. That can be news or it can be errors or other problems with the data.</li>
+<li>Let you answer quick “how many?” questions, with a count of the rows that match your criteria. (In the next lesson, you’ll see that counting this way isn’t always the most efficient way to answer your “how many?” questions.)</li>
 </ul>
-</section>
-<section id="data-documentation-and-flaws" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="data-documentation-and-flaws">Data documentation and flaws</h3>
-<p>I usually put the details of data documentation in a data cleaning Quarto document, which includes the code and the links to my files in one place. But no matter where you do it:</p>
-<ul>
-<li><p>Include links or copies of any original documentation such as a record layout, data dictionary<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> or manual. If there isn’t one, consider making a data dictionary with what you’ve learned.</p></li>
-<li><p>Document the ways you checked the integrity of the data. There are many ways it might be inaccurate. Try to reconcile the number of rows and any totals you can produce to match other reports created by the source, or other reports that have used it. On longer stories, you’ll also check for impossible combinations (10-year-olds with DUIs), missing data and invalid data such as corrupted date columns.</p></li>
-<li><p>Record any questions (and answers as you get them) about the meaning of fields or the scope of the data.</p></li>
-<li><p>Document decisions you’ve made about the scope or method of your analysis. For example, if you want to look at “serious” crimes, describe how and why you categorized each crime as “serious” or “not serious.” Some of these should be vetted by experts or should be verified by documenting industry standards. You might note whether you’ve agreed as a team on these decisions, and when.</p></li>
-<li><p>Include a list of interviews conducted / questions asked of officials and what they said.</p></li>
-</ul>
-</section>
-<section id="processing-notes" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="processing-notes">Processing notes</h3>
-<p>Some projects require many steps to get to a dataset that can be analyzed. You may have had to scrape the data, combine it with other sources or fix some entries. Some common elements you should document:</p>
-<ul>
-<li><p>Hand-made corrections. Try to list every one, but it’s ok if you describe HOW you did it, such as clustering and hand-entering using OpenRefine. Link to any spreadsheet, document or program you used. Just be sure to always work on a copy of the data.</p></li>
-<li><p>Geocoding (affixing geographic coordinates to addresses). Note how many were correct, how many missing, and what you did about it.</p></li>
-<li><p>A description of how you got messy data into a tabular form or a form suitable for analysis. For example, you may have had to strip headings or flip a spreadsheet on its head. Make sure to write down how you did that if it’s not in a program that can be easily replicated.</p></li>
-</ul>
-</section>
-<section id="the-good-part-your-analysis" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="the-good-part-your-analysis">The good part: Your analysis</h3>
-<ul>
-<li><p>Each question you asked of your data, and the steps you took to answer it. If you use programming notebooks, write it out in plain language before or after the query or statements.</p></li>
-<li><p>Vetting of your answers: who has looked them over, commented on them</p></li>
-<li><p>Why they might be wrong!</p></li>
-</ul>
-</section>
-</section>
-<section id="further-reading" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">3.3</span> Further reading</h2>
-<p>Data cleaning will come up a lot in the future, but it’s closely intertwined with documenting your work. Here’s <a href="https://cronkitedata.s3.amazonaws.com/docs/bulletproof-email.pdf">an email exchange between me and Craig Silverman</a>, now at ProPublica, about the process I used at The New York Times in reporting and fact-checking. This isn’t the same as a process for replication, but it discusses the kinds of things that should be in it.</p>
+<p>Don’t underestimate the power of a simple filter and sort to help you hone in on anecdotes that will make your story come alive, by finding the oldest or youngest, the nearest or farthest, or the smallest or largest examples from your data.</p>
 
 
-</section>
-<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn1"><p>If you want to see a project with a lot of data sources and how they might be documented in your notes, take a look at the <a href="https://docs.google.com/document/d/1NqnPTUWhlJkg7JdBShSTWzSDncE91kBi/edit?usp=sharing&amp;ouid=100970402851917703844&amp;rtpof=true&amp;sd=true">New York City housing data sources</a> we considered for a project in 2016.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>A data dictionary lists every table and column in the database, along with definitions. It may be very straightfoward but can become quite complex.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
 </section>
 
 </main> <!-- /main -->
@@ -634,13 +579,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
-      <a href="./start-data-def.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Defining “Data”</span></span>
+      <a href="./r-tidy.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Tidy data principles</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./start-hunt.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Finding the right data for your story</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./r-verb-filter.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Verbs in depth: Select, arrange, filter</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

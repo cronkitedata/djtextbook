@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data Reporting - 3&nbsp; Documenting your work</title>
+<title>Data Reporting - 12&nbsp; Tidy data principles</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./start-hunt.html" rel="next">
-<link href="./start-data-def.html" rel="prev">
+<link href="./r-filter-sort-story.html" rel="next">
+<link href="./rdepth.html" rel="prev">
 <link href="./assets/images/favicon.ico" rel="icon">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -75,7 +75,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./start.html">Reporting with data</a></li><li class="breadcrumb-item"><a href="./start-data-document.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Documenting your work</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./rdepth.html">Verbs of the tidyverse</a></li><li class="breadcrumb-item"><a href="./r-tidy.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Tidy data principles</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -116,11 +116,11 @@ ul.task-list li input[type="checkbox"] {
       <div class="sidebar-item-container"> 
             <a href="./start.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Reporting with data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./start-story.html" class="sidebar-item-text sidebar-link">
@@ -135,7 +135,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./start-data-document.html" class="sidebar-item-text sidebar-link active">
+  <a href="./start-data-document.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Documenting your work</span></span></a>
   </div>
 </li>
@@ -204,14 +204,14 @@ ul.task-list li input[type="checkbox"] {
       <div class="sidebar-item-container"> 
             <a href="./rdepth.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Verbs of the tidyverse</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./r-tidy.html" class="sidebar-item-text sidebar-link">
+  <a href="./r-tidy.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Tidy data principles</span></span></a>
   </div>
 </li>
@@ -292,15 +292,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">In this chapter:</h2>
    
   <ul>
-  <li><a href="#scripted-journalism" id="toc-scripted-journalism" class="nav-link active" data-scroll-target="#scripted-journalism"><span class="header-section-number">3.1</span> Scripted journalism</a></li>
-  <li><a href="#elements-of-your-documentation" id="toc-elements-of-your-documentation" class="nav-link" data-scroll-target="#elements-of-your-documentation"><span class="header-section-number">3.2</span> Elements of your documentation</a>
-  <ul class="collapse">
-  <li><a href="#data-sourcing" id="toc-data-sourcing" class="nav-link" data-scroll-target="#data-sourcing">Data sourcing</a></li>
-  <li><a href="#data-documentation-and-flaws" id="toc-data-documentation-and-flaws" class="nav-link" data-scroll-target="#data-documentation-and-flaws">Data documentation and flaws</a></li>
-  <li><a href="#processing-notes" id="toc-processing-notes" class="nav-link" data-scroll-target="#processing-notes">Processing notes</a></li>
-  <li><a href="#the-good-part-your-analysis" id="toc-the-good-part-your-analysis" class="nav-link" data-scroll-target="#the-good-part-your-analysis">The good part: Your analysis</a></li>
-  </ul></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">3.3</span> Further reading</a></li>
+  <li><a href="#what-is-tidy-data" id="toc-what-is-tidy-data" class="nav-link active" data-scroll-target="#what-is-tidy-data"><span class="header-section-number">12.1</span> What is tidy data?</a></li>
+  <li><a href="#understanding-data-types" id="toc-understanding-data-types" class="nav-link" data-scroll-target="#understanding-data-types"><span class="header-section-number">12.2</span> Understanding data types</a></li>
+  <li><a href="#real-world-non-tidy-data" id="toc-real-world-non-tidy-data" class="nav-link" data-scroll-target="#real-world-non-tidy-data"><span class="header-section-number">12.3</span> Real world non-tidy data</a></li>
   </ul>
 </nav>
     </div>
@@ -309,7 +303,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="start-data-document" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Documenting your work</span></span></h1>
+<h1 class="title"><span id="r-tidy" class="quarto-section-identifier"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Tidy data principles</span></span></h1>
 </div>
 
 
@@ -325,76 +319,79 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 <div class="otro-blockquote">
-<p>“In every project you have at least one other collaborator: future-you. You don’t want future-you to curse past-you”</p>
-<p>– Hadley Wickham via Roel M. Hogervorst</p>
+<p>Like families, tidy datasets are all alike but every messy dataset is messy in its own way.</p>
+<p>– <span class="text-muted fs-5 fst-italic">Hadley Wickham, with apologies to the ghost of Leo Tolstoy</span></p>
 </div>
-<p>There are many reasons to fully document all of your data reporting, from the time you start seeking FOIAs to the time you publish your story and beyond. But future-you will be most grateful if you get in the habit of documenting your work as you go along.</p>
-<p>Most projects happen in fits and starts. Sometimes you abandon a dataset just to come back to it later. Other times news gets in the way. No matter the reason, you will probably forget all of the details of your work – even where you stored it! – after just a few days. The good habits you get into now will save you hours and days of work later.</p>
-<p>No matter what, <strong>your analysis and the way it’s characterized in publication must be demonstrably accurate.</strong> That means knowing exactly what you did, why, where you’ve put it, and how it should be communicated to a general audience. If you can’t describe your methods, the story simply can’t be be published. I have seen instances in which weeks of work had to be repeated or discarded because the reporter couldn’t identify the source or how they worked with it.</p>
-<p>As Hadley Wickham said, you don’t want your future self to curse your current self – write good documentation that you can read and follow after you’ve long forgotten what you did today.</p>
-<section id="scripted-journalism" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="scripted-journalism"><span class="header-section-number">3.1</span> Scripted journalism</h2>
-<p><img src="assets/images/start-data-document-mcdonald.png" class="float-md-end img-fluid m-3 border border-note img-fluid" style="width:70.0%" data-fig-caption="MLS site" alt=""> <!-- I can't get the caption to go to the bottom after a floating image. This is an image, not a figure, so it doesn't have fig-caption. I'll leave it for now.--></p>
-<p>Christian McDonald at the University of Texas has described “scripted journalism” as data reporting that is “repeatable, transparent and annotated”.</p>
-<p>We will be accomplishing those goals through the use of Quarto documents, which combine writing with analysis and results. By the end of this book, you will know how to produce a site like <a href="https://christianmcdonald.quarto.pub/mls-salaries/">McDonald’s Major League Soccer analysis</a> on your own as a way to document your work.</p>
-<p>Some news organizations and editors talk instead about the “data diary”. It’s the same idea, but accomplished by keeping the journalism equivalent of the lab notebooks common in the sciences. Sometimes you’ll do work that doesn’t fit into the scripted journalism idea, such as a quick spreadsheet sort or some hand-cleaning of data. When you do that, be sure to keep a running list of all of the steps you took. Unlike programming languages, there’s no reminder of your mouse clicks.</p>
-<p>I generally work on two levels: For stories, I have a Google or other document that lists all of the datasets I’ve attempted to use to answer my questions, where I tried to get them, and what experts I interview say about them. I also list stories and studies that used the data in these documents. But I almost exclusively work in programming languages to test, clean and analyze data. And to the extent possible, I try to share any results using Quarto documents so that I always know everyone is working from the same version.</p>
-<p>Think of the data work the same way you think about interview notes or transcripts and any other research for a story. You wouldn’t quote a court case without reading it and probably talking to some of the participants. You’d make sure you know where to find the documents and what people say about them. You will consult those documents during your fact-checking. All data work – even the most short-lived – should be documented in at least the same detail. Ideally, someone reading through your notes would be able to repeat your work and understand what it means.</p>
-</section>
-<section id="elements-of-your-documentation" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="elements-of-your-documentation"><span class="header-section-number">3.2</span> Elements of your documentation</h2>
-<p>You may not document all of these for smaller stories, but try to keep track of as many of these elements as possible.</p>
-<section id="data-sourcing" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="data-sourcing">Data sourcing</h3>
-<p>Make sure to write out, in detail, where you got your data and any material you reviewed about it. This includes:</p>
+<p>You’ve installed the <code>tidyverse</code> without really knowing what it means. That suite of packages is designed to work together around one concept – that of <em>tidy data</em>. It may be the most important data concept you’ll learn this semester.</p>
+<p>This chapter may seem abstract, but it will be put into practice very soon.</p>
+<p>Tidy data refers to a structure of a dataset that makes it easier to analyze and visualize – it provides a definition of “clean” data. Hadley Wickham, the chief scientist at Posit, developed the <a href="https://vita.had.co.nz/papers/tidy-data.pdf">concept of tidy data a decade ago</a>. That seminal paper is the glue that holds together all of the packages of the Tidyverse – every one of its 25 or so packages either depends on data structured in this way, or helps you convert messy data into tidy data.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<div class="callout-dothis">
+<p>Read “<a href="https://eagereyes.org/blog/2016/spreadsheet-thinking-vs-database-thinking">Spreadsheet thinking vs.&nbsp;database thinking</a>”, by Robert Kosara, a visualization expert at <a href="https://observablehq.com/">Observable</a> <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> . This piece will get you started thinking about different ways to think about data structures; <em>tidy data</em> is similar to database thinking in this article.</p>
+</div>
+<section id="what-is-tidy-data" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="what-is-tidy-data"><span class="header-section-number">12.1</span> What is tidy data?</h2>
+<p>The key characteristics of tidy data are:</p>
 <ul>
-<li><p>The source of YOUR data, and how you know it’s authentic. Be specific. Don’t pretend you got it from the original source when you found it elsewhere, such as in this textbook or in a Github repository.</p></li>
-<li><p>Describe the ORIGINAL source of the data and how it is collected and released.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p></li>
-<li><p>Take notes on other stories and studies that use this or similar data. Include interview notes, advice, warnings and findings along with stories that have already been done.</p></li>
-<li><p>Identify alternative sources for this and similar or related datasets or documents.</p></li>
-<li><p>Specifically write down where you have stored all of this and how you have organized your work. You want to make sure you can get back to the latest version easily, and that you have all of the supporting documents you need to check it.</p></li>
+<li>Each column contains one kind of information – race, sex, address, etc. Data scientists call these “fields” or “variables” or “attributes”.</li>
+<li>Each row contains one example of each of those columns, all at the same unit of analysis. In other words, they each refer to the same noun. Data scientists call these “observations” or “cases” or “records”.</li>
+<li>Each value must have its own cell.</li>
+</ul>
+<p>Here is how Wickham visualizes these rules:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/images/start-tidy-hadley1.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Source: R for Data Science</figcaption>
+</figure>
+</div>
+<p>Tidy data tends to have a lot of repeated information in the rows, but has few columns, just like the “database” thinking in Kosara’s piece. Practice looking at any data you find with an eye toward converting it into a tidy structure.</p>
+</section>
+<section id="understanding-data-types" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="understanding-data-types"><span class="header-section-number">12.2</span> Understanding data types</h2>
+<p>When each column holds the same piece of information, it makes sense that each value in that column should be of the same <strong>type</strong>. Many of the errors or problems in your programs will come from trying to use text when something else is required, or trying to use text when a number is required.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Get the data dictionary!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Whenever you get a dataset, you should look for a “data dictionary”, “record layout” or similar document. They tell you what each column is called and what type of data is held in it.</p>
+</div>
+</div>
+<p>Here are the four most common data types you’ll see in reporting:</p>
+<ul>
+<li><p><strong>Text</strong>. Text or “character” columns can come in long or short form. When they are standardized (the values can contain only one of a small list of values), they’re called “categorical”.In reporting, we frequently treat any value that you don’t want to use in a mathematical formula as text. For instance, there is no concept of the sum of Zip Codes. We would treat them as text values to keep them separate from values. Text is the least common denominator of data – all other types can be represented as text, but the reverse isn’t true.</p>
+<p>Don’t confuse a text value with the name of a variable or object. For example, the column <code>zipcode</code> might contain the value “01243”. The name of the column is unquoted, and the value within it is.</p></li>
+<li><p><strong>Numbers</strong>. These are pure numbers with no commas, dollar signs or other embellishments. You can present them as formatted values that are easier to look at, but underneath they’re just numbers.In R, these could be integers (whole numbers), or double-precision values (those that have a lot of numbers after the decimal point, such as geographic coordinates or the results of computations).</p>
+<p>There actually aren’t that many pure numbers in the <a href="./start-data-def.html#granular-and-aggregated-data">granular</a> datasets that we obtain via FOIA – dollar values and test measurements, for example. In R, as in most programming languages, trying to put text into a column defined as numbers will yield an error or a missing value.</p></li>
+<li><p><strong>Logical</strong>: This is a subset of text. It can take one of only two values – yes or no, true or false. There is no “maybe”.</p></li>
+<li><p><strong>Date and time</strong>: These are actual dates on the calendar, which have magical properties. You see a date or time that makes sense to you, but the computer sees a pure number. A date value in R is the number of days since Jan.&nbsp;1, 1970; in Excel, it’s the number of days since Jan 1 1900. There are different date and time systems, but the <code>lubridate</code> package in R will handle most of them. The key to date values is that if they are stored as a date, they will sort correctly even though “February” comes before “January” in the alphabet. They also have attributes that you can extract, like the day of the week.</p></li>
 </ul>
 </section>
-<section id="data-documentation-and-flaws" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="data-documentation-and-flaws">Data documentation and flaws</h3>
-<p>I usually put the details of data documentation in a data cleaning Quarto document, which includes the code and the links to my files in one place. But no matter where you do it:</p>
+<section id="real-world-non-tidy-data" class="level2" data-number="12.3">
+<h2 data-number="12.3" class="anchored" data-anchor-id="real-world-non-tidy-data"><span class="header-section-number">12.3</span> Real world non-tidy data</h2>
+<p>Wickham laid out several ways that we see data when it’s not tidy. The three most common are:</p>
 <ul>
-<li><p>Include links or copies of any original documentation such as a record layout, data dictionary<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> or manual. If there isn’t one, consider making a data dictionary with what you’ve learned.</p></li>
-<li><p>Document the ways you checked the integrity of the data. There are many ways it might be inaccurate. Try to reconcile the number of rows and any totals you can produce to match other reports created by the source, or other reports that have used it. On longer stories, you’ll also check for impossible combinations (10-year-olds with DUIs), missing data and invalid data such as corrupted date columns.</p></li>
-<li><p>Record any questions (and answers as you get them) about the meaning of fields or the scope of the data.</p></li>
-<li><p>Document decisions you’ve made about the scope or method of your analysis. For example, if you want to look at “serious” crimes, describe how and why you categorized each crime as “serious” or “not serious.” Some of these should be vetted by experts or should be verified by documenting industry standards. You might note whether you’ve agreed as a team on these decisions, and when.</p></li>
-<li><p>Include a list of interviews conducted / questions asked of officials and what they said.</p></li>
+<li><p>Column headings are values, not variables. When a column heading shows each year, it is showing the value of the year variable, not something separate. This happens most of the time when you obtain data that is intended for publication, not analysis.</p>
+<p>This is the most common type of untidy data seen in newsrooms, because so many of our datasets come in the form of spreadsheets from sources or the government, or from printed tables in PDF documents that are converted into spreadsheets.</p></li>
+<li><p>Multiple variables are stored in one column. You have to decide what the important level of detail is: Full name, or first name and last name? More frequently, this is a problem in data that comes from the Census Bureau, which has columns that combine, for example, sex and age. (Male, 25-54 years old)<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p></li>
+<li><p>Rows might contain different levels of detail. This also comes from getting printouts rather than original datasets, where subtotals and totals are shown in rows, not in a separate table. Again, this is most common in statistical reports intended for printing rather than for analysis.</p></li>
+<li><p>Separate sheets for the same data. It’s common for government agencies to provide data with one page for each year, or one page for each county. These usually have to be stacked on top of one another.</p></li>
 </ul>
-</section>
-<section id="processing-notes" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="processing-notes">Processing notes</h3>
-<p>Some projects require many steps to get to a dataset that can be analyzed. You may have had to scrape the data, combine it with other sources or fix some entries. Some common elements you should document:</p>
-<ul>
-<li><p>Hand-made corrections. Try to list every one, but it’s ok if you describe HOW you did it, such as clustering and hand-entering using OpenRefine. Link to any spreadsheet, document or program you used. Just be sure to always work on a copy of the data.</p></li>
-<li><p>Geocoding (affixing geographic coordinates to addresses). Note how many were correct, how many missing, and what you did about it.</p></li>
-<li><p>A description of how you got messy data into a tabular form or a form suitable for analysis. For example, you may have had to strip headings or flip a spreadsheet on its head. Make sure to write down how you did that if it’s not in a program that can be easily replicated.</p></li>
-</ul>
-</section>
-<section id="the-good-part-your-analysis" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="the-good-part-your-analysis">The good part: Your analysis</h3>
-<ul>
-<li><p>Each question you asked of your data, and the steps you took to answer it. If you use programming notebooks, write it out in plain language before or after the query or statements.</p></li>
-<li><p>Vetting of your answers: who has looked them over, commented on them</p></li>
-<li><p>Why they might be wrong!</p></li>
-</ul>
-</section>
-</section>
-<section id="further-reading" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">3.3</span> Further reading</h2>
-<p>Data cleaning will come up a lot in the future, but it’s closely intertwined with documenting your work. Here’s <a href="https://cronkitedata.s3.amazonaws.com/docs/bulletproof-email.pdf">an email exchange between me and Craig Silverman</a>, now at ProPublica, about the process I used at The New York Times in reporting and fact-checking. This isn’t the same as a process for replication, but it discusses the kinds of things that should be in it.</p>
+<p>Your first instinct in creating your own database will likely have one or more of these problems.</p>
+<p>Now that you have some of the basic concepts, it’s time to put them into practice!</p>
 
 
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>If you want to see a project with a lot of data sources and how they might be documented in your notes, take a look at the <a href="https://docs.google.com/document/d/1NqnPTUWhlJkg7JdBShSTWzSDncE91kBi/edit?usp=sharing&amp;ouid=100970402851917703844&amp;rtpof=true&amp;sd=true">New York City housing data sources</a> we considered for a project in 2016.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>A data dictionary lists every table and column in the database, along with definitions. It may be very straightfoward but can become quite complex.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Hadley is still the person who decides whether a package deserves to be included in the tidyverse.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Observable is a platform for Javascript developers that can also be integrated with Quarto.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>The <code>tidycensus</code> package takes care of this for us!<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -634,13 +631,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
-      <a href="./start-data-def.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Defining “Data”</span></span>
+      <a href="./rdepth.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Verbs of the tidyverse</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./start-hunt.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Finding the right data for your story</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./r-filter-sort-story.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Sorting and filtering to find stories</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

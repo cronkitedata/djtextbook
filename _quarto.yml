@@ -40,41 +40,41 @@ book:
 
     - part: quickstart.qmd
       chapters:
-        - r-install.qmd
-        - appendix-program.qmd
-        - r-start.qmd
-        - r-quarto.qmd
-        - r-data-import.qmd
-        - r-verbs.qmd
+        - quickstart-install.qmd
+        - quickstart-program.qmd
+        - quickstart-startup.qmd
+        - quickstart-quarto.qmd
+        - quickstart-data-import.qmd
+        - quickstart-verbs.qmd
 
     - part: rdepth.qmd
       chapters:
-         - start-tidy.qmd
-         - start-filter-sort-story.qmd
+         - r-tidy.qmd
+         - r-filter-sort-story.qmd
          - r-verb-filter.qmd
          - r-verb-mutate.qmd
-         - start-groupby.qmd
+         - r-groupby-story.qmd
          - r-verb-groupby.qmd
          - r-verb-join.qmd
-         - advanced-regex.qmd
-         - advanced-regex-r.qmd
-         - r-recipes.qmd
+#         - advanced-regex.qmd
+#         - advanced-regex-r.qmd
+#         - r-recipes.qmd
 
-    - part: vis.qmd
-      chapters:
-         - vis-reporting.qmd
-         - vis-tables.qmd
-         - vis-demo.qmd
-         - vis-practice.qmd
-         - vis-maps-begin.qmd
-         - vis-maps-firstmap.qmd
+#    - part: vis.qmd
+#      chapters:
+#         - vis-reporting.qmd
+#         - vis-tables.qmd
+#         - vis-demo.qmd
+#         - vis-practice.qmd
+#         - vis-maps-begin.qmd
+#         - vis-maps-firstmap.qmd
 
-    - part: advanced.qmd
-      chapters:
-         - advanced-pdf.qmd
-         - advanced-openrefine.qmd
-         - advanced-scrape1.qmd
-         - advanced-scrape2.qmd
+#    - part: advanced.qmd
+#      chapters:
+#         - advanced-pdf.qmd
+#         - advanced-openrefine.qmd
+#         - advanced-scrape1.qmd
+#         - advanced-scrape2.qmd
 #
   appendices:
    - appendix-math.qmd

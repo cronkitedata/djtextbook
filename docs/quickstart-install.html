@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data Reporting - 3&nbsp; Documenting your work</title>
+<title>Data Reporting - 6&nbsp; Installing R and RStudio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./start-hunt.html" rel="next">
-<link href="./start-data-def.html" rel="prev">
+<link href="./quickstart-program.html" rel="next">
+<link href="./quickstart.html" rel="prev">
 <link href="./assets/images/favicon.ico" rel="icon">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -75,7 +75,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./start.html">Reporting with data</a></li><li class="breadcrumb-item"><a href="./start-data-document.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Documenting your work</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./quickstart.html">Programming quick start</a></li><li class="breadcrumb-item"><a href="./quickstart-install.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Installing R and RStudio</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -116,11 +116,11 @@ ul.task-list li input[type="checkbox"] {
       <div class="sidebar-item-container"> 
             <a href="./start.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Reporting with data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./start-story.html" class="sidebar-item-text sidebar-link">
@@ -135,7 +135,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./start-data-document.html" class="sidebar-item-text sidebar-link active">
+  <a href="./start-data-document.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Documenting your work</span></span></a>
   </div>
 </li>
@@ -157,14 +157,14 @@ ul.task-list li input[type="checkbox"] {
       <div class="sidebar-item-container"> 
             <a href="./quickstart.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Programming quick start</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./quickstart-install.html" class="sidebar-item-text sidebar-link">
+  <a href="./quickstart-install.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Installing R and RStudio</span></span></a>
   </div>
 </li>
@@ -292,15 +292,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">In this chapter:</h2>
    
   <ul>
-  <li><a href="#scripted-journalism" id="toc-scripted-journalism" class="nav-link active" data-scroll-target="#scripted-journalism"><span class="header-section-number">3.1</span> Scripted journalism</a></li>
-  <li><a href="#elements-of-your-documentation" id="toc-elements-of-your-documentation" class="nav-link" data-scroll-target="#elements-of-your-documentation"><span class="header-section-number">3.2</span> Elements of your documentation</a>
+  <li><a href="#install-r-and-rstudio" id="toc-install-r-and-rstudio" class="nav-link active" data-scroll-target="#install-r-and-rstudio"><span class="header-section-number">6.1</span> Install R and RStudio</a>
   <ul class="collapse">
-  <li><a href="#data-sourcing" id="toc-data-sourcing" class="nav-link" data-scroll-target="#data-sourcing">Data sourcing</a></li>
-  <li><a href="#data-documentation-and-flaws" id="toc-data-documentation-and-flaws" class="nav-link" data-scroll-target="#data-documentation-and-flaws">Data documentation and flaws</a></li>
-  <li><a href="#processing-notes" id="toc-processing-notes" class="nav-link" data-scroll-target="#processing-notes">Processing notes</a></li>
-  <li><a href="#the-good-part-your-analysis" id="toc-the-good-part-your-analysis" class="nav-link" data-scroll-target="#the-good-part-your-analysis">The good part: Your analysis</a></li>
+  <li><a href="#details-on-installing-r" id="toc-details-on-installing-r" class="nav-link" data-scroll-target="#details-on-installing-r">Details on installing R</a></li>
+  <li><a href="#backup-plan" id="toc-backup-plan" class="nav-link" data-scroll-target="#backup-plan">Backup plan</a></li>
   </ul></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">3.3</span> Further reading</a></li>
+  <li><a href="#set-up-rstudio-for-data-reporting" id="toc-set-up-rstudio-for-data-reporting" class="nav-link" data-scroll-target="#set-up-rstudio-for-data-reporting"><span class="header-section-number">6.2</span> Set up RStudio for data reporting</a></li>
   </ul>
 </nav>
     </div>
@@ -309,7 +306,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="start-data-document" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Documenting your work</span></span></h1>
+<h1 class="title"><span id="quickstart-install" class="quarto-section-identifier"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Installing R and RStudio</span></span></h1>
 </div>
 
 
@@ -324,77 +321,92 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<div class="otro-blockquote">
-<p>“In every project you have at least one other collaborator: future-you. You don’t want future-you to curse past-you”</p>
-<p>– Hadley Wickham via Roel M. Hogervorst</p>
+<section id="install-r-and-rstudio" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="install-r-and-rstudio"><span class="header-section-number">6.1</span> Install R and RStudio</h2>
+<p>R is the programming language itself, and has to be installed first. Andrew Heiss has called it the “engine” behind your work. RStudio, made by the company <a href="https://posit.co">posit.co</a>, is the way we’ll interact with the programming language. Install it second. Heiss calls it the “fancy car” that you drive.</p>
+<p>Most students prefer to install the software on their own laptops, but there are other options in the <a href="#backup-plan">backup plan</a> section.</p>
+<div class="callout-dothis">
+<p>Follow along with the tutorial in this link to install R, RStudio and the package called the <code>tidyverse</code> on your computer.</p>
+<p><a href="https://learnr-examples.shinyapps.io/ex-setup-r/#section-welcome" class="uri">https://learnr-examples.shinyapps.io/ex-setup-r/#section-welcome</a></p>
 </div>
-<p>There are many reasons to fully document all of your data reporting, from the time you start seeking FOIAs to the time you publish your story and beyond. But future-you will be most grateful if you get in the habit of documenting your work as you go along.</p>
-<p>Most projects happen in fits and starts. Sometimes you abandon a dataset just to come back to it later. Other times news gets in the way. No matter the reason, you will probably forget all of the details of your work – even where you stored it! – after just a few days. The good habits you get into now will save you hours and days of work later.</p>
-<p>No matter what, <strong>your analysis and the way it’s characterized in publication must be demonstrably accurate.</strong> That means knowing exactly what you did, why, where you’ve put it, and how it should be communicated to a general audience. If you can’t describe your methods, the story simply can’t be be published. I have seen instances in which weeks of work had to be repeated or discarded because the reporter couldn’t identify the source or how they worked with it.</p>
-<p>As Hadley Wickham said, you don’t want your future self to curse your current self – write good documentation that you can read and follow after you’ve long forgotten what you did today.</p>
-<section id="scripted-journalism" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="scripted-journalism"><span class="header-section-number">3.1</span> Scripted journalism</h2>
-<p><img src="assets/images/start-data-document-mcdonald.png" class="float-md-end img-fluid m-3 border border-note img-fluid" style="width:70.0%" data-fig-caption="MLS site" alt=""> <!-- I can't get the caption to go to the bottom after a floating image. This is an image, not a figure, so it doesn't have fig-caption. I'll leave it for now.--></p>
-<p>Christian McDonald at the University of Texas has described “scripted journalism” as data reporting that is “repeatable, transparent and annotated”.</p>
-<p>We will be accomplishing those goals through the use of Quarto documents, which combine writing with analysis and results. By the end of this book, you will know how to produce a site like <a href="https://christianmcdonald.quarto.pub/mls-salaries/">McDonald’s Major League Soccer analysis</a> on your own as a way to document your work.</p>
-<p>Some news organizations and editors talk instead about the “data diary”. It’s the same idea, but accomplished by keeping the journalism equivalent of the lab notebooks common in the sciences. Sometimes you’ll do work that doesn’t fit into the scripted journalism idea, such as a quick spreadsheet sort or some hand-cleaning of data. When you do that, be sure to keep a running list of all of the steps you took. Unlike programming languages, there’s no reminder of your mouse clicks.</p>
-<p>I generally work on two levels: For stories, I have a Google or other document that lists all of the datasets I’ve attempted to use to answer my questions, where I tried to get them, and what experts I interview say about them. I also list stories and studies that used the data in these documents. But I almost exclusively work in programming languages to test, clean and analyze data. And to the extent possible, I try to share any results using Quarto documents so that I always know everyone is working from the same version.</p>
-<p>Think of the data work the same way you think about interview notes or transcripts and any other research for a story. You wouldn’t quote a court case without reading it and probably talking to some of the participants. You’d make sure you know where to find the documents and what people say about them. You will consult those documents during your fact-checking. All data work – even the most short-lived – should be documented in at least the same detail. Ideally, someone reading through your notes would be able to repeat your work and understand what it means.</p>
-</section>
-<section id="elements-of-your-documentation" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="elements-of-your-documentation"><span class="header-section-number">3.2</span> Elements of your documentation</h2>
-<p>You may not document all of these for smaller stories, but try to keep track of as many of these elements as possible.</p>
-<section id="data-sourcing" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="data-sourcing">Data sourcing</h3>
-<p>Make sure to write out, in detail, where you got your data and any material you reviewed about it. This includes:</p>
+<p>The video is a little old. Here are the differences today:</p>
 <ul>
-<li><p>The source of YOUR data, and how you know it’s authentic. Be specific. Don’t pretend you got it from the original source when you found it elsewhere, such as in this textbook or in a Github repository.</p></li>
-<li><p>Describe the ORIGINAL source of the data and how it is collected and released.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p></li>
-<li><p>Take notes on other stories and studies that use this or similar data. Include interview notes, advice, warnings and findings along with stories that have already been done.</p></li>
-<li><p>Identify alternative sources for this and similar or related datasets or documents.</p></li>
-<li><p>Specifically write down where you have stored all of this and how you have organized your work. You want to make sure you can get back to the latest version easily, and that you have all of the supporting documents you need to check it.</p></li>
+<li><p>There are now two versions of R for Mac: One for older (pre-2022) computers with an Intel chip, and another called ARM64 for Macs with M1 or M2 chips. Be sure to choose the one for your computer. You can tell which one you have by clicking on the apple symbol, and choosing “About this Mac”. If it says “Intel”, then you have the older version.</p></li>
+<li><p>The download link for RStudio is now <a href="https://posit.co/download/rstudio-desktop/" class="uri">https://posit.co/download/rstudio-desktop/</a></p></li>
+<li><p>If you go all the way through the tutorial, installing the tidyverse will take a while and look like it’s stuck. It’s not. Just get some coffee and come back in 10 minutes. This only has to be done once.</p></li>
 </ul>
+<div class="mx-3 callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Stop if it isn’t working
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This <strong>should</strong> be easy, but don’t spend more than about 30 minutes trying to get this to work, and don’t try to Google your way out of any problems – the answers could be old, wrong, or make it harder. This isn’t worth your time or frustration. Contact me if there’s any problem and we’ll work it out.</p>
+</div>
+</div>
+<section id="details-on-installing-r" class="level3">
+<h3 class="anchored" data-anchor-id="details-on-installing-r">Details on installing R</h3>
+<p>Link to find your version: <a href="https://cloud.r-project.org/" class="uri">https://cloud.r-project.org/</a>. As of December 2023, the version is 4.3.</p>
+<p><strong>Mac OS:</strong></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/images/r-start-dist-macs.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">The version you see will be higher than “4.1”. As of December 2023, it’s 4.3</figcaption>
+</figure>
+</div>
+<p>Parts of RStudio depend on “command line tools” in a Mac. If you’re asked to install it, say “Yes”. If you get a warning or error about it, ask me to help you. It’s a simple fix. RStudio will actually work without it, but you’ll get a lot of annoying warnings.</p>
+<p><strong>Windows 10/11:</strong></p>
+<p>You only need the “base” version for our class. You do not need to install RTools. Try to install it as an administrator – we’ve had a little trouble finding the right paths when it’s installed at the user level.</p>
 </section>
-<section id="data-documentation-and-flaws" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="data-documentation-and-flaws">Data documentation and flaws</h3>
-<p>I usually put the details of data documentation in a data cleaning Quarto document, which includes the code and the links to my files in one place. But no matter where you do it:</p>
-<ul>
-<li><p>Include links or copies of any original documentation such as a record layout, data dictionary<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> or manual. If there isn’t one, consider making a data dictionary with what you’ve learned.</p></li>
-<li><p>Document the ways you checked the integrity of the data. There are many ways it might be inaccurate. Try to reconcile the number of rows and any totals you can produce to match other reports created by the source, or other reports that have used it. On longer stories, you’ll also check for impossible combinations (10-year-olds with DUIs), missing data and invalid data such as corrupted date columns.</p></li>
-<li><p>Record any questions (and answers as you get them) about the meaning of fields or the scope of the data.</p></li>
-<li><p>Document decisions you’ve made about the scope or method of your analysis. For example, if you want to look at “serious” crimes, describe how and why you categorized each crime as “serious” or “not serious.” Some of these should be vetted by experts or should be verified by documenting industry standards. You might note whether you’ve agreed as a team on these decisions, and when.</p></li>
-<li><p>Include a list of interviews conducted / questions asked of officials and what they said.</p></li>
-</ul>
+<section id="backup-plan" class="level3">
+<h3 class="anchored" data-anchor-id="backup-plan">Backup plan</h3>
+<section id="labs-in-school" class="level4">
+<h4 class="anchored" data-anchor-id="labs-in-school">Labs in school</h4>
+<p>You do not need to own a computer to take this class. R and RStudio should be set up properly n our classroom and the lab in Cronkite 320. ASU’s computing sites such as the lab in UCENT L-102 across from Cronkite also have the basic software installed but you may need to tweak it each time you sign on. Let me know if you are using university labs and I’ll help you make it a little more efficient.</p>
 </section>
-<section id="processing-notes" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="processing-notes">Processing notes</h3>
-<p>Some projects require many steps to get to a dataset that can be analyzed. You may have had to scrape the data, combine it with other sources or fix some entries. Some common elements you should document:</p>
-<ul>
-<li><p>Hand-made corrections. Try to list every one, but it’s ok if you describe HOW you did it, such as clustering and hand-entering using OpenRefine. Link to any spreadsheet, document or program you used. Just be sure to always work on a copy of the data.</p></li>
-<li><p>Geocoding (affixing geographic coordinates to addresses). Note how many were correct, how many missing, and what you did about it.</p></li>
-<li><p>A description of how you got messy data into a tabular form or a form suitable for analysis. For example, you may have had to strip headings or flip a spreadsheet on its head. Make sure to write down how you did that if it’s not in a program that can be easily replicated.</p></li>
-</ul>
-</section>
-<section id="the-good-part-your-analysis" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="the-good-part-your-analysis">The good part: Your analysis</h3>
-<ul>
-<li><p>Each question you asked of your data, and the steps you took to answer it. If you use programming notebooks, write it out in plain language before or after the query or statements.</p></li>
-<li><p>Vetting of your answers: who has looked them over, commented on them</p></li>
-<li><p>Why they might be wrong!</p></li>
-</ul>
+<section id="posit-cloud" class="level4">
+<h4 class="anchored" data-anchor-id="posit-cloud">Posit cloud</h4>
+<p><a href="https://posit.cloud/">Posit Cloud</a> allows you to use R and RStudio without installing it on your computer. Use it as a last resort. Believe me, this will be a pain, but it can work to get you started. We’ll work together to find a solution longer term.</p>
+<p>Some limitations:</p>
+<ol type="1">
+<li>You’ll have to upload everything you want to use to the cloud, then download the final (saved) versions when you want to turn them in.</li>
+<li>Historically, it hasn’t worked very well on the Quarto documents that we’ll be using. You might not be able to see your finished document, which is a big deal for us.</li>
+<li>You can only use 1GB RAM - this won’t be enough for some projects.</li>
+<li>You only get 25 hours per month to use it. During the key part of our course, you should run out of time and won’t be able to access your work until you pay. (The $5/month plan would work.)</li>
+<li>You have to remember to save your work and periodically restart R. It doesn’t remind you and you might lose everything by closing out a tab. If you don’t save and process your documents right before turning in your work, there’s a good chance I’ll see an earlier draft.<br>
+</li>
+<li>You will have to upgrade to a paid account (minimum $5/month) if you try to use it for the whole the semester. I’ve never understood the plan costs and limits – they’re quite strict, and you won’t be able to log into your account if you try to go beyond them.</li>
+</ol>
 </section>
 </section>
-<section id="further-reading" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">3.3</span> Further reading</h2>
-<p>Data cleaning will come up a lot in the future, but it’s closely intertwined with documenting your work. Here’s <a href="https://cronkitedata.s3.amazonaws.com/docs/bulletproof-email.pdf">an email exchange between me and Craig Silverman</a>, now at ProPublica, about the process I used at The New York Times in reporting and fact-checking. This isn’t the same as a process for replication, but it discusses the kinds of things that should be in it.</p>
+</section>
+<section id="set-up-rstudio-for-data-reporting" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="set-up-rstudio-for-data-reporting"><span class="header-section-number">6.2</span> Set up RStudio for data reporting</h2>
+<p>Staying organized is one of the challenges of data reporting – you’re constantly re-downloading and re-jiggering your analysis and it’s easy to get your material separated. This setup helps ensure that you always know where to find your work and can move it to another comptuer seamlessly.</p>
+<p>Before you start, decide on a folder you’ll use to store all of your R work.</p>
+<div class="callout-dothis">
+<ol type="1">
+<li><p>Create a folder called <code>maij-working</code> within your Documents folder, or another folder that you will use for your coursework. Make sure you know how to find it.</p></li>
+<li><p>Start up RStudio (NOT R) , and choose <code>Tools</code> -&gt; <code>Global options</code> (in a Mac)</p>
+<p><img src="assets/images/r-start-r-or-rstudio.png" class="img-fluid"></p></li>
+<li><p>Under Tools &gt; Global options, UN-check all of the options to save and load .Rdata and other files on startup, and choose “Never” for saving the workspace.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p></li>
+</ol>
+<p><img src="assets/images/r-start-dontsave.png" class="img-fluid"></p>
+</div>
+<p>Here’s a video of what you should do. It also gives you a little reminder of how your computer is organized in folders.</p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/KbAcoHbEanI" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<!-- don't try to keep it for pdf format-->
 
 
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>If you want to see a project with a lot of data sources and how they might be documented in your notes, take a look at the <a href="https://docs.google.com/document/d/1NqnPTUWhlJkg7JdBShSTWzSDncE91kBi/edit?usp=sharing&amp;ouid=100970402851917703844&amp;rtpof=true&amp;sd=true">New York City housing data sources</a> we considered for a project in 2016.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>A data dictionary lists every table and column in the database, along with definitions. It may be very straightfoward but can become quite complex.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>This makes sure that you don’t depend on a previous session; your programs are self-sustaining. Posit Cloud users don’t have this, and they often forget to save.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -634,13 +646,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
-      <a href="./start-data-def.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Defining “Data”</span></span>
+      <a href="./quickstart.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Programming quick start</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./start-hunt.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Finding the right data for your story</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./quickstart-program.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">A gentle intro to programming</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

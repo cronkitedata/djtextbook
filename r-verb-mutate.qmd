@@ -235,7 +235,6 @@ ppp_category_indiv |>
 
 #### Example 2: Two categories using  wildcards
 
-You can also use the same `str_like()` function you used in filtering. Here, it sets whether or not the borrower was a non-profit. Remember, a `%` means "anything or nothing, and a `_` means"any single character but it must be present". In our case, the word is shown as "Non Profit" and "Non-Profit". Once. you've set it to your new words, you can just filter on the new value:
 
 ```{r}
 #| label: m-nonprofit
@@ -269,7 +268,6 @@ ppp_category_nonprofit |>
 
 Sometimes you will want more than one outcome, such as setting a value for "High", "Medium" and "Low". Instead of `if_then`, use the function `case_when`, which lets you string along conditions and their outcomes. The tilde (`~`) is used to show what happens if it's true. At the end, you can add an argument `.default="Other"` to say "everything else". 
 
-[^r-verb-mutate-1]: This will change in future versions, which have a much more intuitive "Other" alternative.
 
 ::: small
     original data |> 
