@@ -33,6 +33,7 @@ book:
     - part: start.qmd
       chapters:
         - start-story.qmd
+        - start-math.qmd
         - start-data-def.qmd
         - start-data-document.qmd
         - start-hunt.qmd
