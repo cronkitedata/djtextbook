@@ -43,7 +43,7 @@ When I was analyzing some housing court data for The New York Times, one fact hi
 
 [^start-story-2]: "On March 24, 2017, Mr. Moise reported, he delivered notices to six Dunbar tenants in 12 minutes.<br>The Dunbar has 44 stairwells and 536 apartments. Each stairwell has its own front door. There are no elevators. <br>Yet Mr. Moise claimed that, in those 12 minutes, he raced from the third floor of one stairwell to the fourth floor of another stairwell, to the sixth floor of a third stairwell, to the third floor of a fourth stairwell, to the third floor of a fifth stairwell and finally back to the fifth floor of the fourth stairwell. Each time, he needed to ring a doorbell and be let inside the building."
 
-Often, the place that a reporter visits is determined by examples found in data. In [this story on rural development](assets/pdfs/rural_development.pdf) funds, all of the examples came from an analysis of the database. Once the data gave us a good lead, we examined press releases and other easy-to-get sources before calling and visiting the recipients or towns.
+Often, the place that a reporter visits is determined by examples found in data. In [this story on rural development](https://cronkitedata.s3.amazonaws.com/docs/rural_development.pdf) funds, all of the examples came from an analysis of the database. Once the data gave us a good lead, we examined press releases and other easy-to-get sources before calling and visiting the recipients or towns.
 
 ## Reading tips
 

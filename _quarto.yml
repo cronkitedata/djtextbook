@@ -15,6 +15,7 @@ book:
   title: "Data Reporting"
   subtitle: "Cronkite School MAIJ Program, Spring 2024"
   page-navigation: true
+  reader-mode: false
 
   page-footer:
      background: "#096b72"

@@ -1,6 +1,6 @@
 ## Preface {.unnumbered}
 
-This book serves as a compilation of of handouts, websites and tutorials that I have created in my data reporting class at ASU's [Cronkite School of Journalism and Mass Communication](cronkite.asu.edu), IRE and NICAR conferences, and as an adjunct at the Columbia University Graduate School of Journalism. Some of the material will be useful in other courses or for self-study, but it is primarily aimed at the investigative journalism masters' students at Cronkite.
+This book serves as a compilation of of handouts, websites and tutorials that I have created in my data reporting class at ASU's [Cronkite School of Journalism and Mass Communication](https://cronkite.asu.edu), IRE and NICAR conferences, and as an adjunct at the Columbia University Graduate School of Journalism. Some of the material will be useful in other courses or for self-study, but it is primarily aimed at the investigative journalism masters' students at Cronkite.
 
 It covers:
 
