@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data Reporting - 19&nbsp; Verbs in depth: Matchmaking with joins</title>
+<title>Data Reporting - 20&nbsp; Verbs in depth: Matchmaking with joins</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./appendix-math.html" rel="next">
-<link href="./r-verb-groupby.html" rel="prev">
+<link href="./r-groupby-skittles.html" rel="prev">
 <link href="./assets/images/favicon.ico" rel="icon">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -118,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./rdepth.html">Verbs of the tidyverse</a></li><li class="breadcrumb-item"><a href="./r-verb-join.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Verbs in depth: Matchmaking with joins</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./rdepth.html">Verbs of the tidyverse</a></li><li class="breadcrumb-item"><a href="./r-verb-join.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Verbs in depth: Matchmaking with joins</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -296,8 +296,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./r-groupby-skittles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Aggregating with Skittles</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./r-verb-join.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Verbs in depth: Matchmaking with joins</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Verbs in depth: Matchmaking with joins</span></span></a>
   </div>
 </li>
       </ul>
@@ -341,38 +347,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">In this chapter:</h2>
    
   <ul>
-  <li><a href="#join-basics-and-relational-databases" id="toc-join-basics-and-relational-databases" class="nav-link active" data-scroll-target="#join-basics-and-relational-databases"><span class="header-section-number">19.1</span> Join basics and relational databases</a>
+  <li><a href="#join-basics-and-relational-databases" id="toc-join-basics-and-relational-databases" class="nav-link active" data-scroll-target="#join-basics-and-relational-databases"><span class="header-section-number">20.1</span> Join basics and relational databases</a>
   <ul class="collapse">
   <li><a href="#relational-databases" id="toc-relational-databases" class="nav-link" data-scroll-target="#relational-databases">Relational databases</a></li>
   </ul></li>
-  <li><a href="#join-syntax" id="toc-join-syntax" class="nav-link" data-scroll-target="#join-syntax"><span class="header-section-number">19.2</span> join syntax</a></li>
-  <li><a href="#matchmaking-with-joins" id="toc-matchmaking-with-joins" class="nav-link" data-scroll-target="#matchmaking-with-joins"><span class="header-section-number">19.3</span> Matchmaking with joins</a>
+  <li><a href="#join-syntax" id="toc-join-syntax" class="nav-link" data-scroll-target="#join-syntax"><span class="header-section-number">20.2</span> join syntax</a></li>
+  <li><a href="#matchmaking-with-joins" id="toc-matchmaking-with-joins" class="nav-link" data-scroll-target="#matchmaking-with-joins"><span class="header-section-number">20.3</span> Matchmaking with joins</a>
   <ul class="collapse">
   <li><a href="#attaching-characteristics-to-a-dataset" id="toc-attaching-characteristics-to-a-dataset" class="nav-link" data-scroll-target="#attaching-characteristics-to-a-dataset">Attaching characteristics to a dataset</a></li>
   <li><a href="#summarize-data-against-another-dataset" id="toc-summarize-data-against-another-dataset" class="nav-link" data-scroll-target="#summarize-data-against-another-dataset">Summarize data against another dataset</a></li>
   <li><a href="#enterprise-joins" id="toc-enterprise-joins" class="nav-link" data-scroll-target="#enterprise-joins">“Enterprise” joins</a></li>
   </ul></li>
-  <li><a href="#using-lookup-tables-ppp-industry-codes" id="toc-using-lookup-tables-ppp-industry-codes" class="nav-link" data-scroll-target="#using-lookup-tables-ppp-industry-codes"><span class="header-section-number">19.4</span> Using lookup tables: PPP industry codes</a>
+  <li><a href="#using-lookup-tables-ppp-industry-codes" id="toc-using-lookup-tables-ppp-industry-codes" class="nav-link" data-scroll-target="#using-lookup-tables-ppp-industry-codes"><span class="header-section-number">20.4</span> Using lookup tables: PPP industry codes</a>
   <ul class="collapse">
   <li><a href="#attaching-words-to-codes" id="toc-attaching-words-to-codes" class="nav-link" data-scroll-target="#attaching-words-to-codes">Attaching words to codes</a></li>
   </ul></li>
-  <li><a href="#joining-risks" id="toc-joining-risks" class="nav-link" data-scroll-target="#joining-risks"><span class="header-section-number">19.5</span> Joining risks</a>
+  <li><a href="#joining-risks" id="toc-joining-risks" class="nav-link" data-scroll-target="#joining-risks"><span class="header-section-number">20.5</span> Joining risks</a>
   <ul class="collapse">
   <li><a href="#joining-tldr" id="toc-joining-tldr" class="nav-link" data-scroll-target="#joining-tldr">joining tl;dr</a></li>
   <li><a href="#double-counting-with-joins" id="toc-double-counting-with-joins" class="nav-link" data-scroll-target="#double-counting-with-joins">Double counting with joins</a></li>
   <li><a href="#losing-rows-with-joins" id="toc-losing-rows-with-joins" class="nav-link" data-scroll-target="#losing-rows-with-joins">Losing rows with joins</a></li>
   </ul></li>
-  <li><a href="#congratulate-yourself" id="toc-congratulate-yourself" class="nav-link" data-scroll-target="#congratulate-yourself"><span class="header-section-number">19.6</span> Congratulate yourself</a></li>
-  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="header-section-number">19.7</span> Resources</a></li>
+  <li><a href="#congratulate-yourself" id="toc-congratulate-yourself" class="nav-link" data-scroll-target="#congratulate-yourself"><span class="header-section-number">20.6</span> Congratulate yourself</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="header-section-number">20.7</span> Resources</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content page-columns page-full column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./rdepth.html">Verbs of the tidyverse</a></li><li class="breadcrumb-item"><a href="./r-verb-join.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Verbs in depth: Matchmaking with joins</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./rdepth.html">Verbs of the tidyverse</a></li><li class="breadcrumb-item"><a href="./r-verb-join.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Verbs in depth: Matchmaking with joins</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="r-verb-join" class="quarto-section-identifier"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Verbs in depth: Matchmaking with joins</span></span></h1>
+<h1 class="title"><span id="r-verb-join" class="quarto-section-identifier"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Verbs in depth: Matchmaking with joins</span></span></h1>
 </div>
 
 
@@ -402,8 +408,8 @@ Update your packages!
 <p>Be sure to update your packages in by pressing the Update button in the lower right panel under “Packages”. This version of joining was introduced in February 2023 – you’ll get errors if the packages are out of date.</p>
 </div>
 </div>
-<section id="join-basics-and-relational-databases" class="level2 page-columns page-full" data-number="19.1">
-<h2 data-number="19.1" class="anchored" data-anchor-id="join-basics-and-relational-databases"><span class="header-section-number">19.1</span> Join basics and relational databases</h2>
+<section id="join-basics-and-relational-databases" class="level2 page-columns page-full" data-number="20.1">
+<h2 data-number="20.1" class="anchored" data-anchor-id="join-basics-and-relational-databases"><span class="header-section-number">20.1</span> Join basics and relational databases</h2>
 <p>Here is a great explainer on joins made by a previous MAIJ student, Andy Blye. Be sure to watch it:</p>
 <div class="quarto-video"><iframe data-external="1" src="https://www.youtube.com/embed/4xPrnDYZXw4" width="400" height="300" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 <p><code>joining</code> in computer programming matches columns in one table to another, where the values within one or more columns match exactly. Here’s an example from <a href="https://stat545.com/index.html">Jenny Bryan’s Stat 545 course textbook</a>:</p>
@@ -430,8 +436,8 @@ Update your packages!
 <p>This is similar to, but stricter than, the <strong>tidy data</strong> principles of separating different kinds of information into separate data frames.</p>
 </section>
 </section>
-<section id="join-syntax" class="level2" data-number="19.2">
-<h2 data-number="19.2" class="anchored" data-anchor-id="join-syntax"><span class="header-section-number">19.2</span> join syntax</h2>
+<section id="join-syntax" class="level2" data-number="20.2">
+<h2 data-number="20.2" class="anchored" data-anchor-id="join-syntax"><span class="header-section-number">20.2</span> join syntax</h2>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -472,8 +478,8 @@ Tip
 </ul>
 </section>
 </section>
-<section id="matchmaking-with-joins" class="level2" data-number="19.3">
-<h2 data-number="19.3" class="anchored" data-anchor-id="matchmaking-with-joins"><span class="header-section-number">19.3</span> Matchmaking with joins</h2>
+<section id="matchmaking-with-joins" class="level2" data-number="20.3">
+<h2 data-number="20.3" class="anchored" data-anchor-id="matchmaking-with-joins"><span class="header-section-number">20.3</span> Matchmaking with joins</h2>
 <section id="attaching-characteristics-to-a-dataset" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="attaching-characteristics-to-a-dataset">Attaching characteristics to a dataset</h3>
 <p>You’ll often want to learn more about a geographic area’s demographics, voting habits or other characteristics, and match it to other data.</p>
@@ -502,8 +508,8 @@ Tip
 <p>You’ll see stories of this kind write around the lack of precision – they’ll often say, “we verified x cases of….” rather than pretend that they know of them all.</p>
 </section>
 </section>
-<section id="using-lookup-tables-ppp-industry-codes" class="level2" data-number="19.4">
-<h2 data-number="19.4" class="anchored" data-anchor-id="using-lookup-tables-ppp-industry-codes"><span class="header-section-number">19.4</span> Using lookup tables: PPP industry codes</h2>
+<section id="using-lookup-tables-ppp-industry-codes" class="level2" data-number="20.4">
+<h2 data-number="20.4" class="anchored" data-anchor-id="using-lookup-tables-ppp-industry-codes"><span class="header-section-number">20.4</span> Using lookup tables: PPP industry codes</h2>
 <p>A lookup table is a list of unique items that translates codes to words. One example is the industry code in the PPP data. The data itself only has the NAICS code – a standard government scheme that categorizes every business into one of about a thousand possible industries. But you don’t know what those codes mean. You need an index, or lookup table, to tell you that.</p>
 <p>We’ll use a table that contains the list of industries and match it to the PPP data. (The lookup table was derived from the <code>concordance</code> package in R, but is fully explained at the <a href="https://www.census.gov/naics/?58967?yearbck=2017">Census website</a>.)</p>
 <div class="callout-dothis">
@@ -554,8 +560,8 @@ $ naics_cronkite &lt;chr&gt; "722 - Restaurants and food service", "22 - Utiliti
 </div>
 </section>
 </section>
-<section id="joining-risks" class="level2" data-number="19.5">
-<h2 data-number="19.5" class="anchored" data-anchor-id="joining-risks"><span class="header-section-number">19.5</span> Joining risks</h2>
+<section id="joining-risks" class="level2" data-number="20.5">
+<h2 data-number="20.5" class="anchored" data-anchor-id="joining-risks"><span class="header-section-number">20.5</span> Joining risks</h2>
 <section id="joining-tldr" class="level3">
 <h3 class="anchored" data-anchor-id="joining-tldr">joining tl;dr</h3>
 <p>There are lots of risks in joining tables that you created yourself, or that were created outside a big relational database system. Keep an eye on the number of rows returned every time that you join – you should know what to expect.</p>
@@ -649,8 +655,8 @@ $ naics_cronkite &lt;chr&gt; "722 - Restaurants and food service", "22 - Utiliti
 <p>The opposite can occur if you aren’t careful and there are items you want to keep that are missing in your reference table. If there were invalid NAICS codes in the original data, they would have been eliminated from the resulting joined table.</p>
 </section>
 </section>
-<section id="congratulate-yourself" class="level2" data-number="19.6">
-<h2 data-number="19.6" class="anchored" data-anchor-id="congratulate-yourself"><span class="header-section-number">19.6</span> Congratulate yourself</h2>
+<section id="congratulate-yourself" class="level2" data-number="20.6">
+<h2 data-number="20.6" class="anchored" data-anchor-id="congratulate-yourself"><span class="header-section-number">20.6</span> Congratulate yourself</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p>Congratulations! This is the last key verb that you need to understand to address most stories. Your palette now has all of the primary colors!</p>
@@ -659,8 +665,8 @@ $ naics_cronkite &lt;chr&gt; "722 - Restaurants and food service", "22 - Utiliti
 </div>
 </div>
 </section>
-<section id="resources" class="level2" data-number="19.7">
-<h2 data-number="19.7" class="anchored" data-anchor-id="resources"><span class="header-section-number">19.7</span> Resources</h2>
+<section id="resources" class="level2" data-number="20.7">
+<h2 data-number="20.7" class="anchored" data-anchor-id="resources"><span class="header-section-number">20.7</span> Resources</h2>
 <ul>
 <li><p>The “<a href="https://r4ds.had.co.nz/relational-data.html">Relational data</a>” chapter in the R for Data Science textbook has details on exactly how a complex dataset might fit together.</p></li>
 <li><p><a href="https://stat545.com/join-cheatsheet.html#left_joinsuperheroes-publishers">An example using a superheroes dataset</a>, from Stat 545 at the University of British Columbia</p></li>
@@ -1061,8 +1067,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
-      <a href="./r-verb-groupby.html" class="pagination-link  aria-label=" &lt;span="" in="" depth:="" aggregating="" with="" groups&lt;="" span&gt;"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Verbs in depth: Aggregating with groups</span></span>
+      <a href="./r-groupby-skittles.html" class="pagination-link  aria-label=" &lt;span="" with="" skittles&lt;="" span&gt;"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Aggregating with Skittles</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

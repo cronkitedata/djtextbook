@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data Reporting - Verbs of the tidyverse</title>
+<title>Data Reporting - 19&nbsp; Aggregating with Skittles</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,8 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./r-tidy.html" rel="next">
-<link href="./quickstart-verbs.html" rel="prev">
+<link href="./r-verb-join.html" rel="next">
+<link href="./r-verb-groupby.html" rel="prev">
 <link href="./assets/images/favicon.ico" rel="icon">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -69,6 +103,15 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/core-js-2.5.3/shim.min.js"></script>
+<script src="site_libs/react-18.2.0/react.min.js"></script>
+<script src="site_libs/react-18.2.0/react-dom.min.js"></script>
+<script src="site_libs/reactwidget-1.0.0/react-tools.js"></script>
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="site_libs/reactable-0.4.4/reactable.css" rel="stylesheet">
+<script src="site_libs/reactable-binding-0.4.4/reactable.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
 
 
 </head>
@@ -82,7 +125,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./rdepth.html">Verbs of the tidyverse</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./rdepth.html">Verbs of the tidyverse</a></li><li class="breadcrumb-item"><a href="./r-groupby-skittles.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Aggregating with Skittles</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -215,7 +258,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./rdepth.html" class="sidebar-item-text sidebar-link active">
+            <a href="./rdepth.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Verbs of the tidyverse</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -260,7 +303,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./r-groupby-skittles.html" class="sidebar-item-text sidebar-link">
+  <a href="./r-groupby-skittles.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Aggregating with Skittles</span></span></a>
   </div>
 </li>
@@ -311,17 +354,21 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">In this chapter:</h2>
    
   <ul>
-  <li><a href="#practice-data" id="toc-practice-data" class="nav-link active" data-scroll-target="#practice-data">Practice data</a></li>
-  <li><a href="#asking-good-questions" id="toc-asking-good-questions" class="nav-link" data-scroll-target="#asking-good-questions">Asking good questions</a></li>
+  <li><a href="#compute-how-many-skittles-of-each-color" id="toc-compute-how-many-skittles-of-each-color" class="nav-link active" data-scroll-target="#compute-how-many-skittles-of-each-color">Compute <em>how many</em> Skittles of each color</a></li>
+  <li><a href="#two-column-skittles" id="toc-two-column-skittles" class="nav-link" data-scroll-target="#two-column-skittles"><span class="header-section-number">19.1</span> Two-column Skittles</a>
+  <ul class="collapse">
+  <li><a href="#pivot-again-for-easier-reading" id="toc-pivot-again-for-easier-reading" class="nav-link" data-scroll-target="#pivot-again-for-easier-reading">Pivot again for easier reading</a></li>
+  </ul></li>
+  <li><a href="#takeaway" id="toc-takeaway" class="nav-link" data-scroll-target="#takeaway"><span class="header-section-number">19.2</span> Takeaway</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./rdepth.html">Verbs of the tidyverse</a></li><li class="breadcrumb-item"><a href="./r-groupby-skittles.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Aggregating with Skittles</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="rdepth" class="quarto-section-identifier">Verbs of the tidyverse</span></h1>
+<h1 class="title"><span id="r-groupby-skittles" class="quarto-section-identifier"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Aggregating with Skittles</span></span></h1>
 </div>
 
 
@@ -338,68 +385,182 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This section review the seven verbs that are the core of the tidyverse they are:</p>
-<ul>
-<li><code>filter</code> to reduce the number of rows</li>
-<li><code>arrange</code> to put them in an order based on a column</li>
-<li><code>select</code> to reduce the number of columns or reorder or rename them</li>
-<li><code>mutate</code> to create new columns based on existing ones</li>
-<li><code>summarize</code> to reduce the data to statistics rather than lists</li>
-<li><code>group by</code> to work with subsets of data, including creating statistics by category</li>
-<li><code>join</code> to add columns from one datset to another.</li>
-</ul>
-<p>If you understand these seven words, you will be well on your way to doing almost everything a reporter does in data.</p>
-<section id="practice-data" class="level2">
-<h2 class="anchored" data-anchor-id="practice-data">Practice data</h2>
-<p>This section uses Paycheck Protection Program loans from 2020-2021 as its practice data. It has some characteristics that make it a good candidate, despite its age:</p>
-<ul>
-<li>It was <a href="./appendix-ppp.html">well documented</a> – the columns and rows aren’t mysteries.</li>
-<li>It contains names, addresses, dates and numbers – all elements that are important in data journalism. At the same time, it doesn’t unnecessarily publicize details about individuals.</li>
-<li>It’s old! That means we don’t have to worry too much about it changing midstream.</li>
-<li>There were a lot of good stories done about the program, AND a lot of stories that were never done but could have been.</li>
-<li>Some of the columns are reasonably standardized and clean, and others are just a mess.</li>
-<li>The agency published some summary data about the program that we can try to replicate, which is one of the ways reporters check their data work.</li>
-</ul>
-<p>By using the same data all the way through these exercises, you won’t face the cognitive load of learning the details of a new dataset each time. Previous students have said that it doesn’t matter to them what the data is, just that it is useful for their learning and that it has in the past been reasonably newsworthy. I took them at their word.</p>
+<p>Traditionally, packages of Skittles contained 60 pieces of candy in five colors: Yellow, purple, orange, red and green. If they were poured out and sorted into their colors, it might look something like this:</p>
+<p><img src="assets/images/r-groupby-skittles.jpg" class="img-fluid"></p>
+<p>Instead of sorting them out that way, though, imagine typing each candy into a row of a spreadsheet, with an ID number (to keep the original order), and the color of each skittle. The list would have 60 rows.</p>
+<p>The following code chunk reads the list of Skittles from a location on the web:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>skittle_list <span class="ot">&lt;-</span> </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">readRDS</span>( <span class="fu">url</span> (<span class="st">"https://cronkitedata.s3.amazonaws.com/rdata/skittle_list.RDS"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Here’s what that list looks like in a sortable, filterable table. (You’ll learn this soon):</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="reactable html-widget html-fill-item" id="htmlwidget-b3f31aa88ebd8d4d557d" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-b3f31aa88ebd8d4d557d">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"id":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60],"color":["Purple","Yellow","Red","Green","Purple","Yellow","Purple","Yellow","Purple","Red","Red","Purple","Orange","Red","Green","Orange","Purple","Purple","Green","Red","Yellow","Purple","Green","Red","Red","Purple","Green","Purple","Purple","Red","Purple","Purple","Yellow","Green","Red","Purple","Red","Orange","Orange","Yellow","Yellow","Purple","Orange","Yellow","Yellow","Yellow","Purple","Yellow","Purple","Yellow","Orange","Yellow","Green","Red","Purple","Yellow","Purple","Orange","Orange","Purple"]},"columns":[{"id":"id","name":"id","type":"numeric","filterable":false},{"id":"color","name":"color","type":"character"}],"filterable":true,"defaultPageSize":5,"dataKey":"88aafdc133931b32507ea71af0241911"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>Try filtering the list above to see how many of each color was in this particular package. (Look at the number of rows at the bottom after filtering the list in place.)</p>
+<section id="compute-how-many-skittles-of-each-color" class="level3">
+<h3 class="anchored" data-anchor-id="compute-how-many-skittles-of-each-color">Compute <em>how many</em> Skittles of each color</h3>
+<p>To keep the computation simple, use this code chunk to create a new data frame of five rows and two columns: The color, and the number of Skittles.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>skittle_counts <span class="ot">&lt;-</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  skittle_list <span class="sc">|&gt;</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span> ( color) <span class="sc">|&gt;</span> </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span> ( <span class="at">skittles =</span> <span class="fu">n</span>() )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now print the list:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>skittle_counts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["color"],"name":[1],"type":["chr"],"align":["left"]},{"label":["skittles"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"Green","2":"7"},{"1":"Orange","2":"8"},{"1":"Purple","2":"20"},{"1":"Red","2":"11"},{"1":"Yellow","2":"14"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Take a look at the new data frame carefully. It’s no longer a one-by-one list of each Skittle. Instead, it’s a <strong>summary</strong> of the number of Skittles by color. The original <code>color</code> column still exists because it was in the <code>group_by</code> statement, but the ID is gone. More importantly, there’s a new column called <code>skittles</code>, which is a count of the number of skittles for each row. There are only five rows, not 60.</p>
+<p>There are an unequal number of Skittles in this package, but it’s hard to express them in numbers we understand well. To do that, you’ll want to compute a percent of total.</p>
+<section id="compute-a-percent-of-total" class="level4">
+<h4 class="anchored" data-anchor-id="compute-a-percent-of-total">Compute a percent of total</h4>
+<p>To compute a percent of total, you’ll use the formula <code>category / total * 100</code>. However, we have no total here. One way to do it divide each row by 60, since we know that’s how many rows were in the original. Try it:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>skittle_counts  <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span> ( <span class="at">percent =</span> skittles <span class="sc">/</span> <span class="dv">60</span> <span class="sc">*</span> <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["color"],"name":[1],"type":["chr"],"align":["left"]},{"label":["skittles"],"name":[2],"type":["int"],"align":["right"]},{"label":["percent"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Green","2":"7","3":"11.66667"},{"1":"Orange","2":"8","3":"13.33333"},{"1":"Purple","2":"20","3":"33.33333"},{"1":"Red","2":"11","3":"18.33333"},{"1":"Yellow","2":"14","3":"23.33333"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>But a more efficient, and more reproducible way to do it would be to let R compute the total into a new column. This suggests you’ll need a <code>mutate</code> verb:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>skittle_counts <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span> ( <span class="at">total_skittles =</span> <span class="fu">sum</span> ( skittles )) <span class="sc">|&gt;</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span> ( <span class="at">percent =</span> skittles <span class="sc">/</span> total_skittles <span class="sc">*</span> <span class="dv">100</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["color"],"name":[1],"type":["chr"],"align":["left"]},{"label":["skittles"],"name":[2],"type":["int"],"align":["right"]},{"label":["total_skittles"],"name":[3],"type":["int"],"align":["right"]},{"label":["percent"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"Green","2":"7","3":"60","4":"11.66667"},{"1":"Orange","2":"8","3":"60","4":"13.33333"},{"1":"Purple","2":"20","3":"60","4":"33.33333"},{"1":"Red","2":"11","3":"60","4":"18.33333"},{"1":"Yellow","2":"14","3":"60","4":"23.33333"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
 </section>
-<section id="asking-good-questions" class="level2">
-<h2 class="anchored" data-anchor-id="asking-good-questions">Asking good questions</h2>
-<p>You can and should seek help in the <code>#dj-sos</code> channel on Slack, but it takes some work to ask a good question. Here are the three parts of a good question:</p>
-<ol type="1">
-<li>Describe what you are attempting to accomplish. Example: “I want to pick out loans in Tempe”.</li>
-<li>Copy and paste or take a screen shot of the code you’re using to try to do that. It’s fine if it doesn’t work, or if it’s incomplete. But do try it yourself for a little while before reaching out.</li>
-<li>Take a screen shot of the unexpected result or of the error message. Part of your learning is getting familiar with scary-sounding error messages, so try to read it before you freak out and post it. It might actually make sense.</li>
-</ol>
-<p>Often, the process of crafting a good question leads you to the answer yourself. But don’t hesitate to ask. If we’ve already gone over it, I’ll refer you to material that you might have forgotton. You’re never expected to memorize code.</p>
-<p>Most of your homework and projects can be accomplished using the material we will have already covered in class and in this book. But I don’t expect you to memorize everything we do, so I will sometimes refer you to where in the book or in the homework you’ve already seen your problem or something very similar. Take it in the spirit it’s offered – it’s help, not criticism or rebuke.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+</section>
+<section id="two-column-skittles" class="level2" data-number="19.1">
+<h2 data-number="19.1" class="anchored" data-anchor-id="two-column-skittles"><span class="header-section-number">19.1</span> Two-column Skittles</h2>
+<p>Let’s make this a little more complex. I’ve randomly split up the Skittles between me an my husband. The new data frame that includes our names is loaded this way:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>skittle_name_list <span class="ot">&lt;-</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">readRDS</span>( <span class="fu">url</span> (<span class="st">"https://cronkitedata.s3.amazonaws.com/rdata/skittle_name_list.RDS"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="callout-title-container flex-fill">
-Using ChatGPT or other AI for help
+<p>Again, you can filter it to see how many orange Skittles Sarah got, or how many purple ones Duke got. This could get old fast if you had to do this for both people and all five colors.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="reactable html-widget html-fill-item" id="htmlwidget-3cd0f543ccef90269731" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-3cd0f543ccef90269731">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"id":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60],"color":["Purple","Yellow","Red","Green","Purple","Yellow","Purple","Yellow","Purple","Red","Red","Purple","Orange","Red","Green","Orange","Purple","Purple","Green","Red","Yellow","Purple","Green","Red","Red","Purple","Green","Purple","Purple","Red","Purple","Purple","Yellow","Green","Red","Purple","Red","Orange","Orange","Yellow","Yellow","Purple","Orange","Yellow","Yellow","Yellow","Purple","Yellow","Purple","Yellow","Orange","Yellow","Green","Red","Purple","Yellow","Purple","Orange","Orange","Purple"],"whose":["Duke","Duke","Duke","Sarah","Duke","Duke","Sarah","Duke","Sarah","Sarah","Sarah","Sarah","Sarah","Sarah","Sarah","Sarah","Duke","Duke","Duke","Sarah","Sarah","Duke","Sarah","Sarah","Sarah","Sarah","Sarah","Sarah","Duke","Sarah","Sarah","Sarah","Sarah","Sarah","Duke","Duke","Sarah","Sarah","Sarah","Sarah","Duke","Duke","Duke","Duke","Sarah","Sarah","Sarah","Duke","Sarah","Sarah","Duke","Sarah","Sarah","Sarah","Sarah","Duke","Duke","Duke","Duke","Sarah"]},"columns":[{"id":"id","name":"id","type":"numeric","filterable":false},{"id":"color","name":"color","type":"character"},{"id":"whose","name":"whose","type":"character"}],"filterable":true,"defaultPageSize":5,"dataKey":"00e33dadd0ebad03c7ad91b6393cf72d"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<p>You can and often should use all of the avenues available to you for help. But the R language is vast and we’re only looking at a tiny piece of it in this course. Googling and using AI can be frustrating because they will likely take a different approach than the simple one we’re using. Whenever you look for help, be sure to:</p>
-<ul>
-<li>Include the word “tidyverse” in your query. If the answers don’t look familiar, try again using a specific verb or function name.</li>
-<li>In ChatGPT, consider copying and pasting your code and asking what’s wrong. It’s better at that than starting from scratch.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
-<li>In Google, be sure to look only at answer from the last few years. I usually set the date to the most recent year under “Tools”.</li>
-</ul>
+<p>But grouping it can make short work of it. This example saves it into a new data frame with 10 rows and three columns. The “.groups=”drop”” part removes any default grouping left over by default.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>skittle_distribution <span class="ot">&lt;-</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  skittle_name_list <span class="sc">|&gt;</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span> ( color, whose) <span class="sc">|&gt;</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span> ( <span class="at">skittles =</span> <span class="fu">n</span>() , </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">.groups =</span> <span class="st">"drop"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Look at it:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>skittle_distribution</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["color"],"name":[1],"type":["chr"],"align":["left"]},{"label":["whose"],"name":[2],"type":["chr"],"align":["left"]},{"label":["skittles"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"Green","2":"Duke","3":"1"},{"1":"Green","2":"Sarah","3":"6"},{"1":"Orange","2":"Duke","3":"4"},{"1":"Orange","2":"Sarah","3":"4"},{"1":"Purple","2":"Duke","3":"9"},{"1":"Purple","2":"Sarah","3":"11"},{"1":"Red","2":"Duke","3":"2"},{"1":"Red","2":"Sarah","3":"9"},{"1":"Yellow","2":"Duke","3":"7"},{"1":"Yellow","2":"Sarah","3":"7"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
 </div>
 </div>
-<p>You’re responsible for both getting the “right” answers and accomplishing it using the methods taught in class. This stuff is hard enough to understand without trying to understand it done six different ways.</p>
-<p>The bots can also sends you down a rabbit hole without helping, so just move on if there is a problem. For example, I tried to get Bing (which uses ChatGPT4) and &lt;perplexity.ai&gt; to troubleshoot a code chunk in which I forgot to use the pipe, resulting in a common error. It failed even after fiddling with the prompt – they both eventually provided the right answer, but never diagnosed the problem correctly.</p>
+</div>
+<section id="pivot-to-view-the-names-side-by-side" class="level4">
+<h4 class="anchored" data-anchor-id="pivot-to-view-the-names-side-by-side">Pivot to view the names side-by-side</h4>
+<p>That’s hard to read - let’s pivot it so that the names are across the top and the colors down the side:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>skittle_distribution <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span> ( <span class="at">id_cols =</span> color, </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">names_from =</span> whose, </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">values_from =</span> skittles)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["color"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Duke"],"name":[2],"type":["int"],"align":["right"]},{"label":["Sarah"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"Green","2":"1","3":"6"},{"1":"Orange","2":"4","3":"4"},{"1":"Purple","2":"9","3":"11"},{"1":"Red","2":"2","3":"9"},{"1":"Yellow","2":"7","3":"7"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Sarah never got any fewer Skittles than Duke – they were all higher, except for the tie in yellow ones.</p>
+<p>But was she more or less likely to get any given color? You need percents for that:</p>
+<p>Start with the total by person :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>skittle_distribution <span class="sc">|&gt;</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span> ( whose ) <span class="sc">|&gt;</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span> ( <span class="at">person_total =</span> <span class="fu">sum</span> ( skittles ) ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["color"],"name":[1],"type":["chr"],"align":["left"]},{"label":["whose"],"name":[2],"type":["chr"],"align":["left"]},{"label":["skittles"],"name":[3],"type":["int"],"align":["right"]},{"label":["person_total"],"name":[4],"type":["int"],"align":["right"]}],"data":[{"1":"Green","2":"Duke","3":"1","4":"23"},{"1":"Green","2":"Sarah","3":"6","4":"37"},{"1":"Orange","2":"Duke","3":"4","4":"23"},{"1":"Orange","2":"Sarah","3":"4","4":"37"},{"1":"Purple","2":"Duke","3":"9","4":"23"},{"1":"Purple","2":"Sarah","3":"11","4":"37"},{"1":"Red","2":"Duke","3":"2","4":"23"},{"1":"Red","2":"Sarah","3":"9","4":"37"},{"1":"Yellow","2":"Duke","3":"7","4":"23"},{"1":"Yellow","2":"Sarah","3":"7","4":"37"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Notice that grouping by <code>whose</code> Skittles creates a total of 23 for Duke and 37 for Sarah. Now we can compute the percent by adding one line to the query:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>skittle_distribution <span class="sc">|&gt;</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span> ( whose ) <span class="sc">|&gt;</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span> ( <span class="at">person_total =</span> <span class="fu">sum</span> ( skittles ) ) <span class="sc">|&gt;</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span> ( skittles <span class="sc">/</span> person_total <span class="sc">*</span> <span class="dv">100</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["color"],"name":[1],"type":["chr"],"align":["left"]},{"label":["whose"],"name":[2],"type":["chr"],"align":["left"]},{"label":["skittles"],"name":[3],"type":["int"],"align":["right"]},{"label":["person_total"],"name":[4],"type":["int"],"align":["right"]},{"label":["skittles/person_total * 100"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"Green","2":"Duke","3":"1","4":"23","5":"4.347826"},{"1":"Green","2":"Sarah","3":"6","4":"37","5":"16.216216"},{"1":"Orange","2":"Duke","3":"4","4":"23","5":"17.391304"},{"1":"Orange","2":"Sarah","3":"4","4":"37","5":"10.810811"},{"1":"Purple","2":"Duke","3":"9","4":"23","5":"39.130435"},{"1":"Purple","2":"Sarah","3":"11","4":"37","5":"29.729730"},{"1":"Red","2":"Duke","3":"2","4":"23","5":"8.695652"},{"1":"Red","2":"Sarah","3":"9","4":"37","5":"24.324324"},{"1":"Yellow","2":"Duke","3":"7","4":"23","5":"30.434783"},{"1":"Yellow","2":"Sarah","3":"7","4":"37","5":"18.918919"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>To say this in English, we can say that “Duke was less likely to get green Skittles, but more likely to get Yellow ones” based on a comparison of those percentages.</p>
+<p>That’s really hard to read, though.</p>
+</section>
+<section id="pivot-again-for-easier-reading" class="level3">
+<h3 class="anchored" data-anchor-id="pivot-again-for-easier-reading">Pivot again for easier reading</h3>
+<p>Instead, we want to turn the chart into something that has the colors down the side, and the names across the top. Each <strong>column</strong> would then add up to 100%.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>skittle_distribution <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span> ( whose ) <span class="sc">|&gt;</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span> ( <span class="at">person_total =</span> <span class="fu">sum</span> ( skittles ) ) <span class="sc">|&gt;</span> </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span> ( <span class="at">percent =</span> skittles <span class="sc">/</span> person_total <span class="sc">*</span> <span class="dv">100</span> ) <span class="sc">|&gt;</span> </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span> ( <span class="at">id_cols =</span> color, </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">names_from =</span> whose, </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">values_from =</span> percent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["color"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Duke"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Sarah"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Green","2":"4.347826","3":"16.21622"},{"1":"Orange","2":"17.391304","3":"10.81081"},{"1":"Purple","2":"39.130435","3":"29.72973"},{"1":"Red","2":"8.695652","3":"24.32432"},{"1":"Yellow","2":"30.434783","3":"18.91892"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Reading left to right, you can see that Sarah was <strong>more likely</strong> to get green and red Skittles, but much less likely to get yellow, purple and orange ones, controlling for the larger of number of Skittles she got in the first place.</p>
+</section>
+</section>
+<section id="takeaway" class="level2" data-number="19.2">
+<h2 data-number="19.2" class="anchored" data-anchor-id="takeaway"><span class="header-section-number">19.2</span> Takeaway</h2>
+<p>If you could follow this Skittles example, imagine all of the stories that depend on exactly this construct: Are Black motorists more likely to be searched than white? Are you more likely to die if you got a COVID vaccine? Is a homicide in Baltimore more likely to be solved than in Chicago?</p>
+<p>They all depend on two-way tables like this one, with the <strong>independent</strong> variable listed down the side, and the <strong>dependent</strong> variable listed across the top , with the “column percents” in the middle.</p>
 
 
-</section>
-<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn1"><p>ChatGPT is a little out of date in R – a lot changed just after its last cutoff. Consider using perplixity.ia or Github Copilot instead.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
 </section>
 
 </main> <!-- /main -->
@@ -787,13 +948,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
-      <a href="./quickstart-verbs.html" class="pagination-link  aria-label=" &lt;span="" quick="" tour="" of="" verbs&lt;="" span&gt;"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">A quick tour of verbs</span></span>
+      <a href="./r-verb-groupby.html" class="pagination-link  aria-label=" &lt;span="" in="" depth:="" aggregating="" with="" groups&lt;="" span&gt;"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Verbs in depth: Aggregating with groups</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./r-tidy.html" class="pagination-link" aria-label="<span class='chapter-number'>13</span>&nbsp; <span class='chapter-title'>Tidy data principles</span>">
-        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Tidy data principles</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./r-verb-join.html" class="pagination-link" aria-label="<span class='chapter-number'>20</span>&nbsp; <span class='chapter-title'>Verbs in depth: Matchmaking with joins</span>">
+        <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Verbs in depth: Matchmaking with joins</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

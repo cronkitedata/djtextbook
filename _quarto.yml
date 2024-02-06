@@ -57,6 +57,7 @@ book:
          - r-verb-mutate.qmd
          - r-groupby-story.qmd
          - r-verb-groupby.qmd
+         - r-groupby-skittles.qmd
          - r-verb-join.qmd
 #         - advanced-regex.qmd
 #         - advanced-regex-r.qmd
