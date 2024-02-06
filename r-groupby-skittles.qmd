@@ -15,6 +15,9 @@ Traditionally, packages of Skittles contained  60 pieces of candy in five colors
 
 Instead of sorting them out that way, though, imagine typing each candy into a row of a spreadsheet, with an ID number (to keep the original order), and the color of each skittle. The list would have 60 rows. 
 
+
+## Skittles by color
+
 The following code chunk reads the list of Skittles from a location on the web: 
 
 ```{r}
@@ -72,7 +75,7 @@ Take a look at the new data frame carefully. It's no longer a one-by-one list of
 
 There are an unequal number of Skittles in this package, but it's hard to express them in numbers we understand well. To do that, you'll want to compute a percent of total. 
 
-#### Compute a percent of total
+### Compute a percent of total
 
 To compute a percent of total, you'll use the formula `category / total * 100`. However, we have no total here. One way to do it divide each row by 60, since we know that's how many rows were in the original. Try it: 
 
@@ -96,7 +99,7 @@ skittle_counts |>
 
 ```
 
-## Two-column Skittles
+## Add a column: Who got each Skittle? 
 
 Let's make this a little more complex. I've randomly split up the Skittles between me an my husband. The new data frame that includes our names is loaded this way: 
 
@@ -155,7 +158,7 @@ skittle_distribution
 
 
 
-#### Pivot to view the names side-by-side
+### Pivot to view the names side-by-side
 
 That's hard to read - let's pivot it so that the names are across the top and the colors down the side: 
 
@@ -170,6 +173,8 @@ skittle_distribution |>
 ```
 
 Sarah never got any fewer Skittles than Duke -- they were all higher, except for the tie in yellow ones.
+
+### Skittle percentages by person
 
 But was she more or less likely to get any given color? You need percents for that: 
 
@@ -192,7 +197,7 @@ Notice that grouping by `whose` Skittles creates a total of 23 for Duke and 37 f
 skittle_distribution |> 
   group_by ( whose ) |> 
   mutate ( person_total = sum ( skittles ) ) |> 
-  mutate ( skittles / person_total * 100 )
+  mutate ( percent = skittles / person_total * 100 )
 
 
 
