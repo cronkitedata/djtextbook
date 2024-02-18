@@ -61,7 +61,7 @@ book:
          - r-verb-join.qmd
 #         - advanced-regex.qmd
 #         - advanced-regex-r.qmd
-#         - r-recipes.qmd
+         - r-recipes.qmd
 
 #    - part: vis.qmd
 #      chapters:

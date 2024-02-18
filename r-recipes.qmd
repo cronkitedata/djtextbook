@@ -1,16 +1,11 @@
 ---
 execute: 
-   echo: true
-   output: false
-   error: true
-   eval: false
-output: 
-   html: 
-      number-depth: 2
---- 
+  error: true
+  warning: false
+  message: false
+---
 
 # Recipes {#r-recipes}
-
 
 ```{r}
 #| label: setup
@@ -20,252 +15,288 @@ library(tidyverse)
 library(lubridate)
 library(reactable)
 
-naics_codes <- readRDS( url ( "https://cronkitedata.s3.amazonaws.com/rdata/naics_lookup.RDS"))
-ppp_orig <- readRDS (url ( "https://cronkitedata.s3.amazonaws.com/rdata/ppp_az_loans.RDS"))
 
 options(scipen=999)
 
+shootings <- 
+  readRDS ( 
+        url ( 
+           "https://cronkitedata.s3.amazonaws.com/rdata/waposhootings.RDS"
+           )
+        )
+
+
 ```
 
+This final chapter on data wrangling in R simply puts together a lot of the code snippets that are easy to forget, and adds some more advanced code examples that you can adapt to your work. There is minimal explanation. Instead, look at at the relevant chapter for more explanation.
 
+Most of these examples use data from the simpler of the datasets we've examined: The Washington Post's police shooting database.
 
-This final chapter on data wrangling in R simply puts together a lot of the code snippets that are easy to forget, and adds some more advanced code examples that you can adapt to your work. There is minimal explanation. Instead, look at at the relevant chapter for more explanation. Over time, I'll add section links to the examples.
+This focuses on examples that employ `filter`, `group_by` and `mutate`, not `join`.
 
-You can copy and paste these into RStudio's snippets and use them directly in your program -- then you just have to change the references to the variables in your own work.
+## Starting a document
 
-These examples use the data from the other chapters, from the PPP program.
+1.  Create or open a project - remember to name it lower-case with no spaces or quotes
+2.  Then either move or download any needed files into that folder. (Rstudio , Finder or Explorer).
+3.  Create or open a document that you want to edit in File -\> New -\> Quarto Document.
 
-### R annoyances and errors {-}
+Erase everything it gives you, and use our usual setup. Copy it from a document that you like, set up a start-up document, or copy it from Sarah's Github gist <https://gist.github.com/sarahcnyt/e60ad2d7ccf65498fc88791f3bb683ae>.
 
-There are several annoyances that aren't consistent from one function in R to the next. When you're having trouble, look for
+4.  Edit the "setup" chunk to include any libraries you need for your document. Examples of other libraries include `reactable` for interactive tables, or `sf` for maps. You may need `readxl` if your data is coming from an Excel file rather than a csv or internet file.
+
+## R annoyances and errors  
+
+There are several annoyances that aren't consistent from one function in R to the next. These issues will fix many of the errors in your code, even when the error message isn't clear. When you're having trouble, look for
+
+-   **Spelling** - it's amazing how many times you can look for a spelling error and not see it. If you get an error that says something like `object not found`, check your spelling.
+
+-   **Failing to run previous code chunks**: Every time you open R, or when you Render a document, R starts from scratch. Consider using the Run -\> Run All Chunks Above menu item (or the button just next to the Play button on a code chunk) to make sure you're up to date. Be sure to close out of R completely every once in a while. Otherwise you might be depending on something you erased from your document.
+
+-   **Stray characters** . These are REALLY hard to see. It might be an extra quote mark, an extra dash, a stray period. Unfortunately, there are very few useful error messages with these. Scour your code for them.
 
 -   **Quoting issues** - what kind of quotes, whether they're needed, and if they're matched open and closed.
 
 -   Unmatched or missing **parentheses**
 
-    Putting words on the wrong side of **equal signs**. To create a new column name, put it on the left. To identify a column to be used as an argument, put it on the right. To filter a column, use two equals signs, with the column name on the left.
+-   Putting words on the wrong side of **equal signs**. To create a new column name, put it on the left. To identify a column to be used as an argument, put it on the right. To filter a column, use two equals signs, with the column name on the left.
 
--   Are you working with a **list** of items? If so, you need to wrap them in the `c()` function, for "combine"
+-   Are you working with a **list** of items, such as a set of criteria in an %in% comparison? If so, you need to wrap them in the `c()` function, for "combine"
 
 -   **Case-sensitivity** in column names; back-ticks for more than one word in a column name rather than quotes.
 
--   Missing or hanging **pipes** (`|>`)
+-   Missing or hanging **pipes** (`|>` or `%>%`, depending on which version of R you're using.)
 
-- You often have to run your code chunk twice after fixing an error. (There is still a mistake in R's innards that has to get flushed out.)
+You often have to run your code chunk twice after fixing an error. (There is still a mistake in R's innards that has to get flushed out.)
 
-These are the problems that will fix about 80 percent of the code that won't run once you get more used to it.
+### Getting help
 
-## Re-using answers from a previous step
+Sometimes you stare at a problem for a long time without seeing what's wrong. Rather than do that, consider using AI to help you. One of the things it's best at is to give you explanations or fixes. Just remember that we are working in the Tidyverse, and in the more modern version of it. That means the free version of Chat GPT will give you old, and possibly kind of weird, answers. I suggest <https://perplexity.ai> or the free Github Copilot that's available in Microsoft Bing.
 
-Assign your code chunk to a new variable in the environment to use it again later. This is usefule when: 
+Here are a couple of examples, based on real-world problems that students have had problems with.
 
-* You have a complex filter that you want to apply to future steps. 
-* You are joining data frames with columns having the same names: select just the columns you need and re-name any of the ones that are the same, except for the join one. 
-* You have fixed some column types or adjusted their values. 
-
-The assignment operator is `<-`, which means "pour the answer into this variable name"
-
-These can all go into one code chunk if you'd like: 
+#### Example 1: Stray character
 
 ```{r}
-#| label: save_for_later
-#| fig-keep: none
+#| eval: true
+#| error: true
 
-select_ppp <- 
-  ppp_orig |>
-  filter ( project_state == "AZ" & !is.na (project_county) ) |>
-  mutate ( forgiveness_amount = if_else (is.na(forgiveness_amount),
-                                         0, 
-                                         forgiveness_amount)) |>
-  select ( borrower_name, borrower_city, 
-           naics_code, 
-           amount, forgiveness_amount,
-           date_approved, forgiveness_date)
-
-
-
-sectors <- 
-  naics_codes |>
-  select ( naics_code, sector_code, sector_desc)
-
-
-select_ppp |>
-  left_join ( sectors, by="naics_code")  |>
-  select ( borrower_name, forgiveness_amount, sector_desc) |>
-  head(5)
+my_data <--
+  shootings |> 
+  filter ( ethnicity == "White")
 
 
 ```
 
-## Importing / reading data
+Going to ChatGPT, here is my prompt and its answer. While the answer isn't entirely clear, it points you to the problem -- an extra dash in the assignment of the result into `my_data`.
 
-* If you are referring to a file on your computer or on the web, then it must be in quotes. 
-* Use the proper library and function to read the data. 
-* Check the output for proper treatment of text, dates and numbers, especially with Excel and text imports
+![](assets/images/r-recipes-copilot-operator.png)
 
+### Example 2: Misspelling a data colummn
 
-#### Reading R files
+```{r}
+#| eval: true
+#| error: true
 
-Two types of data files: RDS files contain one data frame, which you have to assign to a new object. Rda files have multiple objects that are already named.  Use `readRDS ( url ( ....) ) ` to read data stored on the internet instead of in your project.
+shootings |> 
+  filter ( ethnicty == "White")
 
-``` 
-mydata <- readRDS ( "mydata_file.RDS")
-load ( "mydata_file.Rda")
 
 ```
 
-#### Reading text (csv) files 
+In this, case, the error is reasonably understandable But you could ask Github Copolit to explain it:
 
-Use `read_csv()`, `read_tsv()`, `read_delimited()` and various fixed file formats. Match the type of your file with the proper function. These require that the tidyverse or `readr` libraries are already loaded. 
+![](assets/images/r-recipes-copilot-spelling.png)
 
-#### Reading Excel files
+## Getting data into your environment
 
+-   If you are referring to a file on your computer or on the web, then it must be in quotes.
 
+-   Use the proper library and function to read the data.
 
-``` 
-library (readxl)          # put this with the rest of your libraries.
-mydata <- read_excel("mydata_file.xlsx", 
-                      sheet = "sheet_name")  
-```
+-   Check the output for proper treatment of text, dates and numbers, especially with Excel and text imports
 
-There is no `url()` option for reading Excel files. They must be stored in your project.  One approach is to download the file in your code: 
+-   `read_csv()` (with an underscore) reads a plain text comma-delimited file from your project or the internet. It has cousins, such as `read_tsv()` for tab-delimited or `read_delim()` for files that have odd characters separating the columns.
 
-```
-download.file ( "https://address-of-file.xlsx", "myfilename.xlsx")
-mydata <- read_excel ("myfilename.xlsx")
-```
+-   `read_excel()` gets a file from an Excel file (.xlsx). You must add `library(readxl)` to your libraries at top for it to work, and it won't work on files stored on the interet.
 
+-   `readRDS()` and `load()` reads R-native files. RDS files contain one data frame, which you have to assign to a new object. Rda files have multiple objects that are already named. Use `readRDS ( url ( ....) )` to read data stored on the internet instead of in your project, with the web address in quotes.
 
 #### Import options
 
-There are options in most of the importing functions that tell you how to treat each column and let you rename at the same time. One approach is : 
+There are options in most of the importing functions that tell you how to treat each column and let you rename at the same time. One approach is :
 
-``` 
-read_csv ( "mydata_file.csv", 
-           coltypes = col(.default = "c")
-           )
-           
+To keep everything as text, which you can convert later.
+
+```{r}
+#| message: false
+
+wapo_orig <- 
+  read_csv( "https://raw.githubusercontent.com/washingtonpost/data-police-shootings/master/v1/fatal-police-shootings-data.csv", 
+            col_types= c (.default="c")
+            )
+
+
 ```
 
-To keep everything as text, which you can convert later. 
+Check your data using `glimpse()` or in the Environment tab to make sure you know what TYPE of data each column represents, and how the entries are entered -- upper case, lower case, etc.
+
+### Re-using answers from a previous step
+
+Assign your code chunk to a new variable in the environment to use it again later. This is useful when:
+
+-   You have a complex filter that you want to apply to future steps.
+-   You are joining data frames with columns having the same names: select just the columns you need and re-name any of the ones that are the same, except for the join one.
+-   You have fixed some column types or adjusted their values.
+-   You don't want to look at so many columns and don't need them for anything.
+
+Use the `select` verb to pick out and rename your columns. Put it as the last thing in your code chunk.
+
+The assignment operator is `<-`, which means "pour the answer into this variable name" You can use the keyboard shortcut `OPT/ALT -` to insert it automatically.
+
+```{r}
+#| label: save_for_later
+
+select_wapo  <- 
+  wapo_orig |> 
+  select ( id, name, date, armed, gender, race, city, state, signs_of_mental_illness, flee)
 
 
-## Filtering
+```
+
+### Operators and symbols
+
+Operators and comparison symbols are here <https://cronkitedata.github.io/djtextbook/quickstart-program.html#operators-assignment>  and here <https://cronkitedata.github.io/djtextbook/r-verb-filter.html#filter-rows> . It's skipped `<-`, which is the "assignment operator" to create a new data frame in the Environment. 
+
+
+## Filtering 
+
+Use the same strategies to create new columns from old conditionally using `mutate()`
 
 1.  One condition that's a number :
 
-```
+```         
   filter ( amount > 1000 )
 ```
 
 2.  A number between two values
 
-```
+```         
   filter ( between ( amount, 0, 1000))
 ```
 
 3.  An exact phrase or word
 
-```
+```         
   filter ( project_county == "MARICOPA")
 ```
 
 4.  One of several possible entries in one column (exactly)
 
-```
+```         
     filter ( project_county %in% c("MARICOPA", "PIMA", "PINAL" ))
 ```
+
 5.  Everything except missing values
 
-```
+```         
     filter ( ! is.na (project_county) )
 ```
 
 5.  Between two dates . Be sure it's really a date in the data by glimpsing your data frame. If not, turn it into a date first.
 
-```
+```         
     filter ( approval_date >= "2021-01-24" & 
            approval_date <= "2021-01-31")
 ```
+
 6.  Phrases, words or letters at the beginning of a column
 
-```
+```         
     filter ( str_like (borrower_type , "Non-Profit%"))
 ```
 
 7.  Phrases, letters or words at the end of a column
 
-```
+```         
     filter ( str_like  (borrower_type, "Corporation%"))
 ```
 
-All of these examples can be used in a `mutate` statement to create flags or new values if the conditions are met.  
+All of these examples can be used in a `mutate` statement to create flags or new values if the conditions are met.
+
+## Mutate functions
+
+1. `if_else()` : Choose one of two options. 
+2. `case_when()` : More than two options. 
+3. `replace_na()` : Change all NA values to something else, a constant not a value from another column. 
+4. Dealing with dates: 
+    * Already in the form yyyy-mm-dd, but text. Use `as.Date()`
+    * Need to parse it from US-style dates, use `mdy()` . This depends on the `lubridate` library. 
+    * Take the first x number of characters from a text value: `str_sub(column_name, 1, x)`
+  
+  
 
 ## Aggregate (count, sum rows by category)
 
 1.  Counting (How many?)
 
-```
-    group_by (project_county) |>
-    summarize (loans = n() )  |>
-    arrange ( desc ( loans ))
+Top 10 list:
+
+```{r}
+
+wapo_orig |> 
+    count (state,  name="shootings") |> 
+    arrange ( desc ( shootings )) |> 
+    head (10)
 ```
 
 Make sure you don't name the new column containing the count the same thing as a group_by() column.
 
-2. Shortcut for counting:
-
-```
-     count( project_county, sort=TRUE, name="loans")
-```
-
-
-3.  Counting unique entries
+2.  Counting unique entries
 
 Sometimes you want to know how many items of a type, not how many rows, are included in a category.
 
-```
-        group_by ( project_county) |>
-        summarize ( number_of_loans = n(), 
-                    number_of_industries = n_distinct ( naics_code )
+```{r}
+#| eval: false
+
+        group_by ( state) |>
+        summarize ( number_of_shootings = n(), 
+                    number_of_cities = n_distinct ( city )
                     )
 ```
 
-
 4.  Summing (how much?)
 
-```
+```{r}
+#| eval: false
+
     group_by (project_county) |>
     summarize ( total_amount = sum (amount, na.rm=T))
 ```
 
-5. Shortcut for summing:
-
-```
-    count ( project_county, weight=amount, name="total_amount")
-```
-
 ## Recoding categories
 
-You'll often want fewer categories, or numbers in categories, that you want to use instead of the original values. This is done in a mutate statement. Don't forget to save the output to a new data frame (<-), or you won't have access to it later on. 
-
+You'll often want fewer categories, or numbers in categories, that you want to use instead of the original values. This is done in a mutate statement. Don't forget to save the output to a new data frame (\<-), or you won't have access to it later on.
 
 1.  Create yes-no categories . This is really "Yes", "No" or NA, where there is an NA to begin with.
 
 ```{r}
+#| eval: false
+
     mutate ( corp_yn = if_else  
-                      (str_detect (borrower_type, 
-                                   "Corporation"), 
+                      (str_like (borrower_type, 
+                                   "%Corporation%"), 
                        "Yes", 
                        "No")
        )
 ```
 
-2. Recode into more than two categories using `case_when()`
+2.  Recode into more than two categories using `case_when()`
 
-This example introduces `str_detect()`, which uses regular expressions. We'll go over that later in the book. 
+This example introduces `str_detect()`, which uses regular expressions. We'll go over that later in the book.
 
-```
+```{r}
+#| eval: false
+
   mutate (  new_business_type = 
                 case_when (  str_like(business_type, "%non_profit%") ~ "Non-profit",    #1st category
 
@@ -283,11 +314,13 @@ This example introduces `str_detect()`, which uses regular expressions. We'll go
             )
 ```
 
-3. Recode numbers into categories
+3.  Recode numbers into categories
 
 It's often useful to give them numeric codes in front so they sort properly:
 
 ```{r}
+#| eval: false
+
         mutate ( new_type = 
                  case_when  (
                     amount <= 1000 ~ "00-Very low", 
@@ -299,81 +332,142 @@ It's often useful to give them numeric codes in front so they sort properly:
 
 This works because the first one that it finds will be used, so a value of exactly 1,000 would be "Very low", but a value of 1,001 would be "Low".
 
+### Using a "lookup table" with a join to convert codes to words
+
+#### Get or create a lookup table
+
+It usually has two columns - the original code, and the words you want to use. In this example, you can create it in-line using tibble() function:
+
+```{r}
+
+
+
+lkp_race <- 
+  tribble ( ~race_code, ~race_desc , 
+            "A", "Asian",
+     "W", "White",
+     "H", "Hispanic / Latino",
+     "B", "Black", 
+     "O", "Other",
+     "N", "Unknown")
+```
+
+Now you can join it (using left-join in case of NA's)
+
+```{r}
+
+wapo_with_desc <- 
+  select_wapo |> 
+  left_join ( lkp_race, 
+              join_by ( race == race_code)) 
+
+
+```
 
 ## Working with grouped data for subtotals, changes, percents
 
 1.  Percent of total by group
 
-```
-  group_by ( project_county, sector_desc ) |>
-  summarize ( loans = n() , .groups="drop_last") |>
-  mutate ( pct_in_county = loans / sum(loans))
+
+
+```{r}
+#| eval: true
+#| error: true
+#| 
+
+
+wapo_with_desc |> 
+  group_by ( state, race_desc ) |>                     #<1>  
+  summarize ( shootings = n() , .groups="drop_last") |>  #<2>
+  mutate ( all_shootings = sum (shootings) ) |>   #<3>
+  mutate ( pct_shootings = shootings / all_shootings * 100 ) #<4>
 ```
 
-2. Display results as in spreadsheet form
+1. Group by two or more columns. The one that you want to subtotal goes last. 
+2. Compute "how many" for each "group" and save it to a column called "shootings"
+3. Add those up for a subtotal by state in this case. 
+4. Create the percentage. 
 
-To see the items across the top, use `pivot_wider`. 
+
+#### Alternate approach: count then sum
+
+This is a little more intuitive because of when the grouping happens: 
+
+```{r}
+#| eval: false
+
+   count (state, name_desc,  name="shootings") |> 
+   group_by ( state ) |> 
+   mutate ( subtotal = sum (shootings ) , 
+            pct = shootings  / subtotal * 100 ) |> 
+   
+
+
 
 ```
-  group_by ( project_county, new_type) |>
-  summarize ( loan_count = n() ) |>
-  pivot_wider ( names_from = new_type, 
-                id_cols = c( project_county), 
-                values_from = loan_count)
+
+
+Run each step separately before adding the next step  and examine the output to see what is happening. 
+
+
+
+2.  Display results as in spreadsheet form
+
+To see the items across the top, use `pivot_wider`.
+
+```         
+  group_by ( state, race_desc) |>
+  summarize ( shootings = n() ) |>
+  pivot_wider ( names_from = race_desc, 
+                id_cols = c( state), 
+                values_from = shootings)
 ```
 
 You can add an argument after `values_from` if you know that any missing values are zero, by using `values_fill=0`
 
-You usually only choose one column to show down the side, one column to spread across the top, and one column to display the value. 
+You usually only choose one column to show down the side, one column to spread across the top, and one column to display the value.
 
-2.  Complex example: Get the change by year within each county.
+2.  Change over time
 
-      annual_ppp <- 
-        mutate  ( approve_year = year (approval_date ) ) |>
-        group_by ( project_county, approve_year) |>
-        summarize ( loans = n() , 
-                    amount = sum( amount, na.rm=T), 
-                    .groups="drop_last") 
-                    
-Next, compare them within groups. New functions introduced: `complete()`, which fills in missing information in a sequence. For example, if there were missing years by county, it would create a row to fill it in. `lag()` refers to the previous item in a group. First, make a new, summarized data frame with just the columns you nee
+To get the change over time, convert the data into years, then use the `lag()` function in a mutate within groups. You must sort (arrange) the rows in the proper order first.
 
-                    
-        complete ( project_county, approve_year, 
-                  fill= list (amount=0, loans =0) )|>
-        mutate ( change_loans = loans - lag(loans), 
-                 pct_change_loans = change_loans / lag(loans) * 100) 
+```{r}
 
-3.  Pick out the last item in a group, with all of its columns. New verb introduced : `slice_tail()` . This is particularly useful for chronological events, such as the last thing that happened in a court case, or the most recent complaint against a police officer. This example isn't a great one, but it gets you the name and other details of the most recent loan for each lender
 
-        arrange ( lender, date_approved) |>
-        group_by ( lender) |>
+wapo_with_desc |> 
+  mutate ( year = year (as.Date(date))) |> 
+  count ( state, year , name="shootings") |> 
+  arrange ( state, year ) |> 
+  group_by ( state ) |> 
+  mutate ( change = shootings - lag (shootings))
+  
+
+
+```
+
+3.  Pick out the last item in a group, with all of its columns.
+
+New verb introduced : `slice_tail()` .
+
+This is particularly useful for chronological events, such as the last thing that happened in a court case, or the most recent complaint against a police officer. This example isn't a great one, but it gets you the name and other details of the most recent shooting in each state:
+
+``` r
+        arrange ( state, date) |>
+        group_by ( state) |>
         slice_tail(n=1)
-
-NOTE: Don't use `slice_max()`, because it will give you back multiple rows in the event of ties. 
-
-
-## Joining tables
-
-New options in the `dplyr` library that contains the `join` verb let us use the same operators in joining that you use in filtering: `==`, `<=`, etc. Usually you will use the "==" operator.  Requires dplyr 1.1, which was released in February 2023. 
-
 ```
-ppp_orig |> 
-  select ( borrower_name, amount, naics_code) |> 
-  inner_join ( naics_codes, 
-               join_by (naics_code == naics_code) 
-  )
-```
+
+NOTE: Don't use `slice_max()`, because it will give you back multiple rows in the event of ties.
 
 ## Quarto document tips
 
-### YAML (front matter) {-}
+### YAML (front matter) {.unnumbered}
 
-The YAML is very picky about exact casing, spacing and other details. If you try to render and you get a `YAML error`, it is likely at the top. 
-
+The YAML is very picky about exact casing, spacing and other details. If you try to render and you get a `YAML error`, it is likely at the top.
 
 Typical YAML front matter that goes within the three dashes beginning on the very first line:
 
-```yaml
+``` yaml
 
 title: "Name of document"
 author: "Your name"
@@ -386,13 +480,12 @@ output:
 execute: 
    warning: true
    error: true
+   eval: true
 ```
-  
-  
 
-### Code chunk options {-}
+### Code chunk options {.unnumbered}
 
-These must be the very first rows in your code chunk, and must start in the first position, with spacing as shown. Use `#| label: setup` in the first code chunk to run it automatically every time you start up R. 
+These must be the very first rows in your code chunk, and must start in the first position, with spacing as shown. Use `#| label: setup` in the first code chunk to run it automatically every time you start up R.
 
 ```{r}
 #| echo: fenced
@@ -402,10 +495,6 @@ These must be the very first rows in your code chunk, and must start in the firs
 
 ```
 
+### Nothing runs; everything is gray {.unnumbered}
 
-### Nothing runs; everything is gray {-}
-
-You probably erased the last three back-ticks at the end of the code chunk. You may need to restart R to get it re-set. 
-
-
-
+You probably erased the last three back-ticks at the end of the code chunk. You may need to restart R to get it re-set.

@@ -1548,5 +1548,137 @@
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>Documentation for PPP data chapters</span>"
     ]
+  },
+  {
+    "objectID": "r-recipes.html",
+    "href": "r-recipes.html",
+    "title": "21  Recipes",
+    "section": "",
+    "text": "21.1 Starting a document\nErase everything it gives you, and use our usual setup. Copy it from a document that you like, set up a start-up document, or copy it from Sarah’s Github gist https://gist.github.com/sarahcnyt/e60ad2d7ccf65498fc88791f3bb683ae.",
+    "crumbs": [
+      "Verbs of the tidyverse",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Recipes</span>"
+    ]
+  },
+  {
+    "objectID": "r-recipes.html#getting-data-into-your-environment",
+    "href": "r-recipes.html#getting-data-into-your-environment",
+    "title": "21  Recipes",
+    "section": "21.3 Getting data into your environment",
+    "text": "21.3 Getting data into your environment\n\nIf you are referring to a file on your computer or on the web, then it must be in quotes.\nUse the proper library and function to read the data.\nCheck the output for proper treatment of text, dates and numbers, especially with Excel and text imports\nread_csv() (with an underscore) reads a plain text comma-delimited file from your project or the internet. It has cousins, such as read_tsv() for tab-delimited or read_delim() for files that have odd characters separating the columns.\nread_excel() gets a file from an Excel file (.xlsx). You must add library(readxl) to your libraries at top for it to work, and it won’t work on files stored on the interet.\nreadRDS() and load() reads R-native files. RDS files contain one data frame, which you have to assign to a new object. Rda files have multiple objects that are already named. Use readRDS ( url ( ....) ) to read data stored on the internet instead of in your project, with the web address in quotes.\n\n\nImport options\nThere are options in most of the importing functions that tell you how to treat each column and let you rename at the same time. One approach is :\nTo keep everything as text, which you can convert later.\n\nwapo_orig &lt;- \n  read_csv( \"https://raw.githubusercontent.com/washingtonpost/data-police-shootings/master/v1/fatal-police-shootings-data.csv\", \n            col_types= c (.default=\"c\")\n            )\n\nCheck your data using glimpse() or in the Environment tab to make sure you know what TYPE of data each column represents, and how the entries are entered – upper case, lower case, etc.\n\n\nRe-using answers from a previous step\nAssign your code chunk to a new variable in the environment to use it again later. This is useful when:\n\nYou have a complex filter that you want to apply to future steps.\nYou are joining data frames with columns having the same names: select just the columns you need and re-name any of the ones that are the same, except for the join one.\nYou have fixed some column types or adjusted their values.\nYou don’t want to look at so many columns and don’t need them for anything.\n\nUse the select verb to pick out and rename your columns. Put it as the last thing in your code chunk.\nThe assignment operator is &lt;-, which means “pour the answer into this variable name” You can use the keyboard shortcut OPT/ALT - to insert it automatically.\n\nselect_wapo  &lt;- \n  wapo_orig |&gt; \n  select ( id, name, date, armed, gender, race, city, state, signs_of_mental_illness, flee)\n\n\n\nOperators and symbols\nOperators and comparison symbols are here https://cronkitedata.github.io/djtextbook/quickstart-program.html#operators-assignment and here https://cronkitedata.github.io/djtextbook/r-verb-filter.html#filter-rows . It’s skipped &lt;-, which is the “assignment operator” to create a new data frame in the Environment.",
+    "crumbs": [
+      "Verbs of the tidyverse",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Recipes</span>"
+    ]
+  },
+  {
+    "objectID": "r-recipes.html#re-using-answers-from-a-previous-step",
+    "href": "r-recipes.html#re-using-answers-from-a-previous-step",
+    "title": "21  Recipes",
+    "section": "21.3 Re-using answers from a previous step",
+    "text": "21.3 Re-using answers from a previous step\nAssign your code chunk to a new variable in the environment to use it again later. This is useful when:\n\nYou have a complex filter that you want to apply to future steps.\nYou are joining data frames with columns having the same names: select just the columns you need and re-name any of the ones that are the same, except for the join one.\nYou have fixed some column types or adjusted their values.\nYou don’t want to look at so many columns and don’t need them for anything.\n\nUse the select verb to pick out and rename your columns. Put it as the last thing in your code chunk.\nThe assignment operator is &lt;-, which means “pour the answer into this variable name” You can use the keyboard shortcut OPT/ALT - to insert it automatically.\n\nselect_wapo  &lt;- \n  wapo_orig |&gt; \n  select ( id, name, date, armed, gender, race, city, state, signs_of_mental_illness, flee)",
+    "crumbs": [
+      "Verbs of the tidyverse",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Recipes</span>"
+    ]
+  },
+  {
+    "objectID": "r-recipes.html#filtering",
+    "href": "r-recipes.html#filtering",
+    "title": "21  Recipes",
+    "section": "21.4 Filtering",
+    "text": "21.4 Filtering\nUse the same strategies to create new columns from old conditionally using mutate()\n\nOne condition that’s a number :\n\n  filter ( amount &gt; 1000 )\n\nA number between two values\n\n  filter ( between ( amount, 0, 1000))\n\nAn exact phrase or word\n\n  filter ( project_county == \"MARICOPA\")\n\nOne of several possible entries in one column (exactly)\n\n    filter ( project_county %in% c(\"MARICOPA\", \"PIMA\", \"PINAL\" ))\n\nEverything except missing values\n\n    filter ( ! is.na (project_county) )\n\nBetween two dates . Be sure it’s really a date in the data by glimpsing your data frame. If not, turn it into a date first.\n\n    filter ( approval_date &gt;= \"2021-01-24\" & \n           approval_date &lt;= \"2021-01-31\")\n\nPhrases, words or letters at the beginning of a column\n\n    filter ( str_like (borrower_type , \"Non-Profit%\"))\n\nPhrases, letters or words at the end of a column\n\n    filter ( str_like  (borrower_type, \"Corporation%\"))\nAll of these examples can be used in a mutate statement to create flags or new values if the conditions are met.",
+    "crumbs": [
+      "Verbs of the tidyverse",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Recipes</span>"
+    ]
+  },
+  {
+    "objectID": "r-recipes.html#aggregate-count-sum-rows-by-category",
+    "href": "r-recipes.html#aggregate-count-sum-rows-by-category",
+    "title": "21  Recipes",
+    "section": "21.6 Aggregate (count, sum rows by category)",
+    "text": "21.6 Aggregate (count, sum rows by category)\n\nCounting (How many?)\n\nTop 10 list:\n\nwapo_orig |&gt; \n    count (state,  name=\"shootings\") |&gt; \n    arrange ( desc ( shootings )) |&gt; \n    head (10)\n\n\n  \n\n\n\nMake sure you don’t name the new column containing the count the same thing as a group_by() column.\n\nCounting unique entries\n\nSometimes you want to know how many items of a type, not how many rows, are included in a category.\n\n        group_by ( state) |&gt;\n        summarize ( number_of_shootings = n(), \n                    number_of_cities = n_distinct ( city )\n                    )\n\n\nSumming (how much?)\n\n\n    group_by (project_county) |&gt;\n    summarize ( total_amount = sum (amount, na.rm=T))",
+    "crumbs": [
+      "Verbs of the tidyverse",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Recipes</span>"
+    ]
+  },
+  {
+    "objectID": "r-recipes.html#recoding-categories",
+    "href": "r-recipes.html#recoding-categories",
+    "title": "21  Recipes",
+    "section": "21.7 Recoding categories",
+    "text": "21.7 Recoding categories\nYou’ll often want fewer categories, or numbers in categories, that you want to use instead of the original values. This is done in a mutate statement. Don’t forget to save the output to a new data frame (&lt;-), or you won’t have access to it later on.\n\nCreate yes-no categories . This is really “Yes”, “No” or NA, where there is an NA to begin with.\n\n\n    mutate ( corp_yn = if_else  \n                      (str_like (borrower_type, \n                                   \"%Corporation%\"), \n                       \"Yes\", \n                       \"No\")\n       )\n\n\nRecode into more than two categories using case_when()\n\nThis example introduces str_detect(), which uses regular expressions. We’ll go over that later in the book.\n\n  mutate (  new_business_type = \n                case_when (  str_like(business_type, \"%non_profit%\") ~ \"Non-profit\",    #1st category\n\n                             business_type %in% \n                               c(\"Independent Contractors\", \n                                \"Sole Proprietorship\", \n                                \"Self-Employed Individuals\", \n                                  \"Single Member LLC\")              ~ \"Individual\",    # 2nd category\n                             \n                             business_type == \"Tribal Concerns\"     ~ \"Tribal concerns\",    #3rd category\n                             \n                             str_detect (business_type, \"LLC|Company|Corporation|Partnership\") ~ \"Companies\",  #4th category\n                             \n                             TRUE ~ \"Other\")         #catchall 5th category\n            )\n\n\nRecode numbers into categories\n\nIt’s often useful to give them numeric codes in front so they sort properly:\n\n        mutate ( new_type = \n                 case_when  (\n                    amount &lt;= 1000 ~ \"00-Very low\", \n                    amount &lt;= 10000  ~ \"01-Low\", \n                    amount &lt;= 100000 ~ \"03-Medium\", \n                    amount &gt; 100000 ~ \"04-High\")\n              )\n\nThis works because the first one that it finds will be used, so a value of exactly 1,000 would be “Very low”, but a value of 1,001 would be “Low”.\n\nUsing a “lookup table” with a join to convert codes to words\n\nGet or create a lookup table\nIt usually has two columns - the original code, and the words you want to use. In this example, you can create it in-line using tibble() function:\n\nlkp_race &lt;- \n  tribble ( ~race_code, ~race_desc , \n            \"A\", \"Asian\",\n     \"W\", \"White\",\n     \"H\", \"Hispanic / Latino\",\n     \"B\", \"Black\", \n     \"O\", \"Other\",\n     \"N\", \"Unknown\")\n\nNow you can join it (using left-join in case of NA’s)\n\nwapo_with_desc &lt;- \n  select_wapo |&gt; \n  left_join ( lkp_race, \n              join_by ( race == race_code))",
+    "crumbs": [
+      "Verbs of the tidyverse",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Recipes</span>"
+    ]
+  },
+  {
+    "objectID": "r-recipes.html#working-with-grouped-data-for-subtotals-changes-percents",
+    "href": "r-recipes.html#working-with-grouped-data-for-subtotals-changes-percents",
+    "title": "21  Recipes",
+    "section": "21.8 Working with grouped data for subtotals, changes, percents",
+    "text": "21.8 Working with grouped data for subtotals, changes, percents\n\nPercent of total by group\n\n\nwapo_with_desc |&gt; \n1  group_by ( state, race_desc ) |&gt;\n2  summarize ( shootings = n() , .groups=\"drop_last\") |&gt;\n3  mutate ( all_shootings = sum (shootings) ) |&gt;\n4  mutate ( pct_shootings = shootings / all_shootings * 100 )\n\n\n1\n\nGroup by two or more columns. The one that you want to subtotal goes last.\n\n2\n\nCompute “how many” for each “group” and save it to a column called “shootings”\n\n3\n\nAdd those up for a subtotal by state in this case.\n\n4\n\nCreate the percentage.\n\n\n\n\n\n  \n\n\n\n\nAlternate approach: count then sum\nThis is a little more intuitive because of when the grouping happens:\n\n   count (state, name_desc,  name=\"shootings\") |&gt; \n   group_by ( state ) |&gt; \n   mutate ( subtotal = sum (shootings ) , \n            pct = shootings  / subtotal * 100 ) |&gt; \n\nRun each step separately before adding the next step and examine the output to see what is happening.\n\nDisplay results as in spreadsheet form\n\nTo see the items across the top, use pivot_wider.\n  group_by ( state, race_desc) |&gt;\n  summarize ( shootings = n() ) |&gt;\n  pivot_wider ( names_from = race_desc, \n                id_cols = c( state), \n                values_from = shootings)\nYou can add an argument after values_from if you know that any missing values are zero, by using values_fill=0\nYou usually only choose one column to show down the side, one column to spread across the top, and one column to display the value.\n\nChange over time\n\nTo get the change over time, convert the data into years, then use the lag() function in a mutate within groups. You must sort (arrange) the rows in the proper order first.\n\nwapo_with_desc |&gt; \n  mutate ( year = year (as.Date(date))) |&gt; \n  count ( state, year , name=\"shootings\") |&gt; \n  arrange ( state, year ) |&gt; \n  group_by ( state ) |&gt; \n  mutate ( change = shootings - lag (shootings))\n\n\n  \n\n\n\n\nPick out the last item in a group, with all of its columns.\n\nNew verb introduced : slice_tail() .\nThis is particularly useful for chronological events, such as the last thing that happened in a court case, or the most recent complaint against a police officer. This example isn’t a great one, but it gets you the name and other details of the most recent shooting in each state:\n        arrange ( state, date) |&gt;\n        group_by ( state) |&gt;\n        slice_tail(n=1)\nNOTE: Don’t use slice_max(), because it will give you back multiple rows in the event of ties.",
+    "crumbs": [
+      "Verbs of the tidyverse",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Recipes</span>"
+    ]
+  },
+  {
+    "objectID": "r-recipes.html#joining-tables",
+    "href": "r-recipes.html#joining-tables",
+    "title": "21  Recipes",
+    "section": "21.7 Joining tables",
+    "text": "21.7 Joining tables\nNew options in the dplyr library that contains the join verb let us use the same operators in joining that you use in filtering: ==, &lt;=, etc. Usually you will use the “==” operator. Requires dplyr 1.1, which was released in February 2023.\nppp_orig |&gt; \n  select ( borrower_name, amount, naics_code) |&gt; \n  inner_join ( naics_codes, \n               join_by (naics_code == naics_code) \n  )",
+    "crumbs": [
+      "Verbs of the tidyverse",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Recipes</span>"
+    ]
+  },
+  {
+    "objectID": "r-recipes.html#quarto-document-tips",
+    "href": "r-recipes.html#quarto-document-tips",
+    "title": "21  Recipes",
+    "section": "21.9 Quarto document tips",
+    "text": "21.9 Quarto document tips\n\nYAML (front matter)\nThe YAML is very picky about exact casing, spacing and other details. If you try to render and you get a YAML error, it is likely at the top.\nTypical YAML front matter that goes within the three dashes beginning on the very first line:\n\ntitle: \"Name of document\"\nauthor: \"Your name\"\noutput: \n  html: \n    theme: cosmo\n    code-tools: true\n    embed-resources: true\n    toc: true\nexecute: \n   warning: true\n   error: true\n   eval: true\n\n\nCode chunk options\nThese must be the very first rows in your code chunk, and must start in the first position, with spacing as shown. Use #| label: setup in the first code chunk to run it automatically every time you start up R.\n\n\nNothing runs; everything is gray\nYou probably erased the last three back-ticks at the end of the code chunk. You may need to restart R to get it re-set.",
+    "crumbs": [
+      "Verbs of the tidyverse",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Recipes</span>"
+    ]
+  },
+  {
+    "objectID": "r-recipes.html#starting-a-document",
+    "href": "r-recipes.html#starting-a-document",
+    "title": "21  Recipes",
+    "section": "",
+    "text": "Create or open a project - remember to name it lower-case with no spaces or quotes\nThen either move or download any needed files into that folder. (Rstudio , Finder or Explorer).\nCreate or open a document that you want to edit in File -&gt; New -&gt; Quarto Document.\n\n\n\nEdit the “setup” chunk to include any libraries you need for your document. Examples of other libraries include reactable for interactive tables, or sf for maps. You may need readxl if your data is coming from an Excel file rather than a csv or internet file.",
+    "crumbs": [
+      "Verbs of the tidyverse",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Recipes</span>"
+    ]
+  },
+  {
+    "objectID": "r-recipes.html#r-annoyances-and-errors",
+    "href": "r-recipes.html#r-annoyances-and-errors",
+    "title": "21  Recipes",
+    "section": "21.2 R annoyances and errors",
+    "text": "21.2 R annoyances and errors\nThere are several annoyances that aren’t consistent from one function in R to the next. These issues will fix many of the errors in your code, even when the error message isn’t clear. When you’re having trouble, look for\n\nSpelling - it’s amazing how many times you can look for a spelling error and not see it. If you get an error that says something like object not found, check your spelling.\nFailing to run previous code chunks: Every time you open R, or when you Render a document, R starts from scratch. Consider using the Run -&gt; Run All Chunks Above menu item (or the button just next to the Play button on a code chunk) to make sure you’re up to date. Be sure to close out of R completely every once in a while. Otherwise you might be depending on something you erased from your document.\nStray characters . These are REALLY hard to see. It might be an extra quote mark, an extra dash, a stray period. Unfortunately, there are very few useful error messages with these. Scour your code for them.\nQuoting issues - what kind of quotes, whether they’re needed, and if they’re matched open and closed.\nUnmatched or missing parentheses\nPutting words on the wrong side of equal signs. To create a new column name, put it on the left. To identify a column to be used as an argument, put it on the right. To filter a column, use two equals signs, with the column name on the left.\nAre you working with a list of items, such as a set of criteria in an %in% comparison? If so, you need to wrap them in the c() function, for “combine”\nCase-sensitivity in column names; back-ticks for more than one word in a column name rather than quotes.\nMissing or hanging pipes (|&gt; or %&gt;%, depending on which version of R you’re using.)\n\nYou often have to run your code chunk twice after fixing an error. (There is still a mistake in R’s innards that has to get flushed out.)\n\nGetting help\nSometimes you stare at a problem for a long time without seeing what’s wrong. Rather than do that, consider using AI to help you. One of the things it’s best at is to give you explanations or fixes. Just remember that we are working in the Tidyverse, and in the more modern version of it. That means the free version of Chat GPT will give you old, and possibly kind of weird, answers. I suggest https://perplexity.ai or the free Github Copilot that’s available in Microsoft Bing.\nHere are a couple of examples, based on real-world problems that students have had problems with.\n\nExample 1: Stray character\n\nmy_data &lt;--\n  shootings |&gt; \n  filter ( ethnicity == \"White\")\n\nError in FUN(left): invalid argument to unary operator\n\n\nGoing to ChatGPT, here is my prompt and its answer. While the answer isn’t entirely clear, it points you to the problem – an extra dash in the assignment of the result into my_data.\n\n\n\n\nExample 2: Misspelling a data colummn\n\nshootings |&gt; \n  filter ( ethnicty == \"White\")\n\nError in `filter()`:\nℹ In argument: `ethnicty == \"White\"`.\nCaused by error:\n! object 'ethnicty' not found\n\n\nIn this, case, the error is reasonably understandable But you could ask Github Copolit to explain it:",
+    "crumbs": [
+      "Verbs of the tidyverse",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Recipes</span>"
+    ]
+  },
+  {
+    "objectID": "r-recipes.html#mutate-functions",
+    "href": "r-recipes.html#mutate-functions",
+    "title": "21  Recipes",
+    "section": "21.5 Mutate functions",
+    "text": "21.5 Mutate functions\n\nif_else() : Choose one of two options.\ncase_when() : More than two options.\nreplace_na() : Change all NA values to something else, a constant not a value from another column.\nDealing with dates:\n\nAlready in the form yyyy-mm-dd, but text. Use as.Date()\nNeed to parse it from US-style dates, use mdy() . This depends on the lubridate library.\nTake the first x number of characters from a text value: str_sub(column_name, 1, x)",
+    "crumbs": [
+      "Verbs of the tidyverse",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Recipes</span>"
+    ]
   }
 ]

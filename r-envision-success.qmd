@@ -1,0 +1,171 @@
+# Envision success in R
+
+Many of the tasks you want to accomplish in R can be done using the verbs and strategies you already know.
+
+Here is an example of working backwards from a sentence, through the printout that tells you the answer, and back to the data set. In reality, this isn't really as linear as it seems. You'll find that you don't know the data as well as you think you do, so you'll have to figure out what is IN the data before you know how it has to be transformed.
+
+Example data: Washington Post shootings. Here is the record layout of the original. I have added a column that translates the race codes into words, called `race_desc`. I have also created a column called `had_gun`, which converts the `armed` column into whether or not the suspect had a gun of any kind. Here is a glimpse of the data. It only runs through 2022, since the Post changed the data structure after that.
+
+Follow along using this copy of the data.
+
+```{r}
+#| message: false
+#| include: false
+
+library(tidyverse)
+library(lubridate)
+library(janitor)
+
+wapo_shootings <- readRDS("scratch/wapo_shootings_envision.RDS")
+
+
+```
+
+```{r}
+
+glimpse(wapo_shootings)
+
+```
+
+I'm skipping the most simple questions, such as "What state had the most shootings," or "How many shootings were of people fleeing?" . These are simple `count()` queries, with no complicating factor. They're also not very interesting, since we have no denominator.
+
+Your instinct may be to answer these questions by filtering, and looking at the number of rows you get back, then computing figures by hand. Don't do this. First, the count may not be accurate if it's very high. Second, what happens when you want to adjust your analysis, or if you find a typo? You'd have to do that hand work all over again. So get used to doing this automagically.
+
+## Percents of total
+
+"In 2022, xxx percent of those shot were fleeing. That compares to yyy percent the previous year."
+
+### Success:
+
+| year_shot | \% fleeing                 |
+|-----------|----------------------------|
+| 2022      | a number between 0 and 100 |
+| 2021      | a number between 0 and 100 |
+
+### Move backwards
+
+To get to that, I'll need something that looks like this
+
+| year_shot | fleeing | number of shootings | total number that year | percent that year |
+|--------------|--------------|--------------|-----------------|--------------|
+| 2022      | Yes     | A number            | Total for 2022         | number / total    |
+| 2022      | No      | Another number      | Total for 2022         |                   |
+| 2021      | Yes     |                     | Total for 2021         |                   |
+| 2021      | No      |                     | Total for 2021         |                   |
+
+#### What are the `flee` categories? 
+
+```{r}
+
+wapo_shootings |> 
+  count ( flee)
+
+
+```
+
+Those aren't what we need, so we need to adjust the data to include Yes or No. We can filter for our years and get rid of NA's at the same time:
+
+```{r}
+
+wapo_flee <-
+  wapo_shootings |> 
+  filter ( year_shot %in% c(2022, 2021), 
+           ! is.na ( flee )) |> 
+  mutate ( flee_yn = if_else ( flee == "Not fleeing", "No", "Yes"))
+
+glimpse(wapo_flee)
+
+```
+
+Create the table one piece at a time. Consider doing it like this, where you create interim data sets with each command
+
+```{r}
+
+number_shot_fleeing <-
+  wapo_flee |> 
+  count ( year_shot, flee_yn, name="number_shot")
+
+
+number_shot_fleeing
+```
+
+That's a start - Now we want to get the total by year:
+
+```{r}
+
+number_shot_fleeing |> 
+  group_by ( year_shot) |>   #1 
+  mutate ( total = sum (number_shot) ) #2 
+
+
+```
+
+1.  This creates separate analyses by year.
+2.  This creates the total by year, using the `sum()` function
+
+(I'm copying and pasting the code here, but you could just keep adding lines to your own)
+
+```{r}
+
+number_shot_fleeing |> 
+  group_by ( year_shot) |>     
+  mutate ( total = sum (number_shot) , 
+           percent = number_shot / total * 100 )  #1 
+  
+
+
+```
+1. Create the percentage by dividing the number in each row by its appropriate subtotal
+
+This is close! Now we just need to pick out the rows and columns we want to keep: 
+
+```{r}
+
+number_shot_fleeing |> 
+  group_by ( year_shot) |>   
+  mutate ( total = sum (number_shot) , 
+           percent = number_shot / total * 100 ) |> 
+  filter ( flee_yn == "Yes")  |> 
+  select ( year_shot, number_shot, percent_fleeing = percent)
+  
+
+
+```
+We now have the table we want. You might want to put a heading on this so you know what you wanted to do. 
+
+## Question 2: Armed by race
+
+Here is the sentence: Are Black victims more or less likely than whites to have been armed with a gun last year? 
+
+You could do this as you did in the last example, but here is another way to think of success: 
+
+Has a gun | Black | White
+--- | --- | --- 
+Gun  |  number | number 
+No gun  | number | number
+Adds up to 100% at the bottom of each column. 
+
+
+In this case we don't have to filter except for year 
+
+```{r}
+
+wapo_shootings |> 
+  filter ( year_shot == 2022, 
+           race_desc %in% c("Black", "White")) |> 
+  count ( race_desc, had_gun, name = "shootings"  ) |> 
+  group_by ( race_desc ) |> 
+  mutate ( race_total = sum (shootings) , 
+           race_pct = shootings / race_total * 100) |> 
+  pivot_wider ( 
+    id_cols = had_gun,
+    names_from = race_desc, 
+    values_from = race_pct) 
+     
+
+
+
+```
+So Black victims were MORE likely to have a gun than White victims.
+
+
