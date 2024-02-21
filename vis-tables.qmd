@@ -26,7 +26,8 @@ Be sure to install the following packages before attempting to follow this chapt
 
 * `reactable` , for interactive tables that can incorporate small graphic elements. 
 * `DT`, for interactive tables with a few different features, including selectable columns. 
-* `gt` and its cousin, `gtsummary` , for static tables with formatting, labelling and totals.
+* `gt` and its cousin, 
+* `gtsummary` , for static tables with formatting, labelling and totals.
 
 You have already installed the `janitor` package, which has a function to create crosstab tables with values and percentages already computed.
 ::: 
@@ -61,16 +62,22 @@ ppp_orig <- readRDS (
                  )
                ) |> 
   select ( date_approved, borrower_name:borrower_zip, loan_status, loan_status_date, amount, forgiveness_amount, naics_code) |> 
-  sample_n ( 275 ) |> 
+  sample_n ( 1000 ) |> 
   mutate ( forgiveness_amount = replace_na (forgiveness_amount, 0), 
              forgiven = if_else ( forgiveness_amount >= amount * .99, "Yes", "No" )
            ) 
 
 
-
+saveRDS(ppp_orig, "ppp_sample.RDS")
 
 ```
 
+```{r}
+ppp_sample <- 
+  readRDS("ppp_sample.RDS")
+
+
+```
 
 
 
@@ -78,12 +85,14 @@ ppp_orig <- readRDS (
 
 `DT` is a translation of a popular Javascript library called "datatable". It, too,  has difficult syntax because it is based on that language, not R. You can get a pretty usable table with just a few lines of code:
 
-There are many more features of datatables, but this is often enough to get you started
+There are many more features of datatables, but this is often enough to get you started. 
+
+There are a couple of drawbacks to this library: Formatting dates is difficult and scrollbars often don't appear until you've rendered the document.  
 
 ```{r}
 library(DT)
 
-ppp_orig |> 
+ppp_sample |> 
  select ( borrower_name:borrower_city, date_approved, amount, forgiveness_amount) |> 
  datatable(                                          #<1>
    options = list ( 
@@ -92,31 +101,32 @@ ppp_orig |>
                 )
   ) |>   
  formatCurrency( columns = c("amount", "forgiveness_amount"), 
-                   digits = 0)      #<3>
-  
+                   digits = 0)       #<3>
+
 
 
 
 
 
 ```
-1. Create a datatable. 
+1. Create a table using the DT library.. 
 2. Turn on a left-right scrollbar and reduce the default number of rows shown.
-2. Format the two amounts as currency. [Other format options](https://rstudio.github.io/DT/functions.html) exist for regular numbers and percentages.
+3. Format the two amounts as currency. [Other format options](https://rstudio.github.io/DT/functions.html) exist for regular numbers and percentages.
 
 
 One problem with the `DT` package is that the documentation is inscrutable if you don't know Javascript. It is bare bones in R, and most Google searches send you to the Javascript documentation. I usually futz around and look for examples. 
 
 ## Interactive tables with `reactable`
 
-The `reactable` library is highly customizable, but it can involve a lot of typing to get a good table. The documentation is excellent and there are great examples in the wild. It was used to produce the table above that contained the sparklines. 
+The `reactable` library is highly customizable, but it can involve a lot of typing to get a good table. The documentation is excellent and there are great examples in the wild. 
 
-The basic idea is that you select the columns you want to display, then define their format and other details one by one. There are several useful defaults for the whole table, such as the number format. One way to simplify the typing is to just create the names of the columns you want to see in a `select` statement, then put a default number format for the dollar amounts. A [full list of options](https://glin.github.io/reactable/reference/colDef.html) is available on the help page for reactable.
+The basic idea is that you select the columns you want to display, then define their format and other details one by one. There are several useful defaults for the whole table, such as the number format. One way to simplify the typing is to just create the names of the columns you want to see in a `select` statement, then put a default number format for the dollar amounts or percents. A [full list of options](https://glin.github.io/reactable/reference/colDef.html) is available on the help page for reactable.
+
+This strategy is particularly useful for tables created using the `pivot_wider()` function because all of the numbers should usually be in the same format.
 
 ```{r}
-#| code-annotations: hover
 
-ppp_orig |> 
+ppp_sample |> 
   select (                                       #<1>
     Borrower = borrower_name, 
     City = borrower_city, 
@@ -134,9 +144,9 @@ ppp_orig |>
      defaultColDef =                              #<4>
         colDef ( 
                 format = 
-                   colFormat ( currency="USD", separators = TRUE, digits = 0)    #<4>
+                   colFormat ( currency="USD", separators = TRUE, digits = 0)    #<5>
                 )
-     )
+     ) 
 
 ```
 
@@ -151,6 +161,13 @@ ppp_orig |>
 It's a lot of typing for something so simple, but I save it as a code snippet in RStudio and use a shortcut to paste it into a code chunk. 
 
 There is much, much more that reactable tables can do (like [this](https://glin.github.io/reactable/articles/womens-world-cup/womens-world-cup.html)), but this is a good start toward something readable and presentable to your colleagues. It  is also possible to create collapsable rows for large tables, and total rows at the bottom. 
+
+Notably, you can create a date column in a form you like to see, and it will still sort properly. 
+
+
+## Static tables with the `gt()` and `gtsummary()` libraries
+
+
 
 ## Crosstabs with the `janitor` library
 
