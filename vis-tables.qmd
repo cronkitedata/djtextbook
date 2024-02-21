@@ -1,255 +1,386 @@
 # Report-making in R
 
+So far, we've focused on the input to data analysis, but not as much on the output. We've stressed the need for "tidy" data, but I would be willing to bet that your instinct is to turn it into what we might call a report -- something that is easier to read and consume rather than easy to analyze.
 
-So far, we've focused on the input to data analysis, but not as much on the output. We've stressed the need for "tidy" data, but I would be willing to bet that your instinct is to turn it into what we might call a report -- something that is easier to read and consume rather than easy to analyze. 
+You've already seen that it's almost impossible to read a table of numbers using R's default method of printing them out. There are several useful packages available to make better-looking charts of numbers that will be more useful for both a finished document and for your own understanding.
 
-You've already seen that it's almost impossible to read a table of numbers using R's default method of printing them out. There are several useful packages available to make better-looking charts of numbers that will be more useful for both a finished document and for your own understanding. 
 
-::: {.alert .alert-secondary}
+## What we want from tables and reports
 
-:::: {.alert-heading .font-weight-bolder .fs-3}
-What we want from tables and reports
-::::
 
-* Numbers with formatting, such as percent, dollar signs and commas. 
-* Automatic wrapping of cells so that you don't have to scroll to find columns. 
-* Totals and sub-totals shown on the same table as the detail. 
-* Printable tables that summarize your data succinctly so that you can write from it, or....
-* Interactive tables with filtering, searching and sorting so you can explore it.
-* Automatically produce crosstabs with values, totals and percentages.
+-   Numbers with formatting, such as percent, dollar signs and commas.
+-   Automatic wrapping of cells so that you don't have to scroll to find columns.
+-   Totals and sub-totals shown on the same table as the detail.
+-   Printable tables that summarize your data succinctly so that you can write from it, or....
+-   Interactive tables with filtering, searching and sorting so you can explore it.
 
-:::: {.alert-heading .font-weight-bolder .fs-3}
-Libraries used in this chapter
-::::
+
+
+### Libraries used
 
 Be sure to install the following packages before attempting to follow this chapter.
 
-* `reactable` , for interactive tables that can incorporate small graphic elements. 
-* `DT`, for interactive tables with a few different features, including selectable columns. 
-* `gt` and its cousin, 
-* `gtsummary` , for static tables with formatting, labelling and totals.
+-   `reactable` , for interactive tables that can incorporate small graphic elements.
+-   `DT`, for interactive tables with a few different features, including selectable columns.
+-   `gt` for static tables with formatting, labelxling and totals. (It has a cousin, `gtsummary` that we won't be using that you might want to explore on your own.)
 
-You have already installed the `janitor` package, which has a function to create crosstab tables with values and percentages already computed.
-::: 
+If you followed along int the first chapter setting up R and RStudio, you already have these.
 
-::: {.callout-warning}
+
+
+::: callout-warning
 ## Number formatting
-There are a lot of ways to turn a big number into something readable in R. The problem is that most of these turn them into character, or text, columns. That's ok if your data is already sorted in the order you want to see it. But it wrecks the ability to sort (`arrange`) -- "$4" is seen as larger than "$10" as text because 4 comes after 1 in the alphabet. The formatting options in the tables below are difficult to implement, but maintain sortability. The same thing happens with dates.
-::: 
 
+There are a lot of ways to turn a big number into something readable in R. The problem is that most of these turn them into character, or text, columns. That's ok if you don't want to change the order in which the rows appear. But it wrecks the ability to sort (`arrange`) -- "\$4" is seen as larger than "\$10" as text because 4 comes after 1 in the alphabet. The formatting options in the tables below are difficult to implement, but maintain sortability. The same thing happens with dates.
+:::
 
-Most of these packages will be demonstrated with a random sample of the PPP data we've worked with so far. 
+Most of these packages will be demonstrated with a random sample of the PPP data we've worked with so far.
 
 ```{r}
-#| include: false
+#| echo: fenced
+#| label: setup
+#| warning: false
+#| message: false
 
-pacman::p_load("tidyverse", "lubridate", "janitor", "reactable", "gt", "gtsummary", "DT")
+library("tidyverse")
+library("lubridate")
+library("janitor")
+library("DT")
+library("reactable")
+library("gt")
+
 
 
 ```
 
-
+Here is a sample of the data from PPP – we have to use it because it has the column types that give us problems: Dollar values and dates.
 
 ```{r}
 #| label: sample-ppp
-#| echo: false
-#| results: "hide"
 
 
-ppp_orig <- readRDS ( 
+ppp <- readRDS ( 
                url ( 
-                 "https://cronkitedata.s3.amazonaws.com/rdata/ppp_az_loans.RDS"
+                 "https://cronkitedata.s3.amazonaws.com/rdata/ppp_sample.RDS"
                  )
-               ) |> 
-  select ( date_approved, borrower_name:borrower_zip, loan_status, loan_status_date, amount, forgiveness_amount, naics_code) |> 
-  sample_n ( 1000 ) |> 
-  mutate ( forgiveness_amount = replace_na (forgiveness_amount, 0), 
-             forgiven = if_else ( forgiveness_amount >= amount * .99, "Yes", "No" )
-           ) 
-
-
-saveRDS(ppp_orig, "ppp_sample.RDS")
-
+               ) 
 ```
 
 ```{r}
 ppp_sample <- 
-  readRDS("ppp_sample.RDS")
+  readRDS( url ("https://cronkitedata.s3.amazonaws.com/rdata/ppp_sample.RDS") )
 
 
 ```
-
-
-
-### Interactive tables with `DT`
-
-`DT` is a translation of a popular Javascript library called "datatable". It, too,  has difficult syntax because it is based on that language, not R. You can get a pretty usable table with just a few lines of code:
-
-There are many more features of datatables, but this is often enough to get you started. 
-
-There are a couple of drawbacks to this library: Formatting dates is difficult and scrollbars often don't appear until you've rendered the document.  
-
-```{r}
-library(DT)
-
-ppp_sample |> 
- select ( borrower_name:borrower_city, date_approved, amount, forgiveness_amount) |> 
- datatable(                                          #<1>
-   options = list ( 
-                    scrollX=TRUE,                          #<2>
-                    pageLength = 5
-                )
-  ) |>   
- formatCurrency( columns = c("amount", "forgiveness_amount"), 
-                   digits = 0)       #<3>
-
-
-
-
-
-
-```
-1. Create a table using the DT library.. 
-2. Turn on a left-right scrollbar and reduce the default number of rows shown.
-3. Format the two amounts as currency. [Other format options](https://rstudio.github.io/DT/functions.html) exist for regular numbers and percentages.
-
-
-One problem with the `DT` package is that the documentation is inscrutable if you don't know Javascript. It is bare bones in R, and most Google searches send you to the Javascript documentation. I usually futz around and look for examples. 
 
 ## Interactive tables with `reactable`
 
-The `reactable` library is highly customizable, but it can involve a lot of typing to get a good table. The documentation is excellent and there are great examples in the wild. 
+`` `reactable() `` is a version of the Javascript library used in many websites that you visit. It's been adapted to R in the package you loaded above. It's highly customizable, but it can involve a lot of typing to get a good table. The documentation is excellent and there are great examples in the wild.
 
-The basic idea is that you select the columns you want to display, then define their format and other details one by one. There are several useful defaults for the whole table, such as the number format. One way to simplify the typing is to just create the names of the columns you want to see in a `select` statement, then put a default number format for the dollar amounts or percents. A [full list of options](https://glin.github.io/reactable/reference/colDef.html) is available on the help page for reactable.
+The table in [this documen](https://privatesarah.s3.amazonaws.com/share/reactable.html)t were made with `reactable()` in 2022.
 
-This strategy is particularly useful for tables created using the `pivot_wider()` function because all of the numbers should usually be in the same format.
+![](assets/images/viz-tables-reactable.png){width="50%"}
 
-```{r}
-
-ppp_sample |> 
-  select (                                       #<1>
-    Borrower = borrower_name, 
-    City = borrower_city, 
-    `Zip code` = borrower_zip, 
-    `Loan amount` = amount, 
-    `Amt forgiven` = forgiveness_amount
-    ) |> 
-  reactable (   
-     sortable = TRUE,                            #<2>
-     filterable = TRUE,
-     searchable = TRUE,
-     defaultPageSize = 5,
-     compact = TRUE ,                            #<3>
-     striped=TRUE,
-     defaultColDef =                              #<4>
-        colDef ( 
-                format = 
-                   colFormat ( currency="USD", separators = TRUE, digits = 0)    #<5>
-                )
-     ) 
-
-```
-
-1. using the `select` verb that we've already seen, pick out the columns for the table and rename them. Don't forget the back-ticks if you need something with more than one word. 
-
-2. Set the options for sorting, filtering, and searching. 
-
-3. I usually use the "compact" style because I'm trying to fit as much in the table as possible. 
-
-4. Define how numbers will show up by default. You can change this for individual columns. 
-
-It's a lot of typing for something so simple, but I save it as a code snippet in RStudio and use a shortcut to paste it into a code chunk. 
-
-There is much, much more that reactable tables can do (like [this](https://glin.github.io/reactable/articles/womens-world-cup/womens-world-cup.html)), but this is a good start toward something readable and presentable to your colleagues. It  is also possible to create collapsable rows for large tables, and total rows at the bottom. 
-
-Notably, you can create a date column in a form you like to see, and it will still sort properly. 
-
-
-## Static tables with the `gt()` and `gtsummary()` libraries
-
-
-
-## Crosstabs with the `janitor` library
-
-We've gone through the exercise of creating a grouping, counting, then computing a percentage of total using our usual verbs. The `janitor` package provides a utility for doing that. 
-
-Here's an example with the full PPP dataset: 
+Let's start by examining the data:
 
 ```{r}
-#| include: false
 
-ppp <- readRDS ( 
-               url ( 
-                 "https://cronkitedata.s3.amazonaws.com/rdata/ppp_az_loans.RDS"
-                 )
-               )
+glimpse (ppp)
 
 
 ```
 
-
-The `tabyl` function does one and only one thing: Count and compute percentages of totals. It creates an output data frame that you can style any way you want. You can do 1-, 2- or 3-way tables, but no more.  This example creates the table, then formats it using a datatable as above.
-
-### A simple one-way table
+If you want to show all of the rows and all of the columns, you just have to add `reactable()` to the end of your code chunk:
 
 ```{r}
+
+
 ppp |> 
-  tabyl ( lender ) |>   #<1>
-  arrange ( desc (percent)) |>  #<2> 
-  head (5) |>   #<3>
-  datatable (   
-    rownames = FALSE   #<4>
-  ) |> 
-  formatPercentage ("percent") |>  #<5>
-  formatRound (columns ="n",  digits=0) #<6>
- 
-
-
-
+  reactable()
 
 ```
-1. Create a one-way data table with count (n) and percent
-2. Sort it from highest to lowest
-3. Keep only the top 5, 
-4. create our default datatable
-5. Format the percentages
-6. Format the raw numbers
 
+That's ok, but it's not a lot better than the original – the numbers are still kind of inscrutible, and we can't do much with it.
 
-#### Two-way table with tabyls
+### Add filters and sorts
 
-That's good, but we have wanted some 2-way tables, the way we did in the group by chapter. Here's an example: 
+Here's a simple fix that will make every column sortable and searchable:
 
 ```{r}
 
 ppp |> 
-  tabyl ( loan_status, draw)  
+  reactable( sortable=TRUE, 
+             filterable =  TRUE)
 
 
 ```
 
-This just created the simple counts. There are some "adorn" functions in the package that let you work with the numbers and percentages. 
+But the numbers are still inscrutible. We want to see them as dollar values. (I'm adding the "compact" and "defaultPageSize" arguments to save a little room here:
 
 ```{r}
+
+
 ppp |> 
-  tabyl (loan_status, draw) |> 
-  adorn_totals (c("row", "col")) |> 
-  adorn_percentages("col" ) |>         #<1>
-  adorn_pct_formatting (digits=0) |> 
-  adorn_ns() |> 
-  adorn_title () 
+  reactable ( 
+    compact = TRUE, 
+    sortable = TRUE, 
+    filterable= TRUE,
+    defaultPageSize = 5,
+    striped = TRUE,
+    defaultColDef = colDef ( format= colFormat (currency="USD", separators = TRUE) )
+    )
 
 
 
 ```
 
-1. Change "col" to "row" if you want it to add to 100% across rather than down; "all" if you want it to be a percent of the grand total.
+Notice that the dollar avmounts are shown as currency, but the still sort correctly! This is NOT true with most other solutions you see to this problem. The reason that the Zip code and the NAICS codes are NOT shown as dollars is because we defined them as text (or character) values – see it in the glimpse() above.
 
-This is not a very well documented or developed package, and it balks at giving the "adorn" commands out of order. So sometimes it's not all that helpful, but it does create good crosstabs quickly. 
+You might decide to stop here! It's a much easier way to explore your data – and let your readers do the same – than to have to filter all the time. Just be aware that your browser and computer will only accept so many rows – don't try it on something more than about 5,000 rows. And be sure to keep it paginated, or it will take forever to render.
+
+Notably, you can create a date column in a form you like to see, and it will still sort properly.
+
+Sometimes, you want to treat specific columns differently, or change the names. There are two approaches to this: 1) Use a `select` verb first to rename and choose your columns in the order you want to see them, or 2) set each column separately. Here, we'll do a little of both:
+
+```{r}
+
+ppp |> 
+  select ( `Date` = date_approved, 
+           `Name` = borrower_name, 
+           `City` = borrower_city, 
+           `Zip Code` = borrower_zip, 
+           `Original Amount` = amount, 
+           `Forgiven Amount` = forgiveness_amount, 
+           `Was it forgiven?` = forgiven) |> 
+  # now just copy from above 
+ reactable ( 
+    compact = TRUE, 
+    sortable = TRUE, 
+    filterable= TRUE,
+    defaultPageSize = 15,
+    striped = TRUE,
+    defaultColDef = colDef ( format= colFormat (currency="USD", separators = TRUE) )
+    )
+
+
+
+```
+
+That works! Now we want to format the date column in the way we like to see it – in American style.
+
+```{r}
+
+
+ppp |> 
+  select ( `Date` = date_approved, 
+           `Name` = borrower_name, 
+           `City` = borrower_city, 
+           `Zip Code` = borrower_zip, 
+           `Original Amount` = amount, 
+           `Forgiven Amount` = forgiveness_amount, 
+           `Was it forgiven?` = forgiven) |> 
+  # now just copy from above 
+ reactable ( 
+    compact = TRUE, 
+    sortable = TRUE, 
+    filterable= TRUE,
+    defaultPageSize = 15,
+    striped = TRUE,
+    defaultColDef = colDef ( format= colFormat (currency="USD", separators = TRUE) ), 
+    columns = 
+      list ( `Date` = colDef (format =  colFormat(date = TRUE))
+           )
+ )
+
+
+
+```
+
+There are ways to further customize the date, but this will work using the default date format for your country. Again, unlike other methods of doing this, the dates sort correctly.
 
 ## Static tables with gt
 
-Section TK. 
+For this example, we'll use the Washington Post shootings data, which has something to count and create percentages for. This code reads the data, then creates a new column that breaks the original "armed" column into three possiblities – those who were armed with a gun (and nothing else),  or "other or unknown". 
+
+
+```{r}
+
+
+shootings <- readRDS(url("https://cronkitedata.s3.amazonaws.com/rdata/waposhootings.RDS")) |>
+  mutate ( is_armed = case_when ( armed == "gun" ~ "Gun",
+                                  armed == "unarmed" ~ "Unarmed", 
+                                  .default = "Other or unknown") 
+  )
+
+
+```
+
+
+Take a look at it: 
+
+```{r}
+
+
+glimpse(shootings)
+
+```
+
+Unlike `reactable()`, `gt()` is used when you have a very small table that you just want people to be able to read, with percentages and numbers properly formatted. Let's try it using the number and percentage of armed victims. Let's start with a simple table. (In this case, let's not multiply the percentage by 100 -- gt will do that later. )
+
+```{r}
+
+shootings |> 
+  count ( is_armed , name="Shootings") |> 
+  mutate ( pct = Shootings / sum (Shootings))  |> 
+  gt()
+
+```
+
+
+
+
+
+```{r}
+
+shootings |> 
+  count ( is_armed , name="Shootings") |> 
+  mutate ( pct = Shootings / sum (Shootings))  |> 
+  gt( ) |> 
+    cols_label ( is_armed = "Armed?", 
+                 pct = "Percent")
+
+
+
+
+```
+
+Now we can format the "shootings" column: 
+
+```{r}
+
+shootings |> 
+  count ( is_armed , name="Shootings") |> 
+  mutate ( pct = Shootings / sum (Shootings))  |> 
+  gt() |> 
+    cols_label ( is_armed = "Armed?", 
+                 pct = "Percent") |> 
+    fmt_number ( columns = c( Shootings), 
+                 decimals = 0) 
+
+
+
+
+```
+
+That's better! 
+
+let's format the percentages: 
+
+```{r}
+
+
+
+shootings |> 
+  count ( is_armed , name="Shootings") |> 
+  mutate ( pct = Shootings / sum (Shootings))  |> 
+  gt() |> 
+    cols_label ( is_armed = "Armed?", 
+                 pct = "Percent") |> 
+    fmt_number ( columns = c( Shootings), 
+                 decimals = 0)  |> 
+    fmt_percent ( columns = c(pct), 
+                  decimals = 1)
+
+
+```
+
+Much better. Now let's add a total at the bottom: 
+
+```{r}
+
+
+
+shootings |> 
+  count ( is_armed , name="Shootings") |> 
+  mutate ( pct = Shootings / sum (Shootings))  |> 
+  gt() |> 
+    grand_summary_rows (
+      columns = c (Shootings, pct) ,
+      fns = list ( Total = "sum") 
+    )  |> 
+    cols_label ( is_armed = "Armed?", 
+                 pct = "Percent") |> 
+    fmt_number ( columns = c( Shootings), 
+                 decimals = 0)  |> 
+    fmt_percent ( columns = c(pct), 
+                  decimals = 1) 
+
+
+```
+
+Formatting the summary rows has to be done separately, which is a pain. It's only really useful when you want to send it to publication. 
+
+### Pivoting and summarizing
+
+The GT package is really useful when you want to present the results of one of your analyses that has percentages that you've pivoted. Here's an example: Our question is: 
+
+> Are Black victims more or less likely to have been armed than White victims? 
+
+
+1. Compute the percentage of of "armed" answers within each ethnicity. This is a shortcut way to do that, with `n` being the default name of the `count()` answer. 
+
+```{r}
+
+shootings |> 
+  filter ( ethnicity %in% c("White, non-Hispanic", "Black, non-Hispanic"))  |> 
+  count ( is_armed, ethnicity) |> 
+  group_by ( ethnicity ) |> 
+  mutate  ( pct = n / sum (n)) 
+
+
+
+```
+
+
+2. Pivot it to show the percentages within the two races: 
+
+```{r}
+
+
+shootings |> 
+  filter ( ethnicity %in% c("White, non-Hispanic", "Black, non-Hispanic"))  |> 
+  count ( is_armed, ethnicity) |> 
+  group_by ( ethnicity ) |> 
+  mutate  ( pct = n / sum (n)) |> 
+  pivot_wider ( names_from = ethnicity,  
+                values_from = pct, 
+                id_cols = is_armed )
+
+```
+
+Now create a formatted table: 
+
+```{r}
+
+shootings |> 
+  filter ( ethnicity %in% c("White, non-Hispanic", "Black, non-Hispanic"))  |> 
+  count ( is_armed, ethnicity) |> 
+  group_by ( ethnicity ) |> 
+  mutate  ( pct = n / sum (n)) |> 
+  pivot_wider ( names_from = ethnicity,  
+                values_from = pct, 
+                id_cols = is_armed ) |> 
+  gt ( ) |> 
+   cols_label ( is_armed = "Armed?", 
+                `Black, non-Hispanic` = "Black", 
+                `White, non-Hispanic` = "White") |> 
+   fmt_percent ( 
+                 decimals = 0)  
+```
+
+
+
+
 
 
 
