@@ -26,7 +26,7 @@
   </url>
   <url>
     <loc>https://cronkitedata.github.io/djtextbook/start-hunt.html</loc>
-    <lastmod>2024-01-21T17:01:57.492Z</lastmod>
+    <lastmod>2024-02-24T21:51:21.901Z</lastmod>
   </url>
   <url>
     <loc>https://cronkitedata.github.io/djtextbook/start-build-own.html</loc>
@@ -99,6 +99,46 @@
   <url>
     <loc>https://cronkitedata.github.io/djtextbook/r-recipes.html</loc>
     <lastmod>2024-02-18T22:31:19.452Z</lastmod>
+  </url>
+  <url>
+    <loc>https://cronkitedata.github.io/djtextbook/advanced.html</loc>
+    <lastmod>2024-02-26T14:25:38.417Z</lastmod>
+  </url>
+  <url>
+    <loc>https://cronkitedata.github.io/djtextbook/advanced-regex.html</loc>
+    <lastmod>2024-02-26T15:21:24.682Z</lastmod>
+  </url>
+  <url>
+    <loc>https://cronkitedata.github.io/djtextbook/advanced-regex-r.html</loc>
+    <lastmod>2023-04-16T15:22:37.010Z</lastmod>
+  </url>
+  <url>
+    <loc>https://cronkitedata.github.io/djtextbook/advanced-scrape1.html</loc>
+    <lastmod>2024-01-07T21:06:20.303Z</lastmod>
+  </url>
+  <url>
+    <loc>https://cronkitedata.github.io/djtextbook/advanced-scrape2.html</loc>
+    <lastmod>2023-01-08T17:07:49.699Z</lastmod>
+  </url>
+  <url>
+    <loc>https://cronkitedata.github.io/djtextbook/vis.html</loc>
+    <lastmod>2023-03-20T16:17:39.792Z</lastmod>
+  </url>
+  <url>
+    <loc>https://cronkitedata.github.io/djtextbook/vis-reporting.html</loc>
+    <lastmod>2023-03-20T16:42:37.985Z</lastmod>
+  </url>
+  <url>
+    <loc>https://cronkitedata.github.io/djtextbook/vis-tables.html</loc>
+    <lastmod>2024-02-21T18:13:59.032Z</lastmod>
+  </url>
+  <url>
+    <loc>https://cronkitedata.github.io/djtextbook/vis-maps-begin.html</loc>
+    <lastmod>2023-03-26T22:25:33.282Z</lastmod>
+  </url>
+  <url>
+    <loc>https://cronkitedata.github.io/djtextbook/vis-maps-firstmap.html</loc>
+    <lastmod>2023-03-26T23:18:53.346Z</lastmod>
   </url>
   <url>
     <loc>https://cronkitedata.github.io/djtextbook/appendix-math.html</loc>

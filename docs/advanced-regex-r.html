@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.537">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Data Reporting - 23&nbsp; Inexact matching and regular expressions in R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./advanced-scrape1.html" rel="next">
+<link href="./advanced-regex.html" rel="prev">
+<link href="./assets/images/favicon.ico" rel="icon">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="site_libs/core-js-2.5.3/shim.min.js"></script>
+<script src="site_libs/react-17.0.0/react.min.js"></script>
+<script src="site_libs/react-17.0.0/react-dom.min.js"></script>
+<script src="site_libs/reactwidget-1.0.0/react-tools.js"></script>
+<script src="site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<link href="site_libs/reactable-0.4.4/reactable.css" rel="stylesheet">
+<script src="site_libs/reactable-binding-0.4.4/reactable.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./advanced.html">Advanced topics</a></li><li class="breadcrumb-item"><a href="./advanced-regex-r.html"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Inexact matching and regular expressions in R</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./assets/images/favicon.ico" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Reporting</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/cronkitedata/djtextbook" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./start.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reporting with data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./start-story.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Learn a new way to read</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./start-math.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Newsroom math</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./start-data-def.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Defining "Data"</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./start-data-document.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Documenting your work</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./start-hunt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Finding the right data for your story</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./start-build-own.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Build your own database</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./quickstart.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programming quick start</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./quickstart-install.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Installing R and RStudio</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./quickstart-program.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">A gentle intro to programming</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./quickstart-startup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Getting started with R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./quickstart-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Using Quarto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./quickstart-data-import.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Getting and saving data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./quickstart-verbs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">A quick tour of verbs</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./rdepth.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Verbs of the tidyverse</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-tidy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Tidy data principles</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-filter-sort-story.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Sorting and filtering to find stories</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-verb-filter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Verbs in depth: Select, arrange, filter</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-verb-mutate.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Verbs in depth: New from old data with Mutate</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-groupby-story.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Summarizing detail into totals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-verb-groupby.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Verbs in depth: Aggregating with groups</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-groupby-skittles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Aggregating with Skittles</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-verb-join.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Verbs in depth: Matchmaking with joins</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-recipes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Recipes</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./advanced.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Advanced topics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced-regex.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Regular expressions Part I</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced-regex-r.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Inexact matching and regular expressions in R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced-scrape1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Scraping without programming</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced-scrape2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Introduction to scraping in R</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./vis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualization</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vis-reporting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Visualization as a reporting tool</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vis-tables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Report-making in R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vis-maps-begin.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Mapping: An introduction</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vis-maps-firstmap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">The first map</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-math.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Newsroom numbers cheat sheet</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-filetypes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">File types in the wild</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-ppp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Documentation for PPP data chapters</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">In this chapter:</h2>
+   
+  <ul>
+  <li><a href="#resouces-for-using-regular-expressions-in-r" id="toc-resouces-for-using-regular-expressions-in-r" class="nav-link active" data-scroll-target="#resouces-for-using-regular-expressions-in-r"><span class="header-section-number">23.1</span> Resouces for using regular expressions in R</a></li>
+  <li><a href="#sample-data" id="toc-sample-data" class="nav-link" data-scroll-target="#sample-data"><span class="header-section-number">23.2</span> Sample data</a>
+  <ul class="collapse">
+  <li><a href="#string-functions-for-regular-expressions" id="toc-string-functions-for-regular-expressions" class="nav-link" data-scroll-target="#string-functions-for-regular-expressions">String functions for regular expressions</a></li>
+  <li><a href="#convert-everything-to-lowercase" id="toc-convert-everything-to-lowercase" class="nav-link" data-scroll-target="#convert-everything-to-lowercase">Convert everything to lowercase</a></li>
+  </ul></li>
+  <li><a href="#using-str_detect" id="toc-using-str_detect" class="nav-link" data-scroll-target="#using-str_detect"><span class="header-section-number">23.3</span> Using <code>str_detect</code></a>
+  <ul class="collapse">
+  <li><a href="#example-1-filter-for-biden" id="toc-example-1-filter-for-biden" class="nav-link" data-scroll-target="#example-1-filter-for-biden">Example 1: Filter for “biden”</a></li>
+  <li><a href="#keywords" id="toc-keywords" class="nav-link" data-scroll-target="#keywords">Keywords</a></li>
+  </ul></li>
+  <li><a href="#types-of-regular-expression-patterns" id="toc-types-of-regular-expression-patterns" class="nav-link" data-scroll-target="#types-of-regular-expression-patterns"><span class="header-section-number">23.4</span> Types of regular expression patterns</a>
+  <ul class="collapse">
+  <li><a href="#literal-strings" id="toc-literal-strings" class="nav-link" data-scroll-target="#literal-strings">Literal strings</a></li>
+  <li><a href="#wild-cards" id="toc-wild-cards" class="nav-link" data-scroll-target="#wild-cards">Wild cards</a></li>
+  <li><a href="#character-classes" id="toc-character-classes" class="nav-link" data-scroll-target="#character-classes">Character classes</a></li>
+  <li><a href="#escaping" id="toc-escaping" class="nav-link" data-scroll-target="#escaping">Escaping</a></li>
+  <li><a href="#match-groups" id="toc-match-groups" class="nav-link" data-scroll-target="#match-groups">Match groups</a></li>
+  </ul></li>
+  <li><a href="#sample-data-1" id="toc-sample-data-1" class="nav-link" data-scroll-target="#sample-data-1"><span class="header-section-number">23.5</span> Sample data</a></li>
+  <li><a href="#testing-and-examining-patterns-with-regex101" id="toc-testing-and-examining-patterns-with-regex101" class="nav-link" data-scroll-target="#testing-and-examining-patterns-with-regex101"><span class="header-section-number">23.6</span> Testing and examining patterns with Regex101</a>
+  <ul class="collapse">
+  <li><a href="#looking-for-specific-words-or-characters" id="toc-looking-for-specific-words-or-characters" class="nav-link" data-scroll-target="#looking-for-specific-words-or-characters">Looking for specific words or characters</a></li>
+  </ul></li>
+  <li><a href="#practice-1-extract-date-parts" id="toc-practice-1-extract-date-parts" class="nav-link" data-scroll-target="#practice-1-extract-date-parts"><span class="header-section-number">23.7</span> Practice #1: Extract date parts</a></li>
+  <li><a href="#practice-2-extract-pieces-of-phone-numbers" id="toc-practice-2-extract-pieces-of-phone-numbers" class="nav-link" data-scroll-target="#practice-2-extract-pieces-of-phone-numbers"><span class="header-section-number">23.8</span> Practice #2: Extract pieces of phone numbers</a></li>
+  <li><a href="#practice-3-extract-address-pieces" id="toc-practice-3-extract-address-pieces" class="nav-link" data-scroll-target="#practice-3-extract-address-pieces"><span class="header-section-number">23.9</span> Practice #3: Extract address pieces</a></li>
+  <li><a href="#on-your-own" id="toc-on-your-own" class="nav-link" data-scroll-target="#on-your-own"><span class="header-section-number">23.10</span> On your own</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./advanced.html">Advanced topics</a></li><li class="breadcrumb-item"><a href="./advanced-regex-r.html"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Inexact matching and regular expressions in R</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="advanced-regex-r" class="quarto-section-identifier"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Inexact matching and regular expressions in R</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell">
+<style type="text/css">
+
+.rt-table {
+     
+     border-left: 1px solid pink !important;
+}
+
+.ReactTable {
+    border: 1px solid  lightgrey;
+    font-size: .8em;
+#    font-family: var(--bs-font-monospace) ;
+    margin-bottom: 1.5rem;
+}
+
+
+</style>
+</div>
+<div class="alert alert-secondary">
+<div class="alert-heading font-weight-bolder fs-3">
+<p>In this chapter</p>
+</div>
+<ul>
+<li>Resources for using regular expressions in R</li>
+<li><code>str_detect()</code> in filters</li>
+<li>Dealing with upper and lower case</li>
+<li><code>str_detect()</code> in creating a new category in mutate</li>
+<li>Negating a match – everything EXCEPT.</li>
+<li><code>str_extract()</code> to get the value that was found</li>
+<li><code>str_replace()</code> and <code>str_replace_all()</code> to clean columns</li>
+<li>A note on “list” columns</li>
+</ul>
+</div>
+<p>Now that you’ve looked at the general idea of regular expressions, this chapter is a brief overview of how they are implemented in the tidyverse.</p>
+<p>The key functions of inexact matching that you’ll use all take the same general form. Instead of a direct operator, such as <code>mycolumn &lt; 100</code> , the are implemented in functions.</p>
+<p>We’ve already looked at the function <code>str_like()</code>, which allows for upper or lower case with wild cards. This chapter, however, use the regular expressions that were described in the last section.</p>
+<section id="resouces-for-using-regular-expressions-in-r" class="level2" data-number="23.1">
+<h2 data-number="23.1" class="anchored" data-anchor-id="resouces-for-using-regular-expressions-in-r"><span class="header-section-number">23.1</span> Resouces for using regular expressions in R</h2>
+<ul>
+<li><p>The <a href="https://github.com/rstudio/cheatsheets/blob/main/strings.pdf">tidyverse cheat sheet</a> on the package <code>stringr</code> (which is party of tidyverse) has the outlines of each function that uses these regular expression. It’s a little hard to read, but has all of the shortcuts on the second page. Look at the part that says, “type this”, which translates to “to mean this” as in Regex101.</p></li>
+<li><p>Nathan Collins, a student in the 2022 MAIJ cohort, [did an explainer on using <code>str_detect()</code> on the ACLED])(https://npcdata.github.io/projects/collins_explainer.html) data that many of you are using for your projects</p></li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In R, regular expressions are a little different than in the Python and other languages listed in <a href="https://regex101.com">regex101</a> .</p>
+<ul>
+<li><p>The expressions are still case sensitive! In real life, it’s often easier to use a combination of functions, first to turn the column into lower case, and then to use the regular expression on that. It’s much easier than trying to match which case it is.</p></li>
+<li><p>Instead of one <code>\</code> backslash (<code>\</code>), there are two (<code>\\</code>) to “escape” special characters like parentheses or to use a special type of character such as a digit.</p></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="sample-data" class="level2 page-columns page-full" data-number="23.2">
+<h2 data-number="23.2" class="anchored" data-anchor-id="sample-data"><span class="header-section-number">23.2</span> Sample data</h2>
+<p>For this example, we’ll use a small set of Tweets from Donald Trump, representing the last few months he was on on the platform. It runs from Nov.&nbsp;1, 2020 to Jan.&nbsp;8, 2021, when Twitter banned him. Retweets were removed, but there are a number of tweets that are just links to other content.</p>
+<p>Here is a random sample of the 1,112 tweets:</p>
+<div class="cell page-columns page-full">
+<div class="cell-output-display column-screen-right">
+<div id="htmlwidget-e2cb416ebb279b92fc58" class="reactable html-widget " style="width:auto;height:750px;"></div>
+<script type="application/json" data-for="htmlwidget-e2cb416ebb279b92fc58">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"tweet_date":["2020-12-02T20:56:29Z","2020-11-23T04:57:13Z","2020-11-21T23:13:41Z","2020-11-12T15:16:02Z","2020-12-03T01:07:42Z","2020-11-04T05:49:04Z","2021-01-01T20:34:14Z","2020-12-21T15:30:09Z","2020-11-15T04:51:46Z","2020-12-25T13:32:32Z","2020-12-06T05:55:57Z","2020-12-26T23:23:36Z","2020-12-05T03:05:35Z","2020-12-12T05:46:39Z","2020-12-08T14:36:34Z","2020-11-25T00:26:35Z","2020-12-24T20:56:47Z","2020-12-08T01:05:27Z","2020-12-06T06:02:36Z","2020-12-11T00:39:27Z","2020-11-14T21:24:15Z","2020-11-02T04:22:47Z","2021-01-03T13:14:10Z","2020-11-02T19:22:20Z","2020-12-13T22:15:23Z","2020-12-01T13:48:19Z","2020-11-21T22:48:57Z","2020-11-01T13:54:29Z","2020-12-30T19:05:45Z","2020-12-10T15:12:32Z","2020-12-02T23:32:27Z","2020-11-07T21:53:34Z","2020-12-23T00:15:31Z","2020-11-18T02:22:04Z","2020-12-12T04:37:08Z","2020-12-09T13:39:36Z","2020-11-14T15:44:19Z","2020-12-06T02:22:55Z","2020-12-19T19:19:18Z","2020-11-07T15:36:36Z","2020-11-27T15:56:13Z","2020-11-11T19:53:51Z","2020-11-26T00:01:20Z","2020-12-17T14:56:14Z","2020-12-13T22:49:39Z","2020-12-03T20:50:04Z","2021-01-05T03:55:39Z","2020-11-03T03:37:14Z","2020-11-12T14:26:29Z","2020-11-14T20:07:56Z","2020-11-05T15:09:19Z","2020-12-12T05:24:13Z","2020-12-15T15:41:41Z","2020-11-18T14:54:23Z","2020-11-15T04:43:19Z","2020-12-30T15:45:30Z","2020-12-22T15:29:24Z","2020-12-20T05:04:09Z","2020-11-01T15:16:25Z","2020-11-03T00:33:09Z","2020-12-01T13:56:21Z","2020-12-04T23:23:53Z","2020-12-08T19:00:24Z","2020-12-19T19:09:51Z","2020-11-03T07:30:20Z","2020-11-10T13:01:15Z","2020-11-16T04:55:48Z","2020-12-21T12:24:59Z","2021-01-05T03:40:18Z","2020-11-22T16:59:28Z","2020-12-05T02:43:00Z","2020-12-31T01:13:12Z","2020-12-16T06:09:36Z","2020-11-09T04:34:36Z","2020-11-05T14:12:37Z","2020-11-01T11:49:36Z","2020-11-22T13:13:32Z","2021-01-06T13:22:26Z","2020-12-18T12:58:55Z","2020-11-16T14:04:50Z","2020-11-28T20:49:26Z","2020-12-05T22:33:32Z","2020-11-03T14:04:57Z","2020-12-10T16:09:53Z","2020-11-02T18:22:15Z","2020-11-02T15:17:43Z","2020-11-25T21:08:07Z","2020-11-06T02:38:01Z","2020-11-12T04:17:21Z","2020-11-18T13:55:05Z","2020-12-20T04:39:05Z","2020-12-06T05:49:58Z","2021-01-03T05:09:46Z","2020-11-03T03:45:50Z","2020-12-03T19:01:39Z","2020-12-01T18:51:50Z","2020-11-16T15:29:34Z","2020-11-20T13:53:00Z","2021-01-02T22:45:50Z","2020-12-02T16:09:32Z"],"text":["Statement by Donald J. Trump, The President of the United States\n\nFull Video: https://t.co/EHqzsLbbJG https://t.co/Eu4IsLNsKD","Data: Trump‘s Anti-Globalism, Pro-Police Message Wins Over Hispanics https://t.co/syiQ2cwuwU via @BreitbartNews Great, but we also won the election!","The Media is just as corrupt as the Election itself!","Rigged Election! Thanks Ryan. https://t.co/1ObzekxH8e","https://t.co/DVDyvbGIKz","We are up BIG, but they are trying to STEAL the Election. We will never let them do it. Votes cannot be cast after the Polls are closed!","A great honor! https://t.co/U4WFBWrnF7","Governor @BrianKempGA and his puppet @GeoffDuncanGA, together with the Secretary of State of Georgia, are very slow on Signature Verification, and won’t allow Fulton County to be examined. What are these RINOS hiding? We will easily win Presidential State race. @KLoeffler and....","The Silent Media is the Enemy of the People!!! https://t.co/I2LnE3dpI9","MERRY CHRISTMAS!","Thank you! https://t.co/X7gFdH8fqW","....Courts are bad, the FBI and “Justice” didn’t do their job, and the United States Election System looks like that of a third world country. Freedom of the press has been gone for a long time, it is Fake News, and now we have Big Tech (with Section 230) to deal with....","https://t.co/cYj73a5fiR","“We’ve not gotten any court to judge this (the vote) on its merit.” @DanPatrick of Texas. It is a legal disgrace, an embarrassment to the USA!!!","I hope House Republicans will vote against the very weak National Defense Authorization Act (NDAA), which I will VETO. Must include a termination of Section 230 (for National Security purposes), preserve our National Monuments, &amp; allow for 5G &amp; troop reductions in foreign lands!","Why isn’t the @GASecofState Brad Raffensperger, a so-called Republican, allowing us to look at signatures on envelopes for verification? We will find tens of thousands of fraudulent and illegal votes...","VOTER FRAUD IS NOT A CONSPIRACY THEORY, IT IS A FACT!!!","Mail-In rejection rate was minuscule compared to what it used to be. Ken Starr  Meaning that massive numbers of bad votes were pouring in!","Melissa is great! https://t.co/45q70Ps7oK","No Presidential candidate ever came even close to losing an Election who won Iowa, Florida and Ohio. I won all three, by a lot!",".@FoxNews and the Fake News Networks aren’t showing these massive gatherings. Instead they have their reporters standing in almost empty streets. We now have SUPPRESSION BY THE PRESS. MAGA! https://t.co/RMOa4jKZwA","Getting ready to land in the Great State of Florida. See you soon!","The number of cases and deaths of the China Virus is far exaggerated in the United States because of @CDCgov’s ridiculous method of determination compared to other countries, many of whom report, purposely, very inaccurately and low. “When in doubt, call it Covid.” Fake News!","Just signed an order to establish the 1776 Commission. We will stop the radical indoctrination of our students, and restore PATRIOTIC EDUCATION to our schools!","...Tens of millions of haphazardly ballots sent, with some people getting two, three, or four ballots. We will never give up!","Disgraceful! https://t.co/t0epa2ItFm","Fake News always “forgets” to mention that far fewer people are dying when they get Covid. This is do to both our advanced therapeutics, and the gained knowledge of our great doctors, nurses and front line workers!","The legendary actor, 007 Sean Connery, has past on to even greener fairways. He was quite a guy, and a tough character. I was having a very hard time getting approvals for a big development in Scotland when Sean stepped in and shouted,“Let him build the damn thing”. That was....","Twitter is shadow banning like never before. A disgrace that our weak and ineffective political leadership refuses to do anything about Big Tech. They’re either afraid or stupid, nobody really knows!","Great. Most corrupt Election in history, by far. We won!!! https://t.co/nGMMaRQmz8","HAPPENING NOW! @OANN https://t.co/JPWQNISItN","THE OBSERVERS WERE NOT ALLOWED INTO THE COUNTING ROOMS. I WON THE ELECTION, GOT 71,000,000 LEGAL VOTES. BAD THINGS HAPPENED WHICH OUR OBSERVERS WERE NOT ALLOWED TO SEE. NEVER HAPPENED BEFORE. MILLIONS OF MAIL-IN BALLOTS WERE SENT TO PEOPLE WHO NEVER ASKED FOR THEM!","https://t.co/v9Rdjz6DNu","More votes than people, and that is the least of it!!! https://t.co/mSO4Ufwn2g","“Don’t the voters have to know what the Federal prosecutor’s know. The establishment failed us. The media, congressional leaders, the Democrat Party? No wonder 74 (a pres. record) million Americans voted for Donald Trump, &amp; they still don’t believe the outcome of this election...","This was not my case as has been so incorrectly reported. The case that everyone has been waiting for is the State’s case with Texas and numerous others joining. It is very strong, ALL CRITERIA MET. How can you have a presidency when a vast majority think the election was RIGGED? https://t.co/ZKu9sNVz2U","I LOVE NEW YORK! As everyone knows, the Trump Administration has produced a great and safe VACCINE far ahead of schedule. Another Administration would have taken five years. The problem is, @NYGovCuomo said that he will delay using it, and other states WANT IT NOW...","https://t.co/pg1ClbTDhv","The entire WORLD is being badly hurt by the China Virus, but if you listen to the Fake News Lamestream Media, and Big Tech, you would think that we are the only one. No, but we are the Country that developed vaccines, and years ahead of schedule! https://t.co/z1UoJ8lbTm","I WON THIS ELECTION, BY A LOT!","Biden can only enter the White House as President if he can prove that his ridiculous “80,000,000 votes” were not fraudulently or illegally obtained. When you see what happened in Detroit, Atlanta, Philadelphia &amp; Milwaukee, massive voter fraud, he’s got a big unsolvable problem!","https://t.co/5He4fYU5Jv","Big news! https://t.co/A7t5YMNeYU","Crazy! https://t.co/rO3EkzQVN8","....place in Detroit, Philadelphia, Milwaukee, Atlanta, Pittsburgh, and elsewhere. In all Swing State cases, there are far more votes than are necessary to win the State, and the Election itself. Therefore, VOTES CANNOT BE CERTIFIED. THIS ELECTION IS UNDER PROTEST!","“Pro-Biden effort offered Native Americans $25-$500 Visa gift cards and jewelry to vote” https://t.co/nNDcrhIgSX","https://t.co/X0CIj5dFlV","A vote for me and the Republican Party is a vote for the American Dream! Over the next four years, we will make America into the Manufacturing Superpower of the World, and we will end our reliance on China once and for all. https://t.co/gsFSghkmdM https://t.co/S7PAIqWd0y","Now 73,000,000 Votes! https://t.co/VSNfdzoFkK","People are not going to stand for having this Election stolen from them by a privately owned Radical Left company, Dominion, and many other reasons! https://t.co/RMOa4jKZwA","ANY VOTE THAT CAME IN AFTER ELECTION DAY WILL NOT BE COUNTED!","So, you’re the President of the United States, and you just went through an election where you got more votes than any sitting President in history, by far - and purportedly lost. You can’t get “standing” before the Supreme Court, so you “intervene” with wonderful states.....","Tremendous evidence pouring in on voter fraud. There has never been anything like this in our Country!","THEY WOULD’NT LET REPUBLICAN POLL WATCHERS INTO THE COUNTING ROOMS. UNCONSTITUTIONAL!!!","Radical Left ANTIFA SCUM was easily rebuffed today by the big D.C. MAGA Rally crowd, only to return at night, after 99% of the crowd had left, to assault elderly people and families. Police got there, but late. Mayor is not doing her job!","Hearings from Atlanta on the Georgia Election overturn now being broadcast LIVE via @RSBNetwork! \nhttps://t.co/ogBvLbKfqG","THE DEMOCRATS DUMPED HUNDREDS OF THOUSANDS OF BALLOTS IN THE SWING STATES LATE IN THE EVENING. IT WAS A RIGGED ELECTION!!!","What would Bolton, one of the dumbest people in Washington, know? Wasn’t he the person who so stupidly said, on television, “Libyan solution”, when describing what the U.S. was going to do for North Korea? I’ve got plenty of other Bolton “stupid stories”.","https://t.co/gsFSghkmdM https://t.co/zX4bqgtWqH","Sleepy Joe Biden has vowed to ABOLISH the American oil and natural gas industries, and BAN fracking. Biden’s energy ban will send every state into crushing poverty, from Michigan, to Wisconsin to Arizona to Pennsylvania. https://t.co/gsFSghkmdM","Impossible result! https://t.co/QDaxamGs3p","See you tomorrow night at 7PM, Valdosta, Georgia! https://t.co/Or9WioLiVk","Governor Kemp (@BrianKempGA) is down 18 points in a recent poll. Don’t believe it, must be more!","Very happy to have helped get @WreathsAcross America so beautifully open and operating today. Congratulations to all of those who have worked so hard for this great success!","Thank you Matt! https://t.co/hWiyWpvf8o","“President Trump told us for some time we would be getting a Vaccine by the end of the year and people laughed at him, and here we are with Pfizer getting FDA approval by the end of this month. He was right.” @MariaBartiromo","I WON THE ELECTION!","Big news coming out of Pennsylvania. Very big illegal ballot drop that cannot be accounted for. Rigged Election!","https://t.co/9fRvjIgqKE","Report: Maryland Gov. Larry Hogan, Anti-Trump Hero, Paid for Flawed Coronavirus Tests from South Korea https://t.co/PHV7euutVb via @BreitbartNews. This RINO will never make the grade. Hogan is just as bad as the flawed tests he paid big money for!","https://t.co/AMIT0WetT1","https://t.co/S6fKpzoXZZ","“Study: Dominion Machines shifted 2-3% of Trump Votes to Biden. Far more votes than needed to sway election.” Florida, Ohio, Texas and many other states were won by even greater margins than projected. Did just as well with Swing States, but bad things happened. @OANN","https://t.co/4j9bBhC77N","STOP THE COUNT!","...The place was a mess and would have lost much more business if I hadn’t come along. Many new plants are starting. Foreign countries and companies now treat the USA, and Michigan, with respect. Big jobs plans. Please remember this when you go to cast your very important vote!","Just arrived at Virtual G20. Was here yesterday also (early), but some of the Fake News Media failed to report it accurately - as usual. My speech is available (they said I didn’t make a speech).","THE REPUBLICAN PARTY AND, MORE IMPORTANTLY, OUR COUNTRY, NEEDS THE PRESIDENCY MORE THAN EVER BEFORE - THE POWER OF THE VETO. STAY STRONG!","The Russia Hoax becomes an even bigger lie! https://t.co/nbtfIGg2Ew","The Fake recount going on in Georgia means nothing because they are not allowing signatures to be looked at and verified. Break the unconstitutional Consent Decree!","The number of ballots that our Campaign is challenging in the Pennsylvania case is FAR LARGER than the 81,000 vote margin. It’s not even close. Fraud and illegality ARE a big part of the case. Documents being completed. We will appeal!","Between Governor @DougDucey of Arizona and Governor @BrianKempGA of Georgia, the Democrat Party could not be happier. They fight harder against us than do the Radical Left Dems. If they were with us, we would have already won both Arizona and Georgia...","https://t.co/gsFSghkmdM","Today, I signed a proclamation recognizing Moroccan sovereignty over the Western Sahara.  Morocco's serious, credible, and realistic autonomy proposal is the ONLY basis for a just and lasting solution for enduring peace and prosperity!","THANK YOU NORTH CAROLINA!\nhttps://t.co/zeRFGhMQqd","This story is FALSE. They did nothing wrong. But the ANTIFA Anarchists, Rioters and Looters, who have caused so much harm and destruction in Democrat run cities, are being seriously looked at! https://t.co/3pmbMllPWS","It is my Great Honor to announce that General Michael T. Flynn has been granted a Full Pardon. Congratulations to @GenFlynn and his wonderful family, I know you will now have a truly fantastic Thanksgiving!","https://t.co/HhiK6eDVds","It attempted to alter our election and got caught? https://t.co/J8mcH4SpxG","Wrong! At first they voted against because there were far more VOTES than PEOPLE (Sad!). Then they were threatened, screamed at and viciously harassed, and were FORCED to change their vote, but then REFUSED, as American patriots, to sign the documents. 71% MESS. Don’t Harass! https://t.co/n5frpesHfD","https://t.co/nosN75WVxt","Thank you Christina! https://t.co/0ADausqhat","https://t.co/JLq7hHI42o","A vote for Sleepy Joe Biden is a vote to give control of government over to Globalists, Communists, Socialists, and Wealthy Liberal Hypocrites who want to silence, censor, cancel, and punish you. Get out and VOTE #MAGA tomorrow! https://t.co/gsFSghkmdM","Wow! Blockbuster testimony taking place right now in Georgia. Ballot stuffing by Dems when Republicans were forced to leave the large counting room. Plenty more coming, but this alone leads to an easy win of the State!","https://t.co/a1kQRp7EzG","Trump Campaign Rejects Media Reports of Changed Pennsylvania Case https://t.co/VjIhiyB4XK via @BreitbartNews. Just more Fake News. Harassment and exclusion of our Poll Watchers is a big part of our case. Unconstitutional!","Giuliani: The Case for Election Fraud Being Made By Americans https://t.co/yNfaKqYzCO via @BreitbartNews","Wow, I guess it’s not good to go against a President who everyone in Georgia knows got you into office! https://t.co/4xUNdOncoB","https://t.co/YjKjOzpYLp"]},"columns":[{"id":"tweet_date","name":"Date / Time","type":"Date","format":{"cell":{"datetime":true},"aggregated":{"datetime":true}},"width":200},{"id":"text","name":"Tweet text","type":"character","minWidth":500}],"searchable":true,"pagination":false,"highlight":true,"striped":true,"height":"750px","theme":{"borderColor":"#dfe2e5","stripedColor":"#f6f8fa","highlightColor":"#f0f5f9","cellPadding":"8px 12px","style":{"fontSize":".8rem"}},"dataKey":"017761686bf5b934970fecc120ef6a3e"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>Using tweets as a source for data is a little dated, but it’s a good example of trying to pick out text from a set of short items.</p>
+<section id="string-functions-for-regular-expressions" class="level3">
+<h3 class="anchored" data-anchor-id="string-functions-for-regular-expressions">String functions for regular expressions</h3>
+<ul>
+<li><code>str_detect( col_name, expression)</code> looks for the presence of the expression, and returns <code>TRUE</code> or <code>FALSE</code>.</li>
+<li><code>str_extract(col_name, expression)</code> does the same thing, except it returns whatever the first thing that matched your expression. It includes wild cards, so it could just return the whole phrase.</li>
+<li><code>str_match(col_name, expression)</code> is more complicated - it lets you use pieces of the expression, but it returns a list, which is hard to work with. We’ll skip that for now.</li>
+</ul>
+<p>Some other useful string functions are:</p>
+<ul>
+<li><strong>To convert the case</strong>, use str_to_lower(colname), str_to_upper(colname), or str_to_title()<br>
+</li>
+<li><strong>To smush together phrases</strong>, use str_c() or paste() or paste0.</li>
+</ul>
+</section>
+<section id="convert-everything-to-lowercase" class="level3">
+<h3 class="anchored" data-anchor-id="convert-everything-to-lowercase">Convert everything to lowercase</h3>
+<p>One strategy for using regular expressions is to convert everything to lower case before trying to match text. In R, the regular expression is, by default, case-sensitive and it’s difficult to predict how it might show up in free text like this. <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>trump_tweets <span class="ot">&lt;-</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  trump_tweets <span class="sc">|&gt;</span> </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span> ( <span class="at">tweet_lowercase =</span> <span class="fu">str_to_lower</span>(text))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="using-str_detect" class="level2 page-columns page-full" data-number="23.3">
+<h2 data-number="23.3" class="anchored" data-anchor-id="using-str_detect"><span class="header-section-number">23.3</span> Using <code>str_detect</code></h2>
+<p>The function <code>str_detect()</code> results in either <code>TRUE</code> or <code>FALSE</code>. It’s very useful in two situations:</p>
+<ul>
+<li>As a filter for rows in your data.</li>
+<li>As a way to assign values in an <code>if_else()</code> or <code>case_when()</code> expression, when creating a new column using <code>mutate()</code>.</li>
+</ul>
+<section id="example-1-filter-for-biden" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="example-1-filter-for-biden">Example 1: Filter for “biden”</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>trump_tweets <span class="sc">|&gt;</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span> ( tweet_date, tweet_lowercase) <span class="sc">|&gt;</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span> (  <span class="fu">str_detect</span> ( tweet_lowercase, <span class="st">"biden"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["tweet_date"],"name":[1],"type":["dttm"],"align":["right"]},{"label":["tweet_lowercase"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"2020-11-01 11:26:53","2":"people have long been voting but joe biden has still not released his supreme court list of radical left judges that he would like to put on the court. also, is he going to court pack? he thinks he can bluff his way through these two important questions. can only vote against!!!"},{"1":"2020-11-01 12:57:34","2":"joe biden called black youth super predators. they will never like him, or vote for him. they are voting for “trump”."},{"1":"2020-11-01 13:25:20","2":"biden wants to lockdown our country, maybe for years. crazy! there will be no lockdowns. the great american comeback is underway!!!"},{"1":"2020-11-01 15:34:50","2":"joe biden constantly used the term “super predator” when referring to young black men, according to my sources."},{"1":"2020-11-01 15:58:20","2":"report: democrats growing more anxious in pennsylvania https://t.co/xrdgvir47o via @breitbartnews  biden would kill fracking and our great 2nd amendment. no wonder he’s losing pennsylvania!"},{"1":"2020-11-01 16:12:12","2":"watch: antifa shouts ‘death to your f**king empire‘ while burning u.s. flag https://t.co/opo3ve5ask via @breitbartnews these are criminal anarchists and must be brought to justice! biden fears them. @fbi"},{"1":"2020-11-01 17:32:45","2":"you don’t have to take my word on biden’s 47 years of treachery and betrayal. we have it on tape, watch! https://t.co/rquazt7eqx"},{"1":"2020-11-01 19:08:34","2":"biden is a proven castro puppet! vote trump"},{"1":"2020-11-01 21:53:03","2":"biden did a very poor job of handling h1n1 swine flu, yet all he talks about is covid, covid, covid, like he would actually know what he is doing. he doesn’t. plus, he would be terrible with the economy!"},{"1":"2020-11-01 21:58:59","2":"pennsylvania: biden said that he doesn’t want fracking. besides, and more importantly, his handlers won’t allow fracking. that would be the end of pennsylvania!"},{"1":"2020-11-01 22:34:37","2":"for decades, joe biden let other countries rip you off and cheat america blind! the only people who’ve benefited from his policies are himself &amp; his family. he shows up every 4 years, and then goes back to d.c. and caters to his special interests. my only special interest is you."},{"1":"2020-11-01 22:35:04","2":"biden will terminate school choice, eliminate charter schools, defund religious schools, ban prayer in public schools, indoctrinate your children with anti-american lies, and force you to subsidize extreme late-term abortion. we believe that every child is a sacred gift from god!"},{"1":"2020-11-01 22:35:31","2":"joe biden is the candidate of rioters, looters, arsonists, gun-grabbers, flag-burners, marxists, lobbyists, and special interests. i am the candidate of farmers, factory workers, police officers, and hard-working, law-abiding patriots of every race, religion and creed! #maga"},{"1":"2020-11-01 22:36:15","2":"people are forgetting that if sleepy joe biden and the radical left dems win, you will vey quickly lose your second amendment! https://t.co/gsfsghkmdm"},{"1":"2020-11-02 04:15:17","2":"joe biden is a corrupt politician who is bought and paid for by china! in 2016, georgia voted to fire this corrupt political establishment and you elected an outsider as president who is finally putting america first!\\nhttps://t.co/vpcszmksox"},{"1":"2020-11-02 04:21:07","2":"biden will repeal your second amendment and pack the court!"},{"1":"2020-11-02 06:03:47","2":"for 47 years, sleepy joe biden betrayed hispanic-americans. now he wants to close your small businesses, eliminate school choice, and attack our hispanic law enforcement heroes. i will always stand with the incredible hispanic-american community! https://t.co/4kmnlrkg7c"},{"1":"2020-11-02 06:51:42","2":"just learned that sleepy joe biden is campaigning in pennsylvania with lady gaga, a proud member of “artists against fracking.” this is more proof that he would ban fracking and skyrocket your energy prices..."},{"1":"2020-11-02 16:44:14","2":"texas, pennsylvania:\\n biden is against second amendment and fracking. please remember!"},{"1":"2020-11-02 18:08:47","2":"biden was a pathetic laughing stock all over washington for the horrible way he handled the h1n1 swine flu. even his own chief of staff said he didn’t know what he was doing!"},{"1":"2020-11-02 18:26:13","2":"every corrupt force in american life that betrayed you and hurt your are supporting joe biden: the failed establishment that started the disastrous foreign wars; the career politicians that offshored your industries &amp; decimated your factories; the open borders lobbyists..."},{"1":"2020-11-02 18:26:16","2":"...our noble history, heritage &amp; heroes; and antifa, the rioters, looters, marxists, &amp; left-wing extremists. they all support joe biden!"},{"1":"2020-11-02 18:26:56","2":"biden can never negotiate with china. they would own the u.s. if he were ever president!"},{"1":"2020-11-02 18:44:29","2":"biden never named his list of supreme court justices. never even said whether or not he was going to pack the court. so how do you vote for this guy?"},{"1":"2020-11-02 18:48:01","2":"biden will raise your taxes (biggest increase ever!)."},{"1":"2020-11-02 19:12:47","2":"joe biden is bought and paid for by big tech, big media, big donors, and powerful special interests. they are desperate for him to win because they own him, they control him, and they know he will always do their bidding! https://t.co/gsfsghkmdm https://t.co/7zjvofacwz"},{"1":"2020-11-02 19:29:20","2":"i gave maine everything that obama/biden took away from it. 5000 square miles, lobster, fishing, ended tariffs from china and e.u. and much more. vote trump maine!"},{"1":"2020-11-02 21:20:15","2":"joe biden’s plan to ban fracking is an economic death sentence for pennsylvania. a vote for biden is a vote to ban fracking, outlaw mining, explode energy costs, and totally destroy pennsylvania. get out tomorrow and vote #trumppence2020! https://t.co/nifjw558en"},{"1":"2020-11-02 21:24:02","2":"joe biden is a globalist who spent 47 years outsourcing your jobs, opening your borders, and sacrificing american blood and treasure in endless foreign wars. he shuttered your steel mills, annihilated your coal jobs, and supported every disastrous trade deal for half a century..."},{"1":"2020-11-02 21:24:03","2":"...he was a cheerleader for nafta and china’s entry into the wto. pennsylvania lost half of its manufacturing jobs after those biden calamities. joe biden is a corrupt politician who sold out pennsylvania to china!"},{"1":"2020-11-02 21:33:20","2":"joe biden is promising to delay the vaccine and turn america into a prison state—locking you in your home while letting far-left rioters roam free. the biden lockdown will mean no school, no graduations, no weddings, no thanksgiving, no christmas, no fourth of july, and..."},{"1":"2020-11-02 21:33:21","2":"...no future for america’s youth. a vote for biden is a vote for lockdowns, layoffs and misery. get out and vote tomorrow! https://t.co/gsfsghkmdm"},{"1":"2020-11-03 00:33:09","2":"sleepy joe biden has vowed to abolish the american oil and natural gas industries, and ban fracking. biden’s energy ban will send every state into crushing poverty, from michigan, to wisconsin to arizona to pennsylvania. https://t.co/gsfsghkmdm"},{"1":"2020-11-03 00:40:16","2":"a vote for joe biden is a vote to extinguish and eradicate your state’s auto industry. biden is a corrupt politician who sold out michigan to china. biden is the living embodiment of the decrepit and depraved political class that got rich bleeding america dry!"},{"1":"2020-11-03 00:40:43","2":"joe biden would increase refugees from terrorist nations by 700%. his plan would overwhelm your communities and turn michigan, minnesota, wisconsin and the entire midwest into a refugee camp. i am protecting your families and keeping radical islamic terrorists out of our country!"},{"1":"2020-11-03 00:42:12","2":"for 47 years, joe biden viciously attacked black americans. he called young black men “super predators.” to every black american: i am asking for your vote. this is your one and only chance to show sleepy joe what you think of his decision to attack you, jail you, and betray you!"},{"1":"2020-11-03 03:43:23","2":"biden has vowed to abolish the american oil and natural gas industries, and ban fracking. as long as i am president, we will remain the number one producer of oil and natural gas on earth – and we will remain energy independent! https://t.co/gsfsghkmdm https://t.co/v1ryeavhc4"},{"1":"2020-11-03 03:45:50","2":"a vote for sleepy joe biden is a vote to give control of government over to globalists, communists, socialists, and wealthy liberal hypocrites who want to silence, censor, cancel, and punish you. get out and vote #maga tomorrow! https://t.co/gsfsghkmdm"},{"1":"2020-11-04 16:55:31","2":"they are finding biden votes all over the place — in pennsylvania, wisconsin, and michigan. so bad for our country!"},{"1":"2020-11-05 16:22:46","2":"all of the recent biden claimed states will be legally challenged by us for voter fraud and state election fraud. plenty of proof - just check out the media. we will win! america first!"},{"1":"2020-11-06 22:50:13","2":"joe biden should not wrongfully claim the office of the president. i could make that claim also. legal proceedings are just now beginning!"},{"1":"2020-11-08 14:17:33","2":"“we believe these people are thieves. the big city machines are corrupt. this was a stolen election. best pollster in britain wrote this morning that this clearly was a stolen election, that it’s impossible to imagine that biden outran obama in some of these states."},{"1":"2020-11-10 00:41:12","2":"if joe biden were president, you wouldn’t have the vaccine for another four years, nor would the @us_fda have ever approved it so quickly. the bureaucracy would have destroyed millions of lives!"},{"1":"2020-11-12 16:34:00","2":"“report: dominion deleted 2.7 million trump votes nationwide. data analysis finds 221,000 pennsylvania votes switched from president trump to biden. 941,000 trump votes deleted. states using dominion voting systems switched 435,000 votes from trump to biden.” @chanelrion @oann"},{"1":"2020-11-13 03:46:13","2":"must see @seanhannity takedown of the horrible, inaccurate and anything but secure dominion voting system which is used in states where tens of thousands of votes were stolen from us and given to biden. likewise, the great @loudobbs has a confirming and powerful piece!"},{"1":"2020-11-13 04:17:46","2":"these states in question should immediately be put in the trump win column. biden did not win, he lost by a lot! https://t.co/ywiw6spici https://t.co/c1g9lzpmah"},{"1":"2020-11-15 05:07:22","2":"tax filings reveal biden cancer charity spent millions on salaries, zero on research https://t.co/2dhe1ddt6y via @nypost"},{"1":"2020-11-16 01:46:37","2":"why does the fake news media continuously assume that joe biden will ascend to the presidency, not even allowing our side to show, which we are just getting ready to do, how badly shattered and violated our great constitution has been in the 2020 election. it was attacked,.."},{"1":"2020-11-18 00:07:44","2":"...votes from trump to biden, late voting, and many more. therefore, effective immediately, chris krebs has been terminated as director of the cybersecurity and infrastructure security agency."},{"1":"2020-11-19 01:22:17","2":"look at this in wisconsin! a day after the election, biden receives a dump of 143,379 votes at 3:42am, when they learned he was losing badly. this is unbelievable! https://t.co/nhilmmyhbn"},{"1":"2020-11-19 16:22:17","2":"“evidence of voter fraud continues to grow, including 20,000 dead people on the pennsylvania voters roll and many thousands all over the country. now, there has been an artificial number of votes in favor of joe biden.” @oann"},{"1":"2020-11-20 01:49:29","2":"look at this in michigan! a day after the election, biden receives a dump of 134,886 votes at 6:31am! https://t.co/ctdawtns29 https://t.co/nsmc2olraf"},{"1":"2020-11-21 22:13:05","2":"joe biden was a total disaster in handling the h1n1 swine flu, would never have produced a vaccine in record time (years ahead of schedule), and would do a terrible job of vaccine delivery - but doesn’t everybody already know that!"},{"1":"2020-11-22 01:18:38","2":"why is joe biden so quickly forming a cabinet when my investigators have found hundreds of thousands of fraudulent votes, enough to “flip” at least four states, which in turn is more than enough to win the election? hopefully the courts and/or legislatures will have...."},{"1":"2020-11-22 04:15:42","2":"they never thought a vaccine could be done so soon but don’t worry, they will try to give the credit to biden! https://t.co/zp7vzet8r4"},{"1":"2020-11-25 01:08:13","2":"should president trump concede to biden? poll results: no: 190,593  (98.9%) yes: 2,181  (1.1%) total votes: 192,774. @gregkellyusa @newsmax for the good of our country we must prevail!"},{"1":"2020-11-26 15:44:23","2":"just saw the vote tabulations. there is no way biden got 80,000,000 votes!!! this was a 100% rigged election."},{"1":"2020-11-27 02:53:19","2":"a must read. impossible for biden to have overcome these, and even greater, odds! https://t.co/cmyfy0va6p"},{"1":"2020-11-27 13:36:17","2":"report: biden’s thanksgiving day address gets just 1000 views online, a record low. observers say a candidate with “80,000,000” votes would get many more online viewers. numbers don’t lie, or add up! @oann"},{"1":"2020-11-27 13:36:23","2":"big news: pennsylvania poll watcher: usb drives uploaded to machines, gave biden thousands of votes. says 47 usb drives are now missing. every upload gave biden 50,000 votes. @oann"},{"1":"2020-11-27 15:56:13","2":"biden can only enter the white house as president if he can prove that his ridiculous “80,000,000 votes” were not fraudulently or illegally obtained. when you see what happened in detroit, atlanta, philadelphia &amp; milwaukee, massive voter fraud, he’s got a big unsolvable problem!"},{"1":"2020-11-27 19:35:28","2":"biden did poorly in big cities (politico), except those of detroit (more votes than people!), philadelphia, atlanta and milwaukee, which he had to win. not surprisingly, they are all located in the most important swing states, and are long known for being politically corrupt!"},{"1":"2020-11-30 00:34:38","2":"we have some big things happening in our various litigations on the election hoax. everybody knows it was rigged. they know biden didn’t get more votes from the black community than obama, &amp; certainly didn’t get 80,000,000 votes. look what happened in detroit, philadelphia, plus!"},{"1":"2020-12-03 20:50:04","2":"“pro-biden effort offered native americans $25-$500 visa gift cards and jewelry to vote” https://t.co/nndcrhigsx"},{"1":"2020-12-10 01:37:26","2":"“10% of voters would have changed their vote if they knew about hunter biden.” miranda devine @nypost @tuckercarlson  but i won anyway!"},{"1":"2020-12-10 14:33:18","2":"“people are upset, and they have a right to be. georgia not only supported trump in 2016, but now. this is the only state in the deep south that went for biden? have they lost their minds? this is going to escalate dramatically. this is a very dangerous moment in our history...."},{"1":"2020-12-11 02:21:24","2":"why didn’t the fake news media, the fbi and the doj report the biden matter before the election. oh well, it’s ok, we won the election anyway - 75,000,000 votes!!!"},{"1":"2020-12-11 12:22:34","2":"the swine flu (h1n1), and the attempt for a vaccine by the obama administration, with joe biden in charge, was a complete and total disaster. now they want to come in and take over one of the “greatest and fastest medical miracles in modern day history.” i don’t think so!"},{"1":"2020-12-11 12:52:27","2":"now it turns out that my phone call to the president of ukraine, which many, including me, have called “perfect”, was even better than that. i predicted biden corruption, said to call the a.g., who perhaps knew of the corruption during the impeachment hoax?"},{"1":"2020-12-11 13:16:21","2":"now that the biden administration will be a scandal plagued mess for years to come, it is much easier for the supreme court of the united states to follow the constitution and do what everybody knows has to be done. they must show great courage &amp; wisdom. save the usa!!!"},{"1":"2020-12-12 13:45:37","2":"if biden gets in, nothing will happen to hunter or joe. barr will do nothing, and the new group of partisan killers coming in will quickly kill it all. same thing with durham. we caught them cold, spying, treason &amp; more (the hard part), but “justice” took too long. will be doa!"},{"1":"2020-12-12 14:53:16","2":"why didn’t bill barr reveal the truth to the public, before the election, about hunter biden. joe was lying on the debate stage that nothing was wrong, or going on - press confirmed. big disadvantage for republicans at the polls!"},{"1":"2020-12-15 05:30:37","2":"thank you kevin. many trump votes were routed to biden. the highly respected michigan judge released this epic report. true all over the country. this fake election can no longer stand. get moving republicans. big swing state win!  75,000,000 votes. https://t.co/0sodjfr80k"},{"1":"2020-12-16 05:40:41","2":"trump's allies slam mitch mcconnell for congratulating biden https://t.co/ak9nu6420l via @mailonline. mitch, 75,000,000 votes, a record for a sitting president (by a lot). too soon to give up. republican party must finally learn to fight. people are angry!"},{"1":"2020-12-16 06:09:36","2":"“study: dominion machines shifted 2-3% of trump votes to biden. far more votes than needed to sway election.” florida, ohio, texas and many other states were won by even greater margins than projected. did just as well with swing states, but bad things happened. @oann"},{"1":"2020-12-17 14:55:38","2":"i have nothing to do with the potential prosecution of hunter biden, or the biden family. it is just more fake news. actually, i find it very sad to watch!"},{"1":"2020-12-19 19:59:20","2":"the lie of the year is that joe biden won! christina bobb @oann"},{"1":"2020-12-23 01:18:00","2":"“@newtgingrich pens op-ed on election saying he will not accept joe biden as president” @oann  newt gingrich gets it, we are going to win! https://t.co/pbhzo2llnu https://t.co/ug2hjceo9g"},{"1":"2020-12-29 13:59:48","2":"“a group of republican lawmakers in pennsylvania say 200,000 more votes were counted in the 2020 election than voters (100% went to biden). state representative frank ryan said they found troubling discrepancies after an analysis of election day data.” @foxnews this is far...."},{"1":"2020-12-29 22:44:10","2":"it is up to the states to distribute the vaccines once brought to the designated areas by the federal government. we have not only developed the vaccines, including putting up money to move the process along quickly, but gotten them to the states. biden failed with swine flu!"},{"1":"2020-12-30 12:29:52","2":"“barack obama was toppled from the top spot and president trump claimed the title of the year’s most admired man. trump number one, obama number two, and joe biden a very distant number three. that’s also rather odd given the fact that on november 3rd, biden allegedly racked up"},{"1":"2021-01-01 23:57:46","2":"only because biden got very few votes, just like the election! https://t.co/sniaj1i5hu"},{"1":"2021-01-03 14:20:33","2":"“georgia election data, just revealed, shows that over 17,000 votes illegally flipped from trump to biden.” @oann  this alone (there are many other irregularities) is enough to easily “swing georgia to trump”. #stopthesteal  @hawleymo @sentedcruz @jim_jordan"},{"1":"2021-01-05 14:50:49","2":"pleased to announce that @kloeffler &amp; @sendavidperdue have just joined our great #stopthesteal group of senators. they will fight the ridiculous electoral college certification of biden. how do you certify numbers that have now proven to be wrong and, in many cases, fraudulent!"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>But that leaves out any time he’s called “sleepy joe”. Instead, look for either “sleepy joe” or “joe biden”:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>trump_tweets <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span> ( tweet_lowercase) <span class="sc">|&gt;</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span> (  <span class="fu">str_detect</span> ( tweet_lowercase, <span class="st">"(biden|sleepy joe)"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["tweet_lowercase"],"name":[1],"type":["chr"],"align":["left"]}],"data":[{"1":"people have long been voting but joe biden has still not released his supreme court list of radical left judges that he would like to put on the court. also, is he going to court pack? he thinks he can bluff his way through these two important questions. can only vote against!!!"},{"1":"our numbers are looking very good all over. sleepy joe is already beginning to pull out of certain states. the radical left is going down!"},{"1":"joe biden called black youth super predators. they will never like him, or vote for him. they are voting for “trump”."},{"1":"biden wants to lockdown our country, maybe for years. crazy! there will be no lockdowns. the great american comeback is underway!!!"},{"1":"joe biden constantly used the term “super predator” when referring to young black men, according to my sources."},{"1":"report: democrats growing more anxious in pennsylvania https://t.co/xrdgvir47o via @breitbartnews  biden would kill fracking and our great 2nd amendment. no wonder he’s losing pennsylvania!"},{"1":"watch: antifa shouts ‘death to your f**king empire‘ while burning u.s. flag https://t.co/opo3ve5ask via @breitbartnews these are criminal anarchists and must be brought to justice! biden fears them. @fbi"},{"1":"you don’t have to take my word on biden’s 47 years of treachery and betrayal. we have it on tape, watch! https://t.co/rquazt7eqx"},{"1":"biden is a proven castro puppet! vote trump"},{"1":"chris wallace of @foxnews, by far the lowest rated of the sunday morning news programs, can’t get over his poor debate performance, probably even worse than sleepy joe’s. his show is a total “hit job” on your favorite president, me!"},{"1":"biden did a very poor job of handling h1n1 swine flu, yet all he talks about is covid, covid, covid, like he would actually know what he is doing. he doesn’t. plus, he would be terrible with the economy!"},{"1":"pennsylvania: biden said that he doesn’t want fracking. besides, and more importantly, his handlers won’t allow fracking. that would be the end of pennsylvania!"},{"1":"for decades, joe biden let other countries rip you off and cheat america blind! the only people who’ve benefited from his policies are himself &amp; his family. he shows up every 4 years, and then goes back to d.c. and caters to his special interests. my only special interest is you."},{"1":"biden will terminate school choice, eliminate charter schools, defund religious schools, ban prayer in public schools, indoctrinate your children with anti-american lies, and force you to subsidize extreme late-term abortion. we believe that every child is a sacred gift from god!"},{"1":"joe biden is the candidate of rioters, looters, arsonists, gun-grabbers, flag-burners, marxists, lobbyists, and special interests. i am the candidate of farmers, factory workers, police officers, and hard-working, law-abiding patriots of every race, religion and creed! #maga"},{"1":"people are forgetting that if sleepy joe biden and the radical left dems win, you will vey quickly lose your second amendment! https://t.co/gsfsghkmdm"},{"1":"joe biden is a corrupt politician who is bought and paid for by china! in 2016, georgia voted to fire this corrupt political establishment and you elected an outsider as president who is finally putting america first!\\nhttps://t.co/vpcszmksox"},{"1":"biden will repeal your second amendment and pack the court!"},{"1":"for 47 years, sleepy joe biden betrayed hispanic-americans. now he wants to close your small businesses, eliminate school choice, and attack our hispanic law enforcement heroes. i will always stand with the incredible hispanic-american community! https://t.co/4kmnlrkg7c"},{"1":"just learned that sleepy joe biden is campaigning in pennsylvania with lady gaga, a proud member of “artists against fracking.” this is more proof that he would ban fracking and skyrocket your energy prices..."},{"1":"texas, pennsylvania:\\n biden is against second amendment and fracking. please remember!"},{"1":"biden was a pathetic laughing stock all over washington for the horrible way he handled the h1n1 swine flu. even his own chief of staff said he didn’t know what he was doing!"},{"1":"every corrupt force in american life that betrayed you and hurt your are supporting joe biden: the failed establishment that started the disastrous foreign wars; the career politicians that offshored your industries &amp; decimated your factories; the open borders lobbyists..."},{"1":"...our noble history, heritage &amp; heroes; and antifa, the rioters, looters, marxists, &amp; left-wing extremists. they all support joe biden!"},{"1":"biden can never negotiate with china. they would own the u.s. if he were ever president!"},{"1":"biden never named his list of supreme court justices. never even said whether or not he was going to pack the court. so how do you vote for this guy?"},{"1":"biden will raise your taxes (biggest increase ever!)."},{"1":"joe biden is bought and paid for by big tech, big media, big donors, and powerful special interests. they are desperate for him to win because they own him, they control him, and they know he will always do their bidding! https://t.co/gsfsghkmdm https://t.co/7zjvofacwz"},{"1":"i gave maine everything that obama/biden took away from it. 5000 square miles, lobster, fishing, ended tariffs from china and e.u. and much more. vote trump maine!"},{"1":"joe biden’s plan to ban fracking is an economic death sentence for pennsylvania. a vote for biden is a vote to ban fracking, outlaw mining, explode energy costs, and totally destroy pennsylvania. get out tomorrow and vote #trumppence2020! https://t.co/nifjw558en"},{"1":"joe biden is a globalist who spent 47 years outsourcing your jobs, opening your borders, and sacrificing american blood and treasure in endless foreign wars. he shuttered your steel mills, annihilated your coal jobs, and supported every disastrous trade deal for half a century..."},{"1":"...he was a cheerleader for nafta and china’s entry into the wto. pennsylvania lost half of its manufacturing jobs after those biden calamities. joe biden is a corrupt politician who sold out pennsylvania to china!"},{"1":"joe biden is promising to delay the vaccine and turn america into a prison state—locking you in your home while letting far-left rioters roam free. the biden lockdown will mean no school, no graduations, no weddings, no thanksgiving, no christmas, no fourth of july, and..."},{"1":"...no future for america’s youth. a vote for biden is a vote for lockdowns, layoffs and misery. get out and vote tomorrow! https://t.co/gsfsghkmdm"},{"1":"sleepy joe biden has vowed to abolish the american oil and natural gas industries, and ban fracking. biden’s energy ban will send every state into crushing poverty, from michigan, to wisconsin to arizona to pennsylvania. https://t.co/gsfsghkmdm"},{"1":"a vote for joe biden is a vote to extinguish and eradicate your state’s auto industry. biden is a corrupt politician who sold out michigan to china. biden is the living embodiment of the decrepit and depraved political class that got rich bleeding america dry!"},{"1":"joe biden would increase refugees from terrorist nations by 700%. his plan would overwhelm your communities and turn michigan, minnesota, wisconsin and the entire midwest into a refugee camp. i am protecting your families and keeping radical islamic terrorists out of our country!"},{"1":"for 47 years, joe biden viciously attacked black americans. he called young black men “super predators.” to every black american: i am asking for your vote. this is your one and only chance to show sleepy joe what you think of his decision to attack you, jail you, and betray you!"},{"1":"biden has vowed to abolish the american oil and natural gas industries, and ban fracking. as long as i am president, we will remain the number one producer of oil and natural gas on earth – and we will remain energy independent! https://t.co/gsfsghkmdm https://t.co/v1ryeavhc4"},{"1":"a vote for sleepy joe biden is a vote to give control of government over to globalists, communists, socialists, and wealthy liberal hypocrites who want to silence, censor, cancel, and punish you. get out and vote #maga tomorrow! https://t.co/gsfsghkmdm"},{"1":"they are finding biden votes all over the place — in pennsylvania, wisconsin, and michigan. so bad for our country!"},{"1":"all of the recent biden claimed states will be legally challenged by us for voter fraud and state election fraud. plenty of proof - just check out the media. we will win! america first!"},{"1":"joe biden should not wrongfully claim the office of the president. i could make that claim also. legal proceedings are just now beginning!"},{"1":"“we believe these people are thieves. the big city machines are corrupt. this was a stolen election. best pollster in britain wrote this morning that this clearly was a stolen election, that it’s impossible to imagine that biden outran obama in some of these states."},{"1":"if joe biden were president, you wouldn’t have the vaccine for another four years, nor would the @us_fda have ever approved it so quickly. the bureaucracy would have destroyed millions of lives!"},{"1":"“report: dominion deleted 2.7 million trump votes nationwide. data analysis finds 221,000 pennsylvania votes switched from president trump to biden. 941,000 trump votes deleted. states using dominion voting systems switched 435,000 votes from trump to biden.” @chanelrion @oann"},{"1":"must see @seanhannity takedown of the horrible, inaccurate and anything but secure dominion voting system which is used in states where tens of thousands of votes were stolen from us and given to biden. likewise, the great @loudobbs has a confirming and powerful piece!"},{"1":"these states in question should immediately be put in the trump win column. biden did not win, he lost by a lot! https://t.co/ywiw6spici https://t.co/c1g9lzpmah"},{"1":"tax filings reveal biden cancer charity spent millions on salaries, zero on research https://t.co/2dhe1ddt6y via @nypost"},{"1":"why does the fake news media continuously assume that joe biden will ascend to the presidency, not even allowing our side to show, which we are just getting ready to do, how badly shattered and violated our great constitution has been in the 2020 election. it was attacked,.."},{"1":"...votes from trump to biden, late voting, and many more. therefore, effective immediately, chris krebs has been terminated as director of the cybersecurity and infrastructure security agency."},{"1":"look at this in wisconsin! a day after the election, biden receives a dump of 143,379 votes at 3:42am, when they learned he was losing badly. this is unbelievable! https://t.co/nhilmmyhbn"},{"1":"“evidence of voter fraud continues to grow, including 20,000 dead people on the pennsylvania voters roll and many thousands all over the country. now, there has been an artificial number of votes in favor of joe biden.” @oann"},{"1":"look at this in michigan! a day after the election, biden receives a dump of 134,886 votes at 6:31am! https://t.co/ctdawtns29 https://t.co/nsmc2olraf"},{"1":"joe biden was a total disaster in handling the h1n1 swine flu, would never have produced a vaccine in record time (years ahead of schedule), and would do a terrible job of vaccine delivery - but doesn’t everybody already know that!"},{"1":"why is joe biden so quickly forming a cabinet when my investigators have found hundreds of thousands of fraudulent votes, enough to “flip” at least four states, which in turn is more than enough to win the election? hopefully the courts and/or legislatures will have...."},{"1":"they never thought a vaccine could be done so soon but don’t worry, they will try to give the credit to biden! https://t.co/zp7vzet8r4"},{"1":"should president trump concede to biden? poll results: no: 190,593  (98.9%) yes: 2,181  (1.1%) total votes: 192,774. @gregkellyusa @newsmax for the good of our country we must prevail!"},{"1":"just saw the vote tabulations. there is no way biden got 80,000,000 votes!!! this was a 100% rigged election."},{"1":"a must read. impossible for biden to have overcome these, and even greater, odds! https://t.co/cmyfy0va6p"},{"1":"report: biden’s thanksgiving day address gets just 1000 views online, a record low. observers say a candidate with “80,000,000” votes would get many more online viewers. numbers don’t lie, or add up! @oann"},{"1":"big news: pennsylvania poll watcher: usb drives uploaded to machines, gave biden thousands of votes. says 47 usb drives are now missing. every upload gave biden 50,000 votes. @oann"},{"1":"biden can only enter the white house as president if he can prove that his ridiculous “80,000,000 votes” were not fraudulently or illegally obtained. when you see what happened in detroit, atlanta, philadelphia &amp; milwaukee, massive voter fraud, he’s got a big unsolvable problem!"},{"1":"biden did poorly in big cities (politico), except those of detroit (more votes than people!), philadelphia, atlanta and milwaukee, which he had to win. not surprisingly, they are all located in the most important swing states, and are long known for being politically corrupt!"},{"1":"we have some big things happening in our various litigations on the election hoax. everybody knows it was rigged. they know biden didn’t get more votes from the black community than obama, &amp; certainly didn’t get 80,000,000 votes. look what happened in detroit, philadelphia, plus!"},{"1":"“pro-biden effort offered native americans $25-$500 visa gift cards and jewelry to vote” https://t.co/nndcrhigsx"},{"1":"“10% of voters would have changed their vote if they knew about hunter biden.” miranda devine @nypost @tuckercarlson  but i won anyway!"},{"1":"“people are upset, and they have a right to be. georgia not only supported trump in 2016, but now. this is the only state in the deep south that went for biden? have they lost their minds? this is going to escalate dramatically. this is a very dangerous moment in our history...."},{"1":"why didn’t the fake news media, the fbi and the doj report the biden matter before the election. oh well, it’s ok, we won the election anyway - 75,000,000 votes!!!"},{"1":"the swine flu (h1n1), and the attempt for a vaccine by the obama administration, with joe biden in charge, was a complete and total disaster. now they want to come in and take over one of the “greatest and fastest medical miracles in modern day history.” i don’t think so!"},{"1":"now it turns out that my phone call to the president of ukraine, which many, including me, have called “perfect”, was even better than that. i predicted biden corruption, said to call the a.g., who perhaps knew of the corruption during the impeachment hoax?"},{"1":"now that the biden administration will be a scandal plagued mess for years to come, it is much easier for the supreme court of the united states to follow the constitution and do what everybody knows has to be done. they must show great courage &amp; wisdom. save the usa!!!"},{"1":"if biden gets in, nothing will happen to hunter or joe. barr will do nothing, and the new group of partisan killers coming in will quickly kill it all. same thing with durham. we caught them cold, spying, treason &amp; more (the hard part), but “justice” took too long. will be doa!"},{"1":"why didn’t bill barr reveal the truth to the public, before the election, about hunter biden. joe was lying on the debate stage that nothing was wrong, or going on - press confirmed. big disadvantage for republicans at the polls!"},{"1":"thank you kevin. many trump votes were routed to biden. the highly respected michigan judge released this epic report. true all over the country. this fake election can no longer stand. get moving republicans. big swing state win!  75,000,000 votes. https://t.co/0sodjfr80k"},{"1":"trump's allies slam mitch mcconnell for congratulating biden https://t.co/ak9nu6420l via @mailonline. mitch, 75,000,000 votes, a record for a sitting president (by a lot). too soon to give up. republican party must finally learn to fight. people are angry!"},{"1":"“study: dominion machines shifted 2-3% of trump votes to biden. far more votes than needed to sway election.” florida, ohio, texas and many other states were won by even greater margins than projected. did just as well with swing states, but bad things happened. @oann"},{"1":"i have nothing to do with the potential prosecution of hunter biden, or the biden family. it is just more fake news. actually, i find it very sad to watch!"},{"1":"the lie of the year is that joe biden won! christina bobb @oann"},{"1":"“@newtgingrich pens op-ed on election saying he will not accept joe biden as president” @oann  newt gingrich gets it, we are going to win! https://t.co/pbhzo2llnu https://t.co/ug2hjceo9g"},{"1":"“a group of republican lawmakers in pennsylvania say 200,000 more votes were counted in the 2020 election than voters (100% went to biden). state representative frank ryan said they found troubling discrepancies after an analysis of election day data.” @foxnews this is far...."},{"1":"it is up to the states to distribute the vaccines once brought to the designated areas by the federal government. we have not only developed the vaccines, including putting up money to move the process along quickly, but gotten them to the states. biden failed with swine flu!"},{"1":"“barack obama was toppled from the top spot and president trump claimed the title of the year’s most admired man. trump number one, obama number two, and joe biden a very distant number three. that’s also rather odd given the fact that on november 3rd, biden allegedly racked up"},{"1":"only because biden got very few votes, just like the election! https://t.co/sniaj1i5hu"},{"1":"“georgia election data, just revealed, shows that over 17,000 votes illegally flipped from trump to biden.” @oann  this alone (there are many other irregularities) is enough to easily “swing georgia to trump”. #stopthesteal  @hawleymo @sentedcruz @jim_jordan"},{"1":"pleased to announce that @kloeffler &amp; @sendavidperdue have just joined our great #stopthesteal group of senators. they will fight the ridiculous electoral college certification of biden. how do you certify numbers that have now proven to be wrong and, in many cases, fraudulent!"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Now, use either the <code>reactable()</code> or the <code>DT()</code> library to make a table that will show you the entire text:</p>
+<div class="cell page-columns page-full">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>trump_tweets <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span> (  tweet_lowercase) <span class="sc">|&gt;</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span> (  <span class="fu">str_detect</span> ( tweet_lowercase, <span class="st">"(biden|sleepy joe)"</span>)) <span class="sc">|&gt;</span>  </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reactable</span>( <span class="at">striped=</span><span class="cn">TRUE</span>, </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">searchable=</span><span class="cn">TRUE</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display column-page-right">
+<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-dc6283714a894649cfc0" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-dc6283714a894649cfc0">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"tweet_lowercase":["people have long been voting but joe biden has still not released his supreme court list of radical left judges that he would like to put on the court. also, is he going to court pack? he thinks he can bluff his way through these two important questions. can only vote against!!!","our numbers are looking very good all over. sleepy joe is already beginning to pull out of certain states. the radical left is going down!","joe biden called black youth super predators. they will never like him, or vote for him. they are voting for “trump”.","biden wants to lockdown our country, maybe for years. crazy! there will be no lockdowns. the great american comeback is underway!!!","joe biden constantly used the term “super predator” when referring to young black men, according to my sources.","report: democrats growing more anxious in pennsylvania https://t.co/xrdgvir47o via @breitbartnews  biden would kill fracking and our great 2nd amendment. no wonder he’s losing pennsylvania!","watch: antifa shouts ‘death to your f**king empire‘ while burning u.s. flag https://t.co/opo3ve5ask via @breitbartnews these are criminal anarchists and must be brought to justice! biden fears them. @fbi","you don’t have to take my word on biden’s 47 years of treachery and betrayal. we have it on tape, watch! https://t.co/rquazt7eqx","biden is a proven castro puppet! vote trump","chris wallace of @foxnews, by far the lowest rated of the sunday morning news programs, can’t get over his poor debate performance, probably even worse than sleepy joe’s. his show is a total “hit job” on your favorite president, me!","biden did a very poor job of handling h1n1 swine flu, yet all he talks about is covid, covid, covid, like he would actually know what he is doing. he doesn’t. plus, he would be terrible with the economy!","pennsylvania: biden said that he doesn’t want fracking. besides, and more importantly, his handlers won’t allow fracking. that would be the end of pennsylvania!","for decades, joe biden let other countries rip you off and cheat america blind! the only people who’ve benefited from his policies are himself &amp; his family. he shows up every 4 years, and then goes back to d.c. and caters to his special interests. my only special interest is you.","biden will terminate school choice, eliminate charter schools, defund religious schools, ban prayer in public schools, indoctrinate your children with anti-american lies, and force you to subsidize extreme late-term abortion. we believe that every child is a sacred gift from god!","joe biden is the candidate of rioters, looters, arsonists, gun-grabbers, flag-burners, marxists, lobbyists, and special interests. i am the candidate of farmers, factory workers, police officers, and hard-working, law-abiding patriots of every race, religion and creed! #maga","people are forgetting that if sleepy joe biden and the radical left dems win, you will vey quickly lose your second amendment! https://t.co/gsfsghkmdm","joe biden is a corrupt politician who is bought and paid for by china! in 2016, georgia voted to fire this corrupt political establishment and you elected an outsider as president who is finally putting america first!\nhttps://t.co/vpcszmksox","biden will repeal your second amendment and pack the court!","for 47 years, sleepy joe biden betrayed hispanic-americans. now he wants to close your small businesses, eliminate school choice, and attack our hispanic law enforcement heroes. i will always stand with the incredible hispanic-american community! https://t.co/4kmnlrkg7c","just learned that sleepy joe biden is campaigning in pennsylvania with lady gaga, a proud member of “artists against fracking.” this is more proof that he would ban fracking and skyrocket your energy prices...","texas, pennsylvania:\n biden is against second amendment and fracking. please remember!","biden was a pathetic laughing stock all over washington for the horrible way he handled the h1n1 swine flu. even his own chief of staff said he didn’t know what he was doing!","every corrupt force in american life that betrayed you and hurt your are supporting joe biden: the failed establishment that started the disastrous foreign wars; the career politicians that offshored your industries &amp; decimated your factories; the open borders lobbyists...","...our noble history, heritage &amp; heroes; and antifa, the rioters, looters, marxists, &amp; left-wing extremists. they all support joe biden!","biden can never negotiate with china. they would own the u.s. if he were ever president!","biden never named his list of supreme court justices. never even said whether or not he was going to pack the court. so how do you vote for this guy?","biden will raise your taxes (biggest increase ever!).","joe biden is bought and paid for by big tech, big media, big donors, and powerful special interests. they are desperate for him to win because they own him, they control him, and they know he will always do their bidding! https://t.co/gsfsghkmdm https://t.co/7zjvofacwz","i gave maine everything that obama/biden took away from it. 5000 square miles, lobster, fishing, ended tariffs from china and e.u. and much more. vote trump maine!","joe biden’s plan to ban fracking is an economic death sentence for pennsylvania. a vote for biden is a vote to ban fracking, outlaw mining, explode energy costs, and totally destroy pennsylvania. get out tomorrow and vote #trumppence2020! https://t.co/nifjw558en","joe biden is a globalist who spent 47 years outsourcing your jobs, opening your borders, and sacrificing american blood and treasure in endless foreign wars. he shuttered your steel mills, annihilated your coal jobs, and supported every disastrous trade deal for half a century...","...he was a cheerleader for nafta and china’s entry into the wto. pennsylvania lost half of its manufacturing jobs after those biden calamities. joe biden is a corrupt politician who sold out pennsylvania to china!","joe biden is promising to delay the vaccine and turn america into a prison state—locking you in your home while letting far-left rioters roam free. the biden lockdown will mean no school, no graduations, no weddings, no thanksgiving, no christmas, no fourth of july, and...","...no future for america’s youth. a vote for biden is a vote for lockdowns, layoffs and misery. get out and vote tomorrow! https://t.co/gsfsghkmdm","sleepy joe biden has vowed to abolish the american oil and natural gas industries, and ban fracking. biden’s energy ban will send every state into crushing poverty, from michigan, to wisconsin to arizona to pennsylvania. https://t.co/gsfsghkmdm","a vote for joe biden is a vote to extinguish and eradicate your state’s auto industry. biden is a corrupt politician who sold out michigan to china. biden is the living embodiment of the decrepit and depraved political class that got rich bleeding america dry!","joe biden would increase refugees from terrorist nations by 700%. his plan would overwhelm your communities and turn michigan, minnesota, wisconsin and the entire midwest into a refugee camp. i am protecting your families and keeping radical islamic terrorists out of our country!","for 47 years, joe biden viciously attacked black americans. he called young black men “super predators.” to every black american: i am asking for your vote. this is your one and only chance to show sleepy joe what you think of his decision to attack you, jail you, and betray you!","biden has vowed to abolish the american oil and natural gas industries, and ban fracking. as long as i am president, we will remain the number one producer of oil and natural gas on earth – and we will remain energy independent! https://t.co/gsfsghkmdm https://t.co/v1ryeavhc4","a vote for sleepy joe biden is a vote to give control of government over to globalists, communists, socialists, and wealthy liberal hypocrites who want to silence, censor, cancel, and punish you. get out and vote #maga tomorrow! https://t.co/gsfsghkmdm","they are finding biden votes all over the place — in pennsylvania, wisconsin, and michigan. so bad for our country!","all of the recent biden claimed states will be legally challenged by us for voter fraud and state election fraud. plenty of proof - just check out the media. we will win! america first!","joe biden should not wrongfully claim the office of the president. i could make that claim also. legal proceedings are just now beginning!","“we believe these people are thieves. the big city machines are corrupt. this was a stolen election. best pollster in britain wrote this morning that this clearly was a stolen election, that it’s impossible to imagine that biden outran obama in some of these states.","if joe biden were president, you wouldn’t have the vaccine for another four years, nor would the @us_fda have ever approved it so quickly. the bureaucracy would have destroyed millions of lives!","“report: dominion deleted 2.7 million trump votes nationwide. data analysis finds 221,000 pennsylvania votes switched from president trump to biden. 941,000 trump votes deleted. states using dominion voting systems switched 435,000 votes from trump to biden.” @chanelrion @oann","must see @seanhannity takedown of the horrible, inaccurate and anything but secure dominion voting system which is used in states where tens of thousands of votes were stolen from us and given to biden. likewise, the great @loudobbs has a confirming and powerful piece!","these states in question should immediately be put in the trump win column. biden did not win, he lost by a lot! https://t.co/ywiw6spici https://t.co/c1g9lzpmah","tax filings reveal biden cancer charity spent millions on salaries, zero on research https://t.co/2dhe1ddt6y via @nypost","why does the fake news media continuously assume that joe biden will ascend to the presidency, not even allowing our side to show, which we are just getting ready to do, how badly shattered and violated our great constitution has been in the 2020 election. it was attacked,..","...votes from trump to biden, late voting, and many more. therefore, effective immediately, chris krebs has been terminated as director of the cybersecurity and infrastructure security agency.","look at this in wisconsin! a day after the election, biden receives a dump of 143,379 votes at 3:42am, when they learned he was losing badly. this is unbelievable! https://t.co/nhilmmyhbn","“evidence of voter fraud continues to grow, including 20,000 dead people on the pennsylvania voters roll and many thousands all over the country. now, there has been an artificial number of votes in favor of joe biden.” @oann","look at this in michigan! a day after the election, biden receives a dump of 134,886 votes at 6:31am! https://t.co/ctdawtns29 https://t.co/nsmc2olraf","joe biden was a total disaster in handling the h1n1 swine flu, would never have produced a vaccine in record time (years ahead of schedule), and would do a terrible job of vaccine delivery - but doesn’t everybody already know that!","why is joe biden so quickly forming a cabinet when my investigators have found hundreds of thousands of fraudulent votes, enough to “flip” at least four states, which in turn is more than enough to win the election? hopefully the courts and/or legislatures will have....","they never thought a vaccine could be done so soon but don’t worry, they will try to give the credit to biden! https://t.co/zp7vzet8r4","should president trump concede to biden? poll results: no: 190,593  (98.9%) yes: 2,181  (1.1%) total votes: 192,774. @gregkellyusa @newsmax for the good of our country we must prevail!","just saw the vote tabulations. there is no way biden got 80,000,000 votes!!! this was a 100% rigged election.","a must read. impossible for biden to have overcome these, and even greater, odds! https://t.co/cmyfy0va6p","report: biden’s thanksgiving day address gets just 1000 views online, a record low. observers say a candidate with “80,000,000” votes would get many more online viewers. numbers don’t lie, or add up! @oann","big news: pennsylvania poll watcher: usb drives uploaded to machines, gave biden thousands of votes. says 47 usb drives are now missing. every upload gave biden 50,000 votes. @oann","biden can only enter the white house as president if he can prove that his ridiculous “80,000,000 votes” were not fraudulently or illegally obtained. when you see what happened in detroit, atlanta, philadelphia &amp; milwaukee, massive voter fraud, he’s got a big unsolvable problem!","biden did poorly in big cities (politico), except those of detroit (more votes than people!), philadelphia, atlanta and milwaukee, which he had to win. not surprisingly, they are all located in the most important swing states, and are long known for being politically corrupt!","we have some big things happening in our various litigations on the election hoax. everybody knows it was rigged. they know biden didn’t get more votes from the black community than obama, &amp; certainly didn’t get 80,000,000 votes. look what happened in detroit, philadelphia, plus!","“pro-biden effort offered native americans $25-$500 visa gift cards and jewelry to vote” https://t.co/nndcrhigsx","“10% of voters would have changed their vote if they knew about hunter biden.” miranda devine @nypost @tuckercarlson  but i won anyway!","“people are upset, and they have a right to be. georgia not only supported trump in 2016, but now. this is the only state in the deep south that went for biden? have they lost their minds? this is going to escalate dramatically. this is a very dangerous moment in our history....","why didn’t the fake news media, the fbi and the doj report the biden matter before the election. oh well, it’s ok, we won the election anyway - 75,000,000 votes!!!","the swine flu (h1n1), and the attempt for a vaccine by the obama administration, with joe biden in charge, was a complete and total disaster. now they want to come in and take over one of the “greatest and fastest medical miracles in modern day history.” i don’t think so!","now it turns out that my phone call to the president of ukraine, which many, including me, have called “perfect”, was even better than that. i predicted biden corruption, said to call the a.g., who perhaps knew of the corruption during the impeachment hoax?","now that the biden administration will be a scandal plagued mess for years to come, it is much easier for the supreme court of the united states to follow the constitution and do what everybody knows has to be done. they must show great courage &amp; wisdom. save the usa!!!","if biden gets in, nothing will happen to hunter or joe. barr will do nothing, and the new group of partisan killers coming in will quickly kill it all. same thing with durham. we caught them cold, spying, treason &amp; more (the hard part), but “justice” took too long. will be doa!","why didn’t bill barr reveal the truth to the public, before the election, about hunter biden. joe was lying on the debate stage that nothing was wrong, or going on - press confirmed. big disadvantage for republicans at the polls!","thank you kevin. many trump votes were routed to biden. the highly respected michigan judge released this epic report. true all over the country. this fake election can no longer stand. get moving republicans. big swing state win!  75,000,000 votes. https://t.co/0sodjfr80k","trump's allies slam mitch mcconnell for congratulating biden https://t.co/ak9nu6420l via @mailonline. mitch, 75,000,000 votes, a record for a sitting president (by a lot). too soon to give up. republican party must finally learn to fight. people are angry!","“study: dominion machines shifted 2-3% of trump votes to biden. far more votes than needed to sway election.” florida, ohio, texas and many other states were won by even greater margins than projected. did just as well with swing states, but bad things happened. @oann","i have nothing to do with the potential prosecution of hunter biden, or the biden family. it is just more fake news. actually, i find it very sad to watch!","the lie of the year is that joe biden won! christina bobb @oann","“@newtgingrich pens op-ed on election saying he will not accept joe biden as president” @oann  newt gingrich gets it, we are going to win! https://t.co/pbhzo2llnu https://t.co/ug2hjceo9g","“a group of republican lawmakers in pennsylvania say 200,000 more votes were counted in the 2020 election than voters (100% went to biden). state representative frank ryan said they found troubling discrepancies after an analysis of election day data.” @foxnews this is far....","it is up to the states to distribute the vaccines once brought to the designated areas by the federal government. we have not only developed the vaccines, including putting up money to move the process along quickly, but gotten them to the states. biden failed with swine flu!","“barack obama was toppled from the top spot and president trump claimed the title of the year’s most admired man. trump number one, obama number two, and joe biden a very distant number three. that’s also rather odd given the fact that on november 3rd, biden allegedly racked up","only because biden got very few votes, just like the election! https://t.co/sniaj1i5hu","“georgia election data, just revealed, shows that over 17,000 votes illegally flipped from trump to biden.” @oann  this alone (there are many other irregularities) is enough to easily “swing georgia to trump”. #stopthesteal  @hawleymo @sentedcruz @jim_jordan","pleased to announce that @kloeffler &amp; @sendavidperdue have just joined our great #stopthesteal group of senators. they will fight the ridiculous electoral college certification of biden. how do you certify numbers that have now proven to be wrong and, in many cases, fraudulent!"]},"columns":[{"id":"tweet_lowercase","name":"tweet_lowercase","type":"character"}],"searchable":true,"striped":true,"dataKey":"3f46f862334b84abc2210dd715c7e240"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>(When you have multi-word phrases, be sure to put the whole thing in parentheses. Otherwise, it doesn’t know how to interpret it: It could be (biden|sleepy) joe, which wouldn’t match much! )</p>
+</section>
+<section id="keywords" class="level3">
+<h3 class="anchored" data-anchor-id="keywords">Keywords</h3>
+<p>Another way to look at these tweets is to look for signs of populism – words like “globalist” or “marxist”. Here’s one way to find a lot of them:</p>
+<p>There are two or or three parts to a regular expression:</p>
+<ol type="1">
+<li>The pattern you are trying to find.</li>
+<li>An optional replacement, which could use part of what you’ve found in the original seeking phase.</li>
+<li>Options - the big one in R is <code>negate=TRUE</code>, which means to match everything EXCEPT what is found.</li>
+</ol>
+<p>In practice, you’ll usually save the pieces of each pattern you’ve found into a variable, then put them back together differently.</p>
+<p>Here are two other good tutorials on regular expressions:</p>
+<ul>
+<li><p><a href="https://cronkitedata.s3.amazonaws.com/docs/meyer_regex.pdf">From Justin Meyer</a> at a recent IRE conference that can serve as a guide.<br>
+</p></li>
+<li><p><a href="https://cronkitedata.s3.amazonaws.com/docs/regex_for_rest_of_us.pdf">From Prof.&nbsp;Christian McDonald of UT-Austin</a></p></li>
+<li><p>If you’re using R, you can use a regex using the <code>stringr</code> package (part of the tidyverse) using the functions <em>str_detect</em> , <em>str_extract</em> and their cousins. They look like this:</p></li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="in">    str_detect(var_name, regex("pattern")) </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>The <a href="https://stringr.tidyverse.org/">vignette on the <code>stringr</code> package</a> in the Tidyverse is reasonably helpful.</li>
+</ul>
+</section>
+</section>
+<section id="types-of-regular-expression-patterns" class="level2" data-number="23.4">
+<h2 data-number="23.4" class="anchored" data-anchor-id="types-of-regular-expression-patterns"><span class="header-section-number">23.4</span> Types of regular expression patterns</h2>
+<section id="literal-strings" class="level3">
+<h3 class="anchored" data-anchor-id="literal-strings">Literal strings</h3>
+<p>These are just letters, like “abc” or “Mary”. They are case-sensitive and no different than using text in a filter.</p>
+<p>You can tell the regex that you want to find your pattern at the beginning or end of a line:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>  ^   = "Find only at the beginning of a line"</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  $   = "Find only at the end of a line"</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="wild-cards" class="level3">
+<h3 class="anchored" data-anchor-id="wild-cards">Wild cards</h3>
+<p>A wild card is a character you use to indicate the word “anything”. Here are some ways to use wild cards in regex:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="in">    .      = "any single character of any type"</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="in">    .?     = "a possible single character of any type (but it might not exist)"</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="in">    .*     = "anything or nothing of any length"</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="in">    .+     = "anything one or more times"</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="in">    .{1,3} = "anything running between 1 and 3 characters long"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Regular expressions also have wild cards of specific types. In R, they are “escaped” using two backslashes. In other languages and in the example <a href="https://regex101.com" class="uri">https://regex101.com</a> site they only use one backslash:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="in">      \\d   = "Any digit"</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="in">      \\w   = "Any word character"</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="in">      \\s   = "Any whitespace (tab, space, etc.)"</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="in">      \\b   = "Any word boundary" (period, comma, space, etc.)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>When you upper-case them, it’s the opposite:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="in">      \\D = "Anything but a digit"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="character-classes" class="level3">
+<h3 class="anchored" data-anchor-id="character-classes">Character classes</h3>
+<p>Sometimes you want to tell the regex what characters it is allowed to accept. For example, say you don’t know whether there is an alternative spelling for a name – you can tell the regex to either ignore a character, or take one of several.</p>
+<p>In R, we saw that there were alternative spellings for words like “summarize” – the British and the American spellings. You could, for example, use this pattern to pick up either spelling:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="in">        summari[sz]e</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The bracket tells the regex that it’s allowed to take either one of those characters. You can also use ranges:</p>
+<pre><code>  [a-zA-Z0-9]</code></pre>
+<p>means that any lower case, upper case or numeric character is allowed.</p>
+</section>
+<section id="escaping" class="level3">
+<h3 class="anchored" data-anchor-id="escaping">Escaping</h3>
+<p>Because they’re already being used for special purposes, some characters have to be “escaped” before you can search for them. Notably, they are parentheses (), periods, backslashes, dollar signs, question marks, dashes and carets.</p>
+<p>This means that to find a period or question mark, you have to use the pattern</p>
+<pre><code>    \\. or
+    \\?</code></pre>
+<p>In the Regex101, this is the biggest difference among the flavors of regex – Python generally requires the least amount of escaping.</p>
+</section>
+<section id="match-groups" class="level3">
+<h3 class="anchored" data-anchor-id="match-groups">Match groups</h3>
+<p>Use parentheses within a pattern to pick out pieces, which you can then use over again. The end of this chapter shows how to do this in R, which is a little complicated because we haven’t done much with <code>lists</code>.</p>
+</section>
+</section>
+<section id="sample-data-1" class="level2" data-number="23.5">
+<h2 data-number="23.5" class="anchored" data-anchor-id="sample-data-1"><span class="header-section-number">23.5</span> Sample data</h2>
+<p>Here are three small text files that you can copy and paste from your browser into the <a href="https://regex101.com/">regex101.com</a> site. It’s a site that lets you test out regular expressions, while explaining to you what’s happening with them.</p>
+<ol type="1">
+<li>A <a href="https://cronkitedata.s3.amazonaws.com/csv/regex_phones.txt">list of phone numbers</a> in different formats</li>
+<li>A <a href="https://cronkitedata.s3.amazonaws.com/csv/regex_dates.txt">list of dates</a> that you need to convert into a different form.</li>
+<li>A <a href="https://cronkitedata.s3.amazonaws.com/csv/regex_addresses.txt">list of addresses</a> that are in multiple lines, and you need to pull out the pieces. (Courtesy of IRE)</li>
+<li>A <a href="https://cronkitedata.s3.amazonaws.com/csv/regex_h2bvisas.txt">small chunk of the H2B visa applications</a> from Arizona companies or worksites that has been kind of messed up for this demonstration, in tab-delimited format.</li>
+</ol>
+</section>
+<section id="testing-and-examining-patterns-with-regex101" class="level2" data-number="23.6">
+<h2 data-number="23.6" class="anchored" data-anchor-id="testing-and-examining-patterns-with-regex101"><span class="header-section-number">23.6</span> Testing and examining patterns with Regex101</h2>
+<p><a href="https://regex101.com">Regex 101</a> is a website that lets you copy part of your data into a box, then test different patterns to see how they get applied. Regular expressions are very difficult to write and to read, but Regex101 lets you do it a little piece at a time. Just remember that every time you use ‘' in regex101, you will need’\` in R.</p>
+<section id="looking-for-specific-words-or-characters" class="level3">
+<h3 class="anchored" data-anchor-id="looking-for-specific-words-or-characters">Looking for specific words or characters</h3>
+<p>The easiest regex is one that has just the characters you’re looking for when you know that they are the right case. They’re called <em>literals</em> because you are literally looking for those letters or characters.</p>
+<p><img src="assets/images/advanced-regex1.png" class="img-fluid" style="width:100.0%"></p>
+</section>
+</section>
+<section id="practice-1-extract-date-parts" class="level2" data-number="23.7">
+<h2 data-number="23.7" class="anchored" data-anchor-id="practice-1-extract-date-parts"><span class="header-section-number">23.7</span> Practice #1: Extract date parts</h2>
+<p>In Regex 101, change the “Flavor” to “Python” – otherwise, you have to escape more of the characters.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>We want to turn dates that look like this:</p>
+<pre><code>  1/24/2018</code></pre>
+<p>into something that looks like this:</p>
+<pre><code> 2008-1-24</code></pre>
+<p>Copy and paste these numbers into the regex 101 window:</p>
+<pre><code>9/7/2017
+9/11/1998
+9/11/2017
+9/19/2018
+9/15/2017
+10/13/2019
+11/3/2017</code></pre>
+<p>First, you can use any digit using the pattern “. Try to do it in pieces. First, see if you can find one or two digits at the beginning of the line.</p>
+<pre><code>  ^\d{1,2}</code></pre>
+<p>Try coming up with the rest of it on your own before you type in the answer:</p>
+<pre><code>  ^\d{1,2}.\d{1,2}.\d{4}</code></pre>
+<p>(This works because regular expressions normally are “greedy”. That is, if you tell it “one or two digits”, it will always take two if they exist.)</p>
+<p>Put parentheses around any pieces that you want to use for later:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="assets/images/advanced-regex4.png" class="img-fluid figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Now each piece has its section, numbered 0 for the whole match, and then 1-3 for the pieces.</p>
+<p><img src="assets/images/advanced-regex3.png" class="img-fluid" style="width:100.0%"></p>
+</section>
+<section id="practice-2-extract-pieces-of-phone-numbers" class="level2" data-number="23.8">
+<h2 data-number="23.8" class="anchored" data-anchor-id="practice-2-extract-pieces-of-phone-numbers"><span class="header-section-number">23.8</span> Practice #2: Extract pieces of phone numbers</h2>
+<p>Here are some phone numbers in different formats:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="in">    623-374-1167</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="in">    760.352.5212</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="in">    831-676-3833</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="in">    (831)-676-3833</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="in">    623-374-1167 ext 203</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="in">    831-775-0370</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="in">    (602)-955-0222  x20</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="in">    928-627-8080</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="in">    831-784-1453</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This is a little more complicated than it looks, so try piecing together what this one says:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="in">      (\d{3})[-.\)]+(\d{3})[-.]+(\d{4})</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>(This won’t work in the “substitute” area – it would be easier to create a new variable with the results than to replace the originals.)</p>
+<p>Anything within parentheses will be “captured” in a block.</p>
+</section>
+<section id="practice-3-extract-address-pieces" class="level2" data-number="23.9">
+<h2 data-number="23.9" class="anchored" data-anchor-id="practice-3-extract-address-pieces"><span class="header-section-number">23.9</span> Practice #3: Extract address pieces</h2>
+<p>Here are a few lines of the data from <a href="https://cronkitedata.s3.amazonaws.com/docs/regex_for_rest_of_us.pdf">Prof.&nbsp;McDonald’s tutorial</a>, which you can copy and paste to go his exercise. (He uses the Javascript version of regular expressions, but for our purposes in this exercise, it doesn’t matter which one you use. If you choose Python, you’ll have one extra step, of putting a slash () before the quotes. The colors work a little better if you leave it on the default PHP method.)</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="in">    "10111 N LAMAR BLVD</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="in">    AUSTIN, TX 78753</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="in">    (30.370945933000485, -97.6925542359997)"</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="in">    "3636 N FM 620 RD</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="in">    AUSTIN, TX 78734</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="in">    (30.377873241000486, -97.9523496219997)"</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="in">    "9919 SERVICE AVE</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="in">    AUSTIN, TX 78743</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="in">    (30.205028616000448, -97.6625588019997)"</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="in">    "10601 N LAMAR BLVD</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="in">    AUSTIN, TX 78753</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="in">    (30.37476574700048, -97.6903937089997)"</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="in">    "801 E WILLIAM CANNON DR Unit 205</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="in">    AUSTIN, TX 78745</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="in">    (30.190914575000477, -97.77193838799968)"</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="in">    "4408 LONG CHAMP DR</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="in">    AUSTIN, TX 78746</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="in">    (30.340981111000474, -97.7983147919997)"</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="in">    "625 W BEN WHITE BLVD EB</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="in">    AUSTIN, TX 78745</span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="in">    (30.206884239000487, -97.7956469989997)"</span></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a><span class="in">    "3914 N LAMAR BLVD</span></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a><span class="in">    AUSTIN, TX 78756</span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a><span class="in">    (30.307477098000447, -97.74169675199965)"</span></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a><span class="in">    "15201 FALCON HEAD BLVD</span></span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a><span class="in">    BEE CAVE, TX 78738</span></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a><span class="in">    (30.32068282700044, -97.96890311999965)"</span></span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a><span class="in">    "11905 FM 2244 RD Unit 100</span></span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a><span class="in">    BEE CAVE, TX 78738</span></span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a><span class="in">    (30.308363203000454, -97.92393357799966)"</span></span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a><span class="in">    "3801 JUNIPER TRCE</span></span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a><span class="in">    BEE CAVE, TX 78738</span></span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a><span class="in">    (30.308247975000484, -97.93511531999968)"</span></span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a><span class="in">    "12800 GALLERIA CIR Unit 101</span></span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a><span class="in">    BEE CAVE, TX 78738</span></span>
+<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a><span class="in">    (30.307996778000472, -97.94065088199966)"</span></span>
+<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a><span class="in">    "12400 W SH 71 Unit 510</span></span>
+<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a><span class="in">    BEE CAVE, TX 78733</span></span>
+<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a><span class="in">    (30.330682136000462, -97.86979886299969)"</span></span>
+<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a><span class="in">    "716 W 6TH ST</span></span>
+<span id="cb20-41"><a href="#cb20-41" aria-hidden="true" tabindex="-1"></a><span class="in">    AUSTIN, TX 78701</span></span>
+<span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a><span class="in">    (30.27019732500048, -97.75036306299967)"</span></span>
+<span id="cb20-43"><a href="#cb20-43" aria-hidden="true" tabindex="-1"></a><span class="in">    "3003 BEE CAVES RD</span></span>
+<span id="cb20-44"><a href="#cb20-44" aria-hidden="true" tabindex="-1"></a><span class="in">    ROLLINGWOOD, TX 78746</span></span>
+<span id="cb20-45"><a href="#cb20-45" aria-hidden="true" tabindex="-1"></a><span class="in">    (30.271592738000436, -97.79583786499967)"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="on-your-own" class="level2" data-number="23.10">
+<h2 data-number="23.10" class="anchored" data-anchor-id="on-your-own"><span class="header-section-number">23.10</span> On your own</h2>
+<p><a href="https://cronkitedata.s3.amazonaws.com/csv/regex_h2bvisas.txt">This is a small list of H2A visa applications</a>, which are requests for agricultural and seasonal workers, from companies or worksites in Arizona. Try importing it into Excel, then copying some of the cells to practice your regular expression skills.</p>
+<p>You might try:</p>
+<ul>
+<li>Finding all of the LLC’s in the list (limited liability companies) of names. (You should turn on the case-insensitive flag in Regex 101 or set that flag in your program if you do.)</li>
+<li>See how far you can get in standardizing the addresses.</li>
+<li>Split the city, state and zip code of the worksite.</li>
+<li>Find all of the jobs related to field crops such as lettuce or celery.</li>
+</ul>
+
+
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Yes, we might care about the case, isolating places where Trump uses all-caps. But for now let’s deal with the substance of the tweets.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Each language implements regular expressions slightly differently – when you begin to learn more languages, this will be one of the first things you’ll need to look up.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation column-body">
+  <div class="nav-page nav-page-previous">
+      <a href="./advanced-regex.html" class="pagination-link  aria-label=" &lt;span="" expressions="" part="" i&lt;="" span&gt;"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Regular expressions Part I</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./advanced-scrape1.html" class="pagination-link" aria-label="<span class='chapter-number'>24</span>&nbsp; <span class='chapter-title'>Scraping without programming</span>">
+        <span class="nav-page-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Scraping without programming</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Data reporting for investigative journalism, Spring 2024, written by Sarah Cohen</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Produced with <a href="https://quarto.org">Quarto</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
