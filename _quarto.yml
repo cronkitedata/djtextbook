@@ -59,25 +59,27 @@ book:
          - r-verb-groupby.qmd
          - r-groupby-skittles.qmd
          - r-verb-join.qmd
-#         - advanced-regex.qmd
-#         - advanced-regex-r.qmd
          - r-recipes.qmd
 
-#    - part: vis.qmd
-#      chapters:
-#         - vis-reporting.qmd
-#         - vis-tables.qmd
+      - part: advanced.qmd
+        chapters:
+         - advanced-regex.qmd
+         - advanced-regex-r.qmd
+#         - advanced-pdf.qmd
+#         - advanced-openrefine.qmd
+#         - advanced-scrape1.qmd
+#         - advanced-scrape2.qmd
+
+
+       - part: vis.qmd
+         chapters:
+          - vis-reporting.qmd
+          - vis-tables.qmd
 #         - vis-demo.qmd
 #         - vis-practice.qmd
 #         - vis-maps-begin.qmd
 #         - vis-maps-firstmap.qmd
 
-#    - part: advanced.qmd
-#      chapters:
-#         - advanced-pdf.qmd
-#         - advanced-openrefine.qmd
-#         - advanced-scrape1.qmd
-#         - advanced-scrape2.qmd
 #
   appendices:
    - appendix-math.qmd

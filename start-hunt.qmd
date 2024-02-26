@@ -49,8 +49,8 @@ A big part of data reporting is finding, creating or acquiring records you can u
 
 Some sources of readily available data could include:
 
-* Government agencies and open government sites
-* Hobbyists and interest groups
+* Government agencies and open government sites. 
+* Hobbyists and interest groups.  
 * Data aggregators and data collectors
 * Academic researchers who might share their data
 * Microdata from surveys and some government programs, such as the Census, Medicare, the General Social Survey and several other standard sites. 
@@ -75,6 +75,10 @@ When you search using Google, try to use the advanced commands to more precisely
 ### Government agency sites
 
 Try to guess what government agencies -- state, local and federal -- have an interest in your topic. Browse through their websites to find "Publications" or "Data and research", or any searchable database. You'll often find downloadable data there. Once you learn more, you can also evaluate how hard it will be to scrape the data you want. Don't limit yourself to the jurisdications you care about. If one city or state has a good dataset, there is a strong chance that your local government will have the same thing.
+
+Most agencies and local governments have sites they consider "open government" sites -- these are least common denominators of data that they WANT the public to have. But they're often good starting points. Phoenix, for example, has basic information about police operations in its open site.  Simply Googling the agency or jurisdiction name with "open data" will usually find these. 
+
+In addition, look for map data from agencies. These often send you to a company called ESRI, which produces interactive maps for government. If it's on the ESRI site, you can request the underlying data. 
 
 Look at federal agency sites to find a least common denominator database -- they are usually compiled from more detailed state or local reports.
 
@@ -113,9 +117,9 @@ Another good way to use interest groups and think tanks is to get initial versio
 
 Sometimes, gathering the Tweets from advocates can provide a rich dataset, and it's relatively easy to do. For example, I once used the Twitter posts from the Police Misconduct project out of the Cato Institute to get a list of all of the stories they'd compiled on the topic.
 
-### Data collectors
+### Data collectors and hobbyists.
 
-Several sites are trying to make businesses out of collected and maintaining databases. Others make available data that they have collected in the past.
+Several sites are trying to make businesses out of collected and maintaining databases. Others make available data that they have collected in the past. Two common examples of these are <kaggle.com> and the R "tidy Tuesdsay" competition. These are often old data and have not been authenticated or checked. They exist for data scientists to practice their techniques. But they can give you good ideas. 
 
 Be sure to look at the original source for any data you find there. You wouldn't say a news article came from Google News or Lexis, and you wouldn't say a dataset came from Google Data Search. If it's not documented at all, you might have to contact the owner for more detail.
 

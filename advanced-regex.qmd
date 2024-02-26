@@ -1,113 +1,103 @@
 # Regular Expressions for pattern matching {#advanced-regex} 
 
-*Regular expressions* are used to find and replace text based on *patterns* rather than *characters*. They're particularly useful when trying to pull apart and standardize variables in a database such as names, phone numbers and addresses to make grouping and joining more effective.
+This is the beginning of a two-chapter subsection on working with text values. This chapter introduces you to the concept of **regular expressions** or **pattern matching**. The next chapter introduces you to the `stringr` library, which is part of the tidyverse, as a way to examine and work with character data, including the use of regular expressions in R. 
 
-A human can easily discern that the name *John W. Smith, Jr.*  and *Smith, John W Jr* are probably the same. A computer sees them as completely different -- they don't start with the same characters, they have commas in different places, etc. A regular expression can help you pull apart names based on their pieces and then put them back together in another form.
+In computer-ese, "strings" are character values, which can be as simple as a single letter to an entire document or book. There is no limit on what a string can contain -- letters, numbers, punctuation, special characters, and even emojis.  Anything that has an equivalent on your keyboard is considered a character, and any combination of characters is considered a string.  (This means that images are NOT strings per se, but numbers are.)
 
-There are two or or three parts to a regular expression:   
+A regular expression searches strings for patterns rather than exact characters. Examples include: 
 
-1. The pattern you are trying to find.
-2. An optional replacement, which could use part of what you've found in the original seeking phase.
-3. Options - the big one in R is `negate=TRUE`, which means to match everything EXCEPT what is found.
+* Extracting a phone number or date from a longer string. 
+* Finding phrase variations when you aren't sure what they might look like. 
+* Isolating the first word of a sentence or phrase
+* Finding the city and zip code from an address
 
-In practice, you'll usually save the pieces of each pattern you've found into a variable, then put them back together differently.
+Regular expressions are hard to write and to read, but if you get relatively good at them, you will have a new super power. 
 
-Here are two other good tutorials on regular expressions: 
+::: callout-tip
+
+Two other good tip sheets on regular expressions are: 
 
 * [From Justin Meyer](https://cronkitedata.s3.amazonaws.com/docs/meyer_regex.pdf) at a recent IRE conference that can serve as a guide.  
-* [From Prof. Christian McDonald of UT-Austin](https://cronkitedata.s3.amazonaws.com/docs/regex_for_rest_of_us.pdf)
+* [From Prof. Christian McDonald of UT-Austin](https://cronkitedata.s3.amazonaws.com/docs/regex_for_rest_of_us.pdf). Some of the examples here are drawn from Prof. McDonald's tip sheet.
 
-* If you're using R, you can use a regex using the `stringr` package (part of the tidyverse) using the functions *str_detect* , *str_extract* and their cousins. They look like this:  
+::: 
 
-```markdown
-    str_detect(var_name, regex("pattern")) 
-````
+### Sample data
 
-* The [vignette on the `stringr` package](https://stringr.tidyverse.org/) in the Tidyverse is reasonably helpful. 
+The following sample data will be used in this lesson: 
 
-## Types of regular expression patterns
+1. A [list of phone numbers](https://cronkitedata.s3.amazonaws.com/csv/regex_phones.txt) in different formats
+2. A [list of addresses](https://cronkitedata.s3.amazonaws.com/csv/regex_addresses.txt) that are in multiple lines, and you need to pull out the pieces. (Courtesy of Prof. McDonald through IRE)
+
+
+## Building blocks of regular expressions
+
 
 ### Literal strings
 
-These are just letters, like "abc" or "Mary". They are case-sensitive and no different than using text in a filter.
+These are just letters, words or precise phrases like "abc" or "Mary". They are case-sensitive by default. 
 
-You can tell the regex that you want to find your pattern at the beginning or end of a line:
+Some characters are used as pointers in regular expressions and have to be "escaped". Two of the most common of these are periods (.) , question marks (?), and parentheses, which have to be searched using `\.`  , `\?` or `\(`
 
-```markdown
+### Start or end with...
+
+``` markdown
+
   ^   = "Find only at the beginning of a line"
   $   = "Find only at the end of a line"
+
 ```
 
-### Wild cards
+
+
+### Wild cards and quantifiers
 
 A wild card is a character you use to indicate the word "anything". Here are some ways to use wild cards in regex:
 
 ```markdown
-    .      = "any single character of any type"
+     .      = "any single character of any type"
     .?     = "a possible single character of any type (but it might not exist)"
-    .*     = "anything or nothing of any length"
-    .+     = "anything one or more times"
+    .*     = "anything or nothing of any length" - equivalent to the "%" in str_like()
+    .+     = "anything one or more times" 
     .{1,3} = "anything running between 1 and 3 characters long"
 ```
 
-Regular expressions also have wild cards of specific types. In R, they are "escaped" using two backslashes. In other languages and in the example <https://regex101.com> site they only use one backslash:
+Regular expressions also have wild cards of specific types. These are called "character classes" and are often what makes regular expressions so powerful. 
 
 ```markdown
-      \\d   = "Any digit"
-      \\w   = "Any word character"
-      \\s   = "Any whitespace (tab, space, etc.)"
-      \\b   = "Any word boundary" (period, comma, space, etc.)
+
+      \d   = "Any digit"
+      \w   = "Any word character"
+      \s   = "Any whitespace (tab, space, etc.)"
+      \b   = "Any word boundary" (period, comma, space, etc.)
+
 ```
 
-When you upper-case them, it's the opposite:
+These can be negated by upper-casing them. For example '\D' means anything EXCEPT a digit.
+
+You can define your own character classes by enclosing them in brackets: `[]`. One common character class is `[A-Z]`, which means any upper case letter from A to Z.  The equivalent of the `\w` character class is `[A-Za-z0-9_]`, which means, any upper or lowercase letter, any numeral or an underscore.
+
+This can be particularly useful in searching for alternative spellings or abbreviations. 
+
+### Alternation and precedence
+
+"Alternation" is a fancy way of saying "either or", and "precedence" is a fancy way of saying "this before that". They often go together in regular expressions. 
 
 ```markdown
-      \\D = "Anything but a digit"
-```
-### Character classes
 
-Sometimes you want to tell the regex what characters it is allowed to accept. For example, say you don't know whether there is an alternative spelling for a name -- you can tell the regex to either ignore a character, or take one of several.
+   |  = Alternation, or "OR"
+   () = precendence (and grouping) operators
 
-In R, we saw that there were alternative spellings for words like "summarize" -- the British and the American spellings. You could, for example, use this pattern to pick up either spelling:
-
-```markdown
-        summari[sz]e
 ```
 
-The bracket tells the regex that it's allowed to take either one of those characters. You can also use ranges:
+It's easy to use alternation when it's a simple word or phrase. But usually, it's a little more complex and you have to tell the regex what portion of the pattern is the either-or. An example is looking for a year. `19|20\d\d`  won't work -- it gets either 19, or 20xx. Instead, `(19|20)\d\d` will give you the full year. 
 
-      [a-zA-Z0-9]
-
-means that any lower case, upper case or numeric character is allowed.
-
-### Escaping
-
-Because they're already being used for special purposes, some characters have to be "escaped" before you can search for them. Notably, they are parentheses (), periods, backslashes, dollar signs, question marks, dashes and carets.
-
-This means that to find a period or question mark, you have to use the pattern
-
-        \\. or
-        \\?
-
-In the Regex101, this is the biggest difference among the flavors of regex -- Python generally requires the least amount of escaping.
-
-### Match groups
-
-Use parentheses within a pattern to pick out pieces, which you can then use over again. The end of this chapter shows how to do this in R, which is a little complicated because we haven't done much with `lists`. 
-
-
-## Sample data
-
-Here are three small text files that you can copy and paste from your browser into the [regex101.com](https://regex101.com/) site. It's a site that lets you test out regular expressions, while explaining to you what's happening with them.
-
-1. A [list of phone numbers](https://cronkitedata.s3.amazonaws.com/csv/regex_phones.txt) in different formats
-2. A [list of dates](https://cronkitedata.s3.amazonaws.com/csv/regex_dates.txt) that you need to convert into a different form.
-3. A [list of addresses](https://cronkitedata.s3.amazonaws.com/csv/regex_addresses.txt) that are in multiple lines, and you need to pull out the pieces. (Courtesy of IRE)
-4. A [small chunk of the H2B visa applications](https://cronkitedata.s3.amazonaws.com/csv/regex_h2bvisas.txt) from Arizona companies or worksites that has been kind of messed up for this demonstration, in tab-delimited format.
+Parentheses are also used for "capture groups", which lets you re-use what you found later on, such as replacing part but not all of a string. 
+ 
 
 ## Testing and examining patterns with Regex101 
 
-[Regex 101](https://regex101.com) is a website that lets you copy part of your data into a box, then test different patterns to see how they get applied. Regular expressions are very difficult to write and to read, but Regex101 lets you do it a little piece at a time. Just remember that every time you use '\' in regex101, you will need '\\` in R. 
+[Regex 101](https://regex101.com) is a website that lets you copy part of your data into a box, then test different patterns to see how they get applied. Regular expressions are very difficult to write and to read, but Regex101 lets you do it a little piece at a time.  
 
 ### Looking for specific words or characters
 
@@ -119,13 +109,7 @@ The easiest regex is one that has just the characters  you're looking for when y
 
 In Regex 101, change the "Flavor" to "Python" -- otherwise, you have to escape more of the characters.^[Each language implements regular expressions slightly differently -- when you begin to learn more languages, this will be one of the first things you'll need to look up.]
 
-We want to turn dates that look like this:
-
-      1/24/2018
-
-into something that looks like this:
-
-     2008-1-24
+If you think about it, figuring out the pieces of American-style dates can be difficult: The year is at the end, and there's no leading zeroes in front of the month and year. This part of the lesson will show you how to isolate pieces of dates using regular expressions.
 
 Copy and paste these numbers into the regex 101 window:
 
@@ -137,28 +121,43 @@ Copy and paste these numbers into the regex 101 window:
     10/13/2019
     11/3/2017
 
-First, you can use any digit using the pattern "\d". Try to do it in pieces. First, see if you can find one or two digits at the beginning of the line.
+#### Get the year
 
-      ^\d{1,2}
 
+::: callout-dothis
+
+Try to think of three ways to isolate the year. They might include words begining with "19" or "20", or the last four characters of the string, or four digits after a slash. 
+
+::: 
+
+Possible answers: 
+
+```markup
+\d{4}
+\d+$
+\d\d\d\d
+[0-9]*$
+(19|20)\d\d
+
+``` 
+Examine the output in the regex101 window to see how it found (or didn't find!) your year. 
+
+#### Using capture groups to rearrange the dates
+
+Using capture groups in parentheses, try to isolate each of the pieces of the date. Then click on the menu bar to open the substitution section. Here, you'll see how to isolate pieces of the date, then rearrange it into year-month-day. (It's still not great - you'd need to do some more munging to add a leading zero to the month and day, but for now this is good practice. )
+ 
 Try coming up with the rest of it on your own before you type in the answer:
 
-      ^\d{1,2}.\d{1,2}.\d{4}
-
-(This works because regular expressions normally are "greedy". That is, if you tell it "one or two digits", it will always take two if they exist.)
-
-Put parentheses around any pieces that you want to use for later:
-
-```{r advanced-regex-image4, out.width='80%', echo=FALSE}
-
-knitr::include_graphics("assets/images/advanced-regex4.png")
+      (\d+)\W(\d+)\W(\d+)
 
 
-```
+![](assets/images/advanced-regex2.png)
 
 Now each piece has its section, numbered 0 for the whole match, and then 1-3 for the pieces.
 
-![](assets/images/advanced-regex3.png){width=100%}
+![](assets/images/advanced-regex5.png){width=100%}
+
+
 
 ## Practice #2: Extract pieces of phone numbers
 
@@ -237,25 +236,3 @@ Here are a few lines of the data from [Prof. McDonald's tutorial](https://cronki
     ROLLINGWOOD, TX 78746
     (30.271592738000436, -97.79583786499967)"
 ```
-
-## On your own
-
-[This is a small list of H2A visa applications](https://cronkitedata.s3.amazonaws.com/csv/regex_h2bvisas.txt), which are requests for agricultural and seasonal workers, from companies or worksites in Arizona. Try importing it into Excel, then copying some of the cells to practice your regular expression skills.
-
-You might try:
-
-* Finding all of the LLC's in the list (limited liability companies) of names. (You should turn on the case-insensitive flag in Regex 101 or set that flag in your program if you do.)
-* See how far you can get in standardizing the addresses.
-* Split the city, state and zip code of the worksite.
-* Find all of the jobs related to field crops such as lettuce or celery.
-
-
-
-
-
-
-
-
-
-
-

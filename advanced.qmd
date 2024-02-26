@@ -1,7 +1,20 @@
-# Special skills {.-}
+#  Advanced topics {-}
 
+Congratulations! You've made it through the key elements of the R programming language used in data reporting. 
 
-# Introduction { #advanced-intro .unnumbered}
+So far, you've been shielded from some of the more difficult concepts in data reporting -- how to analyze text, more complicated data structures such as lists, or even how the internet works. 
 
-This section includes miscellaneous tutorials for special skills, ranging from simple scraping to understanding regular expressions. 
+These sections are designed to introduce you to these topics without in a short amount of time without a lot of depth. Consider this section more of a menu of topics that you would use as your next step in data analysis. 
+
+## More complicated data structures
+
+The previous chapters all dealt with data that comes in data frames, or tibbles, much like a spreadsheet. You had a small introduction to the idea of vectors (lists) at the beginning, but we haven't really focused on these. 
+
+Now you'll have to think more about data structures. Technically, a data frame is a list of lists -- the rows make up the first list, and the columns the second. Why do you have to know this? Scraping data, in particular, relies on working with lists. They're difficult -- I have a really hard time dealing with them in the most efficient way. 
+
+I'll introduce you to some lists in the first secion on regular expressions, just to get you used to the idea that not everything comes in data frames. When you get to scraping and extracting data from APIs like the Census, it will become more important. 
+
+## Practice data
+
+Our PPP data isn't great for some of the practice in these chapters. I'll introduce some other data sets, but their content isn't as important as it was in the last section -- they're only there to show you examples without trying to make specific claims about the data. 
 
