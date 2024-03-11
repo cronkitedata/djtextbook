@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data Reporting - 24&nbsp; Scraping without programming</title>
+<title>Data Reporting - 26&nbsp; Visualization exercise</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +64,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./advanced-scrape2.html" rel="next">
-<link href="./advanced-regex-r.html" rel="prev">
+<link href="./vis-maps-begin.html" rel="next">
+<link href="./vis-demo.html" rel="prev">
 <link href="./assets/images/favicon.ico" rel="icon">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -103,6 +103,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
 
 
 </head>
@@ -116,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./advanced.html">Advanced topics</a></li><li class="breadcrumb-item"><a href="./advanced-scrape1.html"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Scraping without programming</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./vis.html">Visualization</a></li><li class="breadcrumb-item"><a href="./vis-practice.html"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Visualization exercise</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -316,33 +318,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./advanced.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Advanced topics</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./advanced-regex.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Regular expressions Part I</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./advanced-regex-r.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Inexact matching and regular expressions in R</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./advanced-scrape1.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Scraping without programming</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./advanced-scrape2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Introduction to scraping in R</span></span></a>
   </div>
 </li>
       </ul>
@@ -351,33 +335,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./vis.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Visualization</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-reporting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Visualization as a reporting tool</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Visualization as a reporting tool</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-tables.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Report-making in R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Report-making in R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vis-demo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Visualization demo</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vis-practice.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Visualization exercise</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-maps-begin.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Mapping: An introduction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Mapping: An introduction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./vis-maps-firstmap.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">The first map</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">The first map</span></span></a>
   </div>
 </li>
       </ul>
@@ -421,23 +417,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">In this chapter:</h2>
    
   <ul>
-  <li><a href="#where-reporters-get-data" id="toc-where-reporters-get-data" class="nav-link active" data-scroll-target="#where-reporters-get-data"><span class="header-section-number">24.1</span> Where reporters get data</a></li>
-  <li><a href="#a-json-miracle-walkthrough" id="toc-a-json-miracle-walkthrough" class="nav-link" data-scroll-target="#a-json-miracle-walkthrough"><span class="header-section-number">24.2</span> A json miracle walkthrough</a>
+  <li><a href="#the-data" id="toc-the-data" class="nav-link active" data-scroll-target="#the-data"><span class="header-section-number">26.1</span> The data</a>
   <ul class="collapse">
-  <li><a href="#a-harder-example" id="toc-a-harder-example" class="nav-link" data-scroll-target="#a-harder-example">A harder example</a></li>
-  <li><a href="#an-even-harder-example" id="toc-an-even-harder-example" class="nav-link" data-scroll-target="#an-even-harder-example">An even harder example</a></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
   </ul></li>
-  <li><a href="#no-json-no-problem-maybe" id="toc-no-json-no-problem-maybe" class="nav-link" data-scroll-target="#no-json-no-problem-maybe"><span class="header-section-number">24.3</span> No json? No problem (maybe)</a></li>
-  <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap"><span class="header-section-number">24.4</span> Recap</a></li>
+  <li><a href="#your-turn" id="toc-your-turn" class="nav-link" data-scroll-target="#your-turn"><span class="header-section-number">26.2</span> Your turn</a>
+  <ul class="collapse">
+  <li><a href="#common-geoms" id="toc-common-geoms" class="nav-link" data-scroll-target="#common-geoms">Common “geoms”</a></li>
+  </ul></li>
+  <li><a href="#one-quick-plot" id="toc-one-quick-plot" class="nav-link" data-scroll-target="#one-quick-plot"><span class="header-section-number">26.3</span> One quick plot</a>
+  <ul class="collapse">
+  <li><a href="#other-sources-to-learn-about-ggplot" id="toc-other-sources-to-learn-about-ggplot" class="nav-link" data-scroll-target="#other-sources-to-learn-about-ggplot">Other sources to learn about ggplot</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content column-body" id="quarto-document-content">
+<main class="content page-columns page-full column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./advanced.html">Advanced topics</a></li><li class="breadcrumb-item"><a href="./advanced-scrape1.html"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Scraping without programming</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./vis.html">Visualization</a></li><li class="breadcrumb-item"><a href="./vis-practice.html"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Visualization exercise</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="advanced-scrape1" class="quarto-section-identifier"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Scraping without programming</span></span></h1>
+<h1 class="title"><span id="vis-practice" class="quarto-section-identifier"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Visualization exercise</span></span></h1>
 </div>
 
 
@@ -454,192 +454,149 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This book will introduce scraping websites in three sections.</p>
-<p>This section contains the vocabulary you need and strategies to avoid scraping altogether by finding data already on your computer and using Google Sheets for simple lists.</p>
-<p>The next chapter reviews how t o pick apart a page using the R library <code>rvest</code>, which is used to parse web pages.</p>
-<p>The last chapter shows you how to programmatically walk through a lot of pages to recompile a more detailed or larger dataset.</p>
-<section id="where-reporters-get-data" class="level2" data-number="24.1">
-<h2 data-number="24.1" class="anchored" data-anchor-id="where-reporters-get-data"><span class="header-section-number">24.1</span> Where reporters get data</h2>
-<p>Reporters can get data from people, using FOIA, asking nicely or by finding a whistleblower to leak it. But we often also get data from publicly published sources, usually on the web.</p>
-<p>There are three ways to get data from the web:</p>
+<p>You saw an example of building a visualization from start to finish in the last chapter. Here, though, we’re going to start from scratch – envisioning what kind of vis might be interesting and then trying to create it. It combines your ability to wrangle data with your imagination, and then we’ll work together to get it done.</p>
+<div class="alert alert-secondary">
+<div class="alert-heading font-weight-bolder fs-3">
+<p>In this chapter:</p>
+</div>
 <ul>
-<li><p>Download it, or use an API<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. In these cases, the makers of the data have specifically offered it up for your use in a useful format. We’ll cover API’s later, but don’t forget to study the site for a download link or option. If there isn’t one on a government site, you might call the agency and ask that they add one. They might just do it. We’ve been using downloadable data throughout this book.</p></li>
-<li><p>Find it on your browser. Often the person making the website delivers structured data to your browser as a convenience. It’s easier for them to make interactive items on their page by using data they’ve already delivered in visualizations and tables. It also reduces the loads on their servers. These are usually in JSON format. You might be able to find it right on your computer. It’s a miracle!</p></li>
-<li><p>Scrape it. This set of chapters goes over how to scrape content that is delivered in HTML form – a web page. There would be other methods to scrape PDFs, which can be easy or hard.</p></li>
+<li>Load and wrangle a new version of the Hot 100 data</li>
+<li>Draw on a piece of paper the visualization you might want to create</li>
+<li>Wrangle the data to make it possible</li>
+<li>Try to create the visualizatin, either static or interactive.</li>
 </ul>
+</div>
+<p>There are a lot of extra add-ons to the standard <code>ggplot</code> library that comes with the tidyverse, so you may end up having to load them to do what you want.</p>
+<section id="the-data" class="level2" data-number="26.1">
+<h2 data-number="26.1" class="anchored" data-anchor-id="the-data"><span class="header-section-number">26.1</span> The data</h2>
+<p>We saw the Hot 100 data at the very beginning of your exploration of R. We’re going to use a slightly different version of it to create the visualizations because an older version was matched to the Spotify database to extract certain information from each of the songs.</p>
+<p>This data was used as a <a href="https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-09-14/readme.md">TidyTuesday dataset in 2021</a> (scroll down to get the data dictionaries), so it’s a little older than the one we worked on earlier.</p>
+<p>This data has two tables:</p>
+<ol type="1">
+<li>The Hot 100 from mid-1958 to mid-2021: <a href="https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-09-14/billboard.csv" class="uri">https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-09-14/billboard.csv</a></li>
+<li>For any songs that are in Spotify, the characteristicso of the song: <a href="https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-09-14/audio-features.csv" class="uri">https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-09-14/audio-features.csv</a></li>
+</ol>
+<p>The dada dictionary shows the characteristics from the Spotify songs, but it’s a little easier to understand if you take a look at Juan De Dios Santos’ post, asking: “Is my Spotify music boring? An analysis involving music, data, and machine learning”[https://towardsdatascience.com/is-my-spotify-music-boring-an-analysis-involving-music-data-and-machine-learning-47550ae931de]</p>
+<section id="examples" class="level3">
+<h3 class="anchored" data-anchor-id="examples">Examples</h3>
+<p>All of these examples were made with a the version of R and the tidyverse that was used in 2021, so you’ll see a few things in the code that are different, notably the use of <code>%&gt;%</code> instead of <code>|&gt;</code> as the pipe. They are either R scripts (.R extension) or R Markdown (.Rmd extension) , which is the predecessor to Quarto.</p>
+<section id="tidytuesday-videos" class="level4">
+<h4 class="anchored" data-anchor-id="tidytuesday-videos">TidyTuesday videos</h4>
+<p><a href="https://en.wikipedia.org/wiki/David_G._Robinson_(data_scientist)">David Robinson</a>, a data scientist at Heap, often creates live demos of his exploration of TidyTuesday datasets – data he’s never seen before. They’re long (usually about an hour), but you can watch him decide what to do and how to do it live. <a href="https://www.youtube.com/live/bXrUhGzUhXE?feature=share">He made this video</a> for the Hot 100 data. (The second half gets into machine learning / AI to make predictions – skip that part if you watch the video).</p>
+<p>Here are a few screen shots from that video – they’re closer to our exploratory visualization than the polished ones below;</p>
 </section>
-<section id="a-json-miracle-walkthrough" class="level2" data-number="24.2">
-<h2 data-number="24.2" class="anchored" data-anchor-id="a-json-miracle-walkthrough"><span class="header-section-number">24.2</span> A json miracle walkthrough</h2>
-<p>This walkthrough shows you how to find some json in your browser. Use the Chrome browser for this - Firefox and Safari also have similar features, but they look different.</p>
-<p><a href="https://cronkitedata.s3.amazonaws.com/docs/simple-page.html">Here is a simple page</a> that will show you what the json looks like and how to extract it. This is what a human sees:</p>
-<p><img src="assets/images/advanced-scrape1-human.png" class="img-fluid" style="width:100.0%"></p>
-<p>The table of presidents is actually produced using a small javascript program inside the HTML that walks through each item and lists it as a row.</p>
-<ul>
-<li><p>Open the page in Chrome, then right-click anywhere on the page and choose “Inspect”. It may appear as just two items - the “head” and the “body”. But notice the little arrows - they show you that there is more content underneath. For now, we’ll ignore this, but it will be important later.</p></li>
-<li><p>Choose the Network tab, then re-load the page.</p></li>
-</ul>
+<section id="visualizing-characteristics" class="level4">
+<h4 class="anchored" data-anchor-id="visualizing-characteristics">Visualizing characteristics</h4>
+<p>These are really polished, publication-quality vis examples made in R, but you can take inspiration from these to do draft versions for the purpose of exploration.</p>
+<p><a href="https://laurencehorton.github.io/billboard-top-100/">Laurence Horton</a> did a few quick charts to look at the Spotify characteristics.</p>
+<p><a href="https://lauranavarroviz.wordpress.com/tag/tidytuesday-2/">Laura Navarro</a>shows us what [annotation can do for a chart]((https://github.com/lau-cloud/TidyTuesdaycode/blob/master/Billboard/script.R) . I’m super surprised at the relatively low showing of hip hop, but …</p>
+<p><img src="assets/images/vis-practice-navarro-genres.png" class="img-fluid"></p>
+<p><a href="https://blog.djnavarro.net/posts/2021-09-14_tidy-tuesday-billboard/">Danielle Navarro</a> wrote a full tutorial aimed at beginners in R , walking through the data to find and visualize all of Britney Spears’ hits. It has the added feature of explaining how to find her using regular expressions! (Yes, they’re both people named Navarro. I don’t know if they’re the same person.)</p>
+<p>And <a href="https://tamayoleivaj.com/gallery/">Javier Tamayo-Leiva</a> went a little crazy with colors but found an interesting way to visualize the top hits using two dimensions: Number of weeks at No.&nbsp;1 and the “energy” of the song. <a href="https://github.com/TamayoLeivaJ/TidyTuesday/blob/gh-pages/2021/2021_Week_038/2021_Week_038.R">Here is the R code for that chart.</a></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="assets/images/advanced-scrape1-inspect.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption>inspect network</figcaption>
+<p><img src="assets/images/vis-practice-tamayoLeivaJ.png" class="img-fluid figure-img"></p>
+<figcaption>hot100</figcaption>
 </figure>
 </div>
-<p>This shows you everything that the browser is attempting to load into your browser. (You may not see the “favicon” item. I have no idea why it’s showing up on mine - it’s not been requested!)</p>
-<p>You can ignore most of this. Importantly, the “simple-page.html” is the actual page, and the “simple.json” is the data! Click on the simple.json row, then choose the “Response” tab:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/advanced-scrape1-simplejson.png" class="img-fluid figure-img" style="width:80.0%"></p>
-<figcaption>simple json</figcaption>
-</figure>
-</div>
-<p>That’s what json looks like - a list of rows within an item called “presidents”, each identified by the name of the column they’ll become.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
-<ul>
-<li><p>Right-click on the simple.json file name, and you’ll see a lot of options. Choose the one that says <em>Copy-&gt;Copy link address</em>.</p></li>
-<li><p>Go to a new browser window and search for “json to csv”. <a href="https://www.convertcsv.com/json-to-csv.htm">This one</a> is one that I often see first.</p></li>
-<li><p>Paste your copied link in the tab that says, “Enter URL” and press “Load URL”. You’ll see an option to copy the result as a csv file!</p></li>
-</ul>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/advanced-scrape1-jsontocsv.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption>json to csv</figcaption>
-</figure>
-</div>
-<section id="a-harder-example" class="level3">
-<h3 class="anchored" data-anchor-id="a-harder-example">A harder example</h3>
-<p>That was easy! But it’s also trivial. However, this method can often save you from having to page through results of a page. One example is the <a href="https://www.mcso.org/i-want-to/mugshot-lookup">Maricopa County nightly list of mugshots</a>, which may have several hundred new entries each day. Here’s what today’s looked like on a desktop browser (it looks different on a smaller screen).<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/advanced-scrape1-mcso1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption>mcso list</figcaption>
-</figure>
-</div>
-<p>It looks like you’d have to go through each of the five pages to get all of the names of people who were booked into jail that night, but often a json file contains all of them – they’re just showing you one page at a time.</p>
-<ul>
-<li>This page won’t let you right-click to get the inspector. Instead, on a Mac, press <code>Opt-Cmd-C</code> to open the inspector window. (I think it’s Shft-Ctl-C on Windows, but I’m not sure.)</li>
-</ul>
-<p>This looks like a mess! Don’t worry. Switch to the Network tab, and re-load the page. This time, there are dozens of different things that get loaded on your page, and none of them are obviously json. You have a few strategies to find it.</p>
-<ul>
-<li>Press the “Fetch/XHR” tab to see if it shows up there. Use the “Preview” tab to look at what each of them is, and, miracle of miracles, it’s the third one on the list! Even better, it has all 425 entries! (It looks like they’re split into groups of 100, but they really aren’t.)</li>
-</ul>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/advanced-scrape1-miracle1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption>miracle 1</figcaption>
-</figure>
-</div>
-<ul>
-<li>Right-click on the name of the file, and choose Copy-&gt;Copy link, and repeat the process above to convert it to a CSV file.</li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled">
+</section>
+</section>
+</section>
+<section id="your-turn" class="level2" data-number="26.2">
+<h2 data-number="26.2" class="anchored" data-anchor-id="your-turn"><span class="header-section-number">26.2</span> Your turn</h2>
+<p>You’ve been through a lot, so let’s review the steps you have to take to make a visualization:</p>
+<p>Load the data in this case using a <code>read_csv()</code> function. There are two datasets, if you want to use them both.</p>
+<ol type="1">
+<li>Wrangle the data. You will probably need to filter, group, count or otherwise summarize the data. For example, the “Evolution of Genres” probably starts with a dataset by year and genre.</li>
+<li>Decide on the “geom” that you want to use. We haven’t gone through a lot of these yet, so I’m listing some of the common ones below.<br>
+</li>
+<li>You might want to change themes and color palettes, which is is a little harder. Get the basic visualization down before you start polishing!</li>
+</ol>
+<p>You might want to use the <a href="https://r-graph-gallery.com/" class="uri">https://r-graph-gallery.com/</a> site for inspiration, which always has the packages required and the exact commands you need make it.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Note
+Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>In 2022, the county began limiting the number of results to some random list of 300. It appears that searching for an inmate only checks those first 300 results. (It could have been a coincidence that there were exactly 300 inmate on Jan 3, 2023, but I doubt it.)</p>
+<p>You may end up seeing a lot of code in the examples that start with <code>fct_</code> – these are turning words into categories that are sorted on a particular element, such as the number of times that they show up. It turns words into categories that have numbers underneath the words so that they are always the same and every possible category is defined. These are called factors and we haven’t really dealt with them. But they’re useful. They depend on loading a library of the tidyverse called <code>forcats</code></p>
 </div>
 </div>
+<pre><code>      ggplot (  data = df_name, 
+                aes (
+                  x = column_name,
+                  y = column_name,
+                  fill = column_to_define_the_fill,
+                  color = column_to_define_the_lines_and_borders,
+                  size = column_to_define_the_size
+                  ) 
+                ) +
+                geom_something ( aes (`columns that only refer to this geom`) )
+                facet_wrap ( column ~ column ) +
+                extras ()
+  </code></pre>
+<section id="common-geoms" class="level3">
+<h3 class="anchored" data-anchor-id="common-geoms">Common “geoms”</h3>
+<ul>
+<li><p><code>geom_point()</code></p></li>
+<li><p><code>geom_line()</code></p></li>
+<li><p><code>geom_bar()</code></p></li>
+<li><p><code>geom_area()</code></p></li>
+</ul>
+<p>Other tutorials and cheat sheets go into much more detail:</p>
+<ul>
+<li><p>The <a href="http://rafalab.dfci.harvard.edu/dsbook/ggplot2.html">“ggplot” chapter</a> of Rafael A. Irizarry’s Introduction to Data Science</p></li>
+<li><p>The Posit <a href="https://github.com/rstudio/cheatsheets/blob/main/data-visualization.pdf">cheat sheet</a> for ggplot</p></li>
+<li><p>Kiernan Healy’s “<a href="https://socviz.co/index.html#preface">Data visualization: A practical introduction</a> is a whole book on ggplot.</p></li>
+</ul>
 </section>
-<section id="an-even-harder-example" class="level3">
-<h3 class="anchored" data-anchor-id="an-even-harder-example">An even harder example</h3>
-<p>The New York Times <a href="https://www.nytimes.com/interactive/2020/us/covid-19-vaccine-doses.html">maintains a map</a> with the vaccination rates for various demographic groups by county on its website. At first, the Times didn’t provide a Github repo for the data. How can we extract the data from this map?</p>
-<p>The easiest way would be to see if it contains a json miracle!</p>
-<ul>
-<li>Open your inspector panel</li>
-<li>Copy and paste the link to the <a href="https://www.nytimes.com/interactive/2020/us/covid-19-vaccine-doses.html">map page</a>, and open it in your Chrome browser with the inpsectors showing.</li>
-<li>Switch to the network tab. (If you opened the map before opening the inspector, reload it now. )</li>
-</ul>
-<p>Yikes! The “Fetch /XHR” button doesn’t help us much here. There are too many different json files to check. We could look one by one and see if they’re right, but sometimes that’s just too hard. Instead,</p>
-<ul>
-<li>Open the “Search” button on your inspector (it’s different from the Filter), and type in a county name (this one is “Maricopa”). You should see only a few of them. The most promising is the “doses_county.json”, so try that one first:</li>
-</ul>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/advanced-scrape1-nytexample.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption>nyt example</figcaption>
+</section>
+<section id="one-quick-plot" class="level2 page-columns page-full" data-number="26.3">
+<h2 data-number="26.3" class="anchored" data-anchor-id="one-quick-plot"><span class="header-section-number">26.3</span> One quick plot</h2>
+<p>The very first day we looked at R, I showed you one quick plot based on a Hot 100 dataset that I’d created with just the 21 songs that stayed on the Hot 100 for at least a year list during the 2000s. Now that code may make a little more sense to you</p>
+<div class="cell" data-lael="hot-100-read">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>hot100 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>( </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">url</span> (<span class="st">"https://cronkitedata.s3.amazonaws.com/rdata/top_songs.RDS"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell page-columns page-full">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>hot100 <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span> ( </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span> ( <span class="at">x=</span>chart_date, <span class="at">y=</span>hit, <span class="at">color=</span>this_week ) </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">+</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>       <span class="fu">geom_point</span>(  <span class="at">size=</span> .<span class="dv">25</span>) <span class="sc">+</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># label the color variable.</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>( <span class="at">color =</span> <span class="st">"Hot 100 #"</span>) <span class="sc">+</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>( ) <span class="sc">+</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position=</span> <span class="st">"bottom"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display page-columns page-full">
+<div class="page-columns page-full">
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="vis-practice_files/figure-html/hot-100-top-10-list-1.png" class="img-fluid figure-img column-screen-inset-right" width="672"></p>
 </figure>
 </div>
-<p>This time, it’s hard to find the item in the list of files in the browser. Instead, right-click in the “Preview” area, and copy the object. You can paste that into the box in the JSON to csv converter instead of entering a URL.</p>
-</section>
-</section>
-<section id="no-json-no-problem-maybe" class="level2" data-number="24.3">
-<h2 data-number="24.3" class="anchored" data-anchor-id="no-json-no-problem-maybe"><span class="header-section-number">24.3</span> No json? No problem (maybe)</h2>
-<p>You may not be able to find a json file – either it’s too hard to find, or it’s not useful, or it doesn’t exist. For a simple page, there’s no problem getting the data in Google Sheets. (This is one area where Excel lags behind Google Sheets.) We’ll go into HTML tags in more depth in the next chapter, but if your data is held in a table or structured list, you can import it directly into Google sheets.</p>
-<p>Note that this trick is really only useful if your page doesn’t change a lot, or if you just want a one-time snapshot. It doesn’t automatically update, and I don’t know how to capture changes – it would involve a Google scripting program, which I don’t know how to do. I’ve never learned because I usually only gather data for my own use, and it’s easier to program it than to finagle Google Sheets.</p>
-<p>The trick to using Google Sheets is to find a table tag (<code>&lt;table&gt;</code>) or a list tag (<code>&lt;ul&gt;</code> or <code>&lt;ol&gt;</code>) that contains the data you want.</p>
-<p>Here’s an example, taken from a previous year’s MAIJ cohort: Reporters wanted to know whether Scottsdale was relatively unique in its city council structure, which has no districts. All members are at-large. Some research suggests that this disempowers non-white or less wealthy areas, because more privileged residents are often more active in local politics.</p>
-<p>The reporters knew it was rare, but one question nagged at them: Was Scottsdale the largest city in the nation with a purely at-large council? That would make a nice tidbit for the story, but it wasn’t worth a major data collection endeavor.</p>
-<p>Ballotpedia, a crowdsourced website with information on local governments, had collected a <a href="https://ballotpedia.org/List_of_current_city_council_officials_of_the_top_100_cities_in_the_United_States">page of city council officials in the 100 largest cities</a> in the US. Extracting this information into a structured table, then using regular expressions, could help make that a relatively simple job. This could even be done in Google Sheets, which also has a regular expression implementation. Because it’s so rare, just getting a list of cities that had no district or ward membership would give them a place to start looking up populations.</p>
-This information is stored in an HTML table, identified by the “
-<p>” element.</p><ul>
-<li>Right-click on the page, and open your inspector. It looks like a mess, but you can search for tables using a simple “Find” using Cmd (or Ctl) -F.</li>
-</ul><p>You may notice it says you can find by string, selector or XPath.</p><ul>
-<li><p>In the box, enter “&lt;table” (with the opening “&lt;”, but no closing one.). You should see “1 of 12” in the result box. As you go through the list, the currently selected table will be highlighted. When you hit “3 of 12”, you’ll notice that the browser has selected the table you want. That’s the information we need.</p></li>
-<li><p>Open a Google Sheet, and copy the page URL to cell A1. This just makes it easier to construct the formula to extract the table.</p></li>
-<li><p>In cell A3, enter the following formula:</p></li>
-</ul><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="in">      </span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="in">      =ImportHTML(A1, "table", 3)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div><p>That means, “Go to the web address listed in cell A1, look for”table” tags, then return whatever is in the third one.”</p><div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/advanced-scrape1-googlesheet1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption>googlesheet</figcaption>
-</figure>
-</div><p>When you hit “enter” the whole table will populate on your Google Sheet. Unfortunately, you can’t get the link to the city from this method, which means you don’t have a good way to extract a city name. We’ll come back to this when we go to scraping in R. (There is a way to get this in Google Sheets, but it’s not very reliable – it will choke as soon as it encounters a missing URL.)</p><p>But if you just need the text of a table or list in a spreadsheet, this is an easy way to get it. (To get a list from an “ol” or “ul” (ordered and unordered lists) tag, use “list” instead of “table”.)</p><section id="recap" class="level2" data-number="24.4">
-<h2 data-number="24.4" class="anchored" data-anchor-id="recap"><span class="header-section-number">24.4</span> Recap</h2>
-<p>Sometimes – especially on modern websites that create interactive elements on the fly – the data you need is already sitting on your computer. In fact, it’s quite hard to scrape those in other ways because the HTML is created when it’s loaded into your browser.</p>
-<p>But when it’s not, there may be another simple way to get the content.</p>
-<p>The problem is that getting the content without programming can leave you unsatisfied because you can only get the text, not any of the underlying information. The next chapter shows you one method of getting more information from a web page using CSS selectors.</p>
-<p>I sometimes use a Chrome extension called “Chrome Scraper” to get slightly more complex information out of a website, which uses a language called XPath to parse a web page. It’s harder than the CSS selector method, though, so I’m skipping it for now.</p>
-
-
-</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn1"><p>“application programming interface”<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>In R, our style was to name columns in lower case with words separated by underscores. In Javascript, the custom is usually called “camel case”, with words smushed together and the first letter of each upper cased. It’s just a custom, not a rule.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>I’m hiding names of people to the extent possible, and won’t list them in text here - they’ll only be in the images. Instead, I’ll show pictures of how to find the json when a name is necessary. Although this book is probably not indexed by Google, it’s possible that it could be some day, and I don’t want their names to show up in a Google search.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section><nav class="page-navigation column-body">
-  <div class="nav-page nav-page-previous">
-      <a href="./advanced-regex-r.html" class="pagination-link  aria-label=" &lt;span="" matching="" and="" regular="" expressions="" in="" r&lt;="" span&gt;"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Inexact matching and regular expressions in R</span></span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="./advanced-scrape2.html" class="pagination-link" aria-label="<span class='chapter-number'>25</span>&nbsp; <span class='chapter-title'>Introduction to scraping in R</span>">
-        <span class="nav-page-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Introduction to scraping in R</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav><footer class="footer">
-  <div class="nav-footer">
-    <div class="nav-footer-left">
-<p>Data reporting for investigative journalism, Spring 2024, written by Sarah Cohen</p>
-</div>   
-    <div class="nav-footer-center">
-      &nbsp;
-    </div>
-    <div class="nav-footer-right">
-<p>Produced with <a href="https://quarto.org">Quarto</a></p>
 </div>
-  </div>
-</footer><table>
+</div>
+<section id="other-sources-to-learn-about-ggplot" class="level3">
+<h3 class="anchored" data-anchor-id="other-sources-to-learn-about-ggplot">Other sources to learn about ggplot</h3>
+<ul>
+<li><p><a href="https://ggplot2-book.org/index.html">ggplot2: Elegant Graphics for Data Analysis</a></p></li>
+<li><p><a href="https://socviz.co/">Data Visualization: A practical Guide</a></p></li>
+<li><p>Cedric Sherer’s <a href="https://www.cedricscherer.com/top/links/">list of resources</a>, and his materials for the <a href="https://rstudio-conf-2022.github.io/ggplot2-graphic-design/">2-day workshop at the RStudio Conference 2022</a></p></li>
+<li></li>
+</ul>
 
 
+</section>
+</section>
 
-
-
-
-
-
-
-
-
-
-
- <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1022,11 +979,34 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation column-body">
+  <div class="nav-page nav-page-previous">
+      <a href="./vis-demo.html" class="pagination-link  aria-label=" &lt;span="" demo&lt;="" span&gt;"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Visualization demo</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./vis-maps-begin.html" class="pagination-link" aria-label="<span class='chapter-number'>27</span>&nbsp; <span class='chapter-title'>Mapping: An introduction</span>">
+        <span class="nav-page-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Mapping: An introduction</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Data reporting for investigative journalism, Spring 2024, written by Sarah Cohen</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Produced with <a href="https://quarto.org">Quarto</a></p>
+</div>
+  </div>
+</footer>
 
- <!-- /content -->
 
 
 
-
-
-</table></section></main></div></body></html>
+</body></html>
